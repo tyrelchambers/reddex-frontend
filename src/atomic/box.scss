@@ -1,0 +1,119 @@
+/**
+  * Box properties
+  *
+  * Reference:     https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model
+*/
+
+/**
+  * Height
+  *
+  * Naming rule:    h-[value](px|v)
+  * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/height
+*/
+.h-0        { height: 0; }
+.h-12px     { height: 12px; }
+.h-14px     { height: 14px; }
+.h-15px     { height: 15px; }
+.h-16px     { height: 16px; }
+.h-18px     { height: 18px; }
+.h-21px     { height: 21px; }
+.h-24px     { height: 24px; }
+.h-32px     { height: 32px; }
+.h-34px     { height: 34px; }
+.h-36px     { height: 36px; }
+.h-48px     { height: 48px; }
+.h-62px     { height: 62px; }
+.h-114px    { height: 114px; }
+.h-150px    { height: 150px; }
+.h-193px    { height: 193px; }
+.h-225px    { height: 225px; }
+.h-287px    { height: 287px; }
+.h-442px    { height: 442px; }
+.h-95v      { height: 95vh; }
+.h-100v     { height: 100vh; }
+.h-100p     { height: 100%; }
+/**
+  * Max-height
+  *
+  * Naming rule:    mah-[value](px)
+  * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/max-height
+*/
+.mah-255px    { max-height: 255px; }
+.mah-360px    { max-height: 360px; }
+
+
+/**
+  * Max-width
+  *
+  * Naming rule:    maw-[value](px)
+  * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/max-width
+*/
+.maw-100px    { max-width: 100px; }
+.maw-240px    { max-width: 240px; }
+
+
+/**
+  * Min-height
+  *
+  * Naming rule:    mih-[value](px|v)
+  * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/min-height
+*/
+.mih-25px     { min-height: 25px; }
+.mih-442px    { min-height: 442px; }
+
+
+/**
+  * Min-width
+  *
+  * Naming rule:    miw-[value](px|v)
+  * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/min-width
+*/
+.miw-24px     { min-width: 24px; }
+.miw-100px    { min-width: 100px; }
+.miw-360px    { min-width: 360px; }
+.miw-400px    { min-width: 400px; }
+
+
+/**
+  * Width
+  *
+  * Naming rule:    w-[value](px)(fraction)
+  * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/width
+*/
+.w-0          { width: 0; }
+.w-12px       { width: 12px; }
+.w-14px       { width: 14px; }
+.w-15px       { width: 15px; }
+.w-16px       { width: 16px; }
+.w-18px       { width: 18px; }
+.w-21px       { width: 21px; }
+.w-24px       { width: 24px; }
+.w-30px       { width: 30px; }
+.w-34px       { width: 34px; }
+.w-36px       { width: 36px; }
+.w-48px       { width: 48px; }
+.w-66px       { width: 66px; }
+.w-73px       { width: 73px; }
+.w-125px      { width: 125px; }
+.w-132px      { width: 132px; }
+.w-150px      { width: 150px; }
+.w-156px      { width: 156px; }
+.w-171px      { width: 171px; }
+.w-190px      { width: 190px; }
+.w-227px      { width: 227px; }
+.w-234px      { width: 234px; }
+.w-250px      { width: 250px; }
+.w-266px      { width: 266px; }
+.w-360px      { width: 360px; }
+.w-372px      { width: 372px; }
+.w-400px      { width: 400px; }
+.w-504px      { width: 504px; }
+.w-560px      { width: 560px; }
+.w-708px      { width: 708px; }
+.w-856px      { width: 856px; }
+.w-960px      { width: 960px; }
+.w-1056px     { width: 1056px; }
+.w-1440px     { width: 1440px; }
+.w-100pr      { width: 100%; }
+
+

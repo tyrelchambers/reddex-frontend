@@ -1,0 +1,163 @@
+/**
+ * Margin and padding properties
+ *
+ * Reference:       https://developer.mozilla.org/en-US/docs/Web/CSS/margin or padding
+*/
+
+:root {
+  --spacing-unit-micro:     3px;
+  --spacing-unit-tiny:      6px;
+  --spacing-unit-small:     12px;
+  --spacing-unit:           24px;
+  --spacing-unit-medium:    36px;
+  --spacing-unit-large:     48px;
+}
+
+
+/**
+* Margin
+*
+* Naming rule:    m(t|r|b|l|h|v)(-a|---|--|-|+|++|number)
+* Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/margin
+*/
+.m0 {margin: 0}
+
+/* Auto margin */
+.m-a     { margin: auto; }
+.ml-a    { margin-left: auto; }
+.mr-a    { margin-right: auto; }
+.mt-a    { margin-top: auto; }
+.mh-a    { margin-left: auto; margin-right: auto; }
+.mv-a    { margin-bottom: auto; margin-top: auto; }
+
+/** 1px margins */
+.m1      { margin: 1px; }
+.mt1     { margin-top: 1px; }
+.mtn1    { margin-top: -1px; }
+.mr1     { margin-right: 1px; }
+.mrn1    { margin-right: -1px; }
+.mb1     { margin-bottom: 1px; }
+.ml1     { margin-left: 1px; }
+.mh1     { margin-left: 1px; margin-right: 1px; }
+.mv1     { margin-bottom: 1px; margin-top: 1px; }
+
+/** Micro margins */
+.m---     { margin: var(--spacing-unit-micro); }
+.mt---    { margin-top: var(--spacing-unit-micro); }
+.mr---    { margin-right: var(--spacing-unit-micro); }
+.mb---    { margin-bottom: var(--spacing-unit-micro); }
+.ml---    { margin-left: var(--spacing-unit-micro); }
+.mh---    { margin-left: var(--spacing-unit-micro); margin-right: var(--spacing-unit-micro); }
+.mv---    { margin-bottom: var(--spacing-unit-micro); margin-top: var(--spacing-unit-micro); }
+
+/** Tiny margins */
+.m--     { margin: var(--spacing-unit-tiny); }
+.mt--    { margin-top: var(--spacing-unit-tiny); }
+.mr--    { margin-right: var(--spacing-unit-tiny); }
+.mb--    { margin-bottom: var(--spacing-unit-tiny); }
+.ml--    { margin-left: var(--spacing-unit-tiny); }
+.mh--    { margin-left: var(--spacing-unit-tiny); margin-right: var(--spacing-unit-tiny); }
+.mv--    { margin-bottom: var(--spacing-unit-tiny); margin-top: var(--spacing-unit-tiny); }
+
+/** Small margins */
+.m-     { margin: var(--spacing-unit-small); }
+.mt-    { margin-top: var(--spacing-unit-small); }
+.mr-    { margin-right: var(--spacing-unit-small); }
+.mb-    { margin-bottom: var(--spacing-unit-small); }
+.ml-    { margin-left: var(--spacing-unit-small); }
+.mh-    { margin-left: var(--spacing-unit-small); margin-right: var(--spacing-unit-small); }
+.mv-    { margin-bottom: var(--spacing-unit-small); margin-top: var(--spacing-unit-small); }
+
+/** Default margins */
+.m     { margin: var(--spacing-unit); }
+.mt    { margin-top: var(--spacing-unit); }
+.mr    { margin-right: var(--spacing-unit); }
+.mb    { margin-bottom: var(--spacing-unit); }
+.ml    { margin-left: var(--spacing-unit); }
+.mh    { margin-left: var(--spacing-unit); margin-right: var(--spacing-unit); }
+.mv    { margin-bottom: var(--spacing-unit); margin-top: var(--spacing-unit); }
+
+/** Medium margins */
+.m\+     { margin: var(--spacing-unit-medium); }
+.mt\+    { margin-top: var(--spacing-unit-medium); }
+.mr\+    { margin-right: var(--spacing-unit-medium); }
+.mb\+    { margin-bottom: var(--spacing-unit-medium); }
+.ml\+    { margin-left: var(--spacing-unit-medium); }
+.mh\+    { margin-left: var(--spacing-unit-medium); margin-right: var(--spacing-unit-medium); }
+.mv\+    { margin-bottom: var(--spacing-unit-medium); margin-top: var(--spacing-unit-medium); }
+
+/** Large margins */
+.m\+\+     { margin: var(--spacing-unit-large); }
+.mt\+\+    { margin-top: var(--spacing-unit-large); }
+.mr\+\+    { margin-right: var(--spacing-unit-large); }
+.mb\+\+    { margin-bottom: var(--spacing-unit-large); }
+.ml\+\+    { margin-left: var(--spacing-unit-large); }
+.mh\+\+    { margin-left: var(--spacing-unit-large); margin-right: var(--spacing-unit-large); }
+.mv\+\+    { margin-bottom: var(--spacing-unit-large); margin-top: var(--spacing-unit-large); }
+
+
+/**
+* Padding
+*
+* Naming rule:    p(t|r|b|l|h|v)(---|--|-|+|++|number)
+* Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/padding
+*/
+
+/** Special Paddings */
+.p0     { padding: 0; }
+.pb7    { padding-bottom: 7px; }
+.pv1    { padding-bottom: 1px; padding-top: 1px; }
+
+/** Micro paddings */
+.p---     { padding: var(--spacing-unit-micro); }
+.pt---    { padding-top: var(--spacing-unit-micro); }
+.pr---    { padding-right: var(--spacing-unit-micro); }
+.pb---    { padding-bottom: var(--spacing-unit-micro); }
+.pl---    { padding-left: var(--spacing-unit-micro); }
+.ph---    { padding-left: var(--spacing-unit-micro); padding-right: var(--spacing-unit-micro); }
+.pv---    { padding-bottom: var(--spacing-unit-micro); padding-top: var(--spacing-unit-micro); }
+
+/** Tiny paddings */
+.p--     { padding: var(--spacing-unit-tiny); }
+.pt--    { padding-top: var(--spacing-unit-tiny); }
+.pr--    { padding-right: var(--spacing-unit-tiny); }
+.pb--    { padding-bottom: var(--spacing-unit-tiny); }
+.pl--    { padding-left: var(--spacing-unit-tiny); }
+.ph--    { padding-left: var(--spacing-unit-tiny); padding-right: var(--spacing-unit-tiny); }
+.pv--    { padding-bottom: var(--spacing-unit-tiny); padding-top: var(--spacing-unit-tiny); }
+
+/** Small paddings */
+.p-     { padding: var(--spacing-unit-small); }
+.pt-    { padding-top: var(--spacing-unit-small); }
+.pr-    { padding-right: var(--spacing-unit-small); }
+.pb-    { padding-bottom: var(--spacing-unit-small); }
+.pl-    { padding-left: var(--spacing-unit-small); }
+.ph-    { padding-left: var(--spacing-unit-small); padding-right: var(--spacing-unit-small); }
+.pv-    { padding-bottom: var(--spacing-unit-small); padding-top: var(--spacing-unit-small); }
+
+/** Default paddings */
+.p     { padding: var(--spacing-unit); }
+.pt    { padding-top: var(--spacing-unit); }
+.pr    { padding-right: var(--spacing-unit); }
+.pb    { padding-bottom: var(--spacing-unit); }
+.pl    { padding-left: var(--spacing-unit); }
+.ph    { padding-left: var(--spacing-unit); padding-right: var(--spacing-unit); }
+.pv    { padding-bottom: var(--spacing-unit); padding-top: var(--spacing-unit); }
+
+/** Medium paddings */
+.p\+     { padding: var(--spacing-unit-medium); }
+.pt\+    { padding-top: var(--spacing-unit-medium); }
+.pr\+    { padding-right: var(--spacing-unit-medium); }
+.pb\+    { padding-bottom: var(--spacing-unit-medium); }
+.pl\+    { padding-left: var(--spacing-unit-medium); }
+.ph\+    { padding-left: var(--spacing-unit-medium); padding-right: var(--spacing-unit-medium); }
+.pv\+    { padding-bottom: var(--spacing-unit-medium); padding-top: var(--spacing-unit-medium); }
+
+/** Large paddings */
+.p\+\+     { padding: var(--spacing-unit-large); }
+.pt\+\+    { padding-top: var(--spacing-unit-large); }
+.pr\+\+    { padding-right: var(--spacing-unit-large); }
+.pb\+\+    { padding-bottom: var(--spacing-unit-large); }
+.pl\+\+    { padding-left: var(--spacing-unit-large); }
+.ph\+\+    { padding-left: var(--spacing-unit-large); padding-right: var(--spacing-unit-large); }
+.pv\+\+    { padding-bottom: var(--spacing-unit-large); padding-top: var(--spacing-unit-large); }

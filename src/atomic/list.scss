@@ -1,0 +1,15 @@
+/**
+ * List properties
+ *
+ * Reference:    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
+*/
+
+/**
+ * List Style
+ *
+ * Naming rule:    lis-[n|s|i]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/list-style
+ */
+ .lis-n    { list-style: none; }
+ .lis-s    { list-style: square; }
+ .lis-i    { list-style: inside; }

@@ -1,0 +1,107 @@
+/**
+ * Cursor
+ *
+ * Naming rule:    cur-[d|p]
+ * Reference: 	   https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
+ */
+ .cur-d    { cursor: default; }
+ .cur-m    { cursor: move; }
+
+/* Cursor hover states */
+.cur-p-hv:hover    { cursor: pointer; }
+
+/**
+ * Display
+ *
+ * Naming rule:    d-[b|f|ib|n]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/display
+ */
+ .d-b    { display: block; }
+ .d-f    { display: flex; }
+ .d-ib	 { display: inline-block; }
+ .d-n    { display: none; }
+
+ /**
+ * Overflow
+ *
+ * Naming rule:    [ov|ovx|ovy]-[a|h|s|v]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/overflow
+ */
+.ov-h     { overflow: hidden; }
+.ovx-a    { overflow-x: auto; }
+.ovx-s    { overflow-x: scroll; }
+.ovx-h    { overflow-x: hidden; }
+.ovy-a    { overflow-y: auto; }
+.ovy-s    { overflow-y: scroll; }
+.ovy-h    { overflow-y: hidden; }
+
+/**
+ * Pointer events
+ *
+ * Naming rule:    pe-[n]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+ */
+ .pe-n    { pointer-events: none; }
+
+
+/**
+ * Position
+ *
+ * Naming rule:    pos-[a|r|s|f]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/position
+ */
+ .pos-a    { position: absolute; }
+ .pos-s    { position: static; }
+ .pos-f    { position: fixed; }
+ .pos-r    { position: relative; }
+ 
+ /**
+ * Visibility
+ *
+ * Naming rule:    v-[h|v]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
+ */
+.v-h    { visibility: hidden; }
+.v-v    { visibility: visible; }
+
+
+/**
+ * Z-index
+ *
+ * Naming rule:    z-[value]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/right
+ */
+.z-1      { z-index: 1; }
+.z-2      { z-index: 2; }
+.z-100    { z-index: 100; }
+
+
+
+/**
+ * Position placement
+ *
+ * Naming rule:    [b|l|r|t]-[value]
+ * Reference:      https://developer.mozilla.org/en-US/docs/Web/CSS/right
+ */
+ .b-0	     { bottom: 0px; }
+ .b-3	     { bottom: 3px; }
+ .b-83	   { bottom: 83px;}
+ .l-n47    { left: -47px; }
+ .l-0	     { left: 0px;   }
+ .r-n3	   { right: -3px; }
+ .r-0      { right: 0;    }
+ .r-3	     { right: 3px;  }
+ .r-4      { right: 4px;  }
+ .r-6      { right: 6px;  }
+ .r-8      { right: 8px;  }
+ .r-10     { right: 10px; }
+ .r-12     { right: 12px; }
+ .t-0      { top: 0;      }
+ .t-n1     { top: -1px;   }
+ .t-n6     { top: -6px;   }
+ .t-n8     { top: -8px;   }
+ .t-3      { top: 3px;    }
+ .t-9      { top: 9px;    }
+ .t-18     { top: 18px;   }
+ .t-1\/1   { top: 100%;   }
+ 

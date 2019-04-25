@@ -1,0 +1,96 @@
+.header {
+  width: 100%;
+  padding: 1em;
+  background-color: hsla(207, 20%, 91%,1);
+  border-radius: 5px;
+  box-shadow: 0px 2px 3px 0px rgba(black, 0.2);
+
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px 1fr 150px 200px 200px;
+  grid-column-gap: 10px;
+
+  .grid-item {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: hsla(217, 47%, 52%,1);
+  }
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: 150px 1fr 150px 200px 200px;
+  grid-column-gap: 10px;
+}
+
+.filters-wrapper {
+  border-bottom: 1px solid hsla(0,0%,93%,1);
+  padding-bottom: 2em;
+}
+
+.select {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+}
+.select select {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px 15px;
+  outline: 0;
+  border: 0;
+  border-radius: 0;
+  background: hsla(0, 0%, 93%,1);
+  color: hsla(180, 3%, 19%, 1);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.select select::-ms-expand {
+  display: none;
+}
+.select select:hover,
+.select select:focus {
+  color: #000;
+  background: #ccc;
+}
+.select select:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.select__arrow {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: #7b7b7b transparent transparent transparent;
+
+}
+.select select:hover ~ .select__arrow,
+.select select:focus ~ .select__arrow {
+  border-top-color: #000;
+}
+.select select:disabled ~ .select__arrow {
+  border-top-color: #ccc;
+}
+
+.post {
+  .upvotes {
+    color: hsla(187, 100%, 40%,1);
+  }
+
+  .title,
+  .comments,
+  .author {
+    color: hsla(211, 12%, 48%,1);
+    line-height: 1.8em;
+  }
+}

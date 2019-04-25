@@ -1,24 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './app.scss';
+import PostFetch from './components/PostFetch/PostFetch';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App w-100pr ml-a mr-a">
+      <div className="mb-">
+        <h4 className="ta-c">Developer Notes:</h4>
+        <p className="ta-c">In order to change current filters, you'll have to click "Reset Filters", then apply the filters you want</p>
+      </div>
+      <PostFetch />
     </div>
   );
 }
