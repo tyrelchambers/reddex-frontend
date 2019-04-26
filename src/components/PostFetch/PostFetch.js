@@ -11,6 +11,7 @@ const PostFetch = (props) => {
   const [ count, setCount ] = useState(100);
   const [upvoteCount, setUpvoteCount] = useState(0);
   const [operator, setOperator] = useState(">");
+  const [ keywords, setKeywords ] = useState();
 
   return (
     <section className="w-100pr">
@@ -37,15 +38,24 @@ const PostFetch = (props) => {
           </div>
           
           <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={(e) => setUpvoteCount(e.target.value)}/>
+          <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
+
         </div>
         <button className="btn btn-tiertiary" onClick={() => {
           setPosts([...JSON.parse(window.sessionStorage.getItem('posts'))]);
         }}>Reset Filters</button>
-        <button className="btn btn-secondary ml-" onClick={() => formatPosts(upvoteCount, posts, operator, setPosts)}>Apply Filters</button>
+        <button className="btn btn-secondary ml-" onClick={() => {
+
+          if (upvoteCount.length > 0) formatPosts(upvoteCount, posts, operator, setPosts);
+          if (keywords.length > 0) keywordSearch(keywords, posts, setPosts);
+
+        }}>Apply Filters</button>
       </div>
+
       {subreddit &&
         <p className="current-subreddit">Showing posts from <span className="highlight-text">{subreddit}</span></p>
       }
+       
       <div>        
         {loading &&
           <Loading />
@@ -65,7 +75,7 @@ const PostFetch = (props) => {
                     <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.data.num_comments} Comments</p>
                   </div>
                   <div className="d-f ai-c d-f ">
-                    <p className="publish-tag"> <i class="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.data.created)._d)} ago</p>
+                    <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.data.created)._d)} ago</p>
                   </div>
                   <div className="d-f m- js-fe">
                     <a href={x.data.url} className="link" target="_blank">View</a>
@@ -79,6 +89,19 @@ const PostFetch = (props) => {
       </div>
     </section>
   );
+}
+
+const keywordSearch = (data, posts, setPosts) => {
+  const keywords = data.split(", ");
+  let results;
+  for ( let i = 0; i < keywords.length; i++ ) {
+    let postsTitle = posts.filter(x => x.data.title.toLowerCase().includes(keywords[i].toLowerCase()));
+    let postsBody = posts.filter(x => x.data.selftext.toLowerCase().includes(keywords[i].toLowerCase()));
+    let set = new Set([...postsTitle, ...postsBody]);
+    results = [...set];
+  }
+
+  return setPosts([...results]);
 }
 
 const concatTitle = data => {
