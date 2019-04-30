@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "reddit-scraper",
+  "name": "reddex.app",
   "builds": [
     {
       "src": "package.json",
