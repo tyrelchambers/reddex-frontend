@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "name": "reddex.app",
+  "name": "reddex",
+  "alias": "reddex.app",
   "builds": [
     {
       "src": "package.json",
