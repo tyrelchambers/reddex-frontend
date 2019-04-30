@@ -11,14 +11,16 @@ const PostFetch = (props) => {
   const [ count, setCount ] = useState(100);
   const [upvoteCount, setUpvoteCount] = useState(0);
   const [operator, setOperator] = useState(">");
-  const [ keywords, setKeywords ] = useState();
-
+  const [ keywords, setKeywords ] = useState("");
+  const [ filterOptions, setFilterOptions ] = useState({
+    seriesOnly: false
+  });
   return (
     <section className="w-100pr">
       <div className="d-f header">
         <div className="d-f ai-c w-100pr">
           <input type="text" className="input mr-" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)}/>
-          <input type="number" className="input mr-" placeholder="# of posts to return (default 100)" onChange={(e) => setCount(e.target.value)}/>
+          <input type="number" className="input mr-" placeholder="# of posts to return (max 100)" max="100" onChange={(e) => setCount(e.target.value)}/>
         </div>
         <button className="btn btn-primary" onClick={() => {
           setLoading("Fetching posts...");
@@ -26,31 +28,36 @@ const PostFetch = (props) => {
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
       
-      <div className="filters-wrapper d-f mt+ w-100pr">
-        <div className="d-f w-100pr ai-c">
-          <div className="select">
-            <select name="threshold" id="threshSelect" onChange={(e) => setOperator(e.target.value)}>
-              <option value=">" >greater than</option>
-              <option value="<" >less than</option>
-              <option value="===" >equal to</option>
-            </select>
-            <div className="select__arrow"></div>
+      {posts.length > 0 &&
+        <div className="filters-wrapper d-f mt+ w-100pr">
+          <div className="d-f w-100pr ai-c">
+            <div className="select">
+              <select name="threshold" id="threshSelect" onChange={(e) => setOperator(e.target.value)}>
+                <option value=">" >greater than</option>
+                <option value="<" >less than</option>
+                <option value="===" >equal to</option>
+              </select>
+              <div className="select__arrow"></div>
+            </div>
+            
+            <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={(e) => setUpvoteCount(e.target.value)}/>
+            <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
+
           </div>
-          
-          <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={(e) => setUpvoteCount(e.target.value)}/>
-          <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
 
+          {/* <button className="btn btn-tiertiary" onClick={() => setFilterOptions({seriesOnly: true})}>Series Only</button> */}
+
+          <button className="btn btn-tiertiary" onClick={() => {
+            setPosts([...JSON.parse(window.sessionStorage.getItem('posts'))]);
+          }}>Reset Filters</button>
+          <button className="btn btn-secondary ml-" onClick={() => {
+
+            if (upvoteCount.length > 0) formatPosts(upvoteCount, posts, operator, setPosts);
+            if (keywords.length > 0) keywordSearch(keywords, posts, setPosts);
+
+          }}>Apply Filters</button>
         </div>
-        <button className="btn btn-tiertiary" onClick={() => {
-          setPosts([...JSON.parse(window.sessionStorage.getItem('posts'))]);
-        }}>Reset Filters</button>
-        <button className="btn btn-secondary ml-" onClick={() => {
-
-          if (upvoteCount.length > 0) formatPosts(upvoteCount, posts, operator, setPosts);
-          if (keywords.length > 0) keywordSearch(keywords, posts, setPosts);
-
-        }}>Apply Filters</button>
-      </div>
+      }
 
       {subreddit &&
         <p className="current-subreddit">Showing posts from <span className="highlight-text">{subreddit}</span></p>
@@ -117,6 +124,11 @@ const saveSubredditToSessionStorage = data => {
   return window.sessionStorage.setItem(`subreddit`, data);
 }
 
+const seriesOnly = (data, setPosts) => {
+  const posts = data.filter(x => x.data.link_flair_text === "Series");
+  return setPosts([...posts]);
+}
+
 const formatPosts = (upvoteCount = 0, posts, operator, setPosts) => {
   const op = operator;
   
@@ -138,8 +150,9 @@ const formatPosts = (upvoteCount = 0, posts, operator, setPosts) => {
 
 const fetchPosts = async (subreddit, setPosts, setLoading, count) => {
   const sr = subreddit.replace(/\s/g, '').trim();
-  const link = `https://www.reddit.com/r/${sr}.json?limit=${count}`;
+  const link = `https://www.reddit.com/r/${sr}.json?limit=100`;
   const posts = await Axios.get(link).then(res => res.data.data.children).catch(err => err);
+
   setLoading("");
 
   if ( !sr || sr.length <= 0 ) return alert("Must include a subreddit");
@@ -148,6 +161,10 @@ const fetchPosts = async (subreddit, setPosts, setLoading, count) => {
   savePostsToSessionStorage(posts);
   saveSubredditToSessionStorage(subreddit);
   return setPosts([...posts]);
+}
+
+const applyFilters = () => {
+
 }
 
 export default PostFetch;
