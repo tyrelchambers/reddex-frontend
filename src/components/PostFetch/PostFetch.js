@@ -28,7 +28,7 @@ const PostFetch = (props) => {
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
-  }, []);
+  }, [posts]);
 
   return (
     <section className="w-100pr">
