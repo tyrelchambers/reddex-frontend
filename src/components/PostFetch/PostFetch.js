@@ -92,7 +92,7 @@ const PostFetch = (props) => {
                     <h1 className=" upvotes">
                       <i className="fas fa-arrow-circle-up"></i>  {x.ups}
                     </h1>
-                    <p className="title mt+ mb+ ml- mr-">{concatTitle(x.title)}</p>
+                    <p className="title mt+ mb+ ml- mr-">{x.title}</p>
                     <p className="author m-- ml-"><i className="fas fa-user mr-"></i> Written by {x.author}</p>
                     <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
                   </div>
@@ -210,8 +210,7 @@ const getPostsFromDatabase = async (setPosts) => {
 
 const deletePostsCollection = () => {
   const db = window.db;
-  const posts = db.posts.clear().then(console.log).catch(console.log);
-  return console.log('deleted');
+  db.posts.clear().then(console.log).catch(console.log);
 }
 
 export default PostFetch;
