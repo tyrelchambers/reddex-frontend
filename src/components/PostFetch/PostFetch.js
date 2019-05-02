@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PostFetch.scss';
 import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import dateFns from 'date-fns';
 import moment from 'moment'
+import Dexie from 'dexie';
+
 const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
-  const [ posts, setPosts ] = useState(window.sessionStorage.getItem('posts') ? [...JSON.parse(window.sessionStorage.getItem('posts'))] : "");
+  const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState("");
   const [ count, setCount ] = useState(100);
   const [upvoteCount, setUpvoteCount] = useState(0);
@@ -15,6 +17,19 @@ const PostFetch = (props) => {
   const [ filterOptions, setFilterOptions ] = useState({
     seriesOnly: false
   });
+
+  useEffect(() => {
+    const db = new Dexie("Reddex");
+    window.db = db;
+    db.version(1).stores({
+      posts: "++id, author, title, selftext, ups, url, num_comments, created_at"
+    });
+  }, []);
+
+  useEffect(() => {
+    getPostsFromDatabase(setPosts);
+  }, []);
+
   return (
     <section className="w-100pr">
       <div className="d-f header">
@@ -75,17 +90,17 @@ const PostFetch = (props) => {
                 <li key={id} className="d-f fxd-c  post">
                   <div className="d-f fxd-c w-100pr">
                     <h1 className=" upvotes">
-                      <i className="fas fa-arrow-circle-up"></i>  {x.data.ups}
+                      <i className="fas fa-arrow-circle-up"></i>  {x.ups}
                     </h1>
-                    <p className="title mt+ mb+ ml- mr-">{concatTitle(x.data.title)}</p>
-                    <p className="author m-- ml-"><i className="fas fa-user mr-"></i> Written by {x.data.author}</p>
-                    <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.data.num_comments} Comments</p>
+                    <p className="title mt+ mb+ ml- mr-">{concatTitle(x.title)}</p>
+                    <p className="author m-- ml-"><i className="fas fa-user mr-"></i> Written by {x.author}</p>
+                    <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
                   </div>
                   <div className="d-f ai-c d-f ">
-                    <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.data.created)._d)} ago</p>
+                    <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created_at)._d)} ago</p>
                   </div>
                   <div className="d-f m- js-fe">
-                    <a href={x.data.url} className="link" target="_blank">View</a>
+                    <a href={x.url} className="link" target="_blank">View</a>
 
                   </div>
                 </li>
@@ -151,20 +166,52 @@ const formatPosts = (upvoteCount = 0, posts, operator, setPosts) => {
 const fetchPosts = async (subreddit, setPosts, setLoading, count) => {
   const sr = subreddit.replace(/\s/g, '').trim();
   const link = `https://www.reddit.com/r/${sr}.json?limit=100`;
-  const posts = await Axios.get(link).then(res => res.data.data.children).catch(err => err);
+  let posts = [];
+  let after = ``;
+  
+  for ( let i = 0; i < 10; i++ ) {
+    await Axios.get(`${link}&after=${after}`).then(res => {
+      after = res.data.data.after;
+      posts = [...posts, ...res.data.data.children];
+    }).catch(err => err);
+    
+  }
 
   setLoading("");
 
   if ( !sr || sr.length <= 0 ) return alert("Must include a subreddit");
 
   posts.shift();
-  savePostsToSessionStorage(posts);
+  deletePostsCollection();
+  saveToDatabase(posts);
   saveSubredditToSessionStorage(subreddit);
   return setPosts([...posts]);
 }
 
-const applyFilters = () => {
+const saveToDatabase = async (posts) => {
+  posts.map(x => {
+    window.db.posts.add({
+      author: x.data.author,
+      title: x.data.title,
+      selftext: x.data.selftext,
+      ups: x.data.ups,
+      url: x.data.url,
+      num_comments: x.data.num_comments,
+      created_at: x.data.created_utc
+    }).catch(console.log);
+  });
+}
 
+const getPostsFromDatabase = async (setPosts) => {
+  const db = window.db;
+  const posts = await db.posts.toArray();
+  return setPosts([...posts]);
+}
+
+const deletePostsCollection = () => {
+  const db = window.db;
+  const posts = db.posts.clear().then(console.log).catch(console.log);
+  return console.log('deleted');
 }
 
 export default PostFetch;
