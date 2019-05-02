@@ -77,7 +77,7 @@ const PostFetch = (props) => {
       {subreddit &&
         <p className="current-subreddit">Showing posts from <span className="highlight-text">{subreddit}</span></p>
       }
-       
+
       <div>        
         {loading &&
           <Loading />
@@ -148,17 +148,17 @@ const formatPosts = (upvoteCount = 0, posts, operator, setPosts) => {
   const op = operator;
   
   if ( op === ">") {
-    let newPosts = posts.filter(x => x.data.ups > upvoteCount);
+    let newPosts = posts.filter(x => x.ups > upvoteCount);
     return setPosts([...newPosts]);
   };
 
   if ( op === "<") {
-    let newPosts = posts.filter(x => x.data.ups < upvoteCount);
+    let newPosts = posts.filter(x => x.ups < upvoteCount);
     return setPosts([...newPosts]);
   };
 
   if ( op === "===") {
-    let newPosts = posts.filter(x => x.data.ups == upvoteCount);
+    let newPosts = posts.filter(x => x.ups == upvoteCount);
     return setPosts([...newPosts]);
   };
 }
