@@ -13,6 +13,7 @@ const PostFetch = (props) => {
   const [ count, setCount ] = useState(100);
   const [upvoteCount, setUpvoteCount] = useState(0);
   const [operator, setOperator] = useState(">");
+  const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ keywords, setKeywords ] = useState("");
   const [ filterOptions, setFilterOptions ] = useState({
     seriesOnly: false
@@ -28,7 +29,7 @@ const PostFetch = (props) => {
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
-  }, [posts]);
+  }, [reloadPosts]);
 
   return (
     <section className="w-100pr">
@@ -63,7 +64,7 @@ const PostFetch = (props) => {
           {/* <button className="btn btn-tiertiary" onClick={() => setFilterOptions({seriesOnly: true})}>Series Only</button> */}
 
           <button className="btn btn-tiertiary" onClick={() => {
-            setPosts([...JSON.parse(window.sessionStorage.getItem('posts'))]);
+            setReloadPosts(true);
           }}>Reset Filters</button>
           <button className="btn btn-secondary ml-" onClick={() => {
 
