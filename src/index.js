@@ -4,7 +4,7 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import LogRocket from 'logrocket';
-LogRocket.init('kstoxh/reddex');
+if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

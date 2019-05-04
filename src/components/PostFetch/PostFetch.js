@@ -11,15 +11,22 @@ const PostFetch = (props) => {
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState("");
   const [ count, setCount ] = useState(100);
-  const [upvoteCount, setUpvoteCount] = useState(0);
-  const [operator, setOperator] = useState(">");
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ keywords, setKeywords ] = useState("");
   const [ filterOptions, setFilterOptions ] = useState({
+    seriesOnly: false,
+    upvotes: 0
+  });
+  
+  const [ pendingFilters, setPendingFilters ] = useState({
+    upvotes: 0,
     seriesOnly: false
   });
 
+  let operator = ">";
+
   useEffect(() => {
+    if ( window.db ) return;
     const db = new Dexie("Reddex");
     window.db = db;
     db.version(1).stores({
@@ -41,14 +48,15 @@ const PostFetch = (props) => {
         <button className="btn btn-primary" onClick={() => {
           setLoading("Fetching posts...");
           fetchPosts(subreddit, setPosts, setLoading, count);
+          setReloadPosts(!reloadPosts);
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
-      
+
       {posts.length > 0 &&
         <div className="filters-wrapper d-f mt+ w-100pr">
           <div className="d-f w-100pr ai-c">
             <div className="select">
-              <select name="threshold" id="threshSelect" onChange={(e) => setOperator(e.target.value)}>
+              <select name="threshold" id="threshSelect" onChange={(e) => operator = e.target.value}>
                 <option value=">" >greater than</option>
                 <option value="<" >less than</option>
                 <option value="===" >equal to</option>
@@ -56,7 +64,7 @@ const PostFetch = (props) => {
               <div className="select__arrow"></div>
             </div>
             
-            <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={(e) => setUpvoteCount(e.target.value)}/>
+            <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={e => setPendingFilters({upvotes: e.target.value})}/>
             <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
 
           </div>
@@ -64,13 +72,13 @@ const PostFetch = (props) => {
           {/* <button className="btn btn-tiertiary" onClick={() => setFilterOptions({seriesOnly: true})}>Series Only</button> */}
 
           <button className="btn btn-tiertiary" onClick={() => {
-            setReloadPosts(true);
+            resetFilters(setFilterOptions);
+            setReloadPosts(!reloadPosts);
           }}>Reset Filters</button>
           <button className="btn btn-secondary ml-" onClick={() => {
-
-            if (upvoteCount.length > 0) formatPosts(upvoteCount, posts, operator, setPosts);
-            if (keywords.length > 0) keywordSearch(keywords, posts, setPosts);
-
+            
+            setFilterOptions({...filterOptions, ...pendingFilters});
+            formatPosts(pendingFilters.upvotes, posts, operator, setPosts);
           }}>Apply Filters</button>
         </div>
       }
@@ -86,7 +94,7 @@ const PostFetch = (props) => {
 
         {(posts.length > 0 && !loading) && 
           <ul className="post-list d-f ">
-            {posts.map((x, id) => {
+            {posts.slice(0, filterOptions.upvotes > 0 ? posts.length - 1 : 40).map((x, id) => {
               return(
                 <li key={id} className="d-f fxd-c  post">
                   <div className="d-f fxd-c w-100pr">
@@ -132,10 +140,6 @@ const concatTitle = data => {
   return data.length > 40 ? str + "..." : data;
 }
 
-const savePostsToSessionStorage = data => {
-  return window.sessionStorage.setItem(`posts`, JSON.stringify(data));
-}
-
 const saveSubredditToSessionStorage = data => {
   return window.sessionStorage.setItem(`subreddit`, data);
 }
@@ -147,7 +151,7 @@ const seriesOnly = (data, setPosts) => {
 
 const formatPosts = (upvoteCount = 0, posts, operator, setPosts) => {
   const op = operator;
-  
+
   if ( op === ">") {
     let newPosts = posts.filter(x => x.ups > upvoteCount);
     return setPosts([...newPosts]);
@@ -169,37 +173,38 @@ const fetchPosts = async (subreddit, setPosts, setLoading, count) => {
   const link = `https://www.reddit.com/r/${sr}.json?limit=100`;
   let posts = [];
   let after = ``;
-  
-  for ( let i = 0; i < 10; i++ ) {
+  if ( !sr || sr.length <= 0 ) return alert("Must include a subreddit");
+
+  for ( let i = 0; (i < 10 && after !== null); i++ ) {
     await Axios.get(`${link}&after=${after}`).then(res => {
       after = res.data.data.after;
       posts = [...posts, ...res.data.data.children];
     }).catch(err => err);
-    
   }
 
   setLoading("");
-
-  if ( !sr || sr.length <= 0 ) return alert("Must include a subreddit");
 
   posts.shift();
   deletePostsCollection();
   saveToDatabase(posts);
   saveSubredditToSessionStorage(subreddit);
-  return setPosts([...posts]);
 }
 
 const saveToDatabase = async (posts) => {
-  posts.map(x => {
+  const newPosts = []; 
+  posts.map(x => newPosts.push(x.data));
+
+  await newPosts.map(x => {
     window.db.posts.add({
-      author: x.data.author,
-      title: x.data.title,
-      selftext: x.data.selftext,
-      ups: x.data.ups,
-      url: x.data.url,
-      num_comments: x.data.num_comments,
-      created_at: x.data.created_utc
-    }).catch(console.log);
+      author: x.author,
+      title: x.title,
+      selftext: x.selftext,
+      ups: x.ups,
+      url: x.url,
+      num_comments: x.num_comments,
+      created_at: x.created_utc,
+      flair: x.link_flair_text
+    });
   });
 }
 
@@ -211,7 +216,14 @@ const getPostsFromDatabase = async (setPosts) => {
 
 const deletePostsCollection = () => {
   const db = window.db;
-  db.posts.clear().then(console.log).catch(console.log);
+  db.posts.clear().then().catch();
+}
+
+const resetFilters = (setFilterOptions) => {
+  return setFilterOptions({
+    upvotes: 0,
+    seriesOnly: false
+  });
 }
 
 export default PostFetch;
