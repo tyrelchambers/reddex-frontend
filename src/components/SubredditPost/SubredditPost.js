@@ -2,14 +2,15 @@ import React from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 
-const SubredditPost = ({x, concatTitle}) => {
+const SubredditPost = ({x}) => {
+  
   return(
     <React.Fragment>
       <div className="d-f fxd-c w-100pr">
         <h1 className=" upvotes">
           <i className="fas fa-arrow-circle-up"></i>  {x.ups}
         </h1>
-        <p className="title mt+ mb+ ml- mr-">{concatTitle(x.title)}</p>
+        <p className="title mt+ mb+ ml- mr-">{x.title}</p>
         <p className="author m-- ml-"><i className="fas fa-user mr-"></i> Written by {x.author}</p>
         <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
       </div>

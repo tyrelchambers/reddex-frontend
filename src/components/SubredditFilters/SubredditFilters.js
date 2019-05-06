@@ -1,4 +1,5 @@
 import React from 'react'
+import './SubredditFilters.scss';
 
 const SubredditFilters = ({operator, setPendingFilters, setKeywords, resetFilters, setReloadPosts, filterOptions, pendingFilters, posts, setPosts, setFilterOptions, formatPosts, reloadPosts}) => {
   return(

@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './PostFetch.scss';
 import Axios from 'axios';
 import Loading from '../Loading/Loading';
-import dateFns from 'date-fns';
-import moment from 'moment'
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import SubredditPost from '../SubredditPost/SubredditPost';
 
 const PostFetch = (props) => {
-  const [subreddit, setSubreddit] = useState("");
+  const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState("");
   const [ count, setCount ] = useState(100);
@@ -37,10 +35,8 @@ const PostFetch = (props) => {
           <input type="text" className="input mr-" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)}/>
         </div>
         <button className="btn btn-primary" onClick={() => {
-          setLoading("Fetching posts...");
+          setLoading(true);
           fetchPosts(subreddit, setLoading, setPosts);
-          setReloadPosts(!reloadPosts);
-          console.log('get posts');
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
 
@@ -70,16 +66,14 @@ const PostFetch = (props) => {
           <Loading />
         }
 
-        {console.log('Render') }
-
-        {(posts.length > 0 && !loading) && 
+        { (posts.length > 0 && !loading ) && 
           <ul className="post-list d-f ">
             {posts.slice(0, filterOptions.upvotes > 0 ? posts.length - 1 : 40).map((x, id) => {
               return(
                 <li key={id} className="d-f fxd-c  post">
                   <SubredditPost 
                     x={x}
-                    concatTitle={concatTitle}
+                    setPosts={setPosts}
                   />
                 </li>
               )
@@ -89,6 +83,7 @@ const PostFetch = (props) => {
       </div>
     </section>
   );
+  
 }
 
 const keywordSearch = (data, posts, setPosts) => {
@@ -102,11 +97,6 @@ const keywordSearch = (data, posts, setPosts) => {
   }
 
   return setPosts([...results]);
-}
-
-const concatTitle = data => {
-  const str = data.split('').slice(0, 40).join("");
-  return data.length > 40 ? str + "..." : data;
 }
 
 const saveSubredditToSessionStorage = data => {
@@ -142,7 +132,7 @@ const fetchPosts = async (subreddit, setLoading, setPosts) => {
   const link = `https://www.reddit.com/r/${sr}.json?limit=100`;
   let posts = [];
   let after = ``;
-  
+  const results = []; 
   if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
 
   for ( let i = 0; (i < 10 && after !== null); i++ ) {
@@ -151,18 +141,19 @@ const fetchPosts = async (subreddit, setLoading, setPosts) => {
       posts = [...posts, ...res.data.data.children];
     }).catch(err => err);
   }
-  posts.shift();
+
+  posts.map(x => results.push(x.data));
   deletePostsCollection();
   saveToDatabase(posts);
   saveSubredditToSessionStorage(subreddit);
-  setLoading("");
-
+  await setPosts([...results]);
+  return setLoading(false);
 }
 
 const saveToDatabase = async (posts) => {
   const newPosts = []; 
   posts.map(x => newPosts.push(x.data));
-
+  
   await newPosts.map(x => {
     window.db.posts.add({
       author: x.author,
