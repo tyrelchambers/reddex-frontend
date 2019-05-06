@@ -58,7 +58,7 @@ const PostFetch = (props) => {
       }
 
       {subreddit &&
-        <p className="current-subreddit">Showing posts from <span className="highlight-text">{subreddit}</span></p>
+        <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit}</span></p>
       }
 
       <div>        
