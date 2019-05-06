@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './app.scss';
 import PostFetch from './components/PostFetch/PostFetch';
 

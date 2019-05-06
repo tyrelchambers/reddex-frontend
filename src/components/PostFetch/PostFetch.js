@@ -4,10 +4,11 @@ import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import dateFns from 'date-fns';
 import moment from 'moment'
-import Dexie from 'dexie';
+import SubredditFilters from '../SubredditFilters/SubredditFilters';
+import SubredditPost from '../SubredditPost/SubredditPost';
 
 const PostFetch = (props) => {
-  const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
+  const [subreddit, setSubreddit] = useState("");
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState("");
   const [ count, setCount ] = useState(100);
@@ -26,61 +27,38 @@ const PostFetch = (props) => {
   let operator = ">";
 
   useEffect(() => {
-    if ( window.db ) return;
-    const db = new Dexie("Reddex");
-    window.db = db;
-    db.version(1).stores({
-      posts: "++id, author, title, selftext, ups, url, num_comments, created_at"
-    });
-  }, []);
-
-  useEffect(() => {
     getPostsFromDatabase(setPosts);
-  }, [reloadPosts]);
+  }, []);
 
   return (
     <section className="w-100pr">
       <div className="d-f header">
         <div className="d-f ai-c w-100pr">
           <input type="text" className="input mr-" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)}/>
-          <input type="number" className="input mr-" placeholder="# of posts to return (max 100)" max="100" onChange={(e) => setCount(e.target.value)}/>
         </div>
         <button className="btn btn-primary" onClick={() => {
           setLoading("Fetching posts...");
-          fetchPosts(subreddit, setPosts, setLoading, count);
+          fetchPosts(subreddit, setLoading, setPosts);
           setReloadPosts(!reloadPosts);
+          console.log('get posts');
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
 
       {posts.length > 0 &&
-        <div className="filters-wrapper d-f mt+ w-100pr">
-          <div className="d-f w-100pr ai-c">
-            <div className="select">
-              <select name="threshold" id="threshSelect" onChange={(e) => operator = e.target.value}>
-                <option value=">" >greater than</option>
-                <option value="<" >less than</option>
-                <option value="===" >equal to</option>
-              </select>
-              <div className="select__arrow"></div>
-            </div>
-            
-            <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={e => setPendingFilters({upvotes: e.target.value})}/>
-            <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
-
-          </div>
-
-          {/* <button className="btn btn-tiertiary" onClick={() => setFilterOptions({seriesOnly: true})}>Series Only</button> */}
-
-          <button className="btn btn-tiertiary" onClick={() => {
-            resetFilters(setFilterOptions);
-            setReloadPosts(!reloadPosts);
-          }}>Reset Filters</button>
-          <button className="btn btn-secondary ml-" onClick={() => {
-            
-            setFilterOptions({...filterOptions, ...pendingFilters});
-            formatPosts(pendingFilters.upvotes, posts, operator, setPosts);
-          }}>Apply Filters</button>
-        </div>
+        <SubredditFilters 
+          operator={operator}
+          setPendingFilters={setPendingFilters}
+          setKeywords={setKeywords}
+          resetFilters={resetFilters}
+          setReloadPosts={setReloadPosts}
+          filterOptions={filterOptions}
+          pendingFilters={pendingFilters}
+          posts={posts}
+          setPosts={setPosts}
+          setFilterOptions={setFilterOptions}
+          formatPosts={formatPosts}
+          reloadPosts={reloadPosts}
+        />
       }
 
       {subreddit &&
@@ -92,26 +70,17 @@ const PostFetch = (props) => {
           <Loading />
         }
 
+        {console.log('Render') }
+
         {(posts.length > 0 && !loading) && 
           <ul className="post-list d-f ">
             {posts.slice(0, filterOptions.upvotes > 0 ? posts.length - 1 : 40).map((x, id) => {
               return(
                 <li key={id} className="d-f fxd-c  post">
-                  <div className="d-f fxd-c w-100pr">
-                    <h1 className=" upvotes">
-                      <i className="fas fa-arrow-circle-up"></i>  {x.ups}
-                    </h1>
-                    <p className="title mt+ mb+ ml- mr-">{concatTitle(x.title)}</p>
-                    <p className="author m-- ml-"><i className="fas fa-user mr-"></i> Written by {x.author}</p>
-                    <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
-                  </div>
-                  <div className="d-f ai-c d-f ">
-                    <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created_at)._d)} ago</p>
-                  </div>
-                  <div className="d-f m- js-fe">
-                    <a href={x.url} className="link" target="_blank">View</a>
-
-                  </div>
+                  <SubredditPost 
+                    x={x}
+                    concatTitle={concatTitle}
+                  />
                 </li>
               )
             })}
@@ -168,12 +137,13 @@ const formatPosts = (upvoteCount = 0, posts, operator, setPosts) => {
   };
 }
 
-const fetchPosts = async (subreddit, setPosts, setLoading, count) => {
+const fetchPosts = async (subreddit, setLoading, setPosts) => {
   const sr = subreddit.replace(/\s/g, '').trim();
   const link = `https://www.reddit.com/r/${sr}.json?limit=100`;
   let posts = [];
   let after = ``;
-  if ( !sr || sr.length <= 0 ) return alert("Must include a subreddit");
+  
+  if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
 
   for ( let i = 0; (i < 10 && after !== null); i++ ) {
     await Axios.get(`${link}&after=${after}`).then(res => {
@@ -181,13 +151,12 @@ const fetchPosts = async (subreddit, setPosts, setLoading, count) => {
       posts = [...posts, ...res.data.data.children];
     }).catch(err => err);
   }
-
-  setLoading("");
-
   posts.shift();
   deletePostsCollection();
   saveToDatabase(posts);
   saveSubredditToSessionStorage(subreddit);
+  setLoading("");
+
 }
 
 const saveToDatabase = async (posts) => {
@@ -211,6 +180,7 @@ const saveToDatabase = async (posts) => {
 const getPostsFromDatabase = async (setPosts) => {
   const db = window.db;
   const posts = await db.posts.toArray();
+  console.log('Get from DB');
   return setPosts([...posts]);
 }
 
