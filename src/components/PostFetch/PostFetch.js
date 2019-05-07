@@ -74,13 +74,6 @@ const saveSubredditToSessionStorage = data => {
   return window.sessionStorage.setItem(`subreddit`, data);
 }
 
-const seriesOnly = (data, setPosts) => {
-  const posts = data.filter(x => x.data.link_flair_text === "Series");
-  return setPosts([...posts]);
-}
-
-
-
 const fetchPosts = async (subreddit, setLoading, setPosts) => {
   const sr = subreddit.replace(/\s/g, '').trim();
   const link = `https://www.reddit.com/r/${sr}.json?limit=100`;

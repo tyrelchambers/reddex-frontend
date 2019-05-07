@@ -33,7 +33,7 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
         setReloadPosts(!reloadPosts);
       }}>Reset Filters</button>
       <button className="btn btn-secondary ml-" onClick={() => {
-        applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator);
+        applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, seriesOnly);
       }}>Apply Filters</button>
     </div>
   );
@@ -47,6 +47,16 @@ const resetFilters = (setFilterOptions) => {
     operator: ">"
   });
 }
+
+const seriesOnly = (data) => {
+  const newPromise = new Promise((resolve, reject) => {
+    const posts = data.filter(x => x.flair === "Series");
+    resolve(posts);
+  });
+
+  return newPromise;
+}
+
 
 const keywordSearch = (data, posts) => {
   if ( !data || data.length === 0 ) return false;
@@ -90,16 +100,21 @@ const operatorSort = (upvoteCount, posts, operator) => {
   return newPromise;
 }
 
-const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, operator) => {
+const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, operator, seriesOnly) => {
   let newPosts = [...posts];
 
   if ( keywords ) {
     await keywordSearch(keywords, posts).then(res => newPosts = [...res]).catch(console.log);
   }
 
-  if ( upvoteCount > 0 ) {
-    await operatorSort(upvoteCount, newPosts, operator).then(res => newPosts = [...res]);
+  if ( seriesOnly ) {
+    await seriesOnly(newPosts).then(res => newPosts = [...res]).catch(console.log);
   }
+
+  if ( upvoteCount > 0 ) {
+    await operatorSort(upvoteCount, newPosts, operator).then(res => newPosts = [...res]).catch(console.log);
+  }
+
 
   return setPosts([...newPosts]);
 }
