@@ -5,16 +5,15 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
   const [ keywords, setKeywords ] = useState("");
   const [ filterOptions, setFilterOptions ] = useState({
     seriesOnly: false,
-    upvotes: 0
+    upvotes: 0,
+    operator: ">"
   });
-  
-  let operator = ">";
 
   return(
     <div className="filters-wrapper d-f mt+ w-100pr">
       <div className="d-f w-100pr ai-c">
         <div className="select">
-          <select name="threshold" id="threshSelect" onChange={(e) => operator = e.target.value}>
+          <select name="threshold" id="threshSelect" onChange={(e) => setFilterOptions({...filterOptions, operator: e.target.value})}>
             <option value=">" >greater than</option>
             <option value="<" >less than</option>
             <option value="===" >equal to</option>
@@ -22,19 +21,19 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
           <div className="select__arrow"></div>
         </div>
         
-        <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={e => setFilterOptions({upvotes: e.target.value})}/>
+        <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
         <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
 
       </div>
 
-      <button className="btn btn-tiertiary" onClick={() => setFilterOptions({seriesOnly: true})}>Series Only</button>
+      <button className="btn btn-tiertiary" onClick={() => setFilterOptions({...filterOptions, seriesOnly: true})}>Series Only</button>
 
       <button className="btn btn-tiertiary" onClick={() => {
         resetFilters(setFilterOptions);
         setReloadPosts(!reloadPosts);
       }}>Reset Filters</button>
       <button className="btn btn-secondary ml-" onClick={() => {
-        applyFilters(posts, setPosts, keywords, filterOptions.upvotes, operator);
+        applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator);
       }}>Apply Filters</button>
     </div>
   );
@@ -44,7 +43,8 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
 const resetFilters = (setFilterOptions) => {
   return setFilterOptions({
     upvotes: 0,
-    seriesOnly: false
+    seriesOnly: false,
+    operator: ">"
   });
 }
 
@@ -69,7 +69,6 @@ const keywordSearch = (data, posts) => {
 const operatorSort = (upvoteCount, posts, operator) => {
   const newPromise = new Promise((resolve, reject) => {
     const op = operator;
-    
     if ( op === ">") {
       let newPosts = posts.filter(x => x.ups > upvoteCount);
       resolve(newPosts);
@@ -91,7 +90,7 @@ const operatorSort = (upvoteCount, posts, operator) => {
   return newPromise;
 }
 
-const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, operator = ">") => {
+const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, operator) => {
   let newPosts = [...posts];
 
   if ( keywords ) {
