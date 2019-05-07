@@ -26,7 +26,7 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
 
       </div>
 
-      <button className="btn btn-tiertiary" onClick={() => setFilterOptions({...filterOptions, seriesOnly: true})}>Series Only</button>
+      <button className={`btn btn-tiertiary ${filterOptions.seriesOnly ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, seriesOnly: !filterOptions.seriesOnly})}>Series Only</button>
 
       <button className="btn btn-tiertiary" onClick={() => {
         resetFilters(setFilterOptions);
@@ -114,8 +114,7 @@ const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, ope
   if ( upvoteCount > 0 ) {
     await operatorSort(upvoteCount, newPosts, operator).then(res => newPosts = [...res]).catch(console.log);
   }
-
-
+  
   return setPosts([...newPosts]);
 }
 
