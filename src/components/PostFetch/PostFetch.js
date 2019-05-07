@@ -9,24 +9,16 @@ const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState("");
-  const [ count, setCount ] = useState(100);
   const [ reloadPosts, setReloadPosts ] = useState(false);
-  const [ keywords, setKeywords ] = useState("");
-  const [ filterOptions, setFilterOptions ] = useState({
-    seriesOnly: false,
-    upvotes: 0
-  });
-  
-  const [ pendingFilters, setPendingFilters ] = useState({
-    upvotes: 0,
-    seriesOnly: false
-  });
 
-  let operator = ">";
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
   }, []);
+
+  useEffect(() => {
+    getPostsFromDatabase(setPosts);
+  }, [reloadPosts]);
 
   return (
     <section className="w-100pr">
@@ -42,17 +34,9 @@ const PostFetch = (props) => {
 
       {posts.length > 0 &&
         <SubredditFilters 
-          operator={operator}
-          setPendingFilters={setPendingFilters}
-          setKeywords={setKeywords}
-          resetFilters={resetFilters}
           setReloadPosts={setReloadPosts}
-          filterOptions={filterOptions}
-          pendingFilters={pendingFilters}
           posts={posts}
           setPosts={setPosts}
-          setFilterOptions={setFilterOptions}
-          formatPosts={formatPosts}
           reloadPosts={reloadPosts}
         />
       }
@@ -68,7 +52,7 @@ const PostFetch = (props) => {
 
         { (posts.length > 0 && !loading ) && 
           <ul className="post-list d-f ">
-            {posts.slice(0, filterOptions.upvotes > 0 ? posts.length - 1 : 40).map((x, id) => {
+            {posts.slice(0, 40).map((x, id) => {
               return(
                 <li key={id} className="d-f fxd-c  post">
                   <SubredditPost 
@@ -86,19 +70,6 @@ const PostFetch = (props) => {
   
 }
 
-const keywordSearch = (data, posts, setPosts) => {
-  const keywords = data.split(", ");
-  let results;
-  for ( let i = 0; i < keywords.length; i++ ) {
-    let postsTitle = posts.filter(x => x.data.title.toLowerCase().includes(keywords[i].toLowerCase()));
-    let postsBody = posts.filter(x => x.data.selftext.toLowerCase().includes(keywords[i].toLowerCase()));
-    let set = new Set([...postsTitle, ...postsBody]);
-    results = [...set];
-  }
-
-  return setPosts([...results]);
-}
-
 const saveSubredditToSessionStorage = data => {
   return window.sessionStorage.setItem(`subreddit`, data);
 }
@@ -108,24 +79,7 @@ const seriesOnly = (data, setPosts) => {
   return setPosts([...posts]);
 }
 
-const formatPosts = (upvoteCount = 0, posts, operator, setPosts) => {
-  const op = operator;
 
-  if ( op === ">") {
-    let newPosts = posts.filter(x => x.ups > upvoteCount);
-    return setPosts([...newPosts]);
-  };
-
-  if ( op === "<") {
-    let newPosts = posts.filter(x => x.ups < upvoteCount);
-    return setPosts([...newPosts]);
-  };
-
-  if ( op === "===") {
-    let newPosts = posts.filter(x => x.ups == upvoteCount);
-    return setPosts([...newPosts]);
-  };
-}
 
 const fetchPosts = async (subreddit, setLoading, setPosts) => {
   const sr = subreddit.replace(/\s/g, '').trim();
@@ -171,7 +125,6 @@ const saveToDatabase = async (posts) => {
 const getPostsFromDatabase = async (setPosts) => {
   const db = window.db;
   const posts = await db.posts.toArray();
-  console.log('Get from DB');
   return setPosts([...posts]);
 }
 
@@ -180,11 +133,7 @@ const deletePostsCollection = () => {
   db.posts.clear().then().catch();
 }
 
-const resetFilters = (setFilterOptions) => {
-  return setFilterOptions({
-    upvotes: 0,
-    seriesOnly: false
-  });
-}
+
+
 
 export default PostFetch;
