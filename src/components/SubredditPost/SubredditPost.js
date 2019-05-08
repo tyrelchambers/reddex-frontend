@@ -15,7 +15,7 @@ const SubredditPost = ({x}) => {
         <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
       </div>
       <div className="d-f ai-c d-f ">
-        <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created_at)._d)} ago</p>
+        <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
       </div>
       <div className="d-f m- js-fe">
         <a href={x.url} className="link" target="_blank" rel="noopener noreferrer">View</a>

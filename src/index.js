@@ -11,7 +11,7 @@ if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 const db = new Dexie("Reddex");
 window.db = db;
 db.version(1).stores({
-  posts: "++id, author, title, selftext, ups, url, num_comments, created_at"
+  posts: "++id, author, title, selftext, ups, url, num_comments, created"
 });
 
 ReactDOM.render(<App />, document.getElementById('root'));
