@@ -1,0 +1,37 @@
+@media screen and (max-width: 768px) {
+  .filters-wrapper {
+      flex-direction: column;
+  }
+
+  .filter-actions {
+    margin-top: 1em;
+    align-self: flex-end;
+  }
+}
+
+@media screen and (max-width: 452px) {
+  .filter-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .filter-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+      margin: 1em 0;
+    }
+  }
+
+  .filters-wrapper {
+    .inputs {
+      flex-direction: column;
+      input {
+        margin: 1em 0;
+      }
+    }
+  }
+}

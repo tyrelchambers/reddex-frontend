@@ -11,7 +11,7 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
 
   return(
     <div className="filters-wrapper d-f mt+ w-100pr">
-      <div className="d-f w-100pr ai-c">
+      <div className="d-f w-100pr ai-c inputs">
         <div className="select">
           <select name="threshold" id="threshSelect" onChange={(e) => setFilterOptions({...filterOptions, operator: e.target.value})}>
             <option value=">" >greater than</option>
@@ -26,15 +26,17 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
 
       </div>
 
-      <button className={`btn btn-tiertiary ${filterOptions.seriesOnly ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, seriesOnly: !filterOptions.seriesOnly})}>Series Only</button>
+      <div className="filter-actions d-f ai-c">
+        <button className={`btn btn-tiertiary ${filterOptions.seriesOnly ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, seriesOnly: !filterOptions.seriesOnly})}>Series Only</button>
 
-      <button className="btn btn-tiertiary" onClick={() => {
-        resetFilters(setFilterOptions);
-        setReloadPosts(!reloadPosts);
-      }}>Reset Filters</button>
-      <button className="btn btn-secondary ml-" onClick={() => {
-        applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, seriesOnly);
-      }}>Apply Filters</button>
+        <button className="btn btn-tiertiary" onClick={() => {
+          resetFilters(setFilterOptions);
+          setReloadPosts(!reloadPosts);
+        }}>Reset Filters</button>
+        <button className="btn btn-secondary ml-" onClick={() => {
+          applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, seriesOnly);
+        }}>Apply Filters</button>
+      </div>
     </div>
   );
 }

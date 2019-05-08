@@ -108,3 +108,34 @@
   width: 100%;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: 768px) {
+  .current-subreddit {
+    margin: 1em;
+  }
+
+  .post-list {
+    padding: 1em;
+    justify-content: center;
+  }
+
+  .filters-wrapper {
+    padding: 1em;
+  }
+
+  .header {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    flex-direction: column;
+
+    button {
+      margin-top: 1em;
+    }
+  }
+}
