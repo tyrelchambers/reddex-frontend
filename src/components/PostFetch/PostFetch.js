@@ -32,7 +32,7 @@ const PostFetch = (props) => {
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
 
-      {posts.length > 0 &&
+      {subreddit &&
         <SubredditFilters 
           setReloadPosts={setReloadPosts}
           posts={posts}

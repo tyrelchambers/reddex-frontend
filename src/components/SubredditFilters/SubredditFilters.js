@@ -34,7 +34,7 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
           setReloadPosts(!reloadPosts);
         }}>Reset Filters</button>
         <button className="btn btn-secondary ml-" onClick={() => {
-          applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, seriesOnly);
+          applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, filterOptions.seriesOnly);
         }}>Apply Filters</button>
       </div>
     </div>
@@ -50,7 +50,7 @@ const resetFilters = (setFilterOptions) => {
   });
 }
 
-const seriesOnly = (data) => {
+const seriesOnlyFilter = (data) => {
   const newPromise = new Promise((resolve, reject) => {
     const posts = data.filter(x => x.flair === "Series");
     resolve(posts);
@@ -105,12 +105,12 @@ const operatorSort = (upvoteCount, posts, operator) => {
 const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, operator, seriesOnly) => {
   let newPosts = [...posts];
 
-  if ( keywords ) {
+  if ( keywords.length ) {
     await keywordSearch(keywords, posts).then(res => newPosts = [...res]).catch(console.log);
   }
 
   if ( seriesOnly ) {
-    await seriesOnly(newPosts).then(res => newPosts = [...res]).catch(console.log);
+    await seriesOnlyFilter(newPosts, seriesOnly).then(res => newPosts = [...res]).catch(console.log);
   }
 
   if ( upvoteCount > 0 ) {
