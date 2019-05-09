@@ -8,9 +8,12 @@ import SubredditPost from '../SubredditPost/SubredditPost';
 const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
   const [ posts, setPosts ] = useState([]);
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
-
+  const [ categoryOptions, setCategoryOptions ] = useState({
+    category: "hot",
+    timeframe: ""
+  });
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
@@ -25,10 +28,25 @@ const PostFetch = (props) => {
       <div className="d-f header">
         <div className="d-f ai-c w-100pr">
           <input type="text" className="input mr-" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)}/>
+          <div className="select mr-">
+            <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, category: e.target.value})}>
+              <option value="hot" defaultValue>Hot</option>
+              <option value="new" >New</option>
+              <option value="controversial" >Controversial</option>
+              <option value="top" >Top</option>
+              <option value="rising" >Rising</option>
+            </select>
+            <div className="select__arrow"></div>
+          </div>
+
+          <SubSelect
+            setCategoryOptions={setCategoryOptions}
+            categoryOptions={categoryOptions}
+          />
         </div>
         <button className="btn btn-primary" onClick={() => {
           setLoading(true);
-          fetchPosts(subreddit, setLoading, setPosts);
+          fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
 
@@ -70,13 +88,43 @@ const PostFetch = (props) => {
   
 }
 
+const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
+  if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
+    return (
+      <div className="select mr-">
+        <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, timeline: e.target.value})}>
+          <option value="hour">Past Hour</option>
+          <option value="day" selected>Past 24 Hours</option>
+          <option value="week" >Past Week</option>
+          <option value="month" >Past Month</option>
+          <option value="year" >Past Year</option>
+          <option value="all" >Of All Time</option>
+
+        </select>
+        <div className="select__arrow"></div>
+      </div>
+    );
+  } 
+  return null;
+}
+
 const saveSubredditToSessionStorage = data => {
   return window.sessionStorage.setItem(`subreddit`, data);
 }
 
-const fetchPosts = async (subreddit, setLoading, setPosts) => {
+const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim();
-  const link = `https://www.reddit.com/r/${sr}.json?limit=100`;
+  let endpoint = "";
+
+  if ( category !== "hot" ) {
+    endpoint = `${sr}/${category.category}.json?limit=100`;
+  } 
+  
+  if ( category.timeline ) {
+    endpoint = `${sr}/${category.category}/.json?t=${category.timeline}`;
+  }
+
+  const link = `https://www.reddit.com/r/${endpoint}`;
   let posts = [];
   let after = ``;
   const results = []; 
@@ -94,7 +142,8 @@ const fetchPosts = async (subreddit, setLoading, setPosts) => {
   saveToDatabase(posts);
   saveSubredditToSessionStorage(subreddit);
   await setPosts([...results]);
-  return setLoading(false);
+  return setLoading(false);  
+ 
 }
 
 const saveToDatabase = async (posts) => {
@@ -102,14 +151,14 @@ const saveToDatabase = async (posts) => {
   posts.map(x => newPosts.push(x.data));
   
   await newPosts.map(x => {
-    window.db.posts.add({
+    return window.db.posts.add({
       author: x.author,
       title: x.title,
       selftext: x.selftext,
       ups: x.ups,
       url: x.url,
       num_comments: x.num_comments,
-      created_at: x.created_utc,
+      created: x.created,
       flair: x.link_flair_text
     });
   });
