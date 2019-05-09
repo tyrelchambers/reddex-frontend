@@ -12,7 +12,7 @@ const PostFetch = (props) => {
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
-    top: ""
+    timeframe: ""
   });
 
   useEffect(() => {
@@ -89,16 +89,16 @@ const PostFetch = (props) => {
 }
 
 const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
-  if ( categoryOptions.category === "top" ) {
+  if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
     return (
       <div className="select mr-">
-        <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, top: e.target.value})}>
-          <option value="pastHour">Past Hour</option>
-          <option value="past24Hours" selected>Past 24 Hours</option>
-          <option value="pastWeek" >Past Week</option>
-          <option value="pastMonth" >Past Month</option>
-          <option value="pastYear" >Past Year</option>
-          <option value="ofAllTime" >Of All Time</option>
+        <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, timeline: e.target.value})}>
+          <option value="hour">Past Hour</option>
+          <option value="day" selected>Past 24 Hours</option>
+          <option value="week" >Past Week</option>
+          <option value="month" >Past Month</option>
+          <option value="year" >Past Year</option>
+          <option value="all" >Of All Time</option>
 
         </select>
         <div className="select__arrow"></div>
@@ -114,8 +114,17 @@ const saveSubredditToSessionStorage = data => {
 
 const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim();
-  const endpoint = category.category === "hot" ? `${sr}` : `${sr}/${category.category}`;
-  const link = `https://www.reddit.com/r/${endpoint}.json?limit=100`;
+  let endpoint = "";
+
+  if ( category !== "hot" ) {
+    endpoint = `${sr}/${category.category}.json?limit=100`;
+  } 
+  
+  if ( category.timeline ) {
+    endpoint = `${sr}/${category.category}/.json?t=${category.timeline}`;
+  }
+
+  const link = `https://www.reddit.com/r/${endpoint}`;
   let posts = [];
   let after = ``;
   const results = []; 
@@ -133,7 +142,8 @@ const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   saveToDatabase(posts);
   saveSubredditToSessionStorage(subreddit);
   await setPosts([...results]);
-  return setLoading(false);
+  return setLoading(false);  
+ 
 }
 
 const saveToDatabase = async (posts) => {
