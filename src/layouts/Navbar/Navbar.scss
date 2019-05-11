@@ -30,11 +30,14 @@
     margin-top: 5em;
   }
   a {
+    width: 100%;
+    display: flex;
     color: $grey2;
     text-decoration: none;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
+    padding: 1em 2em;
   }
   
   i {
@@ -42,7 +45,7 @@
   }
   
   li {
-    padding: 1em 2em;
+   
 
     &:hover {
       background-color: $grey10;
