@@ -16,10 +16,10 @@ const Navbar = () => {
       </div>
       <nav className={"navbar " + extendedNav}>
         <ul>
-          <li className="d-f ai-c">
+          <li className="d-f ai-c nav-link">
             <Link to="/" className="nav-link">Home</Link>
           </li>
-          <li className="d-f ai-c">
+          <li className="d-f ai-c nav-link">
             <Link to="/about" className="nav-link">What is Reddex?</Link>
           </li>
         </ul>
