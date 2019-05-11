@@ -1,5 +1,26 @@
+@import '../../colours.scss';
+
 .title {
-  width: 100%;
   text-overflow: ellipsis;
-  height: 200px;
+  height: 90px;
+  width: 90%;
+}
+
+.post-actions {
+  .link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid $grey7;
+    color: $grey7;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    &:hover {
+      background-color: $grey7;
+      color: white;
+    }
+  }
 }

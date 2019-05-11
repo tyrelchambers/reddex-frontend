@@ -137,6 +137,7 @@ const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
     }).catch(err => err);
   }
 
+  posts.shift();
   posts.map(x => results.push(x.data));
   deletePostsCollection();
   saveToDatabase(posts);
