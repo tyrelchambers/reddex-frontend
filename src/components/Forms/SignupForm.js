@@ -12,7 +12,7 @@ export default function SignupForm() {
   const [ errors, setErrors ] = useState([]);
   
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const validation = fieldValidation(credentials);
     
@@ -22,7 +22,13 @@ export default function SignupForm() {
 
     const payload = credentials;
 
-    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).catch(err => setErrors([...errors, err.message]));
+    await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).catch(err => setErrors([...errors, err.message]));
+
+    if ( errors.length > 0 ) {
+      return;
+    }
+
+    window.location.pathname = "/";
   }
 
  

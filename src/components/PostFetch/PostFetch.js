@@ -6,7 +6,7 @@ import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import SubredditPost from '../SubredditPost/SubredditPost';
 
 const PostFetch = (props) => {
-  const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
+  const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
@@ -109,7 +109,7 @@ const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
 }
 
 const saveSubredditToSessionStorage = data => {
-  return window.sessionStorage.setItem(`subreddit`, data);
+  return window.localStorage.setItem(`subreddit`, data);
 }
 
 const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
