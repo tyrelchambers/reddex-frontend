@@ -1,23 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
-import firebase from 'firebase';
+import UserStore from '../../stores/UserStore';
+import { observer } from 'mobx-react-lite';
 
-const Navbar = () => {
+const Navbar = observer(() => {
 
   const [extended, setExtended] = useState(false);
-  const extendedNav = extended ? "extended" : "";
   const [ user, setUser ] = useState({});
-
+  const extendedNav = extended ? "extended" : "";
+  const userStore = useContext(UserStore);
+  
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-          setUser(user);
-      } else {
-         setUser(false);         
-      }
-  });
-  }, []);
+    let user = userStore.getUser();
+    setUser(user);
+  }, [])
 
   return(
     <React.Fragment>
@@ -34,30 +31,31 @@ const Navbar = () => {
           <li className="d-f ai-c nav-link">
             <Link to="/about" >What is Reddex?</Link>
           </li>
-          {!user && 
-            <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-              <Link to="/signup" >Sign Up</Link>
-            </li>
+          {user === null && 
+            <React.Fragment>
+              <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
+                <Link to="/signup" >Sign Up</Link>
+              </li>
+              <li className="d-f ai-c nav-link">
+                <Link to="/login" >Login</Link>
+              </li>
+            </React.Fragment>
           }
 
-          {user !== false &&
-            <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-              <Link to="/signout" onClick={signoutHandler}>Sign Out</Link>
-            </li>
+          {user !== null &&
+            <React.Fragment>
+              <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
+                <Link to="/account">Account</Link>
+              </li>
+              <li className="d-f ai-c">
+                <Link to="/signout" onClick={() => userStore.signOut()}>Sign Out</Link>
+              </li>
+            </React.Fragment>
           }
         </ul>
       </nav>
     </React.Fragment>
   );
-}
-
-const signoutHandler = () => {
-  firebase.auth().signOut().then(function() {
-    console.log("Signed out");
-    window.location.pathname = "/";
-  }).catch(function(error) {
-    console.log(error);
-  });
-}
+});
 
 export default Navbar;

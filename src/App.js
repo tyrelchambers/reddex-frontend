@@ -1,11 +1,8 @@
 import React from 'react';
 import './app.scss';
 import PostFetch from './components/PostFetch/PostFetch';
-import firebase from 'firebase';
 
 function App() {
-  console.log(firebase.auth().currentUser);
-
   return (
     <div className="App w-100pr ml-a mr-a">
       <div className="mb-">

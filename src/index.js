@@ -10,6 +10,7 @@ import Header from './layouts/Header/Header';
 import About from './Pages/About/About';
 import firebase from 'firebase';
 import SignupPage from './Pages/SignupPage/SignupPage';
+import LoginPage from './Pages/LoginPage/LoginPage';
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -56,13 +57,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 
 ReactDOM.render(
-  <Router>
+  <Router>  
     <Header />
     <Switch>
       <Route exact path="/" component={App}/>
       <Route exact path="/about" component={About} />
       <Route exact path="/signup" component={SignupPage} />
+      <Route exact path="/login" component={LoginPage} />
     </Switch>
+      
   </Router>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

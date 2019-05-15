@@ -1,17 +1,16 @@
-import React, { useState, useContext } from 'react'
-import firebase from 'firebase';
+import React, {useState} from 'react'
 import './forms.scss';
-import UserStore from '../../stores/UserStore';
-import { observer } from 'mobx-react-lite';
+import firebase from 'firebase';
 
-const SignupForm = observer(() => {
+export default function LoginForm() {
   const [ credentials, setCredentials ] = useState({
     email: "",
     password: "",
     confirmPassword: ""
   });
+
   const [ errors, setErrors ] = useState([]);
-  const userStore = useContext(UserStore);
+  
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -23,17 +22,14 @@ const SignupForm = observer(() => {
 
     const payload = credentials;
 
-    const user = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).catch(err => setErrors([...errors, err.message]));
+    await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).catch(console.log);
 
     if ( errors.length > 0 ) {
       return;
     }
 
-    userStore.setUser(user);   
     window.location.pathname = "/";
   }
-
- 
 
   return (
     <form className="form">
@@ -44,7 +40,7 @@ const SignupForm = observer(() => {
           </li>
         ))}
       </ul>
- 
+
       <div className="field-group">
         <label htmlFor="email" className="form-label">Email</label>
         <input type="email" className="form-input" placeholder="user@example.com" name="email" onChange={e => setCredentials({...credentials, email: e.target.value})}/>
@@ -61,33 +57,30 @@ const SignupForm = observer(() => {
       </div>
 
       <div className="field-actions d-f jc-c mt+">
-        <button type="submit" className="btn btn-secondary" onClick={submitHandler}>Create Account</button>
+        <button type="submit" className="btn btn-secondary" onClick={submitHandler}>Login</button>
       </div>
     </form>
   )
-});
-
-const fieldValidation = ({ email, password, confirmPassword }) => {
-  const errors = [];
-
-  if ( !email ) {
-    errors.push("Email can't be blank");
-  }
-
-  if ( !password ) {
-    errors.push("Password must be provided");
-  }
-
-  if ( !confirmPassword ) {
-    errors.push("Please confirm password");
-  }
-
-  if ( confirmPassword !== password) {
-    errors.push("Passwords must match");
-  }
-
-  if ( errors.length > 0 ) return errors;
-
 }
+ const fieldValidation = ({ email, password, confirmPassword }) => {
+    const errors = [];
 
-export default SignupForm;
+    if ( !email ) {
+      errors.push("Email can't be blank");
+    }
+
+    if ( !password ) {
+      errors.push("Password must be provided");
+    }
+
+    if ( !confirmPassword ) {
+      errors.push("Please confirm password");
+    }
+
+    if ( confirmPassword !== password) {
+      errors.push("Passwords must match");
+    }
+
+    if ( errors.length > 0 ) return errors;
+
+  }
