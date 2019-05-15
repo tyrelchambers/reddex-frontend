@@ -12,7 +12,7 @@ class UserStore {
   getUser() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        window.localStorage.setItem('user', JSON.stringify(user.user));
+        window.localStorage.setItem('user', JSON.stringify(user));
       } else {
         window.localStorage.removeItem('user'); 
       }

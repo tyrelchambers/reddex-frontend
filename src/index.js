@@ -11,6 +11,7 @@ import About from './Pages/About/About';
 import firebase from 'firebase';
 import SignupPage from './Pages/SignupPage/SignupPage';
 import LoginPage from './Pages/LoginPage/LoginPage';
+import AccountPage from './Pages/AccountPage/AccountPage';
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -64,6 +65,7 @@ ReactDOM.render(
       <Route exact path="/about" component={About} />
       <Route exact path="/signup" component={SignupPage} />
       <Route exact path="/login" component={LoginPage} />
+      <Route exact path="/account" component={AccountPage} />
     </Switch>
       
   </Router>, document.getElementById('root'));
