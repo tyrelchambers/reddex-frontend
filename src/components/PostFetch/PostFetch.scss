@@ -139,3 +139,26 @@
     }
   }
 }
+
+@media screen and (max-width: 375px) {
+  .mobile-fetch-inputs {
+    flex-direction: column;
+
+    .select {
+      margin-top: 1em;
+    }
+  }
+
+
+}
+
+@media screen and (max-width: 550px) {
+  .post-fetch-header {
+    flex-direction: column;
+  }
+
+  .btn.btn-primary {
+    margin-top: 1em;
+  }
+
+}
