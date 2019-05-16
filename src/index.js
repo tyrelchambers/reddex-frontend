@@ -8,20 +8,11 @@ import Dexie from 'dexie';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Header from './layouts/Header/Header';
 import About from './Pages/About/About';
-import firebase from 'firebase';
 import SignupPage from './Pages/SignupPage/SignupPage';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import AccountPage from './Pages/AccountPage/AccountPage';
+import firebase from './stores/FireStore';
 
-firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID
-});
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
