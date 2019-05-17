@@ -6,7 +6,7 @@ class UserStore {
   currentUser = JSON.parse(window.localStorage.getItem('user'));
 
   setUser(user) {
-    window.localStorage.setItem('user', JSON.stringify(user.user));
+    window.localStorage.setItem('user', JSON.stringify(user));
   }
  
   getUser() {
