@@ -96,6 +96,8 @@ const SignupForm = observer(() => {
     callback();
   }
   const createAccount = async () => {
+    const url = new URLSearchParams(window.location.search);
+
     const payload = {
       email: JSON.parse(window.sessionStorage.getItem("tempCreds")).email,
       password: JSON.parse(window.sessionStorage.getItem("tempCreds")).password
@@ -109,7 +111,12 @@ const SignupForm = observer(() => {
     
     userStore.setUser(user);   
     window.sessionStorage.clear('tempCreds');
-    window.location.pathname = "/";
+    
+    console.log(url)
+    url.delete('state');
+    url.delete('code'); 
+    //window.location.pathname = "/";
+    
   }
 
   if ( creationStatus.loading ) {
