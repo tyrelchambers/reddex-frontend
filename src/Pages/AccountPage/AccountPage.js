@@ -10,7 +10,7 @@ const AccountPage = observer(() => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
 
   useEffect(() => {
-    getUserProfile(store.getUser().uid, setDefaultMessage);
+    getUserProfile(store.getUser().uid);
   })
   return (
     <div className="d-f fxd-c jc-c ai-c w-100pr h-100v">
