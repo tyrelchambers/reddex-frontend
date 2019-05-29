@@ -2,10 +2,10 @@ import React from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
-const SubredditPost = ({x}) => {
+const SubredditPost = ({x, selectPost}) => {
   
   return(
-    <React.Fragment>
+    <div>
       <div className="d-f fxd-c w-100pr fx-1">
         <h1 className=" upvotes">
           <i className="fas fa-arrow-circle-up"></i>  {x.ups}
@@ -17,11 +17,16 @@ const SubredditPost = ({x}) => {
 
       </div>
 
-      <div className="d-f m- jc-fe post-actions">
-        <a href={x.url} className="link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
+      <div className="d-f m- jc-sb post-actions">
+        <div>
+          <button className="btn btn-select">
+            <i className="fas fa-check"></i>
+          </button>
+        </div>
+        <a href={x.url} className="btn-link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
         
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

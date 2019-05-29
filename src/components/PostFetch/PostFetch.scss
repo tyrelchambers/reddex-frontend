@@ -1,3 +1,5 @@
+@import '../../colours.scss';
+
 .post-fetch-header {
   width: 100%;
   padding: 1em;
@@ -72,7 +74,8 @@
   box-shadow: 0px 2px 3px rgba(black, 0.3);
   margin-bottom: 1em;
   overflow: hidden;
- 
+  border: 2px solid transparent;
+
   .upvotes {
     width: 100%;
     color: white;
@@ -106,6 +109,10 @@
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.active-post-select {
+  border: 2px solid $blue6;
 }
 
 @media screen and (max-width: 768px) {

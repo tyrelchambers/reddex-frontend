@@ -10,6 +10,8 @@ const PostFetch = (props) => {
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
+  const [ selectedPosts, setSelectedPosts ] = useState([]);
+
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: ""
@@ -63,6 +65,7 @@ const PostFetch = (props) => {
         <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit}</span></p>
       }
 
+
       <div>        
         {loading &&
           <Loading />
@@ -72,10 +75,11 @@ const PostFetch = (props) => {
           <ul className="post-list d-f ">
             {posts.slice(0, 40).map((x, id) => {
               return(
-                <li key={id} className="d-f fxd-c  post">
+                <li key={x.id} className={`d-f fxd-c subreddit-post-parent post ${selectedPosts.includes(x.id.toString()) ? "active-post-select" : ""}`} onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)} data-id={x.id}>
                   <SubredditPost 
                     x={x}
                     setPosts={setPosts}
+
                   />
                 </li>
               )
@@ -83,12 +87,27 @@ const PostFetch = (props) => {
           </ul>
         }
       </div>
+      {console.log('------', selectedPosts, '--------')}
     </section>
   );
   
 }
 
-const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
+export const selectPost = (e, selectedPosts, setSelectedPosts) => {
+  const trg = e.target.closest(".subreddit-post-parent");
+  const post = trg.getAttribute('data-id');
+  let results = [...selectedPosts];
+
+  if (results.includes(post.toString())) {
+    results.splice(selectedPosts.indexOf(post), 1); 
+  } else {
+    results.push(post);
+  }
+
+  setSelectedPosts([...results]);
+}
+
+export const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
   if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
     return (
       <div className="select mr-">
@@ -108,11 +127,11 @@ const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
   return null;
 }
 
-const saveSubredditToSessionStorage = data => {
+export const saveSubredditToLocalStorage = data => {
   return window.localStorage.setItem(`subreddit`, data);
 }
 
-const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
+export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim();
   let endpoint = "";
 
@@ -141,13 +160,13 @@ const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   posts.map(x => results.push(x.data));
   deletePostsCollection();
   saveToDatabase(posts);
-  saveSubredditToSessionStorage(subreddit);
+  saveSubredditToLocalStorage(subreddit);
   await setPosts([...results]);
   return setLoading(false);  
  
 }
 
-const saveToDatabase = async (posts) => {
+export const saveToDatabase = async (posts) => {
   const newPosts = []; 
   posts.map(x => newPosts.push(x.data));
   
@@ -165,13 +184,13 @@ const saveToDatabase = async (posts) => {
   });
 }
 
-const getPostsFromDatabase = async (setPosts) => {
+export const getPostsFromDatabase = async (setPosts) => {
   const db = window.db;
   const posts = await db.posts.toArray();
   return setPosts([...posts]);
 }
 
-const deletePostsCollection = () => {
+export const deletePostsCollection = () => {
   const db = window.db;
   db.posts.clear().then().catch();
 }

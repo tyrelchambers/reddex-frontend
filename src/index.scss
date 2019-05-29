@@ -121,3 +121,18 @@ ul {
   max-width: 600px;
   color: $grey7;
 }
+
+.btn-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  color: $grey8;
+  border-radius: 50%;
+  font-size: 1rem;
+  box-shadow: none;
+  i {
+    margin: 0;
+  }
+}
