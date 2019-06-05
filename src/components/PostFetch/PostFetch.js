@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import SubredditPost from '../SubredditPost/SubredditPost';
+import MessageAuthors from '../MessageAuthors/MessageAuthors';
 
 const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
@@ -65,6 +66,13 @@ const PostFetch = (props) => {
         <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit}</span></p>
       }
 
+      {selectedPosts.length > 0 &&
+        <MessageAuthors 
+          data={selectedPosts}
+          posts={posts}
+        />
+      } 
+
 
       <div>        
         {loading &&
@@ -73,13 +81,18 @@ const PostFetch = (props) => {
 
         { (posts.length > 0 && !loading ) && 
           <ul className="post-list d-f ">
-            {posts.slice(0, 40).map((x, id) => {
+            {posts.slice(0, 40).map(x => {
               return(
-                <li key={x.id} className={`d-f fxd-c subreddit-post-parent post ${selectedPosts.includes(x.id.toString()) ? "active-post-select" : ""}`} onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)} data-id={x.id}>
+                <li 
+                  key={x.id} 
+                  className={`d-f fxd-c subreddit-post-parent post ${selectedPosts.includes(x.id.toString()) ? "active-post-select" : ""}`} 
+                  data-id={x.id}
+                  
+                >
                   <SubredditPost 
                     x={x}
                     setPosts={setPosts}
-
+                    onSelect={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
                   />
                 </li>
               )
@@ -87,7 +100,6 @@ const PostFetch = (props) => {
           </ul>
         }
       </div>
-      {console.log('------', selectedPosts, '--------')}
     </section>
   );
   

@@ -14,3 +14,11 @@
     color: $grey7;
   }
 }
+
+.default-message-holder {
+  white-space: pre-wrap;
+  background-color: $grey10;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: 1px solid $grey9;
+}

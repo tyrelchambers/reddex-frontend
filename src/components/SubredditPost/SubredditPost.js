@@ -2,7 +2,7 @@ import React from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
-const SubredditPost = ({x, selectPost}) => {
+const SubredditPost = ({x, selectPost, onSelect}) => {
   
   return(
     <div>
@@ -10,7 +10,7 @@ const SubredditPost = ({x, selectPost}) => {
         <h1 className=" upvotes">
           <i className="fas fa-arrow-circle-up"></i>  {x.ups}
         </h1>
-        <p className="title mt+ mb+ ml- mr-">{concatTitle(x.title)}</p>
+        <p className="title mt+ mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
         <p className="author m-- ml-"><i className="fas fa-user mr-"></i>{x.author}</p>
         <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
         <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
@@ -19,7 +19,7 @@ const SubredditPost = ({x, selectPost}) => {
 
       <div className="d-f m- jc-sb post-actions">
         <div>
-          <button className="btn btn-select">
+          <button className="btn btn-select" onClick={onSelect}>
             <i className="fas fa-check"></i>
           </button>
         </div>

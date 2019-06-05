@@ -132,7 +132,23 @@ ul {
   border-radius: 50%;
   font-size: 1rem;
   box-shadow: none;
+  background-color: white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $grey8;
+    color: white;
+  }
   i {
     margin: 0;
   }
+}
+
+.mw-500 {
+  width: 100%;
+  max-width: 500px;
+}
+
+.lh-1-8 {
+  line-height: 1.8em;
 }

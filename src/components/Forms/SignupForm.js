@@ -4,7 +4,7 @@ import './forms.scss';
 import UserStore from '../../stores/UserStore';
 import { observer } from 'mobx-react-lite';
 import Axios from 'axios';
-import Loading from '../Loading/Loading';
+import AltLoader from '../Loading/AltLoader';
 
 const SignupForm = observer(() => {
   const [ credentials, setCredentials ] = useState({
@@ -53,51 +53,11 @@ const SignupForm = observer(() => {
     
     if ( approvalStatus !== false && seshStorage.triggered === true ) {
       setCreationStatus({...creationStatus, loading: true});
-      getAccessToken(approvalStatus, createAccount);
+      userStore.getAccessToken(approvalStatus, createAccount);
     } 
   }
 
-  const renewRefreshToken = async () => {
-    const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
-    const token = JSON.parse(window.localStorage.getItem('reddit_tokens'));
-    await Axios.post('https://www.reddit.com/api/v1/access_token', 
-      `grant_type=refresh_code&refresh_token=${token.refresh_token}`
-    ,
-    {
-      headers: {
-        "Authorization": `Basic ${encode}`,
-      }
-    })
-    .then(res => window.localStorage.setItem('reddit_tokens', JSON.stringify({
-      access_token: res.data.access_token,
-      refresh_token: res.data.refresh_token
-    })))
-    .catch(console.log);
-  }
-
-  const getAccessToken = async (token, callback) => {
-    const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
-    await Axios.post('https://www.reddit.com/api/v1/access_token', 
-      `grant_type=authorization_code&code=${token}&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup`
-
-    ,
-    {
-      headers: {
-        "Authorization": `Basic ${encode}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    .then(res => window.localStorage.setItem('reddit_tokens', JSON.stringify({
-      access_token: res.data.access_token,
-      refresh_token: res.data.refresh_token
-    })))
-    .catch(console.log);
-
-    callback();
-  }
   const createAccount = async () => {
-    const url = new URLSearchParams(window.location.search);
-
     const payload = {
       email: JSON.parse(window.sessionStorage.getItem("tempCreds")).email,
       password: JSON.parse(window.sessionStorage.getItem("tempCreds")).password
@@ -112,16 +72,14 @@ const SignupForm = observer(() => {
     userStore.setUser(user);   
     window.sessionStorage.clear('tempCreds');
     
-    console.log(url)
-    url.delete('state');
-    url.delete('code'); 
-    //window.location.pathname = "/";
+
+    window.location.pathname = "/";
     
   }
 
   if ( creationStatus.loading ) {
     return (
-      <Loading />
+      <AltLoader />
     );
   } else {
     return (
@@ -158,7 +116,7 @@ const SignupForm = observer(() => {
 });
 
 const askForRedditApproval = () => {
-    const link = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.REACT_APP_REDDIT_APP_NAME}&response_type=code&state=storiesaftermidnightreddex&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup&duration=permanent&scope=privatemessages`;
+    const link = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.REACT_APP_REDDIT_APP_NAME}&response_type=code&state=storiesaftermidnightreddex&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup&duration=permanent&scope=privatemessages identity`;
     window.open(link);
 }
 const fieldValidation = ({ email, password, confirmPassword }) => {

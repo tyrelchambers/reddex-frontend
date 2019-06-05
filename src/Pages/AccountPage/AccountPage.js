@@ -2,15 +2,14 @@ import React, {useContext, useState, useEffect} from 'react'
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../stores/UserStore';
 import firebase from 'firebase';
-
 import './AccountPage.scss';
 
 const AccountPage = observer(() => {
   const store = useContext(UserStore);
   const [ defaultMessage, setDefaultMessage ] = useState("");
-
+  const [ loading, setLoading ] = useState(true);
   useEffect(() => {
-    getUserProfile(store.getUser().uid);
+    store.getUserProfile(store.getUser().uid);
   })
   return (
     <div className="d-f fxd-c jc-c ai-c w-100pr h-100v">
@@ -21,7 +20,8 @@ const AccountPage = observer(() => {
         <section className="default-message mt+">
           <div className="current-message mt+ mb+">
             <h4 className="form-label">Your current default message</h4>
-            <p id="defaultMessageHolder"></p>
+            <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder"></p>
+
           </div>
           <form className="d-f fxd-c ai-fs">
             <div className="field-group">
@@ -32,7 +32,9 @@ const AccountPage = observer(() => {
             <div className="d-f jc-sb ai-c w-100pr">
               <p>From: Stories After Midnight</p>
 
-              <button className="btn btn-secondary" onClick={(e) => saveMessageHandler(e, defaultMessage, store.getUser().uid)}>Save Message</button>
+              <button className="btn btn-secondary" onClick={(e) => {
+                saveMessageHandler(e, defaultMessage, store.getUser().uid, setLoading);
+              }}>Save Message</button>
             </div>
           </form>
         </section>
@@ -41,24 +43,6 @@ const AccountPage = observer(() => {
   )
 });
 
-const getUserProfile = (uid) => {
-  const db = firebase.firestore();
-  const dfMsg = document.querySelector("#defaultMessageHolder");
-  
-  const profile = db.collection("users").doc(uid).get().then((doc) => {
-    if (doc.exists) {
-      dfMsg.innerHTML = doc.data().defaultMessage;
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-  })
-  .catch(function(error) {
-    console.log("Error getting document:", error);
-  });
-
-  return profile
-}
 
 const saveMessageHandler = (e, msg, userId) => {
   e.preventDefault();
