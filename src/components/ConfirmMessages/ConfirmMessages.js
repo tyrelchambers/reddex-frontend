@@ -7,8 +7,6 @@ export default function ConfirmMessages({data, index, setIndex}) {
   const [ defaultMessage, setDefaultMessage ] = useState(window.localStorage.getItem("default_message") ? window.localStorage.getItem("default_message") : "");
   const [ subject, setSubject ] = useState("");
   const store = useContext(UserStore);
-  const userId = store.getUser().uid;
-  const user = store.getUserProfile(userId);
   const mockUser = 'ChapStique43';
 
   useEffect(() => {

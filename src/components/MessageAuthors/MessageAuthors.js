@@ -13,16 +13,17 @@ const MessageAuthors = observer(({data, posts}) => {
   useEffect(() => {
     findPostsFromSelected(data, posts, setAuthorPosts);
   }, [data]);
-  
+
   return (
     <div className="message-author-box mt+ mb+">
-      <div className="message-author-box-header">
+      <div className="message-author-box-header d-f jc-sb ai-c">
         <h3>You've selected {data.length} authors to message.</h3>
+        <button className="btn btn-primary" onClick={() => modalStore.setIsOpen(true)}>Confirm Messages</button>
+
       </div>
 
-      <div className="message-author-body p-">
+      <div className="message-author-body p- d-f jc-c">
         <p className="subtle mt+ mb+">Confirming messages will open a pop-up that will walk you through each message to make sure it's correct. It will not send any messages.</p>
-        <button className="btn btn-primary" onClick={() => modalStore.setIsOpen(true)}>Confirm Messages</button>
       </div>
       <ConfirmModal 
         isOpen={modalStore.isOpen}
