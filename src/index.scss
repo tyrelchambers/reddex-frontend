@@ -152,3 +152,12 @@ ul {
 .lh-1-8 {
   line-height: 1.8em;
 }
+
+.btn-increment {
+  border: none;
+  padding: 0.5em;
+  border: 1px solid $grey9;
+  border-radius: 5px;
+  width: 70px;
+  background-color: $grey10;
+}
