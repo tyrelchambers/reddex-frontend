@@ -4,12 +4,15 @@ import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import SubredditPost from '../SubredditPost/SubredditPost';
+import MessageAuthors from '../MessageAuthors/MessageAuthors';
 
 const PostFetch = (props) => {
-  const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
+  const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
+  const [ selectedPosts, setSelectedPosts ] = useState([]);
+
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: ""
@@ -47,6 +50,7 @@ const PostFetch = (props) => {
         <button className="btn btn-primary" onClick={() => {
           setLoading(true);
           fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
+          setSelectedPosts([]);
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
 
@@ -63,6 +67,14 @@ const PostFetch = (props) => {
         <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit}</span></p>
       }
 
+      {selectedPosts.length > 0 &&
+        <MessageAuthors 
+          data={selectedPosts}
+          posts={posts}
+        />
+      } 
+
+
       <div>        
         {loading &&
           <Loading />
@@ -70,12 +82,18 @@ const PostFetch = (props) => {
 
         { (posts.length > 0 && !loading ) && 
           <ul className="post-list d-f ">
-            {posts.slice(0, 40).map((x, id) => {
+            {posts.slice(0, 40).map(x => {
               return(
-                <li key={id} className="d-f fxd-c  post">
+                <li 
+                  key={x.id} 
+                  className={`d-f fxd-c subreddit-post-parent post ${selectedPosts.includes(x.id.toString()) ? "active-post-select" : ""}`} 
+                  data-id={x.id}
+                  
+                >
                   <SubredditPost 
                     x={x}
                     setPosts={setPosts}
+                    onSelect={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
                   />
                 </li>
               )
@@ -88,7 +106,21 @@ const PostFetch = (props) => {
   
 }
 
-const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
+export const selectPost = (e, selectedPosts, setSelectedPosts) => {
+  const trg = e.target.closest(".subreddit-post-parent");
+  const post = trg.getAttribute('data-id');
+  let results = [...selectedPosts];
+
+  if (results.includes(post.toString())) {
+    results.splice(selectedPosts.indexOf(post), 1); 
+  } else {
+    results.push(post);
+  }
+
+  setSelectedPosts([...results]);
+}
+
+export const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
   if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
     return (
       <div className="select mr-">
@@ -108,11 +140,11 @@ const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
   return null;
 }
 
-const saveSubredditToSessionStorage = data => {
-  return window.sessionStorage.setItem(`subreddit`, data);
+export const saveSubredditToLocalStorage = data => {
+  return window.localStorage.setItem(`subreddit`, data);
 }
 
-const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
+export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim();
   let endpoint = "";
 
@@ -141,13 +173,13 @@ const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   posts.map(x => results.push(x.data));
   deletePostsCollection();
   saveToDatabase(posts);
-  saveSubredditToSessionStorage(subreddit);
+  saveSubredditToLocalStorage(subreddit);
   await setPosts([...results]);
   return setLoading(false);  
  
 }
 
-const saveToDatabase = async (posts) => {
+export const saveToDatabase = async (posts) => {
   const newPosts = []; 
   posts.map(x => newPosts.push(x.data));
   
@@ -165,13 +197,13 @@ const saveToDatabase = async (posts) => {
   });
 }
 
-const getPostsFromDatabase = async (setPosts) => {
+export const getPostsFromDatabase = async (setPosts) => {
   const db = window.db;
   const posts = await db.posts.toArray();
   return setPosts([...posts]);
 }
 
-const deletePostsCollection = () => {
+export const deletePostsCollection = () => {
   const db = window.db;
   db.posts.clear().then().catch();
 }

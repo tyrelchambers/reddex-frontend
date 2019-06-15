@@ -1,0 +1,73 @@
+@import '../../colours.scss';
+
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  padding-top: 3em;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(black, 0.9);
+  z-index: 2;
+}
+
+.modal-body {
+  background-color: white;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(black, 0.5);
+  height: 700px;
+  padding: 1em;
+}
+
+.close-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 2em;
+  right: 2em;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba($grey6, 0.2);
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: white;
+    color: $grey3;
+  }
+}
+
+.modal-inner-body {
+  height: 100%;
+
+  .arrow {
+    font-size: 1.8rem;
+    color: $grey7;
+  }
+}
+
+.increment {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+}
+
+.end-of-list {
+  height: 100%;
+
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2em;
+  }
+  i {
+    font-size: 5rem;
+    color: $green;
+  }
+}

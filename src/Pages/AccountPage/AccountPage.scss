@@ -1,0 +1,24 @@
+@import '../../colours.scss';
+
+.default-message-input {
+  font-family: 'Poppins', sans-serif;
+  width: 500px;
+  height: 300px;
+  border: 1px solid $grey8;
+  border-radius: 5px;
+  padding: 0.5em;
+  color: $grey4;
+  resize: vertical;
+
+  &::placeholder {
+    color: $grey7;
+  }
+}
+
+.default-message-holder {
+  white-space: pre-wrap;
+  background-color: $grey10;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: 1px solid $grey9;
+}
