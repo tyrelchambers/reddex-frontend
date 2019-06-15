@@ -50,6 +50,7 @@ const PostFetch = (props) => {
         <button className="btn btn-primary" onClick={() => {
           setLoading(true);
           fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
+          setSelectedPosts([]);
         }}><i className="fas fa-sync"></i> Get Posts</button>
       </div>
 
