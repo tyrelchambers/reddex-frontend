@@ -29,7 +29,7 @@ const PostFetch = (props) => {
   return (
     <section className="w-100pr">
       <div className="d-f post-fetch-header">
-        <div className="d-f ai-c w-100pr">
+        <div className="d-f ai-c w-100pr mobile-fetch-inputs">
           <input type="text" className="input mr-" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)}/>
           <div className="select mr-">
             <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, category: e.target.value})}>
