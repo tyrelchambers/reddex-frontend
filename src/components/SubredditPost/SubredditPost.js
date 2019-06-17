@@ -2,7 +2,7 @@ import React from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
-const SubredditPost = ({x, selectPost, onSelect}) => {
+const SubredditPost = ({x, selectPost, onClick}) => {
   
   return(
     <div>
@@ -16,10 +16,9 @@ const SubredditPost = ({x, selectPost, onSelect}) => {
         <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
 
       </div>
-
       <div className="d-f m- jc-sb post-actions">
         <div>
-          <button className="btn btn-select" onClick={onSelect}>
+          <button className="btn btn-select" onClick={onClick}>
             <i className="fas fa-check"></i>
           </button>
         </div>

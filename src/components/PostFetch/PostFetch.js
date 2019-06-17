@@ -93,7 +93,7 @@ const PostFetch = (props) => {
                   <SubredditPost 
                     x={x}
                     setPosts={setPosts}
-                    onSelect={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
+                    onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
                   />
                 </li>
               )
@@ -107,14 +107,14 @@ const PostFetch = (props) => {
 }
 
 export const selectPost = (e, selectedPosts, setSelectedPosts) => {
-  const trg = e.target.closest(".subreddit-post-parent");
-  const post = trg.getAttribute('data-id');
+  const trg = e.target.closest(".subreddit-post-parent").getAttribute('data-id');
+  //const post = trg.getAttribute('data-id');
   let results = [...selectedPosts];
 
-  if (results.includes(post.toString())) {
-    results.splice(selectedPosts.indexOf(post), 1); 
+  if (results.includes(trg.toString())) {
+    results.splice(selectedPosts.indexOf(trg), 1); 
   } else {
-    results.push(post);
+    results.push(trg);
   }
 
   setSelectedPosts([...results]);
@@ -195,6 +195,7 @@ export const saveToDatabase = async (posts) => {
       flair: x.link_flair_text
     });
   });
+  return true;
 }
 
 export const getPostsFromDatabase = async (setPosts) => {
