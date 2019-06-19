@@ -13,7 +13,8 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import AccountPage from './Pages/AccountPage/AccountPage';
 import firebase from './stores/FireStore';
 import Axios from 'axios';
-
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -21,16 +22,17 @@ const db = new Dexie("Reddex");
 
 window.db = db;
 db.version(1).stores({
-  posts: "++id, author, title, selftext, ups, url, num_comments, created"
+  posts: "++id, author, title, selftext, ups, url, num_comments, created",
+  authors: "++id, author"
 });
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  let token = false;
+  let token = false || JSON.parse(window.localStorage.getItem('reddit_tokens'));
   return (
     <Route
     {...rest}
     render={props =>
-      token ? (
+      token.token ? (
         <Component {...props} />
         ) : (
           <React.Fragment>
@@ -39,7 +41,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
                 pathname: "/signup",
                 state: { from: props.location }
               }}
-              />
+            />
           </React.Fragment>   
         )
       }
@@ -51,7 +53,7 @@ const renewRefreshToken = async () => {
   const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
   const token = JSON.parse(window.localStorage.getItem('reddit_tokens'));
 
-  if ( !token.access_token ) return null;
+  if ( !token || !token.access_token ) return null;
 
   await Axios.post('https://www.reddit.com/api/v1/access_token', 
     `grant_type=refresh_token&refresh_token=${token.refresh_token}`
@@ -87,12 +89,13 @@ const getCurrentAuthenticatedUser = (token) => {
 ReactDOM.render(
   <Router>  
     <Header />
+    <ToastContainer />
     <Switch>
       <Route exact path="/" component={App}/>
       <Route exact path="/about" component={About} />
       <Route exact path="/signup" component={SignupPage} />
       <Route exact path="/login" component={LoginPage} />
-      <Route exact path="/account" component={AccountPage} />
+      <PrivateRoute exact path="/account" component={AccountPage} />
     </Switch>
       
   </Router>, document.getElementById('root'),() => renewRefreshToken());

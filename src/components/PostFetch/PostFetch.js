@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './PostFetch.scss';
 import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import MessageAuthors from '../MessageAuthors/MessageAuthors';
+import UserStore from '../../stores/UserStore';
 
 const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
@@ -12,7 +13,7 @@ const PostFetch = (props) => {
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ selectedPosts, setSelectedPosts ] = useState([]);
-
+  const userStore = useContext(UserStore);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: ""
@@ -62,12 +63,12 @@ const PostFetch = (props) => {
           reloadPosts={reloadPosts}
         />
       }
-
+      
       {subreddit &&
-        <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit}</span></p>
+        <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit || window.localStorage.getItem('subreddit')}</span></p>
       }
 
-      {selectedPosts.length > 0 &&
+      {(selectedPosts.length > 0 && userStore.getUser()) &&
         <MessageAuthors 
           data={selectedPosts}
           posts={posts}
@@ -93,7 +94,7 @@ const PostFetch = (props) => {
                   <SubredditPost 
                     x={x}
                     setPosts={setPosts}
-                    onSelect={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
+                    onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
                   />
                 </li>
               )
@@ -107,14 +108,14 @@ const PostFetch = (props) => {
 }
 
 export const selectPost = (e, selectedPosts, setSelectedPosts) => {
-  const trg = e.target.closest(".subreddit-post-parent");
+  const trg = e.target.closest(".subreddit-post-parent").getAttribute('data-id');
   const post = trg.getAttribute('data-id');
   let results = [...selectedPosts];
 
-  if (results.includes(post.toString())) {
-    results.splice(selectedPosts.indexOf(post), 1); 
+  if (results.includes(trg.toString())) {
+    results.splice(selectedPosts.indexOf(trg), 1); 
   } else {
-    results.push(post);
+    results.push(trg);
   }
 
   setSelectedPosts([...results]);
@@ -195,6 +196,7 @@ export const saveToDatabase = async (posts) => {
       flair: x.link_flair_text
     });
   });
+  return true;
 }
 
 export const getPostsFromDatabase = async (setPosts) => {

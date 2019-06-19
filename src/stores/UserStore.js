@@ -74,6 +74,7 @@ class UserStore {
 
 decorate(UserStore, {
   user: observable,
+  loggedIn: observable,
   setUser: action
 });
 
