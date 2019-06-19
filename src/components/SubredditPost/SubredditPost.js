@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
+import UserStore from '../../stores/UserStore';
+
 const SubredditPost = ({x, selectPost, onSelect}) => {
-  
+  const userStore = useContext(UserStore);
+
   return(
     <div>
       <div className="d-f fxd-c w-100pr fx-1">
@@ -19,9 +22,11 @@ const SubredditPost = ({x, selectPost, onSelect}) => {
 
       <div className="d-f m- jc-sb post-actions">
         <div>
-          <button className="btn btn-select" onClick={onSelect}>
-            <i className="fas fa-check"></i>
-          </button>
+          {userStore.loggedIn && 
+            <button className="btn btn-select" onClick={onSelect}>
+              <i className="fas fa-check"></i>
+            </button>
+          }
         </div>
         <a href={x.url} className="btn-link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
         
