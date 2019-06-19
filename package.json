@@ -18,7 +18,8 @@
     "react-google-recaptcha": "^1.0.5",
     "react-paginate": "^6.3.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "react-toastify": "^5.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

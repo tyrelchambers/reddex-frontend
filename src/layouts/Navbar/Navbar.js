@@ -41,7 +41,7 @@ const Navbar = observer(() => {
               </li>
             </React.Fragment>
           }
-
+  {console.log(user)}
           {user !== null &&
             <React.Fragment>
               <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
