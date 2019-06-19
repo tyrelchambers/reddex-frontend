@@ -80,7 +80,7 @@ const SignupPage = observer((props) => {
 
   const askForRedditApproval = () => {
     const link = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.REACT_APP_REDDIT_APP_NAME}&response_type=code&state=storiesaftermidnightreddex&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup&duration=permanent&scope=privatemessages identity`;
-    window.open(link);
+    window.location.href = link;
   }
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
