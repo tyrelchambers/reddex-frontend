@@ -109,7 +109,7 @@ const PostFetch = (props) => {
 
 export const selectPost = (e, selectedPosts, setSelectedPosts) => {
   const trg = e.target.closest(".subreddit-post-parent").getAttribute('data-id');
-  //const post = trg.getAttribute('data-id');
+  const post = trg.getAttribute('data-id');
   let results = [...selectedPosts];
 
   if (results.includes(trg.toString())) {

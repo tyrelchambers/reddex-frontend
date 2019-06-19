@@ -6,7 +6,6 @@ import Dexie from 'dexie';
 import indexedDB from 'fake-indexeddb';
 
 configure({ adapter: new Adapter() });
-Dexie.dependencies.indexedDB = indexedDB;
 
 const mockPosts = [
   {
@@ -39,6 +38,21 @@ const mockPosts = [
 
 const mockPostsArray = [];
 
+beforeAll(() => {
+  const db = new Dexie("Reddex");
+  Dexie.dependencies.indexedDB = indexedDB;
+
+  window.db = db;
+  db.version(1).stores({
+    posts: "++id, author, title, selftext, ups, url, num_comments, created",
+    authors: "++id, author"
+  });
+});
+
+afterAll(() => {
+  db.posts.where('author').equals('wjyapp').delete();
+
+});
 
 describe("<PostFetch />", () => {
 
@@ -50,8 +64,10 @@ describe("<PostFetch />", () => {
   it("Saves posts to database", async () => {
     const save = await saveToDatabase(mockPosts);
     expect(save).toBeTruthy();
+    expect(save).not.toBeFalsy();
+    expect(save).not.toBeNull();
+    expect(save).not.toBeUndefined();
   });
-
 
   
 })

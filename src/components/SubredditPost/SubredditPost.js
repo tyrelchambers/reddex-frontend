@@ -4,7 +4,7 @@ import moment from 'moment';
 import './SubredditPost.scss';
 import UserStore from '../../stores/UserStore';
 
-const SubredditPost = ({x, selectPost, onSelect}) => {
+const SubredditPost = ({x, onClick}) => {
   const userStore = useContext(UserStore);
 
   return(
