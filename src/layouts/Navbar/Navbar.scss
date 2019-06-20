@@ -1,7 +1,6 @@
 @import '../../colours.scss';
 
 .nav-toggle {
-  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -19,7 +18,7 @@
 }
 
 .navbar {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   height: 100%;
@@ -53,10 +52,6 @@
       background-color: $grey10;
     }
   }
-}
-
-.nav-link.bdts-s {
-  border-color: $grey8;
 }
 
 .extended {

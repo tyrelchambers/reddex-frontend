@@ -1,5 +1,3 @@
-@import '../../colours.scss';
-
 .post-fetch-header {
   width: 100%;
   padding: 1em;
@@ -65,10 +63,33 @@
   border-top-color: #ccc;
 }
 
+.post {
+  width: 100%;
+  max-width: 300px;
+  height: 400px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 2px 3px rgba(black, 0.3);
+  margin-bottom: 1em;
+  overflow: hidden;
+  &:not(:last-child) {
+    margin-right: 1em;
+  }
+  .upvotes {
+    width: 100%;
+    color: white;
+    background: linear-gradient(319deg, rgba(92,189,214,1) 0%, rgba(87,46,222,1) 100%);
+    padding: 0.5em;
+  }
 
+  .title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: hsla(191, 41%, 34%,1);
+  }
+}
 
 .current-subreddit {
-  width: 100%;
   background-color: hsla(210, 29%, 29%,1);
   color: white;
   padding: 1em;
@@ -77,7 +98,16 @@
   font-weight: 700;
 }
 
+.publish-tag {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: hsla(211, 12%, 48%,1);
+}
 
+.post-list {
+  width: 100%;
+  flex-wrap: wrap;
+}
 
 @media screen and (max-width: 768px) {
   .current-subreddit {
@@ -109,6 +139,7 @@
     }
   }
 }
+
 @media screen and (max-width: 375px) {
   .mobile-fetch-inputs {
     flex-direction: column;
