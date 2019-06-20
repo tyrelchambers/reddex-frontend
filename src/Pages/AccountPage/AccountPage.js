@@ -11,6 +11,8 @@ const AccountPage = observer(() => {
   useEffect(() => {
     store.getUserProfile(store.getUser().uid);
   })
+
+  const DefaultMessage = () => defaultMessage ? <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">{defaultMessage}</p> : <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">No default message saved</p>
   return (
     <div className="d-f fxd-c jc-c ai-c w-100pr h-100v">
       <div className="wrapper d-f fxd-c ai-c">
@@ -20,8 +22,8 @@ const AccountPage = observer(() => {
         <section className="default-message mt+">
           <div className="current-message mt+ mb+">
             <h4 className="form-label">Your current default message</h4>
-            <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder"></p>
-
+            
+            <DefaultMessage />
           </div>
           <form className="d-f fxd-c ai-fs">
             <div className="field-group">

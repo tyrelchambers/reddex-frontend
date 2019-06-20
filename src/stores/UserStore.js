@@ -38,7 +38,7 @@ class UserStore {
         window.localStorage.setItem("default_message", doc.data().defaultMessage);
       } else {
           // doc.data() will be undefined in this case
-          console.log("No such document!");
+        return false;
       }
     })
     .catch(function(error) {
