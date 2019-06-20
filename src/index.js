@@ -14,6 +14,7 @@ import AccountPage from './Pages/AccountPage/AccountPage';
 import firebase from './stores/FireStore';
 import Axios from 'axios';
 import {ToastContainer} from 'react-toastify';
+import UserStore from './stores/UserStore';
 import 'react-toastify/dist/ReactToastify.css';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
@@ -27,12 +28,13 @@ db.version(1).stores({
 });
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  let token = false || JSON.parse(window.localStorage.getItem('reddit_tokens'));
+  const userStore = useContext(UserStore);
+  let token = (userStore.getUser());
   return (
     <Route
     {...rest}
     render={props =>
-      token.token ? (
+      token ? (
         <Component {...props} />
         ) : (
           <React.Fragment>

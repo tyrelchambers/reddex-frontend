@@ -1,4 +1,4 @@
-export const fieldValidation = ({ email, password, confirmPassword} = {}) => {
+export const fieldValidation = ({ email, password}) => {
   const errors = [];
 
   if ( !email ) {

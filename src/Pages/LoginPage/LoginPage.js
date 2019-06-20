@@ -11,9 +11,7 @@ export default function LoginPage() {
     password: ""
   });
 
-  const [ errors, setErrors ] = useState([]);
-  const userStore = useContext(UserStore);
-  
+  const [ errors, setErrors ] = useState([]);  
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }
@@ -22,7 +20,7 @@ export default function LoginPage() {
     e.preventDefault();
     const validation = fieldValidation(credentials);
   
-    if ( validation ) {
+    if ( !validation ) {
       return setErrors([...validation]);
     };
   

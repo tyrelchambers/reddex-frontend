@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import './PostFetch.scss';
+import '../PostFetchComp/PostFetchComp.scss';
 import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import MessageAuthors from '../MessageAuthors/MessageAuthors';
 import UserStore from '../../stores/UserStore';
+import PostFetchComp from '../PostFetchComp/PostFetchComp';
 
 const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
@@ -27,89 +28,60 @@ const PostFetch = (props) => {
     getPostsFromDatabase(setPosts);
   }, [reloadPosts]);
 
+  const Filters = () => subreddit ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
+  const MsgAuthorWrapper = () => (selectedPosts.length > 0 && userStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
+
+  const PostList = () => {
+    if ( posts.length > 0 && !loading ) {
+      return (
+        <ul className="post-list d-f ">
+          {posts.slice(0, 40).map(x => {
+            return(
+              <SubredditPost 
+                key={x.id} 
+                x={x}
+                setPosts={setPosts}
+                onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
+                selectedPosts={selectedPosts}
+              />
+            )
+          })}
+        </ul>
+      )
+    } else {
+      return null;
+    }
+  }
   return (
-    <section className="w-100pr">
-      <div className="d-f post-fetch-header">
-        <div className="d-f ai-c w-100pr mobile-fetch-inputs">
-          <input type="text" className="input mr-" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)}/>
-          <div className="select mr-">
-            <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, category: e.target.value})}>
-              <option value="hot" defaultValue>Hot</option>
-              <option value="new" >New</option>
-              <option value="controversial" >Controversial</option>
-              <option value="top" >Top</option>
-              <option value="rising" >Rising</option>
-            </select>
-            <div className="select__arrow"></div>
-          </div>
+    <React.Fragment>
+      <PostFetchComp 
+        subreddit={subreddit}
+        posts={posts}
+        setPosts={setPosts}
+        setLoading={setLoading}
+        categoryOptions={categoryOptions}
+        setCategoryOptions={setCategoryOptions}
+        setSubreddit={setSubreddit}
+        fetchPosts={fetchPosts}
+        setSelectedPosts={setSelectedPosts}
+      />
+      <Filters/>
+      {subreddit && <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit || window.localStorage.getItem('subreddit')}</span></p> }
+      <MsgAuthorWrapper />
 
-          <SubSelect
-            setCategoryOptions={setCategoryOptions}
-            categoryOptions={categoryOptions}
-          />
-        </div>
-        <button className="btn btn-primary" onClick={() => {
-          setLoading(true);
-          fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
-          setSelectedPosts([]);
-        }}><i className="fas fa-sync"></i> Get Posts</button>
-      </div>
-
-      {subreddit &&
-        <SubredditFilters 
-          setReloadPosts={setReloadPosts}
-          posts={posts}
-          setPosts={setPosts}
-          reloadPosts={reloadPosts}
-        />
-      }
-      
-      {subreddit &&
-        <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit || window.localStorage.getItem('subreddit')}</span></p>
+      {loading &&
+        <Loading />
       }
 
-      {(selectedPosts.length > 0 && userStore.getUser()) &&
-        <MessageAuthors 
-          data={selectedPosts}
-          posts={posts}
-        />
-      } 
-
-
-      <div>        
-        {loading &&
-          <Loading />
-        }
-
-        { (posts.length > 0 && !loading ) && 
-          <ul className="post-list d-f ">
-            {posts.slice(0, 40).map(x => {
-              return(
-                <li 
-                  key={x.id} 
-                  className={`d-f fxd-c subreddit-post-parent post ${selectedPosts.includes(x.id.toString()) ? "active-post-select" : ""}`} 
-                  data-id={x.id}
-                  
-                >
-                  <SubredditPost 
-                    x={x}
-                    setPosts={setPosts}
-                    onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
-                  />
-                </li>
-              )
-            })}
-          </ul>
-        }
-      </div>
-    </section>
+      <PostList />
+    
+    </React.Fragment>
   );
   
 }
 
 export const selectPost = (e, selectedPosts, setSelectedPosts) => {
   const trg = e.target.closest(".subreddit-post-parent").getAttribute('data-id');
-  const post = trg.getAttribute('data-id');
   let results = [...selectedPosts];
 
   if (results.includes(trg.toString())) {
