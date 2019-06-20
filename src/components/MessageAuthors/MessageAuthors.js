@@ -8,8 +8,6 @@ const MessageAuthors = observer(({data, posts}) => {
   const [authorPosts, setAuthorPosts] = useState([]);
   const modalStore = useContext(ModalStore)
 
-  const mockUser = 'ChapStique43';
-
   useEffect(() => {
     findPostsFromSelected(data, posts, setAuthorPosts);
   }, [data]);

@@ -7,7 +7,7 @@ import './AccountPage.scss';
 const AccountPage = observer(() => {
   const store = useContext(UserStore);
   const [ defaultMessage, setDefaultMessage ] = useState("");
-  const [ loading, setLoading ] = useState(true);
+  const [ , setLoading ] = useState(true);
   useEffect(() => {
     store.getUserProfile(store.getUser().uid);
   })

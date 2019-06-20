@@ -1,17 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ConfirmMessages.scss';
 import Axios from 'axios';
-import UserStore from '../../stores/UserStore';
 
 export default function ConfirmMessages({data, index, setIndex}) {
   const [ defaultMessage, setDefaultMessage ] = useState(window.localStorage.getItem("default_message") ? window.localStorage.getItem("default_message") : "");
   const [ subject, setSubject ] = useState("");
-  const store = useContext(UserStore);
   const mockUser = 'ChapStique43';
 
   useEffect(() => {
     setSubject(data.title);
-  });
+  }, [data.title]);
 
   useEffect(() => {
     setDefaultMessage(window.localStorage.getItem("default_message"));
