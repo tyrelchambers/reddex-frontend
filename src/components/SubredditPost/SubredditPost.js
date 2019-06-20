@@ -2,13 +2,17 @@ import React, { useContext } from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
+import '../PostFetchComp/PostFetchComp.scss'
 import UserStore from '../../stores/UserStore';
 
-const SubredditPost = ({x, onClick}) => {
+const SubredditPost = ({x, onClick, selectedPosts}) => {
   const userStore = useContext(UserStore);
 
   return(
-    <div>
+    <li 
+      className={`d-f fxd-c subreddit-post-parent post ${selectedPosts.includes(x.id.toString()) ? "active-post-select" : ""}`} 
+      data-id={x.id}
+    >
       <div className="d-f fxd-c w-100pr fx-1">
         <h1 className=" upvotes">
           <i className="fas fa-arrow-circle-up"></i>  {x.ups}
@@ -21,14 +25,16 @@ const SubredditPost = ({x, onClick}) => {
       </div>
       <div className="d-f m- jc-sb post-actions">
         <div>
-          <button className="btn btn-select" onClick={onClick}>
-            <i className="fas fa-check"></i>
-          </button>
+          {userStore.getUser() &&
+            <button className="btn btn-select" onClick={onClick}>
+              <i className="fas fa-check"></i>
+            </button>
+          }
         </div>
         <a href={x.url} className="btn-link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
         
       </div>
-    </div>
+    </li>
   );
 }
 
