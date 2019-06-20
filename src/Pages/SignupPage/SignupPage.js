@@ -94,7 +94,7 @@ const SignupPage = observer((props) => {
       <AltLoader />
     );
   } else {
-    return(
+    return (
       <div className="d-f jc-c ai-c w-100pr h-100v fxd-c">
         <div className="wrapper d-f fxd-c ai-c">
           <h1 className="mb+">Signup With Reddex</h1>

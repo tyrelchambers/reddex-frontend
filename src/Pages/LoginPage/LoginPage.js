@@ -1,8 +1,7 @@
-import React, {useState, useContext } from 'react'
+import React, {useState } from 'react'
 import LoginForm from '../../components/Forms/LoginForm';
 import {fieldValidation} from '../../helpers/FieldValidation';
 import firebase from 'firebase';
-import UserStore from '../../stores/UserStore';
 import { toast } from 'react-toastify';
 
 export default function LoginPage() {
@@ -26,7 +25,7 @@ export default function LoginPage() {
   
     const payload = credentials;
   
-    const user = await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).catch(err => {
+    await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).catch(err => {
       toast.error(err.message);
     });
   
