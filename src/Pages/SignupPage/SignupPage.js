@@ -7,6 +7,7 @@ import SignupForm from '../../components/Forms/SignupForm';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import AltLoader from '../../components/Loading/AltLoader';
+import { toast } from 'react-toastify';
 
 const SignupPage = observer((props) => {
   const [ credentials, setCredentials ] = useState({
@@ -17,7 +18,6 @@ const SignupPage = observer((props) => {
   const [ errors, setErrors ] = useState([]);
   const userStore = useContext(UserStore);
   const [ creationStatus, setCreationStatus ] = useState({
-    granted: false,
     triggered: false,
     loading: false
   });
@@ -37,7 +37,6 @@ const SignupPage = observer((props) => {
     const tempCreds = {
       ...credentials,
       triggered: true,
-      granted: false,
       loading: true
     }
   
@@ -58,6 +57,9 @@ const SignupPage = observer((props) => {
       setCreationStatus({...creationStatus, loading: true});
       userStore.getAccessToken(approvalStatus, createAccount);
     } 
+
+    if (!approvalStatus && (sessionStorage.triggered !== true && seshStorage !== null)) return toast.error("Permission not granted. Account not created")
+
   }
 
   const createAccount = async () => {
@@ -66,7 +68,7 @@ const SignupPage = observer((props) => {
       password: JSON.parse(window.sessionStorage.getItem("tempCreds")).password
     };
 
-    const user = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(res => res.user).catch(err => setErrors([...errors, err.message]));
+    const user = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(res => res.user).catch();
 
     if ( errors.length > 0 ) {
       return;
@@ -82,6 +84,7 @@ const SignupPage = observer((props) => {
     const link = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.REACT_APP_REDDIT_APP_NAME}&response_type=code&state=storiesaftermidnightreddex&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup&duration=permanent&scope=privatemessages identity`;
     window.location.href = link;
   }
+
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }
