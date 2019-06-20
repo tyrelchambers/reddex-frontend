@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import './PostFetch.scss';
+import React, { useState, useEffect, useContext } from 'react';
+import '../PostFetchComp/PostFetchComp.scss';
 import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import SubredditPost from '../SubredditPost/SubredditPost';
+import MessageAuthors from '../MessageAuthors/MessageAuthors';
+import UserStore from '../../stores/UserStore';
+import PostFetchComp from '../PostFetchComp/PostFetchComp';
 
 const PostFetch = (props) => {
-  const [subreddit, setSubreddit] = useState(window.sessionStorage.getItem('subreddit') ? window.sessionStorage.getItem('subreddit') : "");
+  const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
+  const [ selectedPosts, setSelectedPosts ] = useState([]);
+  const userStore = useContext(UserStore);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: ""
@@ -23,72 +28,72 @@ const PostFetch = (props) => {
     getPostsFromDatabase(setPosts);
   }, [reloadPosts]);
 
+  const Filters = () => subreddit ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
+  const MsgAuthorWrapper = () => (selectedPosts.length > 0 && userStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
+
+  const PostList = () => {
+    if ( posts.length > 0 && !loading ) {
+      return (
+        <ul className="post-list d-f ">
+          {posts.slice(0, 40).map(x => {
+            return(
+              <SubredditPost 
+                key={x.id} 
+                x={x}
+                setPosts={setPosts}
+                onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
+                selectedPosts={selectedPosts}
+              />
+            )
+          })}
+        </ul>
+      )
+    } else {
+      return null;
+    }
+  }
   return (
-    <section className="w-100pr">
-      <div className="d-f post-fetch-header">
-        <div className="d-f ai-c w-100pr mobile-fetch-inputs">
-          <input type="text" className="input mr-" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)}/>
-          <div className="select mr-">
-            <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, category: e.target.value})}>
-              <option value="hot" defaultValue>Hot</option>
-              <option value="new" >New</option>
-              <option value="controversial" >Controversial</option>
-              <option value="top" >Top</option>
-              <option value="rising" >Rising</option>
-            </select>
-            <div className="select__arrow"></div>
-          </div>
+    <React.Fragment>
+      <PostFetchComp 
+        subreddit={subreddit}
+        posts={posts}
+        setPosts={setPosts}
+        setLoading={setLoading}
+        categoryOptions={categoryOptions}
+        setCategoryOptions={setCategoryOptions}
+        setSubreddit={setSubreddit}
+        fetchPosts={fetchPosts}
+        setSelectedPosts={setSelectedPosts}
+      />
+      <Filters/>
+      {subreddit && <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit || window.localStorage.getItem('subreddit')}</span></p> }
+      <MsgAuthorWrapper />
 
-          <SubSelect
-            setCategoryOptions={setCategoryOptions}
-            categoryOptions={categoryOptions}
-          />
-        </div>
-        <button className="btn btn-primary" onClick={() => {
-          setLoading(true);
-          fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
-        }}><i className="fas fa-sync"></i> Get Posts</button>
-      </div>
-
-      {subreddit &&
-        <SubredditFilters 
-          setReloadPosts={setReloadPosts}
-          posts={posts}
-          setPosts={setPosts}
-          reloadPosts={reloadPosts}
-        />
+      {loading &&
+        <Loading />
       }
 
-      {subreddit &&
-        <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit}</span></p>
-      }
-
-      <div>        
-        {loading &&
-          <Loading />
-        }
-
-        { (posts.length > 0 && !loading ) && 
-          <ul className="post-list d-f ">
-            {posts.slice(0, 40).map((x, id) => {
-              return(
-                <li key={id} className="d-f fxd-c  post">
-                  <SubredditPost 
-                    x={x}
-                    setPosts={setPosts}
-                  />
-                </li>
-              )
-            })}
-          </ul>
-        }
-      </div>
-    </section>
+      <PostList />
+    
+    </React.Fragment>
   );
   
 }
 
-const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
+export const selectPost = (e, selectedPosts, setSelectedPosts) => {
+  const trg = e.target.closest(".subreddit-post-parent").getAttribute('data-id');
+  let results = [...selectedPosts];
+
+  if (results.includes(trg.toString())) {
+    results.splice(selectedPosts.indexOf(trg), 1); 
+  } else {
+    results.push(trg);
+  }
+
+  setSelectedPosts([...results]);
+}
+
+export const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
   if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
     return (
       <div className="select mr-">
@@ -108,11 +113,11 @@ const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
   return null;
 }
 
-const saveSubredditToSessionStorage = data => {
-  return window.sessionStorage.setItem(`subreddit`, data);
+export const saveSubredditToLocalStorage = data => {
+  return window.localStorage.setItem(`subreddit`, data);
 }
 
-const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
+export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim();
   let endpoint = "";
 
@@ -141,13 +146,13 @@ const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   posts.map(x => results.push(x.data));
   deletePostsCollection();
   saveToDatabase(posts);
-  saveSubredditToSessionStorage(subreddit);
+  saveSubredditToLocalStorage(subreddit);
   await setPosts([...results]);
   return setLoading(false);  
  
 }
 
-const saveToDatabase = async (posts) => {
+export const saveToDatabase = async (posts) => {
   const newPosts = []; 
   posts.map(x => newPosts.push(x.data));
   
@@ -163,15 +168,16 @@ const saveToDatabase = async (posts) => {
       flair: x.link_flair_text
     });
   });
+  return true;
 }
 
-const getPostsFromDatabase = async (setPosts) => {
+export const getPostsFromDatabase = async (setPosts) => {
   const db = window.db;
   const posts = await db.posts.toArray();
   return setPosts([...posts]);
 }
 
-const deletePostsCollection = () => {
+export const deletePostsCollection = () => {
   const db = window.db;
   db.posts.clear().then().catch();
 }

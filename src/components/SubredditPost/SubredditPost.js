@@ -1,27 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
-const SubredditPost = ({x}) => {
-  
+import '../PostFetchComp/PostFetchComp.scss'
+import UserStore from '../../stores/UserStore';
+
+const SubredditPost = ({x, onClick, selectedPosts}) => {
+  const userStore = useContext(UserStore);
+
   return(
-    <React.Fragment>
+    <li 
+      className={`d-f fxd-c subreddit-post-parent post ${selectedPosts.includes(x.id.toString()) ? "active-post-select" : ""}`} 
+      data-id={x.id}
+    >
       <div className="d-f fxd-c w-100pr fx-1">
         <h1 className=" upvotes">
           <i className="fas fa-arrow-circle-up"></i>  {x.ups}
         </h1>
-        <p className="title mt+ mb+ ml- mr-">{concatTitle(x.title)}</p>
+        <p className="title mt+ mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
         <p className="author m-- ml-"><i className="fas fa-user mr-"></i>{x.author}</p>
         <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
         <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
 
       </div>
-
-      <div className="d-f m- jc-fe post-actions">
-        <a href={x.url} className="link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
+      <div className="d-f m- jc-sb post-actions">
+        <div>
+          {userStore.getUser() &&
+            <button className="btn btn-select" onClick={onClick}>
+              <i className="fas fa-check"></i>
+            </button>
+          }
+        </div>
+        <a href={x.url} className="btn-link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
         
       </div>
-    </React.Fragment>
+    </li>
   );
 }
 
