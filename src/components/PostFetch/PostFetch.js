@@ -28,7 +28,7 @@ const PostFetch = (props) => {
     getPostsFromDatabase(setPosts);
   }, [reloadPosts]);
 
-  const Filters = () => subreddit ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
+  const Filters = () => posts ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
   const MsgAuthorWrapper = () => (selectedPosts.length > 0 && userStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
 
   const PostList = () => {
@@ -52,6 +52,7 @@ const PostFetch = (props) => {
       return null;
     }
   }
+  
   return (
     <React.Fragment>
       <PostFetchComp 
