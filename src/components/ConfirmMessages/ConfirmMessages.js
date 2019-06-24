@@ -16,7 +16,7 @@ export default function ConfirmMessages({data, index, setIndex}) {
   }, [data])
   return (
     <div className="confirm-messages-wrapper">
-      <h1 className="confirm-title">To: {data.author}</h1>
+      <h1 className="confirm-title" id="author" data-author={data.author}>To: {data.author}</h1>
 
       <div className="d-f fxd-c mt+">
         <div className="field-group">
@@ -38,7 +38,7 @@ export default function ConfirmMessages({data, index, setIndex}) {
   )
 }
 
-const sendMessageToAuthors = async (author, subject, message) => {
+export const sendMessageToAuthors = async (author, subject, message) => {
   const tokens = JSON.parse(window.localStorage.getItem('reddit_tokens')).access_token;
   const link = `https://oauth.reddit.com/api/compose`;
   const body = new FormData();
