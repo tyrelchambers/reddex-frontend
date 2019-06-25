@@ -103,9 +103,13 @@ ul {
 }
 
 .highlight-text {
-  color:hsla(55, 99%, 69%,1);
+  color:$blue7;
+  font-weight: bold;
 }
 
+.hidden {
+  display: none;
+}
 .error-text {
   color: $accent;
 }
