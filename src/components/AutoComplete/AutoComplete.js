@@ -15,7 +15,6 @@ const AutoComplete = ({subreddits, subreddit, setSubreddit, inputRef}) => {
   const handleClick = e => {
     if (ref.current.contains(e.target) || inputRef.current.contains(e.target)) {
       // inside click
-      console.log('true')
       return ref.current.classList.remove("hidden");
     } 
 
