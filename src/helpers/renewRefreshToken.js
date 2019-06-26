@@ -25,7 +25,7 @@ export const renewRefreshToken = async () => {
 }
 
 // called in renewRefreshToken
-const getCurrentAuthenticatedUser = (token) => {
+export const getCurrentAuthenticatedUser = (token) => {
 
   Axios.get('https://oauth.reddit.com/api/v1/me', {
     headers: {

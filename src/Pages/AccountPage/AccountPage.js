@@ -3,6 +3,8 @@ import { observer } from 'mobx-react-lite';
 import UserStore from '../../stores/UserStore';
 import firebase from 'firebase';
 import './AccountPage.scss';
+import Axios from 'axios';
+import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
 
 const AccountPage = observer(() => {
   const store = useContext(UserStore);
@@ -10,6 +12,7 @@ const AccountPage = observer(() => {
   const [ , setLoading ] = useState(true);
   useEffect(() => {
     store.getUserProfile(store.getUser().uid);
+    getCurrentAuthenticatedUser();
   })
 
   const DefaultMessage = () => defaultMessage ? <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">{defaultMessage}</p> : <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">No default message saved</p>

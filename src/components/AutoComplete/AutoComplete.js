@@ -26,7 +26,7 @@ const AutoComplete = ({subreddits, subreddit, setSubreddit, inputRef}) => {
 
   if( subreddits.length > 0 && subreddit.length > 2 ) {
     return(
-      <ul className="autocomplete-list" ref={ref}>
+      <ul className={`autocomplete-list`} ref={ref}>
         {subreddit.length > 2 && subreddits
         .filter(x => !subreddit || x.subreddit.includes(subreddit))
         .map(x=> {
