@@ -10,7 +10,7 @@ import AutoComplete from '../AutoComplete/AutoComplete';
       <div className="d-f post-fetch-header">
         <div className="d-f ai-c w-100pr mobile-fetch-inputs">
           <div className="w-100pr mr- pos-r">
-            <input type="text" className="input search-input" placeholder="subreddit" onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
+            <input type="text" className="input search-input" placeholder="subreddit" value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
              <AutoComplete 
               subreddits={subreddits}
               subreddit={subreddit}

@@ -9,7 +9,7 @@ import UserStore from '../../stores/UserStore';
 import PostFetchComp from '../PostFetchComp/PostFetchComp';
 
 const PostFetch = (props) => {
-  const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
+  const [subreddit, setSubreddit] = useState("");
   const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const PostFetch = (props) => {
         subreddits={subreddits}
       />
       <Filters/>
-      {subreddit && <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{window.localStorage.getItem('subreddit')}</span></p> }
+      <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{window.localStorage.getItem('subreddit') || null}</span></p>
       <MsgAuthorWrapper />
 
       {loading &&
