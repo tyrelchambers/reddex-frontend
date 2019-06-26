@@ -11,13 +11,11 @@ import SignupPage from './Pages/SignupPage/SignupPage';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import AccountPage from './Pages/AccountPage/AccountPage';
 import firebase from './stores/FireStore';
-import Axios from 'axios';
 import {ToastContainer} from 'react-toastify';
 import UserStore from './stores/UserStore';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSubreddits } from './helpers/getSubreddits';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
-import dateFns, {  differenceInCalendarMonths, differenceInMonths, differenceInSeconds } from 'date-fns';
 import AppLoader from './components/Loading/AppLoader';
 import db from './Database/Database';
 

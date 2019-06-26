@@ -1,4 +1,5 @@
 import React, { useEffect, useRef} from 'react'
+import './AutoComplete.scss';
 
 const AutoComplete = ({subreddits, subreddit, setSubreddit, inputRef}) => {
   const ref = useRef();
@@ -13,6 +14,8 @@ const AutoComplete = ({subreddits, subreddit, setSubreddit, inputRef}) => {
   }, []);
 
   const handleClick = e => {
+    if (!ref.current || !inputRef.current) return;
+
     if (ref.current.contains(e.target) || inputRef.current.contains(e.target)) {
       // inside click
       return ref.current.classList.remove("hidden");
@@ -21,15 +24,15 @@ const AutoComplete = ({subreddits, subreddit, setSubreddit, inputRef}) => {
     ref.current.classList.add("hidden")
    }
 
-  if( subreddits.length > 0 && subreddit ) {
+  if( subreddits.length > 0 && subreddit.length > 2 ) {
     return(
       <ul className="autocomplete-list" ref={ref}>
-        {subreddits
+        {subreddit.length > 2 && subreddits
         .filter(x => !subreddit || x.subreddit.includes(subreddit))
         .map(x=> {
           const indexOfText = x.subreddit.indexOf(subreddit);
           return (
-            <li className="autocomplete-item" onClick={() => setSubreddit(x.subreddit)}>
+            <li className="autocomplete-item" key={x.subreddit} onClick={() => setSubreddit(x.subreddit)}>
               <p>
                 {x.subreddit.substring(0, indexOfText)}
                 <span className="highlight-text">
