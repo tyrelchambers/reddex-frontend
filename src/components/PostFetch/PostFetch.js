@@ -10,6 +10,7 @@ import PostFetchComp from '../PostFetchComp/PostFetchComp';
 
 const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState(window.localStorage.getItem('subreddit') ? window.localStorage.getItem('subreddit') : "");
+  const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
@@ -22,6 +23,7 @@ const PostFetch = (props) => {
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
+    getSubredditsFromDatabase(setSubreddits);
   }, []);
 
   useEffect(() => {
@@ -65,9 +67,10 @@ const PostFetch = (props) => {
         setSubreddit={setSubreddit}
         fetchPosts={fetchPosts}
         setSelectedPosts={setSelectedPosts}
+        subreddits={subreddits}
       />
       <Filters/>
-      {subreddit && <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{subreddit || window.localStorage.getItem('subreddit')}</span></p> }
+      {subreddit && <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{window.localStorage.getItem('subreddit')}</span></p> }
       <MsgAuthorWrapper />
 
       {loading &&
@@ -181,6 +184,12 @@ export const getPostsFromDatabase = async (setPosts) => {
 export const deletePostsCollection = () => {
   const db = window.db;
   db.posts.clear().then().catch();
+}
+
+const getSubredditsFromDatabase = async (setSubreddits) => {
+  const db = window.db;
+  const subreddits = await db.subreddits.toArray();
+  return setSubreddits([...subreddits]);
 }
 
 
