@@ -62,7 +62,6 @@ const PostFetch = (props) => {
         loading={loading}
         setPosts={setPosts}
         selectedPosts={selectedPosts}
-        setSelectedPosts={setSelectedPosts}
         selectPost={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
       />
     

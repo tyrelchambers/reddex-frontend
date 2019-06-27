@@ -2,7 +2,7 @@ import React from 'react'
 import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
 
-export default function Posts({posts, loading, selectedPosts, setPosts, setSelectedPosts, selectPost}) {
+export default function Posts({posts, loading, selectedPosts, setPosts, selectPost}) {
   if ( posts.length > 0 && !loading ) {
     return (
       <ul className="post-list d-f ">
