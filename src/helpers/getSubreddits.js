@@ -1,9 +1,6 @@
 import Axios from 'axios'
-import dateFns, {  differenceInCalendarMonths, differenceInMonths, differenceInSeconds } from 'date-fns';
 
 export const getSubreddits = async () => {
-  console.log('called')
-
   let endpoint = "subreddits.json";
 
   const link = `https://www.reddit.com/${endpoint}`;

@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import UserStore from '../../stores/UserStore';
 import firebase from 'firebase';
 import './AccountPage.scss';
-import Axios from 'axios';
 import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
 
 const AccountPage = observer(() => {

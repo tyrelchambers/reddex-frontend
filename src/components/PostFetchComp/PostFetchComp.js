@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import './PostFetchComp.scss';
 import { SubSelect } from '../PostFetch/PostFetch';
 import AutoComplete from '../AutoComplete/AutoComplete';

@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './NewVisitor.scss';
-import { getSubreddits } from '../../helpers/getSubreddits';
-import AppLoader from '../Loading/AppLoader';
 
 export default function NewVisitor({setLoad, handleClick}) {
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
@@ -14,11 +14,8 @@ import firebase from './stores/FireStore';
 import {ToastContainer} from 'react-toastify';
 import UserStore from './stores/UserStore';
 import 'react-toastify/dist/ReactToastify.css';
-import { getSubreddits } from './helpers/getSubreddits';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
-import AppLoader from './components/Loading/AppLoader';
 import db from './Database/Database';
-import NewVisitor from './components/NewVisitor/NewVisitor';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
