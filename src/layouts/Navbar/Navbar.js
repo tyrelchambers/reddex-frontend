@@ -16,6 +16,9 @@ const Navbar = observer(() => {
     setUser(user);
   }, [])
 
+  const resetVisitorStatus = () =>{
+    window.localStorage.setItem("new_visitor", null);
+  }
   return(
     <React.Fragment>
       <div className="nav-toggle pos-a" onClick={() => setExtended(!extended)}>
@@ -30,6 +33,10 @@ const Navbar = observer(() => {
           </li>
           <li className="d-f ai-c nav-link">
             <Link to="/about" >What is Reddex?</Link>
+          </li>
+
+          <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
+            <Link to="#" onClick={resetVisitorStatus}>Reset Visitor Status</Link>
           </li>
           {user === null && 
             <React.Fragment>

@@ -18,6 +18,7 @@ import { getSubreddits } from './helpers/getSubreddits';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
 import AppLoader from './components/Loading/AppLoader';
 import db from './Database/Database';
+import NewVisitor from './components/NewVisitor/NewVisitor';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -49,22 +50,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 
 const InitalLoad = () => {
-  const [ load, setLoad ] = useState(false)
-
-  useEffect(() => {
-    if ( !window.localStorage.getItem("subreddit_date_pulled") ) {
-      setLoad(true);
-      getSubreddits().then(res => setLoad(false));
-    }
-  }, [])
-
-  if ( load ) {
-    return (
-      <AppLoader 
-        state="Grabbing Subreddits..."
-      />
-    );  
-  }
 
   return(
     <Router>  

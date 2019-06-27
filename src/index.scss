@@ -1,5 +1,6 @@
 @import './atomic/main.scss';
 @import './colours.scss';
+@import './assets/styles/animate.css';
 
 body {
   margin: 0;
@@ -121,7 +122,6 @@ ul {
 
 .subtle {
   width: 100%;
-  text-align: center;
   max-width: 600px;
   color: $grey7;
 }
@@ -145,6 +145,15 @@ ul {
   }
   i {
     margin: 0;
+  }
+}
+
+.btn-green {
+  background-color: $green;
+  color: white;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: darken($green, 5%);
   }
 }
 

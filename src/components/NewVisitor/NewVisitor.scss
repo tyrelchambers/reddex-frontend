@@ -1,0 +1,14 @@
+@import '../../colours.scss';
+
+.new-visitor-wrapper {
+  position: fixed;
+  bottom: 2em;
+  left: 32%;
+  background-color: white;
+  padding: 1em;
+  border: 2px solid $green;
+  border-radius: 10px;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0px 2px 10px rgba(black, 0.1);
+}

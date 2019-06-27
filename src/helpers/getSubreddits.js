@@ -32,7 +32,6 @@ export const deletePostsCollection = () => {
 
 
 const saveSubredditToDatabase = async (data) => {  
-  console.log(data)
   await data.map(x => {
     return window.db.subreddits.add({
       subreddit: x.data.display_name
