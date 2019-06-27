@@ -7,13 +7,13 @@ import { observer } from 'mobx-react-lite';
 const Navbar = observer(() => {
 
   const [extended, setExtended] = useState(false);
-  const [ user, setUser ] = useState({});
+  const [ user, setUser ] = useState();
   const extendedNav = extended ? "extended" : "";
   const userStore = useContext(UserStore);
   
   useEffect(() => {
-    let user = userStore.getUser();
-    setUser(user);
+    let user = userStore.getToken();
+    setUser(user ? true : false);
   }, [])
 
   const resetVisitorStatus = () =>{

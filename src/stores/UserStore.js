@@ -20,6 +20,14 @@ class UserStore {
     return this.currentUser;
   }
 
+  setToken(token) {
+    window.localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return window.localStorage.getItem('token');
+  }
+
   signOut() {
     firebase.auth().signOut().then(function() {
       window.location.pathname = "/";

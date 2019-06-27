@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import './ConfirmMessages.scss';
 import Axios from 'axios';
 
-export default function ConfirmMessages({data, index, setIndex}) {
-  const [ defaultMessage, setDefaultMessage ] = useState(window.localStorage.getItem("default_message") ? window.localStorage.getItem("default_message") : "");
+export default function ConfirmMessages({data, index, setIndex, userProfile}) {
+  const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
   const mockUser = 'ChapStique43';
 
@@ -12,8 +12,9 @@ export default function ConfirmMessages({data, index, setIndex}) {
   }, [data.title]);
 
   useEffect(() => {
-    setDefaultMessage(window.localStorage.getItem("default_message"));
-  }, [data])
+    setDefaultMessage(userProfile.defaultMessage);
+  }, [data]);
+
   return (
     <div className="confirm-messages-wrapper">
       <h1 className="confirm-title" id="author" data-author={data.author}>To: {data.author}</h1>
@@ -26,7 +27,7 @@ export default function ConfirmMessages({data, index, setIndex}) {
 
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">Your Default Message</label>
-          <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={e => setDefaultMessage(e.target.value)}></textarea>
+          <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
         </div>
 
         <button className="btn btn-primary" onClick={() => {
@@ -40,10 +41,12 @@ export default function ConfirmMessages({data, index, setIndex}) {
 
 export const sendMessageToAuthors = async (author, subject, message) => {
   const tokens = JSON.parse(window.localStorage.getItem('reddit_tokens')).access_token;
+  const fmtSubject = subject.length > 100 ? subject.slice(0, 97) + '...' : subject;
+
   const link = `https://oauth.reddit.com/api/compose`;
   const body = new FormData();
   body.set('to', `/u/${author}`);
-  body.set("subject", subject);
+  body.set("subject", fmtSubject);
   body.set("text", message);
 
   await Axios.post(link, body, {
@@ -52,7 +55,7 @@ export const sendMessageToAuthors = async (author, subject, message) => {
       "Content-Type": "application/x-www-form-urlencoded"
     }
   })
-  .then(console.log)
+  .then()
   .catch(console.log);
   
 }

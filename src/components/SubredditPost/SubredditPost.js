@@ -25,7 +25,7 @@ const SubredditPost = ({x, onClick, selectedPosts}) => {
       </div>
       <div className="d-f m- jc-sb post-actions">
         <div>
-          {userStore.getUser() &&
+          {userStore.getToken() &&
             <button className="btn btn-select" onClick={onClick}>
               <i className="fas fa-check"></i>
             </button>

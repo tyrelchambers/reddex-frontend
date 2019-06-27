@@ -3,14 +3,33 @@ import './ConfirmModal.scss';
 import { observer } from 'mobx-react-lite';
 import ModalStore from '../../stores/ModalStore';
 import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
+import Axios from 'axios';
+import UserStore from '../../stores/UserStore';
 
 const ConfirmModal = observer(({isOpen, data}) => {
   const modalStore = useContext(ModalStore);
+  const store = useContext(UserStore);
   const [ index, setIndex ] = useState(0);
+  const [ user, setUser ] = useState({
+    email: "",
+    defaultMessage: ""
+  });
 
   useEffect(() => {
     setIndex(0);
+    getUserProfile(store.getToken());
+    
   }, [isOpen]);
+
+  const getUserProfile = (token) => {
+    Axios.get('http://localhost:3001/api/profile/auth', {
+      headers: {
+        "token": token
+      }
+    })
+    .then(res => setUser({...res.data}))
+    .catch(console.log);
+  }
 
   if ( isOpen ) {
     return (
@@ -38,6 +57,8 @@ const ConfirmModal = observer(({isOpen, data}) => {
                   data={data[index]}
                   setIndex={setIndex}
                   index={index}
+                  userProfile={user}
+                  setUserProfile={(e) => setUser({...user, defaultMessage: e.target.value})}
                 />
                 
                 <div className="increment">

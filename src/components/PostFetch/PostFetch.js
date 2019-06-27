@@ -7,6 +7,7 @@ import SubredditPost from '../SubredditPost/SubredditPost';
 import MessageAuthors from '../MessageAuthors/MessageAuthors';
 import UserStore from '../../stores/UserStore';
 import PostFetchComp from '../PostFetchComp/PostFetchComp';
+import Posts from '../Posts/Posts';
 
 const PostFetch = (props) => {
   const [subreddit, setSubreddit] = useState("");
@@ -31,29 +32,8 @@ const PostFetch = (props) => {
   }, [reloadPosts]);
 
   const Filters = () => posts ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
-  const MsgAuthorWrapper = () => (selectedPosts.length > 0 && userStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
+  const MsgAuthorWrapper = () => (selectedPosts.length > 0 && userStore.getToken()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
 
-  const PostList = () => {
-    if ( posts.length > 0 && !loading ) {
-      return (
-        <ul className="post-list d-f ">
-          {posts.slice(0, 40).map(x => {
-            return(
-              <SubredditPost 
-                key={x.id} 
-                x={x}
-                setPosts={setPosts}
-                onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
-                selectedPosts={selectedPosts}
-              />
-            )
-          })}
-        </ul>
-      )
-    } else {
-      return null;
-    }
-  }
   
   return (
     <React.Fragment>
@@ -77,7 +57,14 @@ const PostFetch = (props) => {
         <Loading />
       }
 
-      <PostList />
+      <Posts 
+        posts={posts}
+        loading={loading}
+        setPosts={setPosts}
+        selectedPosts={selectedPosts}
+        setSelectedPosts={setSelectedPosts}
+        selectPost={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
+      />
     
     </React.Fragment>
   );

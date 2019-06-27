@@ -23,7 +23,7 @@ if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const userStore = useContext(UserStore);
-  let token = (userStore.getUser());
+  let token = (userStore.getToken());
   return (
     <Route
     {...rest}

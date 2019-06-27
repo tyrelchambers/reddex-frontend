@@ -1,25 +1,43 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { observer } from 'mobx-react-lite';
 import UserStore from '../../stores/UserStore';
-import firebase from 'firebase';
 import './AccountPage.scss';
-import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
+import Axios from 'axios';
 
 const AccountPage = observer(() => {
   const store = useContext(UserStore);
-  const [ defaultMessage, setDefaultMessage ] = useState("");
-  const [ , setLoading ] = useState(true);
-  useEffect(() => {
-    store.getUserProfile(store.getUser().uid);
-    getCurrentAuthenticatedUser();
-  })
+  const [ user, setUser ] = useState({
+    email: "",
+    defaultMessage: ""
+  });
 
-  const DefaultMessage = () => defaultMessage ? <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">{defaultMessage}</p> : <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">No default message saved</p>
+  const [ redditProfile, setRedditProfile ] = useState({});
+  
+  useEffect(() => {
+    getUserProfile(store.getToken());
+    const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
+
+    setRedditProfile({...profile});
+  }, []);
+
+  const getUserProfile = (token) => {
+    Axios.get('http://localhost:3001/api/profile/auth', {
+      headers: {
+        "token": token
+      }
+    })
+    .then(res => setUser({...res.data}))
+    .catch(console.log);
+  }
+
+  const DefaultMessage = () => user.defaultMessage ? <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">{user.defaultMessage}</p> : <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">No default message saved</p>
+  const Username = () => redditProfile.subreddit ? <p>From: <span className="highlight-text">{redditProfile.subreddit.display_name_prefixed}</span></p> : null;
+
   return (
     <div className="d-f fxd-c jc-c ai-c w-100pr h-100v">
       <div className="wrapper d-f fxd-c ai-c">
         <h1>Account</h1>
-        <h4 className="mt+">Your registered email: {store.getUser().email}</h4>
+        <h4 className="mt+">Your registered email: {user.email}</h4>
 
         <section className="default-message mt+">
           <div className="current-message mt+ mb+">
@@ -30,14 +48,14 @@ const AccountPage = observer(() => {
           <form className="d-f fxd-c ai-fs">
             <div className="field-group">
               <label htmlFor="defaultMessage" className="form-label">Your Default Message</label>
-              <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." onChange={e => setDefaultMessage(e.target.value)}></textarea>
+              <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." onChange={e => setUser({...user, defaultMessage: e.target.value})}></textarea>
             </div>
             
             <div className="d-f jc-sb ai-c w-100pr">
-              <p>From: Stories After Midnight</p>
+              <Username/>
 
               <button className="btn btn-secondary" onClick={(e) => {
-                saveMessageHandler(e, defaultMessage, store.getUser().uid, setLoading);
+                saveMessageHandler(e, user.defaultMessage, store.getToken());
               }}>Save Message</button>
             </div>
           </form>
@@ -47,17 +65,19 @@ const AccountPage = observer(() => {
   )
 });
 
-
-const saveMessageHandler = (e, msg, userId) => {
+const saveMessageHandler = (e, msg, token) => {
   e.preventDefault();
-  const db = firebase.firestore();
-
-  db.collection('users').doc(userId).set({
+  
+  Axios.post('http://localhost:3001/api/profile/default_message', {
     defaultMessage: msg
+  }, {
+    headers: {
+      token
+    }
   })
-  .then(() => {
-    window.location.reload(true);
-  });
+  .then(console.log)
+  .catch(console.log);
+
 }
 
 export default AccountPage;

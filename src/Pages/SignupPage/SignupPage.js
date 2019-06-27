@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import AltLoader from '../../components/Loading/AltLoader';
 import { toast } from 'react-toastify';
+import Axios from 'axios';
 
 const SignupPage = observer((props) => {
   const [ credentials, setCredentials ] = useState({
@@ -57,9 +58,6 @@ const SignupPage = observer((props) => {
       setCreationStatus({...creationStatus, loading: true});
       userStore.getAccessToken(approvalStatus, createAccount);
     } 
-
-    if (!approvalStatus && (sessionStorage.triggered !== true && seshStorage !== null)) return toast.error("Permission not granted. Account not created")
-
   }
 
   const createAccount = async () => {
@@ -68,8 +66,15 @@ const SignupPage = observer((props) => {
       password: JSON.parse(window.sessionStorage.getItem("tempCreds")).password
     };
 
-    const user = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(res => res.user).catch();
-
+    const user = await Axios.post('http://localhost:3001/api/auth/register', {
+      ...payload
+    })
+    .then(res => {
+      userStore.setToken(res.data.token);
+      return res.data.user;
+    })
+    .catch(console.log);
+  
     if ( errors.length > 0 ) {
       return;
     }
