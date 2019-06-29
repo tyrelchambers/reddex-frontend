@@ -1,30 +1,21 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SignupPage.scss';
-import UserStore from '../../stores/UserStore';
 import {fieldValidationSignup} from '../../helpers/FieldValidation';
 import SignupForm from '../../components/Forms/SignupForm';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import AltLoader from '../../components/Loading/AltLoader';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
+import { inject } from 'mobx-react';
 
-const SignupPage = observer((props) => {
+const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
     email: "",
     password: "",
     confirmPassword: ""
   });
   const [ errors, setErrors ] = useState([]);
-  const userStore = useContext(UserStore);
-  const [ creationStatus, setCreationStatus ] = useState({
-    triggered: false,
-    loading: false
-  });
-
-  useEffect(() => {
-    getParams();
-  }, [])
+  const [ approved, setApproved ] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -34,54 +25,37 @@ const SignupPage = observer((props) => {
       return setErrors([...validation]);
     };
 
-    const tempCreds = {
-      ...credentials,
-      triggered: true,
-      loading: true
-    }
-  
-    setCreationStatus({...creationStatus, loading: true});
-
-    window.sessionStorage.setItem('tempCreds', JSON.stringify(tempCreds));
-
-    askForRedditApproval();
-   
+    createAccount();
   }
+
+  useEffect(() => {
+    getParams();
+  }, [])
 
   const getParams = () => {
     const params = (new URL(window.location)).searchParams;
     const approvalStatus = params.get("code") ? params.get("code") : false;
-    const seshStorage = JSON.parse(window.sessionStorage.getItem('tempCreds'));
     
-    if ( approvalStatus !== false && seshStorage.triggered === true ) {
-      setCreationStatus({...creationStatus, loading: true});
-      userStore.getAccessToken(approvalStatus, createAccount);
+    if ( approvalStatus !== false ) {
+      UserStore.getAccessToken(approvalStatus);
+      setApproved(true);
     } 
   }
 
   const createAccount = async () => {
-    const payload = {
-      email: JSON.parse(window.sessionStorage.getItem("tempCreds")).email,
-      password: JSON.parse(window.sessionStorage.getItem("tempCreds")).password
-    };
-
+    const { email, password } = credentials;
     const user = await Axios.post('http://localhost:3001/api/auth/register', {
-      ...payload
+      email,
+      password
     })
     .then(res => {
-      userStore.setToken(res.data.token);
+      UserStore.setToken(res.data.token);
       return res.data.user;
     })
     .catch(console.log);
   
-    if ( errors.length > 0 ) {
-      return;
-    }
-    
-    userStore.setUser(user);   
-    window.sessionStorage.clear('tempCreds');
+    UserStore.setUser(user);   
     window.location.pathname = "/";
-    
   }
 
   const askForRedditApproval = () => {
@@ -93,26 +67,28 @@ const SignupPage = observer((props) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }
 
-  if ( creationStatus.loading ) {
-    return (
-      <AltLoader />
-    );
-  } else {
-    return (
-      <div className="d-f jc-c ai-c w-100pr h-100v fxd-c">
-        <div className="wrapper d-f fxd-c ai-c">
-          <h1 className="mb+">Signup With Reddex</h1>
-          <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. If you'd like to know why Reddex needs these permissions, please check out the <Link to="/faq">FAQ</Link>.</p>
+  return (
+    <div className="d-f jc-c ai-c w-100pr h-100v fxd-c">
+      <div className="wrapper d-f fxd-c ai-c">
+        <h1 className="mb+">Signup With Reddex</h1>
+        <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. If you'd like to know why Reddex needs these permissions, please check out the <Link to="/faq">FAQ</Link>.</p>
+ 
+        {approved &&
           <SignupForm 
             credentialHandler={credentialHandler}
             credentials={credentials}
             errors={errors}
             submitHandler={submitHandler}
           />
-        </div>
-      </div> 
-    );
-  }
-});
+        }
+
+        {!approved &&
+          <button className="btn btn-primary" onClick={askForRedditApproval}>Authenticate With Reddit</button>
+        }
+      </div>
+    </div> 
+  );
+  
+}));
 
 export default SignupPage;

@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
-import UserStore from '../../stores/UserStore';
 import { inject, observer } from 'mobx-react';
 
 const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore}) => {

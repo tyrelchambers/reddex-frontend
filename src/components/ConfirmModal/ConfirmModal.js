@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, {useState, useEffect } from 'react'
 import './ConfirmModal.scss';
 import { observer } from 'mobx-react-lite';
 import ModalStore from '../../stores/ModalStore';

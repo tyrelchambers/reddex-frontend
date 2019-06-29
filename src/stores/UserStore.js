@@ -38,7 +38,7 @@ class UserStore {
   }
 
 
-  getAccessToken = async (token, callback) => {
+  getAccessToken = async (token) => {
     const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
     await Axios.post('https://www.reddit.com/api/v1/access_token', 
       `grant_type=authorization_code&code=${token}&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup`
@@ -55,8 +55,6 @@ class UserStore {
       refresh_token: res.data.refresh_token
     })))
     .catch(console.log);
-
-    callback();
   }
 
   
