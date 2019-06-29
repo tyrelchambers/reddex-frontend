@@ -1,11 +1,10 @@
-import React, {useContext, useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { observer } from 'mobx-react-lite';
-import UserStore from '../../stores/UserStore';
 import './AccountPage.scss';
 import Axios from 'axios';
+import { inject } from 'mobx-react';
 
-const AccountPage = observer(() => {
-  const store = useContext(UserStore);
+const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
     email: "",
     defaultMessage: ""
@@ -14,7 +13,7 @@ const AccountPage = observer(() => {
   const [ redditProfile, setRedditProfile ] = useState({});
   
   useEffect(() => {
-    getUserProfile(store.getToken());
+    getUserProfile(UserStore.getToken());
     const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
 
     setRedditProfile({...profile});
@@ -34,7 +33,7 @@ const AccountPage = observer(() => {
   const Username = () => redditProfile.subreddit ? <p>From: <span className="highlight-text">{redditProfile.subreddit.display_name_prefixed}</span></p> : null;
 
   return (
-    <div className="d-f fxd-c jc-c ai-c w-100pr h-100v">
+    <div className="d-f fxd-c jc-c ai-c w-100pr h-100v animated fadeIn">
       <div className="wrapper d-f fxd-c ai-c">
         <h1>Account</h1>
         <h4 className="mt+">Your registered email: {user.email}</h4>
@@ -55,7 +54,7 @@ const AccountPage = observer(() => {
               <Username/>
 
               <button className="btn btn-secondary" onClick={(e) => {
-                saveMessageHandler(e, user.defaultMessage, store.getToken());
+                saveMessageHandler(e, user.defaultMessage, UserStore.getToken());
               }}>Save Message</button>
             </div>
           </form>
@@ -63,7 +62,7 @@ const AccountPage = observer(() => {
       </div>
     </div>
   )
-});
+}));
 
 const saveMessageHandler = (e, msg, token) => {
   e.preventDefault();

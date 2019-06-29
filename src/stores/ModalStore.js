@@ -1,5 +1,4 @@
 import { action,decorate, observable } from 'mobx';
-import { createContext} from 'react';
 
 class ModalStore {
   isOpen = false;
@@ -18,4 +17,4 @@ decorate(ModalStore, {
   setIsOpen: action
 });
 
-export default createContext(new ModalStore());
+export default new ModalStore();

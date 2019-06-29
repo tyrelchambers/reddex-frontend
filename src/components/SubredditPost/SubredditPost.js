@@ -4,9 +4,9 @@ import moment from 'moment';
 import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
 import UserStore from '../../stores/UserStore';
+import { inject, observer } from 'mobx-react';
 
-const SubredditPost = ({x, onClick, selectedPosts}) => {
-  const userStore = useContext(UserStore);
+const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore}) => {
 
   return(
     <li 
@@ -25,7 +25,7 @@ const SubredditPost = ({x, onClick, selectedPosts}) => {
       </div>
       <div className="d-f m- jc-sb post-actions">
         <div>
-          {userStore.getToken() &&
+          {UserStore.getToken() &&
             <button className="btn btn-select" onClick={onClick}>
               <i className="fas fa-check"></i>
             </button>
@@ -36,7 +36,7 @@ const SubredditPost = ({x, onClick, selectedPosts}) => {
       </div>
     </li>
   );
-}
+}));
 
 const concatTitle = title => {
   const str = title.length < 70 ? title : title.slice(0,70) + "...";

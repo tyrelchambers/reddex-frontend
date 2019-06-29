@@ -1,10 +1,13 @@
-import React, {useState } from 'react'
+import React, {useState, useContext } from 'react'
 import LoginForm from '../../components/Forms/LoginForm';
 import {fieldValidation} from '../../helpers/FieldValidation';
-import firebase from 'firebase';
 import { toast } from 'react-toastify';
+import Axios from 'axios';
+import { observer } from 'mobx-react-lite';
+import UserStore from '../../stores/UserStore';
+import { inject } from 'mobx-react';
 
-export default function LoginPage() {
+const LoginPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
     email: "",
     password: ""
@@ -22,22 +25,28 @@ export default function LoginPage() {
     if ( !validation ) {
       return setErrors([...validation]);
     };
-  
-    const payload = credentials;
-  
-    await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).catch(err => {
-      toast.error(err.message);
-    });
-  
+
     if ( errors.length > 0 ) {
       return;
     }
   
-    window.location.pathname = "/";
+    const payload = credentials;
+    
+    await Axios.post('http://localhost:3001/api/auth/login', {
+      ...payload
+    })
+    .then(res => {
+      UserStore.setToken(res.data);
+      window.location.pathname = "/";
+    })
+    .catch(err => toast.error(err.response.data));
+  
+   
+  
   }
   
   return (
-    <div className="d-f jc-c ai-c w-100pr h-100v fxd-c">
+    <div className="d-f jc-c ai-c w-100pr h-100v fxd-c animated fadeIn">
       <h1>Login to Reddex</h1>
       <LoginForm 
         credentialHandler={credentialHandler}
@@ -46,7 +55,6 @@ export default function LoginPage() {
       />
     </div>
   )
-}
+}));
 
-
-
+export default LoginPage;

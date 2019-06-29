@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
 import './SignupPage.scss';
-import firebase from 'firebase';
 import UserStore from '../../stores/UserStore';
 import {fieldValidationSignup} from '../../helpers/FieldValidation';
 import SignupForm from '../../components/Forms/SignupForm';

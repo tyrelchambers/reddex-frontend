@@ -3,10 +3,10 @@ import './MessageAuthors.scss';
 import { observer } from 'mobx-react-lite';
 import ModalStore from '../../stores/ModalStore';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { inject } from 'mobx-react';
 
-const MessageAuthors = observer(({data, posts}) => {
+const MessageAuthors = inject("ModalStore")(observer(({data, posts, ModalStore}) => {
   const [authorPosts, setAuthorPosts] = useState([]);
-  const modalStore = useContext(ModalStore)
 
   useEffect(() => {
     findPostsFromSelected(data, posts, setAuthorPosts);
@@ -16,7 +16,7 @@ const MessageAuthors = observer(({data, posts}) => {
     <div className="message-author-box mt+ mb+">
       <div className="message-author-box-header d-f jc-sb ai-c">
         <h3>You've selected {data.length} authors to message.</h3>
-        <button className="btn btn-primary" onClick={() => modalStore.setIsOpen(true)}>Confirm Messages</button>
+        <button className="btn btn-primary" onClick={() => ModalStore.setIsOpen(true)}>Confirm Messages</button>
 
       </div>
 
@@ -24,12 +24,12 @@ const MessageAuthors = observer(({data, posts}) => {
         <p className="subtle mt+ mb+">Confirming messages will open a pop-up that will walk you through each message to make sure it's correct. It will not send any messages.</p>
       </div>
       <ConfirmModal 
-        isOpen={modalStore.isOpen}
+        isOpen={ModalStore.isOpen}
         data={authorPosts}
       />
     </div>
   )
-})
+}));
 
 const findPostsFromSelected = (data, posts, setAuthorPosts) => {
   const results = [];

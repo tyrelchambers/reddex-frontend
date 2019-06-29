@@ -1,18 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
-import UserStore from '../../stores/UserStore';
-import { observer } from 'mobx-react-lite';
+import { inject, observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
-const Navbar = observer(() => {
-
+const Navbar = inject("UserStore")(observer(({UserStore}) => {
   const [extended, setExtended] = useState(false);
-  const [ user, setUser ] = useState();
+  const [ user, setUser ] = useState(false);
   const extendedNav = extended ? "extended" : "";
-  const userStore = useContext(UserStore);
   
   useEffect(() => {
-    let user = userStore.getToken();
+    let user = UserStore.getUser();
     setUser(user ? true : false);
   }, [])
 
@@ -38,7 +36,7 @@ const Navbar = observer(() => {
           <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
             <Link to="#" onClick={resetVisitorStatus}>Reset Visitor Status</Link>
           </li>
-          {user === null && 
+          {!user && 
             <React.Fragment>
               <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
                 <Link to="/signup" >Sign Up</Link>
@@ -49,13 +47,16 @@ const Navbar = observer(() => {
             </React.Fragment>
           }
 
-          {user !== null &&
+          {user &&
             <React.Fragment>
               <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
                 <Link to="/account">Account</Link>
               </li>
               <li className="d-f ai-c">
-                <Link to="/signout" onClick={() => userStore.signOut()}>Sign Out</Link>
+                <Link to="/" onClick={() => {
+                  setUser(false);
+                  UserStore.signOut()
+                }}>Sign Out</Link>
               </li>
             </React.Fragment>
           }
@@ -63,6 +64,6 @@ const Navbar = observer(() => {
       </nav>
     </React.Fragment>
   );
-});
+}));
 
 export default Navbar;

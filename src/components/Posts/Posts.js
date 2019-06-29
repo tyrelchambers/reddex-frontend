@@ -5,7 +5,7 @@ import SubredditPost from '../SubredditPost/SubredditPost';
 export default function Posts({posts, loading, selectedPosts, setPosts, selectPost}) {
   if ( posts.length > 0 && !loading ) {
     return (
-      <ul className="post-list d-f ">
+      <ul className="post-list d-f animated fadeIn">
         {posts.slice(0, 40).map(x => {
           return(
             <SubredditPost 
