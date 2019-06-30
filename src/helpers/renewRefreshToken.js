@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 export const renewRefreshToken = async () => {
   const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
-  const token = JSON.parse(window.localStorage.getItem('reddit_tokens'));
+  const token = await fetchTokens();
 
   if ( !token || !token.access_token ) return null;
 
@@ -34,4 +34,18 @@ export const getCurrentAuthenticatedUser = (token) => {
   })
   .then(res => window.localStorage.setItem('reddit_profile', JSON.stringify(res.data)))
   .catch(console.log);
+}
+
+const fetchTokens = async () => {
+  const token = window.localStorage.getItem("token");
+
+  const _ = await Axios.get("http://localhost:3001/api/auth/getTokens", {
+    headers: {
+      token
+    }
+  })
+  .then()
+  .catch();
+
+  return _;
 }

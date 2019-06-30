@@ -33,7 +33,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const Username = () => redditProfile.subreddit ? <p>From: <span className="highlight-text">{redditProfile.subreddit.display_name_prefixed}</span></p> : null;
 
   return (
-    <div className="d-f fxd-c jc-c ai-c w-100pr h-100v animated fadeIn">
+    <div className="d-f fxd-c jc-c ai-c w-100pr h-100v animated fadeIn faster">
       <div className="wrapper d-f fxd-c ai-c">
         <h1>Account</h1>
         <h4 className="mt+">Your registered email: {user.email}</h4>

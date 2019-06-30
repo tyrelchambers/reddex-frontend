@@ -1,5 +1,6 @@
 import { observable, action,decorate, toJS } from 'mobx';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 class UserStore {
@@ -40,7 +41,7 @@ class UserStore {
 
   getAccessToken = async (token) => {
     const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
-    await Axios.post('https://www.reddit.com/api/v1/access_token', 
+    const redditTokens = await Axios.post('https://www.reddit.com/api/v1/access_token', 
       `grant_type=authorization_code&code=${token}&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup`
 
     ,
@@ -50,14 +51,21 @@ class UserStore {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
-    .then(res => window.localStorage.setItem('reddit_tokens', JSON.stringify({
-      access_token: res.data.access_token,
-      refresh_token: res.data.refresh_token
-    })))
-    .catch(console.log);
-  }
+    .then(res => {
+      if (res.data.error) {
+        const url = new URL(window.location);
 
-  
+        url.searchParams.delete("code");
+        url.searchParams.delete("state");
+        return toast.error("Please re-authenticate");
+      };
+
+      return res.data;
+    })
+    .catch(console.log);
+
+    return redditTokens;
+  }
 }
 
 decorate(UserStore, {
