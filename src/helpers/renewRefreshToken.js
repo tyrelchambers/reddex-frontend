@@ -3,6 +3,7 @@ import Axios from 'axios';
 export const renewRefreshToken = async () => {
   const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
   const token = await fetchTokens();
+  const jwt = window.localStorage.getItem('token');
 
   if ( !token || !token.access_token ) return null;
 
@@ -15,10 +16,8 @@ export const renewRefreshToken = async () => {
     }
   })
   .then(res => {
-    window.localStorage.setItem('reddit_tokens', JSON.stringify({
-      ...token,
-      access_token: res.data.access_token
-    }));
+    console.log(res)
+    saveTokensToDb(res.data.access_token, res.refresh_token, jwt);
     getCurrentAuthenticatedUser(res.data.access_token);
   })
   .catch(console.log);
@@ -36,16 +35,29 @@ export const getCurrentAuthenticatedUser = (token) => {
   .catch(console.log);
 }
 
-const fetchTokens = async () => {
+export const fetchTokens = async () => {
   const token = window.localStorage.getItem("token");
 
-  const _ = await Axios.get("http://localhost:3001/api/auth/getTokens", {
+  const _ = await Axios.get("http://localhost:3001/api/tokens/getTokens", {
     headers: {
       token
     }
   })
-  .then()
+  .then(res => res.data)
   .catch();
 
   return _;
+}
+
+export const saveTokensToDb = async (access_token, refresh_token, token) => {
+  await Axios.post('http://localhost:3001/api/tokens/saveTokens', {
+    access_token,
+    refresh_token
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(console.log)
+  .catch(console.log);
 }

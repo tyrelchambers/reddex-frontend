@@ -21,7 +21,7 @@ class UserStore {
   }
 
   getUser = () => {
-    return toJS(this.currentUser);
+    return isEmpty(toJS(this.currentUser)) ? null : this.currentUser;
   }
 
   setToken(token) {
@@ -39,6 +39,7 @@ class UserStore {
 
 
   getAccessToken = async (token) => {
+    if (!token) return null;
     const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
     const redditTokens = await Axios.post('https://www.reddit.com/api/v1/access_token', 
       `grant_type=authorization_code&code=${token}&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup`
@@ -65,6 +66,14 @@ class UserStore {
 
     return redditTokens;
   }
+}
+
+function isEmpty(obj) {
+  for(var key in obj) {
+      if(obj.hasOwnProperty(key))
+          return false;
+  }
+  return true;
 }
 
 decorate(UserStore, {

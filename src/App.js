@@ -22,17 +22,20 @@ const App = observer(() => {
 
   const handleClick = (e, status) => {
     if ( status ) {
+      window.localStorage.setItem("pulled_subreddits", true)
       getSubreddits().then(res => setLoad(false));
+    } else {
+      window.localStorage.setItem("pulled_subreddits", false);
     }
 
     e.target.closest(".new-visitor-wrapper").classList.remove("fadeInUp");
     e.target.closest(".new-visitor-wrapper").classList.add("fadeOutDown");
 
-    window.localStorage.setItem("new_visitor", false)
+    window.localStorage.setItem("new_visitor", false);
   }
 
   return (
-    <div className="App w-100pr ml-a mr-a">
+    <div className="App w-100pr pl+ pr+ ml-a mr-a">
       <div className="mb- d-f fxd-c ai-c">
         <img src={reddexLogo} className='w-266px mb+' alt=""/>
         <h4 className="ta-c">Getting started:</h4>

@@ -174,3 +174,12 @@ ul {
   width: 70px;
   background-color: $grey10;
 }
+
+.simple-list {
+  li {
+    list-style-type: disc;
+    color: $grey5;
+    margin: 0.5em 0;
+    font-size: 1.2rem;
+  }
+}

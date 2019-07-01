@@ -48,7 +48,7 @@ const PostFetch = inject("UserStore")(observer(({UserStore}) => {
         subreddits={subreddits}
       />
       <Filters/>
-      <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{window.localStorage.getItem('subreddit') || null}</span></p>
+      <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{window.localStorage.getItem('subreddit')}</span></p>
       <MsgAuthorWrapper />
 
       {loading &&
