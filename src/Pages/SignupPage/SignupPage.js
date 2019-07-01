@@ -78,6 +78,23 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }
 
+  const Flow = () => {
+    if (!approved) {
+      return(
+        <button className="btn btn-primary" onClick={askForRedditApproval}>Authenticate With Reddit</button>
+      )
+    }
+
+    return (
+      <SignupForm 
+        credentialHandler={credentialHandler}
+        credentials={credentials}
+        errors={errors}
+        submitHandler={submitHandler}
+      />
+    )
+  }
+
   if ( UserStore.getUser() ) {
     return (
       <Redirect to="/"/>
@@ -89,18 +106,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
           <h1 className="mb+">Signup With Reddex</h1>
           <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. If you'd like to know why Reddex needs these permissions, please check out the <Link to="/faq">FAQ</Link>.</p>
    
-          {approved &&
-            <SignupForm 
-              credentialHandler={credentialHandler}
-              credentials={credentials}
-              errors={errors}
-              submitHandler={submitHandler}
-            />
-          }
-  
-          {!approved &&
-            <button className="btn btn-primary" onClick={askForRedditApproval}>Authenticate With Reddit</button>
-          }
+          <Flow />
         </div>
       </div> 
     );

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 
 class UserStore {
-  currentUser = null;
+  currentUser = {};
 
   setUser = async (token) => {
     const tkn = window.localStorage.getItem("token") || token;
@@ -17,7 +17,6 @@ class UserStore {
     })
     .then(res => res.data)
     .catch(console.log); 
-
     this.currentUser = user;
   }
 
