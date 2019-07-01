@@ -6,12 +6,12 @@ import { fetchTokens } from '../../helpers/renewRefreshToken';
 export default function ConfirmMessages({data, index, setIndex, userProfile}) {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
-  const mockUser = 'ChapStique43';
+  const mockUser = ['ChapStique43', 'storiesaftermidnight'];
 
   useEffect(() => {
     setSubject(data.title);
   }, [data.title]);
-
+  
   useEffect(() => {
     setDefaultMessage(userProfile.defaultMessage);
   }, [data]);

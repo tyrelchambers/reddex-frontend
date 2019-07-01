@@ -13,6 +13,21 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
     defaultMessage: ""
   });
 
+  const _ = [
+    {
+      data: {
+        title: "THIS IS A TITLE",
+        author: "ChapStique43"
+      }
+    },
+    {
+      data: {
+        title: "THIS IS A TITLE",
+        author: "StoriesAfterMidnight"
+      }
+    }
+  ]
+
   useEffect(() => {
     setIndex(0);
     getUserProfile(UserStore.getToken());
@@ -56,9 +71,9 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
                     </button>
                   }
                 </div>
-
+                {console.log(_)}
                 <ConfirmMessages 
-                  data={data[index]}
+                  data={_[index]}
                   setIndex={setIndex}
                   index={index}
                   userProfile={user}
