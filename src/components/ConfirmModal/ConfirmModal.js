@@ -1,21 +1,38 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, {useState, useEffect } from 'react'
 import './ConfirmModal.scss';
 import { observer } from 'mobx-react-lite';
 import ModalStore from '../../stores/ModalStore';
 import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
+import Axios from 'axios';
+import { inject } from 'mobx-react';
 
-const ConfirmModal = observer(({isOpen, data}) => {
-  const modalStore = useContext(ModalStore);
+const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, UserStore}) => {
   const [ index, setIndex ] = useState(0);
+  const [ user, setUser ] = useState({
+    email: "",
+    defaultMessage: ""
+  });
 
   useEffect(() => {
     setIndex(0);
+    getUserProfile(UserStore.getToken());
+    
   }, [isOpen]);
+
+  const getUserProfile = (token) => {
+    Axios.get('http://localhost:3001/api/profile/auth', {
+      headers: {
+        "token": token
+      }
+    })
+    .then(res => setUser({...res.data}))
+    .catch(console.log);
+  }
 
   if ( isOpen ) {
     return (
-      <div className="modal-wrapper">
-        <div className="close-modal" onClick={() => modalStore.setIsOpen(false)}>
+      <div className="modal-wrapper animated fadeIn faster">
+        <div className="close-modal" onClick={() => ModalStore.setIsOpen(false)}>
           <i className="fas fa-times"></i>
         </div>
 
@@ -38,6 +55,8 @@ const ConfirmModal = observer(({isOpen, data}) => {
                   data={data[index]}
                   setIndex={setIndex}
                   index={index}
+                  userProfile={user}
+                  setUserProfile={(e) => setUser({...user, defaultMessage: e.target.value})}
                 />
                 
                 <div className="increment">
@@ -61,7 +80,7 @@ const ConfirmModal = observer(({isOpen, data}) => {
   } else {
     return null;
   }
-});
+}));
 
 const EndOfList = () => {
   return (

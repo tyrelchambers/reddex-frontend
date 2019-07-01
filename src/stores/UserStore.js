@@ -1,56 +1,46 @@
-import { observable, action,decorate } from 'mobx';
-import firebase from 'firebase';
-import { createContext} from 'react';
+import { observable, action,decorate, toJS } from 'mobx';
 import Axios from 'axios';
-class UserStore {
-  currentUser = JSON.parse(window.localStorage.getItem('user'));
+import { toast } from 'react-toastify';
 
-  setUser(user) {
-    window.localStorage.setItem('user', JSON.stringify(user));
-  }
- 
-  getUser() {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        window.localStorage.setItem('user', JSON.stringify(user));
-      } else {
-        window.localStorage.removeItem('user'); 
+
+class UserStore {
+  currentUser = {};
+
+  setUser = async (token) => {
+    const tkn = window.localStorage.getItem("token") || token;
+    if ( !tkn ) return null;
+    
+    const user = await Axios.get('http://localhost:3001/api/profile/auth', {
+      headers: {
+        "token":tkn
       }
-    });
-    return this.currentUser;
+    })
+    .then(res => res.data)
+    .catch(console.log); 
+    this.currentUser = user;
+  }
+
+  getUser = () => {
+    return toJS(this.currentUser);
+  }
+
+  setToken(token) {
+    window.localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return window.localStorage.getItem('token');
   }
 
   signOut() {
-    firebase.auth().signOut().then(function() {
-      window.location.pathname = "/";
-    }).catch(function(error) {
-      console.log(error);
-    });
+    this.currentUser = {};
+    return window.localStorage.removeItem("token");
   }
 
-  getUserProfile = (uid) => {
-    const db = firebase.firestore();
-    const dfMsg = document.querySelector("#defaultMessageHolder");
-    
-    const profile = db.collection("users").doc(uid).get().then((doc) => {
-      if (doc.exists) {
-        dfMsg.innerHTML = doc.data().defaultMessage;
-        window.localStorage.setItem("default_message", doc.data().defaultMessage);
-      } else {
-          // doc.data() will be undefined in this case
-        return false;
-      }
-    })
-    .catch(function(error) {
-      console.log("Error getting document:", error);
-    });
-  
-    return profile
-  }
 
-  getAccessToken = async (token, callback) => {
+  getAccessToken = async (token) => {
     const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
-    await Axios.post('https://www.reddit.com/api/v1/access_token', 
+    const redditTokens = await Axios.post('https://www.reddit.com/api/v1/access_token', 
       `grant_type=authorization_code&code=${token}&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup`
 
     ,
@@ -60,22 +50,27 @@ class UserStore {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
-    .then(res => window.localStorage.setItem('reddit_tokens', JSON.stringify({
-      access_token: res.data.access_token,
-      refresh_token: res.data.refresh_token
-    })))
+    .then(res => {
+      if (res.data.error) {
+        const url = new URL(window.location);
+
+        url.searchParams.delete("code");
+        url.searchParams.delete("state");
+        return toast.error("Please re-authenticate");
+      };
+
+      return res.data;
+    })
     .catch(console.log);
 
-    callback();
+    return redditTokens;
   }
-
-  
 }
 
 decorate(UserStore, {
-  user: observable,
+  currentUser: observable,
   loggedIn: observable,
   setUser: action
 });
 
-export default createContext(new UserStore());
+export default new UserStore();

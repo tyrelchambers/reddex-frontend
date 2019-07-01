@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../PostFetchComp/PostFetchComp.scss';
 import Axios from 'axios';
 import Loading from '../Loading/Loading';
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
-import SubredditPost from '../SubredditPost/SubredditPost';
 import MessageAuthors from '../MessageAuthors/MessageAuthors';
-import UserStore from '../../stores/UserStore';
 import PostFetchComp from '../PostFetchComp/PostFetchComp';
+import Posts from '../Posts/Posts';
+import { inject, observer } from 'mobx-react';
 
-const PostFetch = (props) => {
+const PostFetch = inject("UserStore")(observer(({UserStore}) => {
   const [subreddit, setSubreddit] = useState("");
   const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ selectedPosts, setSelectedPosts ] = useState([]);
-  const userStore = useContext(UserStore);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: ""
@@ -31,29 +30,8 @@ const PostFetch = (props) => {
   }, [reloadPosts]);
 
   const Filters = () => posts ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
-  const MsgAuthorWrapper = () => (selectedPosts.length > 0 && userStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
+  const MsgAuthorWrapper = () => (selectedPosts.length > 0 && UserStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
 
-  const PostList = () => {
-    if ( posts.length > 0 && !loading ) {
-      return (
-        <ul className="post-list d-f ">
-          {posts.slice(0, 40).map(x => {
-            return(
-              <SubredditPost 
-                key={x.id} 
-                x={x}
-                setPosts={setPosts}
-                onClick={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
-                selectedPosts={selectedPosts}
-              />
-            )
-          })}
-        </ul>
-      )
-    } else {
-      return null;
-    }
-  }
   
   return (
     <React.Fragment>
@@ -77,12 +55,18 @@ const PostFetch = (props) => {
         <Loading />
       }
 
-      <PostList />
+      <Posts 
+        posts={posts}
+        loading={loading}
+        setPosts={setPosts}
+        selectedPosts={selectedPosts}
+        selectPost={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
+      />
     
     </React.Fragment>
   );
   
-}
+}));
 
 export const selectPost = (e, selectedPosts, setSelectedPosts) => {
   const trg = e.target.closest(".subreddit-post-parent").getAttribute('data-id');

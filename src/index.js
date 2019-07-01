@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
@@ -10,25 +10,24 @@ import About from './Pages/About/About';
 import SignupPage from './Pages/SignupPage/SignupPage';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import AccountPage from './Pages/AccountPage/AccountPage';
-import firebase from './stores/FireStore';
 import {ToastContainer} from 'react-toastify';
 import UserStore from './stores/UserStore';
+import ModalStore from './stores/ModalStore';
+import SubredditStore from './stores/SubredditStore';
 import 'react-toastify/dist/ReactToastify.css';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
+import { Provider } from 'mobx-react';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
-
-
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const userStore = useContext(UserStore);
-  let token = (userStore.getUser());
+  let user = rest.userStore.getUser();
   return (
     <Route
     {...rest}
     render={props =>
-      token ? (
+      user ? (
         <Component {...props} />
         ) : (
           <React.Fragment>
@@ -45,28 +44,34 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 }
 
+const stores = {
+  UserStore,
+  ModalStore,
+  SubredditStore
+}
 
-const InitalLoad = () => {
-
+const InitalLoad = () => { 
+  stores.UserStore.setUser();
   return(
-    <Router>  
-      <Header />
-      <ToastContainer />
-      <Switch>
-        <Route exact path="/" component={App}/>
-        <Route exact path="/about" component={About} />
-        <Route exact path="/signup" component={SignupPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <PrivateRoute exact path="/account" component={AccountPage} />
-      </Switch>
-        
-    </Router>
+    <Provider {...stores}>
+      <Router>  
+        <Header />
+        <ToastContainer />
+        <Switch>
+          <Route exact path="/" component={App}/>
+          <Route exact path="/about" component={About} />
+          <Route exact path="/signup" component={SignupPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <PrivateRoute exact path="/account" component={AccountPage} userStore={stores.UserStore}/>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
 ReactDOM.render(
   <InitalLoad />
-  , document.getElementById('root'),() => renewRefreshToken());
+  , document.getElementById('root'),() => window.localStorage.token ? renewRefreshToken() : null);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
