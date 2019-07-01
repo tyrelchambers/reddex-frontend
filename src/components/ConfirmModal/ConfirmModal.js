@@ -16,7 +16,7 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
   useEffect(() => {
     setIndex(0);
     getUserProfile(UserStore.getToken());
-    
+   
   }, [isOpen]);
 
   const getUserProfile = (token) => {
@@ -30,9 +30,15 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
   }
 
   if ( isOpen ) {
+    document.body.style.height = "100vh";
+    document.body.style.overflow = "hidden";
     return (
       <div className="modal-wrapper animated fadeIn faster">
-        <div className="close-modal" onClick={() => ModalStore.setIsOpen(false)}>
+        <div className="close-modal" onClick={() => {
+          document.body.style.height = null;
+          document.body.style.overflow = null;
+          ModalStore.setIsOpen(false)}
+        }>
           <i className="fas fa-times"></i>
         </div>
 
