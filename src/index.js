@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
@@ -51,7 +51,10 @@ const stores = {
 }
 
 const InitalLoad = () => { 
-  stores.UserStore.setUser();
+  useEffect(() => {
+    stores.UserStore.setUser();
+  }, [])
+
   return(
     <Provider {...stores}>
       <Router>  
@@ -71,7 +74,7 @@ const InitalLoad = () => {
 
 ReactDOM.render(
   <InitalLoad />
-  , document.getElementById('root'),() => renewRefreshToken());
+  , document.getElementById('root'),() => window.localStorage.getItem("token") ? renewRefreshToken() : null);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

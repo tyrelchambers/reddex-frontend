@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import './ConfirmMessages.scss';
 import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
+import { toast } from 'react-toastify';
 
 export default function ConfirmMessages({data, index, setIndex, userProfile}) {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
-  const mockUser = 'ChapStique43';
+  const mockUser = ['ChapStique43', 'storiesaftermidnight'];
 
   useEffect(() => {
     setSubject(data.title);
@@ -32,7 +33,7 @@ export default function ConfirmMessages({data, index, setIndex, userProfile}) {
         </div>
 
         <button className="btn btn-primary" onClick={() => {
-          sendMessageToAuthors(mockUser, subject, defaultMessage, index, setIndex);
+          sendMessageToAuthors(data.author, subject, defaultMessage, index, setIndex);
         }} >Message Author</button>
       </div>
     </div>
@@ -42,7 +43,6 @@ export default function ConfirmMessages({data, index, setIndex, userProfile}) {
 export const sendMessageToAuthors = async (author, subject, message, index, setIndex) => {
   const tokens = await fetchTokens();
   const fmtSubject = subject;
-  console.log(tokens);
   const link = `https://oauth.reddit.com/api/compose`;
   const body = new FormData();
   body.set('to', `/u/${author}`);
@@ -55,7 +55,10 @@ export const sendMessageToAuthors = async (author, subject, message, index, setI
       "Content-Type": "application/x-www-form-urlencoded"
     }
   })
-  .then(res => setIndex(index + 1))
+  .then(res => {
+    toast.success(`Message sent to ${author}`)
+    setIndex(index + 1);
+  })
   .catch(console.log);
   
 }
