@@ -19,7 +19,6 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
   }
   return(
     <React.Fragment>
-      {console.log(user.length)}
       <div className="nav-toggle pos-a" onClick={() => setExtended(!extended)}>
         <span className="toggle-line"></span>
         <span className="toggle-line"></span>

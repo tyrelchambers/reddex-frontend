@@ -59,7 +59,6 @@ class UserStore {
         url.searchParams.delete("state");
         return toast.error("Please re-authenticate");
       };
-
       return res.data;
     })
     .catch(console.log);

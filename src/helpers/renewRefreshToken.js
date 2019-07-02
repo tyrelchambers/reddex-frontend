@@ -16,8 +16,7 @@ export const renewRefreshToken = async () => {
     }
   })
   .then(res => {
-    console.log(res)
-    saveTokensToDb(res.data.access_token, res.refresh_token, jwt);
+    saveTokensToDb(res.data.access_token, token.refresh_token, jwt);
     getCurrentAuthenticatedUser(res.data.access_token);
   })
   .catch(console.log);

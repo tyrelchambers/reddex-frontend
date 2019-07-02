@@ -15,16 +15,16 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
 
   const _ = [
     {
-      data: {
+    
         title: "THIS IS A TITLE",
         author: "ChapStique43"
-      }
+      
     },
     {
-      data: {
+     
         title: "THIS IS A TITLE",
-        author: "StoriesAfterMidnight"
-      }
+      author: "StoriesAfterMidnight"
+      
     }
   ]
 
@@ -71,7 +71,7 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
                     </button>
                   }
                 </div>
-                {console.log(_)}
+
                 <ConfirmMessages 
                   data={_[index]}
                   setIndex={setIndex}
