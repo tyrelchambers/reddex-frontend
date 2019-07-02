@@ -7,3 +7,10 @@
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (max-width: 375px) {
+  .App {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+}

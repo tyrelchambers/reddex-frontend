@@ -11,6 +11,7 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
   const resetVisitorStatus = () =>{
     window.localStorage.setItem("new_visitor", null);
   }
+
   return(
     <React.Fragment>
       <div className="nav-toggle pos-a" onClick={() => setExtended(!extended)}>
@@ -21,22 +22,22 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
       <nav className={"navbar " + extendedNav}>
         <ul>
           <li className="d-f ai-c nav-link">
-            <Link to="/" >Home</Link>
+            <Link onClick={() => setExtended(false)} to="/" >Home</Link>
           </li>
           <li className="d-f ai-c nav-link">
-            <Link to="/about" >What is Reddex?</Link>
+            <Link onClick={() => setExtended(false)} to="/about" >What is Reddex?</Link>
           </li>
 
           <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-            <Link to="#" onClick={resetVisitorStatus}>Reset Visitor Status</Link>
+            <Link onClick={() => setExtended(false)} to="#" onClick={resetVisitorStatus}>Reset Visitor Status</Link>
           </li>
           {!UserStore.getUser() && 
             <React.Fragment>
               <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-                <Link to="/signup" >Sign Up</Link>
+                <Link onClick={() => setExtended(false)} to="/signup" >Sign Up</Link>
               </li>
               <li className="d-f ai-c nav-link">
-                <Link to="/login" >Login</Link>
+                <Link onClick={() => setExtended(false)} to="/login" >Login</Link>
               </li>
             </React.Fragment>
           }
@@ -44,10 +45,10 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
           {UserStore.getUser() &&
             <React.Fragment>
               <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-                <Link to="/account">Account</Link>
+                <Link onClick={() => setExtended(false)} to="/account">Account</Link>
               </li>
               <li className="d-f ai-c">
-                <Link to="/" onClick={() => {
+                <Link onClick={() => setExtended(false)} to="/" onClick={() => {
                   UserStore.signOut()
                 }}>Sign Out</Link>
               </li>
