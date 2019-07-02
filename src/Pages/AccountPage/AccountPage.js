@@ -29,7 +29,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
     .catch(console.log);
   }
 
-  const DefaultMessage = () => user.defaultMessage ? <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">{user.defaultMessage}</p> : <p className="mw-500 lh-1-8 mt+ default-message-holder" id="defaultMessageHolder">No default message saved</p>
+  const DefaultMessage = () => user.defaultMessage ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{user.defaultMessage}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No default message saved</p>
   const Username = () => redditProfile.subreddit ? <p>From: <span className="highlight-text">{redditProfile.subreddit.display_name_prefixed}</span></p> : null;
 
   return (
