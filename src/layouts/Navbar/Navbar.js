@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import { inject, observer } from 'mobx-react';
-import { toJS } from 'mobx';
 
 const Navbar = inject("UserStore")(observer(({UserStore}) => {
   const [extended, setExtended] = useState(false);
