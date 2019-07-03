@@ -20,3 +20,13 @@
 .message-author-message {
   white-space: pre-wrap;
 }
+
+@media screen and (max-width: 552px) {
+  .message-author-box-header {
+    flex-direction: column;
+
+    .btn {
+      margin-top: 2em;
+    }
+  }
+}
