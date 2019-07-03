@@ -41,24 +41,25 @@ export default function ConfirmMessages({data, index, setIndex, userProfile}) {
 }
 
 export const sendMessageToAuthors = async (author, subject, message, index, setIndex) => {
-  const tokens = await fetchTokens();
-  const fmtSubject = subject;
-  const link = `https://oauth.reddit.com/api/compose`;
-  const body = new FormData();
-  body.set('to', `/u/${author}`);
-  body.set("subject", fmtSubject);
-  body.set("text", message);
+  alert(`Message sent to ${author}`);
+  // const tokens = await fetchTokens();
+  // const fmtSubject = subject;
+  // const link = `https://oauth.reddit.com/api/compose`;
+  // const body = new FormData();
+  // body.set('to', `/u/${author}`);
+  // body.set("subject", fmtSubject);
+  // body.set("text", message);
 
-  await Axios.post(link, body, {
-    headers: {
-      "Authorization": `bearer ${tokens.access_token}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  })
-  .then(res => {
-    toast.success(`Message sent to ${author}`)
-    setIndex(index + 1);
-  })
-  .catch(console.log);
+  // await Axios.post(link, body, {
+  //   headers: {
+  //     "Authorization": `bearer ${tokens.access_token}`,
+  //     "Content-Type": "application/x-www-form-urlencoded"
+  //   }
+  // })
+  // .then(res => {
+  //   toast.success(`Message sent to ${author}`)
+  //   setIndex(index + 1);
+  // })
+  // .catch(console.log);
   
 }
