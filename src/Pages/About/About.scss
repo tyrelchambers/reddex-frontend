@@ -1,8 +1,9 @@
 .about-wrapper {
   width: 100%;
   max-width: 900px;
-  height: 100vh;
-
+  min-height: 100vh;
+  height: 100%;
+  padding: 0 1em;
   h1 {
     font-size: 3rem;
     margin-bottom: 2em;
@@ -17,8 +18,10 @@
 
 @media screen and (max-width:425px) {
   .about-wrapper {
+    margin-top: 5em;
     h1 {
       font-size: 10vw;
+      text-align: center;
     }
 
     p {

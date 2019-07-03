@@ -64,3 +64,10 @@
 .extended {
   transform: translateX(0);
 }
+
+@media screen and (max-width: 584px) {
+  .close-modal {
+    top: 1em ;
+    right: 1em ;
+  }
+}

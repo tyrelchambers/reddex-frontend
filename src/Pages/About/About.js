@@ -9,7 +9,7 @@ const About = (props) => {
 
       <div className="mt+ d-f fxd-c ai-c">
         <h1>Reddex can help you:</h1>
-        <ul className="simple-list">
+        <ul className="simple-list pl-">
           <li>Find the best of Reddit</li>
           <li>Quickly link to Reddit posts for fast discovery</li>
           <li>Message multiple OPs right from Reddex</li>
