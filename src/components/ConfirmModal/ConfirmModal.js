@@ -35,7 +35,7 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
   }, [isOpen]);
 
   const getUserProfile = (token) => {
-    Axios.get('http://localhost:3001/api/profile/auth', {
+    Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/auth`, {
       headers: {
         "token": token
       }

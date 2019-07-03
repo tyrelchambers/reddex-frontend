@@ -20,7 +20,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   }, []);
 
   const getUserProfile = (token) => {
-    Axios.get('http://localhost:3001/api/profile/auth', {
+    Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/auth`, {
       headers: {
         "token": token
       }
@@ -67,7 +67,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
 const saveMessageHandler = (e, msg, token) => {
   e.preventDefault();
   
-  Axios.post('http://localhost:3001/api/profile/default_message', {
+  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/default_message`, {
     defaultMessage: msg
   }, {
     headers: {

@@ -10,7 +10,7 @@ class UserStore {
     const tkn = window.localStorage.getItem("token") || token;
     if ( !tkn ) return null;
     
-    const user = await Axios.get('http://localhost:3001/api/profile/auth', {
+    const user = await Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/auth`, {
       headers: {
         "token":tkn
       }
