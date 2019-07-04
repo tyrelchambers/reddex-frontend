@@ -151,7 +151,7 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
 const inviteHandler = async (e, setFlow, flow, invite) => {
   e.preventDefault();
 
-  await Axios.get(`${process.env.REACT_APP_BACKEND}/api/invites`, {
+  await Axios.get(`${process.env.REACT_APP_BACKEND}/api/invites/confirmInvite`, {
     params: {
       inviteCode: invite
     }
