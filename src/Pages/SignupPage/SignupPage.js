@@ -157,10 +157,8 @@ const inviteHandler = async (e, setFlow, flow, invite) => {
     }
   })
   .then(res => {
-    if ( res.status === 200 ) {
-      window.sessionStorage.setItem('invite', invite);
-      setFlow(flow + 1);
-    }
+    window.sessionStorage.setItem('invite', invite);
+    setFlow(flow + 1);
   })
   .catch(console.log);
   
