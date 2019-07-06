@@ -157,16 +157,11 @@ const inviteHandler = async (e, setFlow, flow, invite) => {
     }
   })
   .then(res => {
-<<<<<<< HEAD
     if ( res.status === 200 ) {
       toast.success("Token Valid")
       window.sessionStorage.setItem('invite', invite);
       setFlow(flow + 1);
     }
-=======
-    window.sessionStorage.setItem('invite', invite);
-    setFlow(flow + 1);
->>>>>>> bcf89eedc2e327821c9a2019a6546eede8d63247
   })
   .catch(console.log);
   
