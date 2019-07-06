@@ -42,9 +42,13 @@ export default function ConfirmMessages({data, index, setIndex, userProfile}) {
 
 export const sendMessageToAuthors = async (author, subject, message, index, setIndex) => {
   alert(`Message sent to ${author}`);
-  // const tokens = await fetchTokens();
+
+  // const tokens = await fetchTokens().catch(err => return false);
   // const fmtSubject = subject;
   // const link = `https://oauth.reddit.com/api/compose`;
+
+  //if (!tokens || !fmtSubject || !author) return toast.error("Something went wrong");
+
   // const body = new FormData();
   // body.set('to', `/u/${author}`);
   // body.set("subject", fmtSubject);
