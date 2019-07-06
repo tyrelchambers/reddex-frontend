@@ -37,7 +37,7 @@ export const getCurrentAuthenticatedUser = (token) => {
 export const fetchTokens = async () => {
   const token = window.localStorage.getItem("token");
 
-  const _ = await Axios.get("http://localhost:3001/api/tokens/getTokens", {
+  const _ = await Axios.get(`${process.env.REACT_APP_BACKEND}/api/tokens/getTokens`, {
     headers: {
       token
     }
@@ -49,7 +49,7 @@ export const fetchTokens = async () => {
 }
 
 export const saveTokensToDb = async (access_token, refresh_token, token) => {
-  await Axios.post('http://localhost:3001/api/tokens/saveTokens', {
+  await Axios.post(`${process.env.REACT_APP_BACKEND}/api/tokens/saveTokens`, {
     access_token,
     refresh_token
   }, {

@@ -56,7 +56,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const createAccount = async () => {
     const { email, password, access_token, refresh_token } = credentials;
     const inviteCode = window.sessionStorage.getItem("invite");
-    const user = await Axios.post('http://localhost:3001/api/auth/register', {
+    const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/register`, {
       email,
       password,
       access_token,
@@ -151,17 +151,22 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
 const inviteHandler = async (e, setFlow, flow, invite) => {
   e.preventDefault();
 
-  await Axios.get('http://localhost:3001/api/invites', {
+  await Axios.get(`${process.env.REACT_APP_BACKEND}/api/invites/confirmInvite`, {
     params: {
       inviteCode: invite
     }
   })
   .then(res => {
+<<<<<<< HEAD
     if ( res.status === 200 ) {
       toast.success("Token Valid")
       window.sessionStorage.setItem('invite', invite);
       setFlow(flow + 1);
     }
+=======
+    window.sessionStorage.setItem('invite', invite);
+    setFlow(flow + 1);
+>>>>>>> bcf89eedc2e327821c9a2019a6546eede8d63247
   })
   .catch(console.log);
   

@@ -31,7 +31,7 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
   
     const payload = credentials;
     
-    await Axios.post('http://localhost:3001/api/auth/login', {
+    await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
       ...payload
     })
     .then(res => {
