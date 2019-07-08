@@ -13,25 +13,12 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
     defaultMessage: ""
   });
 
-  const _ = [
-    {
-    
-        title: "THIS IS A TITLE",
-        author: "ChapStique43"
-      
-    },
-    {
-     
-        title: "THIS IS A TITLE",
-      author: "StoriesAfterMidnight"
-      
-    }
-  ]
+  const [ postData, setPostData ] = useState([]);
 
   useEffect(() => {
     setIndex(0);
     getUserProfile(UserStore.getToken());
-   
+    setPostData([...data]);
   }, [isOpen]);
 
   const getUserProfile = (token) => {
@@ -45,7 +32,8 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
   }
 
   if ( isOpen ) {
-    document.body.style.height = "100vh";
+    document.body.style.height = "100%";
+    document.body.style.minHeight = "100vh";
     document.body.style.overflow = "hidden";
     return (
       <div className="modal-wrapper animated fadeIn faster">
@@ -58,7 +46,7 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
         </div>
 
         <div className="modal-body">
-          {index < data.length && 
+          {index < postData.length && 
             <React.Fragment>
               <h3 className="ta-c">Confirm Messages</h3>
 
@@ -73,15 +61,19 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
                 </div>
 
                 <ConfirmMessages 
-                  data={_[index]}
+                  data={data[index]}
                   setIndex={setIndex}
                   index={index}
                   userProfile={user}
                   setUserProfile={(e) => setUser({...user, defaultMessage: e.target.value})}
+                  removeMessagedAuthor={() => {
+                    removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
+                    setIndex(0);
+                  }}
                 />
                 
                 <div className="increment">
-                  {index < data.length - 1 &&
+                  {index < postData.length - 1 &&
                     <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index + 1)}>
                       <p>Next</p>
                       <i className="fas fa-chevron-circle-right arrow mt-"></i>
@@ -92,7 +84,7 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
             </React.Fragment>
           }    
 
-          {index === data.length && 
+          {index === postData.length && 
             <EndOfList />
           }
         </div>
@@ -102,6 +94,12 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
     return null;
   }
 }));
+
+const removeMessagedAuthor = (list, index, set_) => {
+  const data = [...list];
+  data.splice(index, 1);
+  return set_([...data]);
+}
 
 const EndOfList = () => {
   return (

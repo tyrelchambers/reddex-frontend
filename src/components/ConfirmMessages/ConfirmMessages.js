@@ -4,10 +4,9 @@ import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import { toast } from 'react-toastify';
 
-export default function ConfirmMessages({data, index, setIndex, userProfile}) {
+export default function ConfirmMessages({data, index, setIndex, userProfile, removeMessagedAuthor}) {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
-  const mockUser = ['ChapStique43', 'storiesaftermidnight'];
 
   useEffect(() => {
     setSubject(data.title);
@@ -33,37 +32,37 @@ export default function ConfirmMessages({data, index, setIndex, userProfile}) {
         </div>
 
         <button className="btn btn-primary" onClick={() => {
-          sendMessageToAuthors(data.author, subject, defaultMessage, index, setIndex);
+          sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
         }} >Message Author</button>
       </div>
     </div>
   )
 }
 
-export const sendMessageToAuthors = async (author, subject, message, index, setIndex) => {
-  alert(`Message sent to ${author}`);
+export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor) => {
+  const tokens = await fetchTokens().catch(err => false);
+  const fmtSubject = subject;
+  const link = `https://oauth.reddit.com/api/compose`;
 
-  // const tokens = await fetchTokens().catch(err => return false);
-  // const fmtSubject = subject;
-  // const link = `https://oauth.reddit.com/api/compose`;
+  if (!tokens || !author) return toast.error("Something went wrong");
+  if (!message ) return toast.error("A messaged is needed to send");
+  if ( !fmtSubject ) return toast.error("A subejct is needed");
 
-  //if (!tokens || !fmtSubject || !author) return toast.error("Something went wrong");
+  const body = new FormData();
+  body.set('to', `/u/${author}`);
+  body.set("subject", fmtSubject);
+  body.set("text", message);
 
-  // const body = new FormData();
-  // body.set('to', `/u/${author}`);
-  // body.set("subject", fmtSubject);
-  // body.set("text", message);
-
-  // await Axios.post(link, body, {
-  //   headers: {
-  //     "Authorization": `bearer ${tokens.access_token}`,
-  //     "Content-Type": "application/x-www-form-urlencoded"
-  //   }
-  // })
-  // .then(res => {
-  //   toast.success(`Message sent to ${author}`)
-  //   setIndex(index + 1);
-  // })
-  // .catch(console.log);
+  await Axios.post(link, body, {
+    headers: {
+      "Authorization": `bearer ${tokens.access_token}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+  .then(res => {
+    toast.success(`Message sent to ${author}`)
+    removeMessagedAuthor();
+  })
+  .catch(console.log);
   
 }
