@@ -24,7 +24,7 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
       </div>
       <div className="d-f m- jc-sb post-actions">
         <div>
-          {UserStore.getToken() &&
+          {UserStore.getUser() &&
             <button className="btn btn-select" onClick={onClick}>
               <i className="fas fa-check"></i>
             </button>

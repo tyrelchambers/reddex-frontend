@@ -57,6 +57,6 @@ export const saveTokensToDb = async (access_token, refresh_token, token) => {
       token
     }
   })
-  .then(console.log)
+  .then()
   .catch(console.log);
 }
