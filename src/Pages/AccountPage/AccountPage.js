@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import './AccountPage.scss';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
+import { toast } from 'react-toastify';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
@@ -74,8 +75,11 @@ const saveMessageHandler = (e, msg, token) => {
       token
     }
   })
-  .then(console.log)
-  .catch(console.log);
+  .then(res => toast.success("Message saved") )
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
 
 }
 

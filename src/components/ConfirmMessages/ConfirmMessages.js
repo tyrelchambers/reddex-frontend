@@ -7,20 +7,26 @@ import { toast } from 'react-toastify';
 export default function ConfirmMessages({data, index, setIndex, userProfile, removeMessagedAuthor}) {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
+  const [ redditProfile, setRedditProfile ] = useState({});
 
   useEffect(() => {
     setSubject(data.title);
+    const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
+
+    setRedditProfile({...profile});
   }, [data.title]);
 
   useEffect(() => {
     setDefaultMessage(userProfile.defaultMessage);
   }, [data]);
 
+  const Username = () => redditProfile.subreddit ? <h4 className="mt-">From: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
+
   return (
     <div className="confirm-messages-wrapper">
       <h1 className="confirm-title" id="author" data-author={data.author}>To: {data.author}</h1>
-
-      <div className="d-f fxd-c mt+">
+      <Username/>
+      <div className="d-f fxd-c">
         <div className="field-group">
           <label htmlFor="subject" className="form-label" >Subject</label>
           <input type="text" className="form-input" placeholder="Enter a subject" name="subject" value={subject.length > 100 ? subject.slice(0, 97) + '...' : subject} onChange={(e) => setSubject(e.target.value)}/>
