@@ -73,29 +73,29 @@ export const saveAuthorToDb = async (author, postId)=> {
 }
 
 export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor) => {
-  // const tokens = await fetchTokens().catch(err => false);
-  // const fmtSubject = subject;
-  // const link = `https://oauth.reddit.com/api/compose`;
+  const tokens = await fetchTokens().catch(err => false);
+  const fmtSubject = subject;
+  const link = `https://oauth.reddit.com/api/compose`;
 
-  // if (!tokens || !author) return toast.error("Something went wrong");
-  // if (!message ) return toast.error("A messaged is needed to send");
-  // if ( !fmtSubject ) return toast.error("A subejct is needed");
+  if (!tokens || !author) return toast.error("Something went wrong");
+  if (!message ) return toast.error("A messaged is needed to send");
+  if ( !fmtSubject ) return toast.error("A subejct is needed");
 
-  // const body = new FormData();
-  // body.set('to', `/u/${author}`);
-  // body.set("subject", fmtSubject);
-  // body.set("text", message);
+  const body = new FormData();
+  body.set('to', `/u/${author}`);
+  body.set("subject", fmtSubject);
+  body.set("text", message);
 
-  // await Axios.post(link, body, {
-  //   headers: {
-  //     "Authorization": `bearer ${tokens.access_token}`,
-  //     "Content-Type": "application/x-www-form-urlencoded"
-  //   }
-  // })
-  // .then(res => {
-  //   toast.success(`Message sent to ${author}`)
-  //   removeMessagedAuthor();
-  // })
-  // .catch(console.log);
+  await Axios.post(link, body, {
+    headers: {
+      "Authorization": `bearer ${tokens.access_token}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+  .then(res => {
+    toast.success(`Message sent to ${author}`)
+    removeMessagedAuthor();
+  })
+  .catch(console.log);
   
 }
