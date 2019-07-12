@@ -17,3 +17,14 @@
     @extend .active-tab;
   }
 }
+
+@media screen and (max-width: 372px) {
+  .account-subnav {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      margin: 1em 0.5em;
+    }
+  }
+}

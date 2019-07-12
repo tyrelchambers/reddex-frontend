@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './AccountSubnav.scss';
 const AccountSubnav = () => {
   return (
-    <ul className="d-f ai-c mt+">
+    <ul className="d-f ai-c mt+ account-subnav">
       <li className="mr-">
         <NavLink to="/account/default_message" className="nav-tab" activeClassName="active-tab">
           Default Message
