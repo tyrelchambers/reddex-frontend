@@ -105,3 +105,21 @@
 .self-harm-flair {
   color: $yellow7;
 }
+
+.has-been-used {
+  .upvotes {
+    background-color: $green;
+  }
+}
+
+.has-been-used-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background-color: darken($green, 5%);
+  padding: 0.5em;
+  border-radius: 5px;
+  
+  p {
+    color: white;
+  }
+}
