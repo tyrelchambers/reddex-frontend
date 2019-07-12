@@ -20,7 +20,9 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
         <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
         <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
         <p className="publish-tag m-- ml- sub-detail"> <i className="fas fa-history mr-"></i>{dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
-
+        <Flair 
+          data={x.flair}
+        />
       </div>
       <div className="d-f m- jc-sb post-actions">
         <div>
@@ -36,6 +38,23 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
     </li>
   );
 }));
+
+const Flair = ({data}) => {
+  if ( !data ) return null;
+
+  const flair = {
+    "Series": <p className="ml- mt- mr- post-flair series-flair ">Series</p>,
+    "Self Harm": <p className="ml- mt- mr- post-flair self-harm-flair">Self Harm</p>,
+    "Child Abuse": <p className="ml- mt- mr- post-flair child-abuse-flair">Child Abuse</p>,
+    "Animal Abuse": <p className="ml- mt- mr- post-flair animal-abuse-flair">Animal Abuse</p>
+  }
+
+  for (const k in flair)  {
+    if ( flair.hasOwnProperty(k) ) {
+      return flair[data];
+    }
+  }
+}
 
 const concatTitle = title => {
   const str = title.length < 70 ? title : title.slice(0,70) + "...";
