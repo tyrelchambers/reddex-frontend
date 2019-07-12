@@ -79,7 +79,7 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
 
   if (!tokens || !author) return toast.error("Something went wrong");
   if (!message ) return toast.error("A messaged is needed to send");
-  if ( !fmtSubject ) return toast.error("A subejct is needed");
+  if ( !fmtSubject ) return toast.error("A subject is needed");
 
   const body = new FormData();
   body.set('to', `/u/${author}`);
