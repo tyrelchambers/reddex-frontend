@@ -3,16 +3,20 @@ import { observer } from 'mobx-react-lite';
 import './AccountPage.scss';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
-import { toast } from 'react-toastify';
+import Home from './subpages/Home/Home';
+import AccountSubnav from '../../layouts/AccountSubnav/AccountSubnav';
+import AltMessage from './subpages/AltMessage/AltMessage';
 
-const AccountPage = inject("UserStore")(observer(({UserStore}) => {
+const AccountPage = inject("UserStore")(observer(({UserStore, match}) => {
   const [ user, setUser ] = useState({
     email: "",
-    defaultMessage: ""
+    defaultMessage: "",
+    altMessage: ""
   });
 
   const [ redditProfile, setRedditProfile ] = useState({});
-  
+  const slug = match.params.account_subpage;
+
   useEffect(() => {
     getUserProfile(UserStore.getToken());
     const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
@@ -30,8 +34,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
     .catch(console.log);
   }
 
-  const DefaultMessage = () => user.defaultMessage ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{user.defaultMessage}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No default message saved</p>
-  const Username = () => redditProfile.subreddit ? <p>From: <span className="highlight-text">{redditProfile.subreddit.display_name_prefixed}</span></p> : null;
+ 
 
   return (
     <div className="d-f fxd-c jc-c ai-c w-100pr animated fadeIn faster account-wrapper">
@@ -39,48 +42,29 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
         <h1>Account</h1>
         <h4 className="mt+ ta-c">Your registered email: {user.email}</h4>
 
-        <section className="default-message mt+">
-          <div className="current-message mt+ mb+">
-            <h4 className="form-label">Your current default message</h4>
-            
-            <DefaultMessage />
-          </div>
-          <form className="d-f fxd-c ai-fs">
-            <div className="field-group">
-              <label htmlFor="defaultMessage" className="form-label">Your Default Message</label>
-              <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." onChange={e => setUser({...user, defaultMessage: e.target.value})}></textarea>
-            </div>
-            
-            <div className="d-f jc-sb ai-c w-100pr account-footer">
-              <Username/>
+        <AccountSubnav/>
 
-              <button className="btn btn-secondary" onClick={(e) => {
-                saveMessageHandler(e, user.defaultMessage, UserStore.getToken());
-              }}>Save Message</button>
-            </div>
-          </form>
-        </section>
+        <Template 
+          slug={slug}
+          redditProfile={redditProfile}
+          user={user}
+          setUser={setUser}
+          UserStore={UserStore} 
+        />
       </div>
     </div>
   )
 }));
 
-const saveMessageHandler = (e, msg, token) => {
-  e.preventDefault();
-  
-  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/default_message`, {
-    defaultMessage: msg
-  }, {
-    headers: {
-      token
-    }
-  })
-  .then(res => toast.success("Message saved") )
-  .catch(err => {
-    toast.error("Something went wrong, try again");
-    console.log(err);
-  });
+const Template = ({slug, ...rest}) => {
+  const template = {
+    "default_message": <Home {...rest}/>,
+    "alt_message": <AltMessage {...rest}/>
+  }
 
+  return template[slug];
 }
+
+
 
 export default AccountPage;

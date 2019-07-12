@@ -22,12 +22,12 @@ import { Provider } from 'mobx-react';
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  let user = rest.userStore.getUser();
+  let token = window.localStorage.getItem('token');
   return (
     <Route
     {...rest}
     render={props =>
-      user ? (
+      token ? (
         <Component {...props} />
         ) : (
           <React.Fragment>
@@ -68,7 +68,7 @@ const InitalLoad = () => {
             <Route exact path="/about" component={About} />
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/login" component={LoginPage} />
-            <PrivateRoute exact path="/account" component={AccountPage} userStore={stores.UserStore}/>
+            <PrivateRoute exact path="/account/:account_subpage" component={AccountPage}/>
           </Switch>
         </Router>
       </Provider>

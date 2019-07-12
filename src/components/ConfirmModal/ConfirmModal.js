@@ -10,7 +10,8 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
   const [ index, setIndex ] = useState(0);
   const [ user, setUser ] = useState({
     email: "",
-    defaultMessage: ""
+    defaultMessage: "",
+    altMessage: ""
   });
 
   const [ postData, setPostData ] = useState([]);
