@@ -50,35 +50,42 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
             <React.Fragment>
               <h3 className="ta-c">Confirm Messages</h3>
 
-              <div className="d-f ai-c modal-inner-body">
-                <div className="increment">
-                  {index > 0 && 
-                    <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index - 1)}>
-                      <p>Previous</p>
-                      <i className="fas fa-chevron-circle-left arrow mt-"></i>
-                    </button>
-                  }
-                </div>
+              <div className=" modal-inner-body">
+                <div className="d-f ai-c">
+                  <Decrement 
+                    index={index}
+                    setIndex={setIndex}
+                  />
 
-                <ConfirmMessages 
-                  data={data[index]}
-                  setIndex={setIndex}
-                  index={index}
-                  userProfile={user}
-                  setUserProfile={(e) => setUser({...user, defaultMessage: e.target.value})}
-                  removeMessagedAuthor={() => {
-                    removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
-                    setIndex(0);
-                  }}
-                />
-                
-                <div className="increment">
-                  {index < postData.length - 1 &&
-                    <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index + 1)}>
-                      <p>Next</p>
-                      <i className="fas fa-chevron-circle-right arrow mt-"></i>
-                    </button>
-                  }
+                  <ConfirmMessages 
+                    data={data[index]}
+                    setIndex={setIndex}
+                    index={index}
+                    userProfile={user}
+                    setUserProfile={(e) => setUser({...user, defaultMessage: e.target.value})}
+                    removeMessagedAuthor={() => {
+                      removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
+                      setIndex(0);
+                    }}
+                  />
+                  
+                  <Increment 
+                    index={index}
+                    postData={postData}
+                    setIndex={setIndex}
+                  />
+                </div>
+                <div className="mobile-switch d-f jc-sb mt+">
+                  <Decrement 
+                      index={index}
+                      setIndex={setIndex}
+                    />
+
+                    <Increment 
+                      index={index}
+                      postData={postData}
+                      setIndex={setIndex}
+                    />
                 </div>
               </div>  
             </React.Fragment>
@@ -95,6 +102,31 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
   }
 }));
 
+const Decrement = ({index, setIndex}) => {
+  return(
+    <div className="increment mobile-increment">
+      {index > 0 && 
+        <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index - 1)}>
+          <p>Previous</p>
+          <i className="fas fa-chevron-circle-left arrow mt-"></i>
+        </button>
+      }
+    </div>
+  )
+}
+
+const Increment = ({index, postData, setIndex}) => {
+  return (
+    <div className="increment mobile-increment">
+        {index < postData.length - 1 &&
+          <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index + 1)}>
+            <p>Next</p>
+            <i className="fas fa-chevron-circle-right arrow mt-"></i>
+          </button>
+        }
+      </div>
+  );
+}
 const removeMessagedAuthor = (list, index, set_) => {
   const data = [...list];
   data.splice(index, 1);

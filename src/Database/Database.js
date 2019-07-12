@@ -13,4 +13,10 @@ db.version(2).stores({
   subreddits: "++id, subreddit"
 });
 
+db.version(3).stores({
+  posts: "++id, author, title, selftext, ups, url, num_comments, created, flair",
+  authors: "++id, author",
+  subreddits: "++id, subreddit"
+});
+
 export default db;

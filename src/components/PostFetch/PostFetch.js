@@ -106,7 +106,7 @@ export const saveSubredditToLocalStorage = data => {
 }
 
 export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
-  const sr = subreddit.replace(/\s/g, '').trim();
+  const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
   let endpoint = "";
 
   if ( category !== "hot" ) {

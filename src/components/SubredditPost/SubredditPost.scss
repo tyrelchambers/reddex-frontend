@@ -28,7 +28,7 @@
 .post {
   width: 100%;
   max-width: 300px;
-  height: 400px;
+  height: 480px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 2px 3px rgba(black, 0.3);
@@ -53,7 +53,7 @@
 
 .publish-tag {
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: hsla(211, 12%, 48%,1);
 }
 
@@ -74,4 +74,34 @@
     color: white;
     background-color: $accent;
   }
+}
+
+.sub-detail {
+  background-color: $grey9;
+  padding: 5px 20px;
+  border-radius: 30px;
+  color: $grey3;
+}
+
+.post-flair {
+  font-style: italic;
+  text-transform: uppercase;
+  font-weight:bold;
+  font-size: 0.8rem;
+}
+
+.series-flair {
+  color: $green;
+}
+
+.child-abuse-flair {
+  color: $accent;
+}
+
+.animal-abuse-flair {
+  color: $orange;
+}
+
+.self-harm-flair {
+  color: $yellow7;
 }

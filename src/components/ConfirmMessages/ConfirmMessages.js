@@ -20,7 +20,7 @@ export default function ConfirmMessages({data, index, setIndex, userProfile, rem
     setDefaultMessage(userProfile.defaultMessage);
   }, [data]);
 
-  const Username = () => redditProfile.subreddit ? <h4 className="mt-">From: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
+  const Username = () => redditProfile.subreddit ? <h4 className="mt- mb-">From: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
 
   return (
     <div className="confirm-messages-wrapper">
