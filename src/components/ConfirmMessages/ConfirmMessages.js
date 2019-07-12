@@ -17,10 +17,22 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
   }, [data.title]);
 
   useEffect(() => {
-    setDefaultMessage(userProfile.defaultMessage);
+    messageHandler();
   }, [data]);
 
   const Username = () => redditProfile.subreddit ? <h4 className="mt- mb-">From: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
+
+  const messageHandler = () => {
+    let authorExists = false;
+    
+    userProfile.authorsMessaged.map(x => x === data.author ? authorExists = true : null);
+
+    if ( authorExists ) {
+      setDefaultMessage(userProfile.altMessage);
+    } else {
+      setDefaultMessage(userProfile.defaultMessage);
+    }
+  }
 
   return (
     <div className="confirm-messages-wrapper">
@@ -33,7 +45,7 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
         </div>
 
         <div className="field-group">
-          <label htmlFor="defaultMessage" className="form-label">Your Default Message</label>
+          <label htmlFor="defaultMessage" className="form-label">Message To Send</label>
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
         </div>
 

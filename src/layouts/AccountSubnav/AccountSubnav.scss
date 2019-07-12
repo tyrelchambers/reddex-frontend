@@ -1,0 +1,19 @@
+@import '../../colours.scss';
+
+.active-tab {
+  background-color: $blue9;
+  color: $blue6 !important;
+  text-decoration: none;
+}
+
+.nav-tab {
+  color: $grey7;
+  text-decoration: none;
+  padding: 0.5em;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    @extend .active-tab;
+  }
+}
