@@ -59,7 +59,7 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
                   />
 
                   <ConfirmMessages 
-                    data={data[index]}
+                    data={postData[index]}
                     setIndex={setIndex}
                     index={index}
                     userProfile={user}
@@ -128,10 +128,10 @@ const Increment = ({index, postData, setIndex}) => {
       </div>
   );
 }
-const removeMessagedAuthor = (list, index, set_) => {
+const removeMessagedAuthor = (list, index, setPostData) => {
   const data = [...list];
   data.splice(index, 1);
-  return set_([...data]);
+  return setPostData([...data]);
 }
 
 const EndOfList = () => {

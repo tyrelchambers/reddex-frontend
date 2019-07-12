@@ -95,6 +95,7 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   .then(res => {
     toast.success(`Message sent to ${author}`)
     removeMessagedAuthor();
+    window.location.reload();
   })
   .catch(console.log);
   
