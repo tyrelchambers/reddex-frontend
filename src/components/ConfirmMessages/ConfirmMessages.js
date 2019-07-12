@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import { toast } from 'react-toastify';
 
-export default function ConfirmMessages({data, index, setIndex, userProfile, removeMessagedAuthor}) {
+export default function ConfirmMessages({data, userProfile, removeMessagedAuthor}) {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
   const [ redditProfile, setRedditProfile ] = useState({});
@@ -38,6 +38,7 @@ export default function ConfirmMessages({data, index, setIndex, userProfile, rem
         </div>
 
         <button className="btn btn-primary" onClick={() => {
+          saveAuthorToDb(data.author, data.postId);
           sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
         }} >Message Author</button>
       </div>
@@ -45,30 +46,44 @@ export default function ConfirmMessages({data, index, setIndex, userProfile, rem
   )
 }
 
-export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor) => {
-  const tokens = await fetchTokens().catch(err => false);
-  const fmtSubject = subject;
-  const link = `https://oauth.reddit.com/api/compose`;
-
-  if (!tokens || !author) return toast.error("Something went wrong");
-  if (!message ) return toast.error("A messaged is needed to send");
-  if ( !fmtSubject ) return toast.error("A subejct is needed");
-
-  const body = new FormData();
-  body.set('to', `/u/${author}`);
-  body.set("subject", fmtSubject);
-  body.set("text", message);
-
-  await Axios.post(link, body, {
+export const saveAuthorToDb = async (author, postId)=> {
+  const token = window.localStorage.getItem("token");
+  await Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/saveAuthors`, {
+    author,
+    postId
+  }, {
     headers: {
-      "Authorization": `bearer ${tokens.access_token}`,
-      "Content-Type": "application/x-www-form-urlencoded"
+      token
     }
   })
-  .then(res => {
-    toast.success(`Message sent to ${author}`)
-    removeMessagedAuthor();
-  })
+  .then(console.log)
   .catch(console.log);
+}
+
+export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor) => {
+  // const tokens = await fetchTokens().catch(err => false);
+  // const fmtSubject = subject;
+  // const link = `https://oauth.reddit.com/api/compose`;
+
+  // if (!tokens || !author) return toast.error("Something went wrong");
+  // if (!message ) return toast.error("A messaged is needed to send");
+  // if ( !fmtSubject ) return toast.error("A subejct is needed");
+
+  // const body = new FormData();
+  // body.set('to', `/u/${author}`);
+  // body.set("subject", fmtSubject);
+  // body.set("text", message);
+
+  // await Axios.post(link, body, {
+  //   headers: {
+  //     "Authorization": `bearer ${tokens.access_token}`,
+  //     "Content-Type": "application/x-www-form-urlencoded"
+  //   }
+  // })
+  // .then(res => {
+  //   toast.success(`Message sent to ${author}`)
+  //   removeMessagedAuthor();
+  // })
+  // .catch(console.log);
   
 }

@@ -153,7 +153,8 @@ export const saveToDatabase = async (posts) => {
       url: x.url,
       num_comments: x.num_comments,
       created: x.created,
-      flair: x.link_flair_text
+      flair: x.link_flair_text,
+      postId: x.id
     });
   });
   return true;

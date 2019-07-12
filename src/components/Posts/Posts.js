@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
-import { compareDesc } from 'date-fns';
+import { inject, observer } from 'mobx-react';
 
-export default function Posts({posts, loading, selectedPosts, setPosts, selectPost}) {
+const Posts = inject("UserStore")(observer(({posts, loading, selectedPosts, setPosts, selectPost, UserStore}) => {
+  const [ usedPosts, setUsedPosts ] = useState([]);
+  useEffect(() => {
+    const user = UserStore.getUser();
+    if (user) setUsedPosts([...user.storiesUsed]);
+    
+  }, []);
+
   if ( posts.length > 0 && !loading ) {
     return (
       <ul className="post-list d-f animated fadeIn">
@@ -18,6 +25,7 @@ export default function Posts({posts, loading, selectedPosts, setPosts, selectPo
               setPosts={setPosts}
               onClick={selectPost}
               selectedPosts={selectedPosts}
+              postIds={usedPosts}
             />
           )
         })}
@@ -26,4 +34,6 @@ export default function Posts({posts, loading, selectedPosts, setPosts, selectPo
   } else {
     return null;
   }
-}
+}));
+
+export default Posts;

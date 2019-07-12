@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
@@ -51,25 +51,31 @@ const stores = {
 }
 
 const InitalLoad = () => { 
+  const [ loaded, setLoaded ] = useState(false);
   useEffect(() => {
     stores.UserStore.setUser();
+    setLoaded(true);
   }, [])
 
-  return(
-    <Provider {...stores}>
-      <Router>  
-        <Header />
-        <ToastContainer />
-        <Switch>
-          <Route exact path="/" component={App}/>
-          <Route exact path="/about" component={About} />
-          <Route exact path="/signup" component={SignupPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <PrivateRoute exact path="/account" component={AccountPage} userStore={stores.UserStore}/>
-        </Switch>
-      </Router>
-    </Provider>
-  );
+  if ( loaded ) {
+    return(
+      <Provider {...stores}>
+        <Router>  
+          <Header />
+          <ToastContainer />
+          <Switch>
+            <Route exact path="/" component={App}/>
+            <Route exact path="/about" component={About} />
+            <Route exact path="/signup" component={SignupPage} />
+            <Route exact path="/login" component={LoginPage} />
+            <PrivateRoute exact path="/account" component={AccountPage} userStore={stores.UserStore}/>
+          </Switch>
+        </Router>
+      </Provider>
+    );
+  } else {
+    return null
+  }
 }
 
 ReactDOM.render(
