@@ -85,3 +85,9 @@
     }
   }
 }
+
+@media screen and (min-width: 573px) {
+  .mobile-switch {
+    display: none;
+  }
+}

@@ -17,9 +17,9 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
           <i className="fas fa-arrow-circle-up"></i>  {x.ups}
         </h1>
         <p className="title mt+ mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
-        <p className="author m-- ml-"><i className="fas fa-user mr-"></i>{x.author}</p>
-        <p className="comments m-- ml-"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
-        <p className="publish-tag"> <i className="fas fa-history mr- m-- ml-"></i> published {dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
+        <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
+        <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
+        <p className="publish-tag m-- ml- sub-detail"> <i className="fas fa-history mr-"></i>{dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
 
       </div>
       <div className="d-f m- jc-sb post-actions">
