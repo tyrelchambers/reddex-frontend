@@ -135,7 +135,7 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   deletePostsCollection();
   saveToDatabase(posts);
   saveSubredditToLocalStorage(subreddit);
-  await setPosts([...results]);
+  await getPostsFromDatabase(setPosts);
   return setLoading(false);  
  
 }
