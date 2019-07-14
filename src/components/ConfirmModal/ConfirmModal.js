@@ -135,9 +135,6 @@ const removeMessagedAuthor = (list, index, setPostData) => {
 }
 
 const EndOfList = () => {
-  setTimeout(() => {
-    window.location.reload();
-  }, 2000);
   return (
     <div className="end-of-list d-f fxd-c jc-c ai-c">
       <h1>You've reached the end!</h1>
