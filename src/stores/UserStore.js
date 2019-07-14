@@ -21,7 +21,7 @@ class UserStore {
   }
 
   getUser = () => {
-    return isEmpty(toJS(this.currentUser)) ? null : this.currentUser;
+    return isEmpty(this.currentUser) ? null : toJS(this.currentUser);
   }
 
   setToken(token) {

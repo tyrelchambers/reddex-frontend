@@ -54,7 +54,7 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
             {UserStore.getUser() &&
               <React.Fragment>
                 <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-                  <Link onClick={() => setExtended(false)} to="/account">Account</Link>
+                  <Link onClick={() => setExtended(false)} to="/account/default_message">Account</Link>
                 </li>
                 <li className="d-f ai-c">
                   <Link onClick={() => setExtended(false)} to="/" onClick={() => {

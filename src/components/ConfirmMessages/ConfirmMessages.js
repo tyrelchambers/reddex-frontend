@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import { toast } from 'react-toastify';
 
-export default function ConfirmMessages({data, index, setIndex, userProfile, removeMessagedAuthor}) {
+export default function ConfirmMessages({data, userProfile, removeMessagedAuthor}) {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
   const [ redditProfile, setRedditProfile ] = useState({});
@@ -17,10 +17,22 @@ export default function ConfirmMessages({data, index, setIndex, userProfile, rem
   }, [data.title]);
 
   useEffect(() => {
-    setDefaultMessage(userProfile.defaultMessage);
+    messageHandler();
   }, [data]);
 
   const Username = () => redditProfile.subreddit ? <h4 className="mt- mb-">From: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
+
+  const messageHandler = () => {
+    let authorExists = false;
+    
+    userProfile.authorsMessaged.map(x => x === data.author ? authorExists = true : null);
+
+    if ( authorExists ) {
+      setDefaultMessage(userProfile.altMessage);
+    } else {
+      setDefaultMessage(userProfile.defaultMessage);
+    }
+  }
 
   return (
     <div className="confirm-messages-wrapper">
@@ -33,16 +45,31 @@ export default function ConfirmMessages({data, index, setIndex, userProfile, rem
         </div>
 
         <div className="field-group">
-          <label htmlFor="defaultMessage" className="form-label">Your Default Message</label>
+          <label htmlFor="defaultMessage" className="form-label">Message To Send</label>
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
         </div>
 
         <button className="btn btn-primary" onClick={() => {
+          saveAuthorToDb(data.author, data.postId);
           sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
         }} >Message Author</button>
       </div>
     </div>
   )
+}
+
+export const saveAuthorToDb = async (author, postId)=> {
+  const token = window.localStorage.getItem("token");
+  await Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/saveAuthors`, {
+    author,
+    postId
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(console.log)
+  .catch(console.log);
 }
 
 export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor) => {
@@ -52,7 +79,7 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
 
   if (!tokens || !author) return toast.error("Something went wrong");
   if (!message ) return toast.error("A messaged is needed to send");
-  if ( !fmtSubject ) return toast.error("A subejct is needed");
+  if ( !fmtSubject ) return toast.error("A subject is needed");
 
   const body = new FormData();
   body.set('to', `/u/${author}`);
