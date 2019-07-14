@@ -50,7 +50,6 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
     </li>
   );
 }));
-
 const Flair = ({data}) => {
 
   const flair = {
@@ -70,6 +69,7 @@ const Flair = ({data}) => {
   }
 
 }
+
 
 const concatTitle = title => {
   const str = title.length < 70 ? title : title.slice(0,70) + "...";

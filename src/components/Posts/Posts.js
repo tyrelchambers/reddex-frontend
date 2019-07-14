@@ -26,7 +26,7 @@ const Posts = inject("UserStore")(observer(({posts, loading, selectedPosts, setP
               onClick={selectPost}
               selectedPosts={selectedPosts}
               postIds={usedPosts}
-            />
+q            />
           )
         })}
       </ul>
