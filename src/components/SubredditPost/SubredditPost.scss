@@ -84,30 +84,37 @@
 }
 
 .post-flair {
-  font-style: italic;
   text-transform: uppercase;
   font-weight:bold;
   font-size: 0.8rem;
+  padding: 0.3em 0.7em;
+  border-radius: 20px;
+  display: flex;
+  align-self: flex-start;
 }
 
 .series-flair {
-  color: $green;
+  color: lighten($green, 50%);
+  background-color: $green;
 }
 
 .child-abuse-flair {
-  color: $accent;
-}
+  color: lighten($accent, 50%);
+  background-color: $accent;}
 
 .animal-abuse-flair {
-  color: $orange;
+  color: lighten($orange, 50%);
+  background-color: $orange;
 }
 
 .self-harm-flair {
-  color: $yellow7;
+  color: lighten($yellow7, 50%);
+  background-color: $yellow7;
 }
 
 .misc-flair {
-  color: $grey7;
+  color: lighten($grey7, 50%);
+  background-color: $grey7;
 }
 
 .has-been-used {
