@@ -38,7 +38,10 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
             </li>
 
             <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-              <Link onClick={() => setExtended(false)} to="#" onClick={resetVisitorStatus}>Reset Visitor Status</Link>
+              <Link onClick={() => {
+                setExtended(false)
+                resetVisitorStatus()
+              }} to="#">Reset Visitor Status</Link>
             </li>
             {!UserStore.getUser() && 
               <React.Fragment>
@@ -57,7 +60,8 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
                   <Link onClick={() => setExtended(false)} to="/account/default_message">Account</Link>
                 </li>
                 <li className="d-f ai-c">
-                  <Link onClick={() => setExtended(false)} to="/" onClick={() => {
+                  <Link to="/" onClick={() => {
+                    setExtended(false)
                     UserStore.signOut()
                   }}>Sign Out</Link>
                 </li>

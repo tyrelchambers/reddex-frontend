@@ -5,7 +5,7 @@ import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
 import { inject, observer } from 'mobx-react';
 
-const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore, postIds}) => {
+const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore, postIds, onClickHandler}) => {
   const selectedClass = selectedPosts.includes(x.id.toString()) ? "active-post-select" : "";
   const usedClass = postIds.includes(x.postId) ? "has-been-used" : "";
 
@@ -39,7 +39,11 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
       <div className="d-f m- jc-sb post-actions">
         <div>
           {UserStore.getUser() &&
-            <button className="btn btn-select" onClick={onClick}>
+            <button className="btn btn-select" onClick={(e) => {
+              onClick(e);
+              onClickHandler();
+            }}
+            >
               <i className="fas fa-check"></i>
             </button>
           }

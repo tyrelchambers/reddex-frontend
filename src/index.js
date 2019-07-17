@@ -14,6 +14,8 @@ import {ToastContainer} from 'react-toastify';
 import UserStore from './stores/UserStore';
 import ModalStore from './stores/ModalStore';
 import SubredditStore from './stores/SubredditStore';
+import PostStore from './stores/PostStore';
+
 import 'react-toastify/dist/ReactToastify.css';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
@@ -47,7 +49,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 const stores = {
   UserStore,
   ModalStore,
-  SubredditStore
+  SubredditStore,
+  PostStore
 }
 
 const InitalLoad = () => { 

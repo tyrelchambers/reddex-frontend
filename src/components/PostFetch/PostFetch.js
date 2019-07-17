@@ -7,8 +7,9 @@ import MessageAuthors from '../MessageAuthors/MessageAuthors';
 import PostFetchComp from '../PostFetchComp/PostFetchComp';
 import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
-const PostFetch = inject("UserStore")(observer(({UserStore}) => {
+const PostFetch = inject("UserStore", "ModalStore")(observer(({UserStore, ModalStore}) => {
   const [subreddit, setSubreddit] = useState("");
   const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
@@ -31,6 +32,7 @@ const PostFetch = inject("UserStore")(observer(({UserStore}) => {
 
   const Filters = () => posts ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
   const MsgAuthorWrapper = () => (selectedPosts.length > 0 && UserStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
+  
 
   
   return (
@@ -62,7 +64,10 @@ const PostFetch = inject("UserStore")(observer(({UserStore}) => {
         selectedPosts={selectedPosts}
         selectPost={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
       />
-    
+      {ModalStore.isOpen && 
+        <ConfirmModal />
+      }
+
     </React.Fragment>
   );
   
