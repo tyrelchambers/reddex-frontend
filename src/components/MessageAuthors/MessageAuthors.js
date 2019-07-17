@@ -4,12 +4,8 @@ import { observer } from 'mobx-react-lite';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { inject } from 'mobx-react';
 
-const MessageAuthors = inject("ModalStore")(observer(({data, posts, ModalStore}) => {
-  const [authorPosts, setAuthorPosts] = useState([]);
+const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalStore, PostStore}) => {
 
-  useEffect(() => {
-    findPostsFromSelected(data, posts, setAuthorPosts);
-  }, [data]);
 
   return (
     <div className="message-author-box mt+ mb+">
@@ -22,27 +18,11 @@ const MessageAuthors = inject("ModalStore")(observer(({data, posts, ModalStore})
       <div className="message-author-body p- d-f jc-c">
         <p className="subtle mt+ mb+">Confirming messages will open a pop-up that will walk you through each message to make sure it's correct. It will not send any messages.</p>
       </div>
-      <ConfirmModal 
-        isOpen={ModalStore.isOpen}
-        data={authorPosts}
-      />
     </div>
   )
 }));
 
-const findPostsFromSelected = (data, posts, setAuthorPosts) => {
-  const results = [];
-  
-  for ( let i = 0; i < data.length; i++ ) {
-    for ( let j = 0; j < posts.length; j++ ) {
-      if ( data[i] == posts[j].id ) {
-        results.push(posts[j]);
-      }
-    }
-  } 
 
-  setAuthorPosts([...results]);
-}
 
 
 

@@ -1,38 +1,24 @@
 import React, {useState, useEffect } from 'react'
 import './ConfirmModal.scss';
 import { observer } from 'mobx-react-lite';
-import ModalStore from '../../stores/ModalStore';
 import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 
-const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, UserStore}) => {
+const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [ index, setIndex ] = useState(0);
-  const [ user, setUser ] = useState({
-    email: "",
-    defaultMessage: "",
-    altMessage: ""
-  });
-
+  const [ user, setUser ] = useState({});
   const [ postData, setPostData ] = useState([]);
 
   useEffect(() => {
+    const selectedPosts = PostStore.getSelectedPosts();
+
     setIndex(0);
-    getUserProfile(UserStore.getToken());
-    setPostData([...data]);
-  }, [isOpen]);
+    setUser({...UserStore.currentUser});
+    setPostData([...selectedPosts]);
+  }, []);
 
-  const getUserProfile = (token) => {
-    Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/auth`, {
-      headers: {
-        "token": token
-      }
-    })
-    .then(res => setUser({...res.data}))
-    .catch(console.log);
-  }
-
-  if ( isOpen ) {
+  if ( ModalStore.isOpen ) {
     document.body.style.height = "100%";
     document.body.style.minHeight = "100vh";
     document.body.style.overflow = "hidden";
@@ -45,7 +31,6 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
         }>
           <i className="fas fa-times"></i>
         </div>
-
         <div className="modal-body">
           {index < postData.length && 
             <React.Fragment>
@@ -98,8 +83,6 @@ const ConfirmModal = inject("UserStore", "ModalStore")(observer(({isOpen, data, 
         </div>
       </div>
     )
-  } else {
-    return null;
   }
 }));
 
