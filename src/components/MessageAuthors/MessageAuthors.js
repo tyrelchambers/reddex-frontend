@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './MessageAuthors.scss';
 import { observer } from 'mobx-react-lite';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { inject } from 'mobx-react';
 
-const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalStore, PostStore}) => {
-
-
+const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalStore}) => {
   return (
     <div className="message-author-box mt+ mb+">
       <div className="message-author-box-header d-f jc-sb ai-c">

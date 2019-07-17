@@ -2,7 +2,6 @@ import React, {useState, useEffect } from 'react'
 import './ConfirmModal.scss';
 import { observer } from 'mobx-react-lite';
 import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
-import Axios from 'axios';
 import { inject } from 'mobx-react';
 
 const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
