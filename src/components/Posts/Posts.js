@@ -3,7 +3,7 @@ import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { inject, observer } from 'mobx-react';
 
-const Posts = inject("UserStore")(observer(({posts, loading, selectedPosts, setPosts, selectPost, UserStore}) => {
+const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, selectedPosts, setPosts, selectPost, UserStore, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
   useEffect(() => {
     const user = UserStore.getUser();
@@ -26,6 +26,7 @@ const Posts = inject("UserStore")(observer(({posts, loading, selectedPosts, setP
               onClick={selectPost}
               selectedPosts={selectedPosts}
               postIds={usedPosts}
+              onClickHandler={() => onClickHandler(x, PostStore)}
 q            />
           )
         })}
@@ -35,5 +36,9 @@ q            />
     return null;
   }
 }));
+
+const onClickHandler = (post, store) => {
+  store.setSelectedPosts(post);
+}
 
 export default Posts;

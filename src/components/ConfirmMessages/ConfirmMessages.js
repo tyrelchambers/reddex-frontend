@@ -68,7 +68,7 @@ export const saveAuthorToDb = async (author, postId)=> {
       token
     }
   })
-  .then(console.log)
+  .then()
   .catch(console.log);
 }
 
@@ -85,7 +85,6 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   body.set('to', `/u/${author}`);
   body.set("subject", fmtSubject);
   body.set("text", message);
-
   await Axios.post(link, body, {
     headers: {
       "Authorization": `bearer ${tokens.access_token}`,

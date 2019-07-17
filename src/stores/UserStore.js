@@ -76,7 +76,7 @@ function isEmpty(obj) {
 }
 
 decorate(UserStore, {
-  currentUser: observable,
+  currentUser: observable.shallow,
   loggedIn: observable,
   setUser: action
 });
