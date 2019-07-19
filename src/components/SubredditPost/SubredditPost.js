@@ -55,18 +55,7 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
   );
 }));
 const Flair = ({data}) => {
-
-  const flair = {
-    "Series": <p className="ml- mt- mr- post-flair series-flair ">Series</p>,
-    "Self Harm": <p className="ml- mt- mr- post-flair self-harm-flair">Self Harm</p>,
-    "Child Abuse": <p className="ml- mt- mr- post-flair child-abuse-flair">Child Abuse</p>,
-    "Animal Abuse": <p className="ml- mt- mr- post-flair animal-abuse-flair">Animal Abuse</p>,
-    
-  }
-
-  if ( flair[data] ) {
-    return flair[data];
-  } else if ( data !== null && !flair[data] ) {
+  if ( data !==  null) {
     return <p className="ml- mt- mr- post-flair misc-flair">{data}</p>
   } else {
     return null;

@@ -8,7 +8,6 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, select
   useEffect(() => {
     const user = UserStore.getUser();
     if (user) setUsedPosts([...user.storiesUsed]);
-    
   }, []);
 
   if ( posts.length > 0 && !loading ) {
