@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
 import { inject, observer } from 'mobx-react';
 
-const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore, postIds, onClickHandler}) => {
+const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore, used, onClickHandler}) => {
   const selectedClass = selectedPosts.includes(x.id.toString()) ? "active-post-select" : "";
-  const usedClass = postIds.includes(x.postId) ? "has-been-used" : "";
 
   return(
     <li 
-      className={`d-f fxd-c subreddit-post-parent post ${selectedClass} ${usedClass}`} 
+      className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass} ${used ? "has-been-used" : ""}`} 
       data-id={x.id}
       data-postid={x.postId}
     >
@@ -21,13 +20,13 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
             <i className="fas fa-arrow-circle-up mr-"></i>  
             {x.ups}
           </div>
-          {usedClass &&
+          {used &&
             <span className="has-been-used-text">
               <p>Used</p>
             </span>
           }
-          
         </h1>
+        {console.log(x.postId)}
         <p className="title mt+ mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
         <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
         <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>

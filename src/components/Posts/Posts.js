@@ -12,7 +12,7 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, select
 
   if ( posts.length > 0 && !loading ) {
     return (
-      <ul className="post-list d-f animated fadeIn">
+      <ul className="post-list d-f ">
 
         {posts.slice(0, 40).sort((a, b) => {
           return b.ups - a.ups;
@@ -24,8 +24,8 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, select
               setPosts={setPosts}
               onClick={selectPost}
               selectedPosts={selectedPosts}
-              postIds={usedPosts}
               onClickHandler={() => onClickHandler(x, PostStore)}
+              used={usedPosts.includes(x.postId)}
 q            />
           )
         })}

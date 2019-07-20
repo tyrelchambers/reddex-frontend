@@ -22,10 +22,15 @@ class PostStore {
     
     return obj;
   }
+
+  clearSelectedPosts() {
+    this.selectedPosts.clear();
+  }
 }
 
 decorate(PostStore, {
   selectedPosts: observable,
-  setSelectedPosts: action
+  setSelectedPosts: action,
+  clearSelectedPosts: action
 });
 export default new PostStore();
