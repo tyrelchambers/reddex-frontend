@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import dateFns from 'date-fns';
 import moment from 'moment';
 import './SubredditPost.scss';
@@ -7,7 +7,7 @@ import { inject, observer } from 'mobx-react';
 
 const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, used, onClickHandler, PostStore}) => {
   let selectedClass = false
-  
+
   const _ = PostStore.selectedPosts.find((el) => {
     return el.postId == x.postId;
   });

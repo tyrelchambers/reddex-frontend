@@ -43,6 +43,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         setSubreddit={setSubreddit}
         fetchPosts={fetchPosts}
         subreddits={subreddits}
+        clearSelectedPosts={() => PostStore.clearSelectedPosts()}
+        loading={loading}
       />
       <Filters/>
       <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{window.localStorage.getItem('subreddit')}</span></p>
@@ -97,6 +99,8 @@ export const saveSubredditToLocalStorage = data => {
 
 export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
+  if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
+
   let endpoint = "";
 
   if ( category !== "hot" ) {
@@ -111,7 +115,6 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   let posts = [];
   let after = ``;
   const results = []; 
-  if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
 
   for ( let i = 0; (i < 10 && after !== null); i++ ) {
     await Axios.get(`${link}&after=${after}`).then(res => {
