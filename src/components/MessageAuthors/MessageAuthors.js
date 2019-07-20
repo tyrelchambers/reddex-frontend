@@ -5,7 +5,7 @@ import { inject } from 'mobx-react';
 
 const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalStore, PostStore}) => {
   return (
-    <div className="message-author-box mt+ mb+">
+    <div className="message-author-box mt+ mb+ animated fadeIn faster">
       <div className="message-author-box-header d-f jc-sb ai-c">
         <h3>You've selected {data.length} to message.</h3>
         <button className="btn btn-primary" onClick={() => ModalStore.setIsOpen(true)}>Confirm Messages</button>

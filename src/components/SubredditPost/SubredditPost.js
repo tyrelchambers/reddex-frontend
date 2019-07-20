@@ -5,12 +5,20 @@ import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
 import { inject, observer } from 'mobx-react';
 
-const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore, used, onClickHandler}) => {
-  const selectedClass = selectedPosts.includes(x.id.toString()) ? "active-post-select" : "";
+const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, used, onClickHandler, PostStore}) => {
+  let selectedClass = false
+  
+  const _ = PostStore.selectedPosts.find((el) => {
+    return el.postId == x.postId;
+  });
+
+  if ( _ ) {
+    selectedClass = true;
+  }
 
   return(
     <li 
-      className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass} ${used ? "has-been-used" : ""}`} 
+      className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""}`} 
       data-id={x.id}
       data-postid={x.postId}
     >
@@ -26,7 +34,6 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
             </span>
           }
         </h1>
-        {console.log(x.postId)}
         <p className="title mt+ mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
         <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
         <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
@@ -38,9 +45,8 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
       <div className="d-f m- jc-sb post-actions">
         <div>
           {UserStore.getUser() &&
-            <button className="btn btn-select" onClick={(e) => {
-              onClick(e);
-              onClickHandler();
+            <button className="btn btn-select" onClick={() => {
+              onClickHandler(x);
             }}
             >
               <i className="fas fa-check"></i>

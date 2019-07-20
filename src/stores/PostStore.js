@@ -1,26 +1,20 @@
 import { observable, decorate, action, toJS } from 'mobx';
 
 class PostStore {
-  selectedPosts = new Map();
+  selectedPosts = [];
 
   setSelectedPosts(post) {
+    const dupe = this.selectedPosts.find((el) => {
+      return el.postId === post.postId ? this.selectedPosts.remove(el) : false
+    });
 
-    if (this.selectedPosts.has(post.postId)) {
-      this.selectedPosts.delete(post.postId);
-    } else {
-      this.selectedPosts.set(post.postId, post);
+    if ( !dupe ) {
+      this.selectedPosts.push(post)
     }
   }
 
   getSelectedPosts() { 
-    const obj = [];
-    const _ = toJS(this.selectedPosts);
-    
-    for ( let k in _ ) {
-      obj.push(_[k]);
-    }
-    
-    return obj;
+    return toJS(this.selectedPosts);
   }
 
   clearSelectedPosts() {
