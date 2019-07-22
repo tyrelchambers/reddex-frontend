@@ -3,6 +3,7 @@ import './ConfirmMessages.scss';
 import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import { toast } from 'react-toastify';
+import { MainButton } from '../Buttons/Buttons';
 
 export default function ConfirmMessages({data, userProfile, removeMessagedAuthor}) {
   const [ defaultMessage, setDefaultMessage ] = useState("");
@@ -49,10 +50,16 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
         </div>
 
-        <button className="btn btn-primary" onClick={() => {
-          saveAuthorToDb(data.author, data.postId);
-          sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
-        }} >Message Author</button>
+        <MainButton 
+          className="btn btn-primary" 
+          onClick={() => {
+            saveAuthorToDb(data.author, data.postId);
+            sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
+          }} 
+
+          value="Message Author"
+        /> 
+        
       </div>
     </div>
   )
@@ -85,16 +92,17 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   body.set('to', `/u/${author}`);
   body.set("subject", fmtSubject);
   body.set("text", message);
-  await Axios.post(link, body, {
-    headers: {
-      "Authorization": `bearer ${tokens.access_token}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  })
-  .then(res => {
-    toast.success(`Message sent to ${author}`)
-    removeMessagedAuthor();
-  })
-  .catch(console.log);
+
+  // await Axios.post(link, body, {
+  //   headers: {
+  //     "Authorization": `bearer ${tokens.access_token}`,
+  //     "Content-Type": "application/x-www-form-urlencoded"
+  //   }
+  // })
+  // .then(res => {
+  //   toast.success(`Message sent to ${author}`)
+  //   removeMessagedAuthor();
+  // })
+  // .catch(console.log);
   
 }

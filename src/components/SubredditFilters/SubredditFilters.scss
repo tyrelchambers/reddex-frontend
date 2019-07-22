@@ -1,11 +1,17 @@
 @media screen and (max-width: 768px) {
-  .filters-wrapper {
+  .filters-wrapper > div {
       flex-direction: column;
   }
 
   .filter-actions {
     margin-top: 1em;
     align-self: flex-end;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .inputs {
+    flex-direction: column;
   }
 }
 

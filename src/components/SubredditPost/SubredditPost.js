@@ -5,13 +5,20 @@ import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
 import { inject, observer } from 'mobx-react';
 
-const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, UserStore, postIds, onClickHandler}) => {
-  const selectedClass = selectedPosts.includes(x.id.toString()) ? "active-post-select" : "";
-  const usedClass = postIds.includes(x.postId) ? "has-been-used" : "";
+const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, used, onClickHandler, PostStore}) => {
+  let selectedClass = false
+
+  const _ = PostStore.selectedPosts.find((el) => {
+    return el.postId == x.postId;
+  });
+
+  if ( _ ) {
+    selectedClass = true;
+  }
 
   return(
     <li 
-      className={`d-f fxd-c subreddit-post-parent post ${selectedClass} ${usedClass}`} 
+      className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""}`} 
       data-id={x.id}
       data-postid={x.postId}
     >
@@ -21,12 +28,11 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
             <i className="fas fa-arrow-circle-up mr-"></i>  
             {x.ups}
           </div>
-          {usedClass &&
+          {used &&
             <span className="has-been-used-text">
               <p>Used</p>
             </span>
           }
-          
         </h1>
         <p className="title mt+ mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
         <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
@@ -39,9 +45,8 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
       <div className="d-f m- jc-sb post-actions">
         <div>
           {UserStore.getUser() &&
-            <button className="btn btn-select" onClick={(e) => {
-              onClick(e);
-              onClickHandler();
+            <button className="btn btn-select" onClick={() => {
+              onClickHandler(x);
             }}
             >
               <i className="fas fa-check"></i>
@@ -55,18 +60,7 @@ const SubredditPost = inject("UserStore")(observer(({x, onClick, selectedPosts, 
   );
 }));
 const Flair = ({data}) => {
-
-  const flair = {
-    "Series": <p className="ml- mt- mr- post-flair series-flair ">Series</p>,
-    "Self Harm": <p className="ml- mt- mr- post-flair self-harm-flair">Self Harm</p>,
-    "Child Abuse": <p className="ml- mt- mr- post-flair child-abuse-flair">Child Abuse</p>,
-    "Animal Abuse": <p className="ml- mt- mr- post-flair animal-abuse-flair">Animal Abuse</p>,
-    
-  }
-
-  if ( flair[data] ) {
-    return flair[data];
-  } else if ( data !== null && !flair[data] ) {
+  if ( data !==  null) {
     return <p className="ml- mt- mr- post-flair misc-flair">{data}</p>
   } else {
     return null;

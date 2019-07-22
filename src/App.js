@@ -6,6 +6,7 @@ import NewVisitor from './components/NewVisitor/NewVisitor';
 import AppLoader from './components/Loading/AppLoader';
 import { getSubreddits } from './helpers/getSubreddits';
 import reddexLogo from './assets/reddex-logo.svg';
+import ScrollToTop from './layouts/ScrollToTop/ScrollToTop';
 
 const App = observer(() => {
   
@@ -48,6 +49,8 @@ const App = observer(() => {
           handleClick={handleClick}
         />
       }
+      <ScrollToTop />
+
     </div>
   );
 });
