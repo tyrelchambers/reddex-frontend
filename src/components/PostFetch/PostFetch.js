@@ -65,7 +65,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       {ModalStore.isOpen && 
         <ConfirmModal />
       }
-
     </React.Fragment>
   );
   
