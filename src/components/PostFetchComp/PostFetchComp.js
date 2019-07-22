@@ -2,8 +2,9 @@ import React, { useRef } from 'react'
 import './PostFetchComp.scss';
 import { SubSelect } from '../PostFetch/PostFetch';
 import AutoComplete from '../AutoComplete/AutoComplete';
+import { MainButton } from '../Buttons/Buttons';
 
- export default function PostFetchComp({setSubreddit, setCategoryOptions, categoryOptions, setLoading, fetchPosts, setSelectedPosts, subreddit, setPosts, subreddits}) {
+ export default function PostFetchComp({setSubreddit, setCategoryOptions, categoryOptions, setLoading, fetchPosts, clearSelectedPosts, subreddit, setPosts, subreddits, loading}) {
    const inputRef = useRef();
    return (
     <section className="w-100pr">
@@ -34,11 +35,19 @@ import AutoComplete from '../AutoComplete/AutoComplete';
             categoryOptions={categoryOptions}
           />
         </div>
-        <button className="btn btn-primary" onClick={() => {
-          setLoading(true);
-          fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
-          setSelectedPosts([]);
-        }}><i className="fas fa-sync"></i> Get Posts</button>
+        <MainButton 
+          className="btn btn-primary" 
+          onClick={() => {
+            setLoading(true);
+            fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
+            clearSelectedPosts();
+          }}
+          
+          loading={loading}
+          value="Get Posts"
+        >
+          <i className="fas fa-sync"></i>
+        </MainButton>
       </div>
 
 

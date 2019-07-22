@@ -9,13 +9,12 @@ import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
-const PostFetch = inject("UserStore", "ModalStore")(observer(({UserStore, ModalStore}) => {
+const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [subreddit, setSubreddit] = useState("");
   const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
-  const [ selectedPosts, setSelectedPosts ] = useState([]);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: ""
@@ -31,9 +30,6 @@ const PostFetch = inject("UserStore", "ModalStore")(observer(({UserStore, ModalS
   }, [reloadPosts]);
 
   const Filters = () => posts ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
-  const MsgAuthorWrapper = () => (selectedPosts.length > 0 && UserStore.getUser()) ? <MessageAuthors data={selectedPosts} posts={posts} /> : null
-  
-
   
   return (
     <React.Fragment>
@@ -46,12 +42,16 @@ const PostFetch = inject("UserStore", "ModalStore")(observer(({UserStore, ModalS
         setCategoryOptions={setCategoryOptions}
         setSubreddit={setSubreddit}
         fetchPosts={fetchPosts}
-        setSelectedPosts={setSelectedPosts}
         subreddits={subreddits}
+        clearSelectedPosts={() => PostStore.clearSelectedPosts()}
+        loading={loading}
       />
       <Filters/>
       <p className="current-subreddit mt-">Showing posts from <span className="highlight-text">{window.localStorage.getItem('subreddit')}</span></p>
-      <MsgAuthorWrapper />
+      
+      {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
+        <MessageAuthors data={PostStore.selectedPosts} posts={posts} />
+      }
 
       {loading &&
         <Loading />
@@ -61,30 +61,16 @@ const PostFetch = inject("UserStore", "ModalStore")(observer(({UserStore, ModalS
         posts={posts}
         loading={loading}
         setPosts={setPosts}
-        selectedPosts={selectedPosts}
-        selectPost={(e) => selectPost(e, selectedPosts, setSelectedPosts)}
       />
       {ModalStore.isOpen && 
         <ConfirmModal />
       }
-
     </React.Fragment>
   );
   
 }));
 
-export const selectPost = (e, selectedPosts, setSelectedPosts) => {
-  const trg = e.target.closest(".subreddit-post-parent").getAttribute('data-id');
-  let results = [...selectedPosts];
 
-  if (results.includes(trg.toString())) {
-    results.splice(selectedPosts.indexOf(trg), 1); 
-  } else {
-    results.push(trg);
-  }
-
-  setSelectedPosts([...results]);
-}
 
 export const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
   if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
@@ -112,6 +98,8 @@ export const saveSubredditToLocalStorage = data => {
 
 export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
+  if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
+
   let endpoint = "";
 
   if ( category !== "hot" ) {
@@ -126,7 +114,6 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   let posts = [];
   let after = ``;
   const results = []; 
-  if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
 
   for ( let i = 0; (i < 10 && after !== null); i++ ) {
     await Axios.get(`${link}&after=${after}`).then(res => {
