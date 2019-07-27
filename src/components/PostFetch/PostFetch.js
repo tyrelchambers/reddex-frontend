@@ -29,7 +29,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     getPostsFromDatabase(setPosts);
   }, [reloadPosts]);
 
-  const Filters = () => posts ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
+  const Filters = () => posts.length > 0 ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
   
   return (
     <React.Fragment>

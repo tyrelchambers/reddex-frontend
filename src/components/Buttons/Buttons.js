@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import './buttons.scss';
 
 export const MainButton = ({...props}) => {
@@ -11,7 +11,7 @@ export const MainButton = ({...props}) => {
     )
   } else {
     return (
-      <button className={props.className} onClick={props.onClick}>
+      <button className={props.className} onClick={props.onClick} disabled={props.disabled}>
         {props.children}
         {props.value}
       </button>
