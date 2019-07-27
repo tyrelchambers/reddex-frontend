@@ -47,8 +47,10 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         loading={loading}
       />
       <Filters/>
-      <p className="current-subreddit mt-">Showing posts from <span className="highlight-text-dark">{window.localStorage.getItem('subreddit')}</span></p>
-      
+      {posts.length > 0 &&
+        <p className="current-subreddit mt-">Showing posts from <span className="highlight-text-dark">{window.localStorage.getItem('subreddit')}</span></p>
+      }
+
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
         <MessageAuthors data={PostStore.selectedPosts} posts={posts} />
       }
