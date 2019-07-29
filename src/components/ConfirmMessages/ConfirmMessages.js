@@ -11,7 +11,7 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
   const [ redditProfile, setRedditProfile ] = useState({});
 
   useEffect(() => {
-    setSubject(data.title);
+    setSubject(data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title);
     const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
 
     setRedditProfile({...profile});
@@ -41,8 +41,15 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
       <Username/>
       <div className="d-f fxd-c">
         <div className="field-group">
-          <label htmlFor="subject" className="form-label" >Subject</label>
-          <input type="text" className="form-input" placeholder="Enter a subject" name="subject" value={subject.length > 100 ? subject.slice(0, 97) + '...' : subject} onChange={(e) => setSubject(e.target.value)}/>
+          <div className="d-f jc-sb">
+            <label htmlFor="subject" className="form-label" >Subject</label> 
+            <CharCounter 
+              charCount={subject.length}
+            />
+          </div>
+          <input type="text" className="form-input" placeholder="Enter a subject" name="subject" value={subject} onChange={(e) => {
+            setSubject(e.target.value);
+          }}/>
         </div>
 
         <div className="field-group">
@@ -63,6 +70,12 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
       </div>
     </div>
   )
+}
+
+const CharCounter = ({charCount}) => {
+  return (
+    <p className="char-counter">{charCount} / 80</p>
+  );
 }
 
 export const saveAuthorToDb = async (author, postId)=> {
@@ -87,22 +100,22 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   if (!tokens || !author) return toast.error("Something went wrong");
   if (!message ) return toast.error("A messaged is needed to send");
   if ( !fmtSubject ) return toast.error("A subject is needed");
-
+  if ( fmtSubject.length > 80 ) return toast.error("Subject line is too long");
   const body = new FormData();
   body.set('to', `/u/${author}`);
   body.set("subject", fmtSubject);
   body.set("text", message);
 
-  await Axios.post(link, body, {
-    headers: {
-      "Authorization": `bearer ${tokens.access_token}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  })
-  .then(res => {
-    toast.success(`Message sent to ${author}`)
-    removeMessagedAuthor();
-  })
-  .catch(console.log);
+  // await Axios.post(link, body, {
+  //   headers: {
+  //     "Authorization": `bearer ${tokens.access_token}`,
+  //     "Content-Type": "application/x-www-form-urlencoded"
+  //   }
+  // })
+  // .then(res => {
+  //   toast.success(`Message sent to ${author}`)
+  //   removeMessagedAuthor();
+  // })
+  // .catch(console.log);
   
 }
