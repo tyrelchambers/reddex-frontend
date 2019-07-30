@@ -4,12 +4,15 @@ import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import { toast } from 'react-toastify';
 import { MainButton } from '../Buttons/Buttons';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-export default function ConfirmMessages({data, userProfile, removeMessagedAuthor}) {
+const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
   const [ redditProfile, setRedditProfile ] = useState({});
   const [ loading, setLoading ] = useState(false);
+
   useEffect(() => {
     setSubject(data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title);
     const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
@@ -52,6 +55,22 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
           }}/>
         </div>
 
+        <div className="mt+">
+          <h3>Prefill an existing message</h3>
+
+          <div className="account-tab mt- mb-">
+            <button 
+              className=" btn btn-tiertiary"
+              onClick={() => setDefaultMessage(UserStore.getUser().defaultMessage)}
+            > Default Message </button>
+
+            <button 
+              className=" btn btn-tiertiary"
+              onClick={() => setDefaultMessage(UserStore.getUser().altMessage)}
+            > Alternate Message </button>
+          </div>
+        </div>
+
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">Message To Send</label>
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
@@ -62,16 +81,16 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
           onClick={() => {
             setLoading(true);
             saveAuthorToDb(data.author, data.postId);
-            sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
+            sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
           }} 
           value="Message Author"
-          loading={false}
+          loading={loading}
         /> 
         
       </div>
     </div>
   )
-}
+}));
 
 const CharCounter = ({charCount}) => {
   return (
@@ -93,7 +112,7 @@ export const saveAuthorToDb = async (author, postId)=> {
   .catch(console.log);
 }
 
-export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor) => {
+export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {
   const tokens = await fetchTokens().catch(err => false);
   const fmtSubject = subject;
   const link = `https://oauth.reddit.com/api/compose`;
@@ -116,7 +135,11 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   .then(res => {
     toast.success(`Message sent to ${author}`)
     removeMessagedAuthor();
+    setLoading(false)
   })
   .catch(console.log);
-  
+
+
 }
+
+export default ConfirmMessages;

@@ -15,12 +15,14 @@
 }
 
 .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
   background-color: white;
   width: 100%;
   max-width: 900px;
   border-radius: 10px;
   box-shadow: 0px 3px 10px rgba(black, 0.5);
-  height: 700px;
   padding: 1em;
 }
 
@@ -45,7 +47,6 @@
 }
 
 .modal-inner-body {
-  height: 100%;
 
   .arrow {
     font-size: 1.8rem;
