@@ -2,7 +2,6 @@ import React from 'react'
 import './buttons.scss';
 
 export const MainButton = ({...props}) => {
-  console.log(props.loading)
   if ( props.loading ) {
     return (
       <div className="ml- mr- d-f jc-c">
