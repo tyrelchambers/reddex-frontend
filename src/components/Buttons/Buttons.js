@@ -5,7 +5,7 @@ export const MainButton = ({...props}) => {
   
   if ( props.loading ) {
     return (
-      <div className="ml- mr-">
+      <div className="ml- mr- d-f jc-c">
         <div className="loader"></div>
       </div>
     )

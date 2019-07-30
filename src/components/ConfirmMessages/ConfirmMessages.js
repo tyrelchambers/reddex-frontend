@@ -9,7 +9,7 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
   const [ redditProfile, setRedditProfile ] = useState({});
-
+  const [ loading, setLoading ] = useState(false);
   useEffect(() => {
     setSubject(data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title);
     const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
@@ -60,11 +60,12 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
         <MainButton 
           className="btn btn-primary" 
           onClick={() => {
+            setLoading(true);
             saveAuthorToDb(data.author, data.postId);
             sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
           }} 
-
           value="Message Author"
+          loading={false}
         /> 
         
       </div>
@@ -74,7 +75,7 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
 
 const CharCounter = ({charCount}) => {
   return (
-    <p className="char-counter">{charCount} / 80</p>
+    <p className="char-counter"><span className="highlight-text">{charCount}</span> / 80</p>
   );
 }
 
@@ -106,16 +107,16 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   body.set("subject", fmtSubject);
   body.set("text", message);
 
-  // await Axios.post(link, body, {
-  //   headers: {
-  //     "Authorization": `bearer ${tokens.access_token}`,
-  //     "Content-Type": "application/x-www-form-urlencoded"
-  //   }
-  // })
-  // .then(res => {
-  //   toast.success(`Message sent to ${author}`)
-  //   removeMessagedAuthor();
-  // })
-  // .catch(console.log);
+  await Axios.post(link, body, {
+    headers: {
+      "Authorization": `bearer ${tokens.access_token}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+  .then(res => {
+    toast.success(`Message sent to ${author}`)
+    removeMessagedAuthor();
+  })
+  .catch(console.log);
   
 }
