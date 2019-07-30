@@ -126,18 +126,18 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   body.set("subject", fmtSubject);
   body.set("text", message);
 
-  // await Axios.post(link, body, {
-  //   headers: {
-  //     "Authorization": `bearer ${tokens.access_token}`,
-  //     "Content-Type": "application/x-www-form-urlencoded"
-  //   }
-  // })
-  // .then(res => {
-  //   toast.success(`Message sent to ${author}`)
-  //   removeMessagedAuthor();
-  //   setLoading(false)
-  // })
-  // .catch(console.log);
+  await Axios.post(link, body, {
+    headers: {
+      "Authorization": `bearer ${tokens.access_token}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+  .then(res => {
+    toast.success(`Message sent to ${author}`)
+    removeMessagedAuthor();
+    setLoading(false)
+  })
+  .catch(console.log);
 
 
 }
