@@ -62,10 +62,10 @@ export default function ConfirmMessages({data, userProfile, removeMessagedAuthor
           onClick={() => {
             setLoading(true);
             saveAuthorToDb(data.author, data.postId);
-            sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor);
+            sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
           }} 
           value="Message Author"
-          loading={false}
+          loading={loading}
         /> 
         
       </div>
@@ -93,7 +93,7 @@ export const saveAuthorToDb = async (author, postId)=> {
   .catch(console.log);
 }
 
-export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor) => {
+export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {
   const tokens = await fetchTokens().catch(err => false);
   const fmtSubject = subject;
   const link = `https://oauth.reddit.com/api/compose`;
@@ -116,7 +116,9 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   .then(res => {
     toast.success(`Message sent to ${author}`)
     removeMessagedAuthor();
+    setLoading(false)
   })
   .catch(console.log);
-  
+
+
 }
