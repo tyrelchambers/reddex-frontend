@@ -13,6 +13,7 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
   });
 
   const [ errors, setErrors ] = useState([]);  
+  const [ loading, setLoading ] = useState(false);
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }
@@ -51,6 +52,8 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
         credentialHandler={credentialHandler}
         submitHandler={submitHandler}
         errors={errors}
+        loading={loading}
+        setLoading={setLoading}
       />
     </div>
   )
