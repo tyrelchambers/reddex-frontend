@@ -20,6 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Overview from './Pages/Dashboard/Overview/Overview';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -64,7 +66,7 @@ const InitalLoad = () => {
     return(
       <Provider {...stores}>
         <Router>  
-          <Header />
+          {/* <Header /> */}
           <ToastContainer />
           <Switch>
             <Route exact path="/" component={App}/>
@@ -72,6 +74,7 @@ const InitalLoad = () => {
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/login" component={LoginPage} />
             <PrivateRoute exact path="/account/:account_subpage" component={AccountPage}/>
+            <PrivateRoute exact path="/dashboard/home" component={Overview}/>
           </Switch>
         </Router>
       </Provider>

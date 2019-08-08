@@ -1,0 +1,12 @@
+@import '../../colours';
+
+.dashboard-topbar {
+  height: 60px;
+  background-color: white;
+  border-bottom: 1px solid $grey9;
+  width: 100%;
+  padding: 0.5em 1em;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -7,6 +7,7 @@ import AppLoader from './components/Loading/AppLoader';
 import { getSubreddits } from './helpers/getSubreddits';
 import reddexLogo from './assets/reddex-logo.svg';
 import ScrollToTop from './layouts/ScrollToTop/ScrollToTop';
+import Header from './layouts/Header/Header';
 
 const App = observer(() => {
   

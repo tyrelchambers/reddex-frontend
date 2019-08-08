@@ -7,6 +7,7 @@ import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
+import { access } from 'fs';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -56,6 +57,10 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const createAccount = async () => {
     const { email, password, access_token, refresh_token } = credentials;
     const inviteCode = window.sessionStorage.getItem("invite");
+
+    if (!email || !password) return toast.error("No email or password");
+    if ( !access_token || !refresh_token ) return toast.error("No reddit tokens, please try again.");
+    
     const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/register`, {
       email,
       password,
