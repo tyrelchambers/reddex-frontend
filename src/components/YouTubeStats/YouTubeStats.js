@@ -25,8 +25,8 @@ const YouTubeStats = ({channel = "UCGB-bGTeEWfGKLNx2Wi9ytQ"}) => {
         <h1 className="dash-subtitle mr+">Youtube Stats</h1>
         <a href={`https://youtube.com/channel/${channel}`} target="_blank" className="external-link"><i className="fas fa-link mr--"></i> View Channel</a>
       </div>
-      
-      <ul>
+       
+      <ul className="stat-list">
         <Stat 
           stat={yt.statistics.subscriberCount}
           label="Subscribers"
@@ -49,15 +49,19 @@ const YouTubeStats = ({channel = "UCGB-bGTeEWfGKLNx2Wi9ytQ"}) => {
   )
 }
 
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 const Stat = ({stat, label, icon}) => {
   return (
-    <li>
-      <div>
+    <li className="stat-item">
+      <div className="stat-icon">
         {icon}
       </div>
 
       <div className="stat-stats">
-        <h3>{stat}</h3>
+        <h3>{numberWithCommas(stat)}</h3>
         <h5>{label}</h5>
       </div>
     </li>
