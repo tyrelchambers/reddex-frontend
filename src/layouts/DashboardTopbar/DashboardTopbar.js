@@ -2,10 +2,13 @@ import React from 'react'
 import './DashboardTopbar.scss';
 
 const DashboardTopbar = () => {
+  const redditProfile = JSON.parse(window.localStorage.getItem('reddit_profile'));
+  const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");
   return (
     <div className="d-f dashboard-topbar">
-      <div>
-        <h5>Tyrel Chambers</h5>
+      <div className="d-f ai-c">
+        <img src={profileImg} className="profile-image small mr-" alt="Reddit User's profile image"/>
+        <h5>{redditProfile.subreddit.title}</h5>
       </div>
     </div>
   )
