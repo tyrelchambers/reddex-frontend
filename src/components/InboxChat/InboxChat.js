@@ -6,7 +6,9 @@ import './InboxChat.scss';
 const InboxChat = ({data}) => {
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
 
-  const chats = data.reverse().map((x, id) => {
+  const chats = data.sort((a, b) => {
+    return a.created - b.created;
+  }).map((x, id) => {
     const isCurrent = x.author === currentUser.replace(/\s/g, "") ? true : false;
 
     return(
