@@ -84,3 +84,17 @@
 .chat-action-expanded {
   display: flex;
 }
+
+.chat-footer.right {
+  width: 100%;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+
+  .chat-actions {
+    flex-direction: row-reverse;
+  }
+
+  .chat-action-toggle {
+    margin-right: 1em;
+  }
+}

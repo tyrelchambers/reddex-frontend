@@ -28,7 +28,7 @@ const InboxChat = ({data}) => {
 
           
         </div>
-        <div className="d-f ai-c">
+        <div className={`d-f ai-c chat-footer ${isCurrent ? "right" : ""}`}>
           <p className={`chat-date ${isCurrent ? "chat-right" : ""}`}>{dateFns.format(moment.unix(x.created_utc)._d, "MMM DD, YYYY h:mm:ss aa")}</p>
           <div className="chat-actions d-f">
             <div className="chat-action-toggle" >
