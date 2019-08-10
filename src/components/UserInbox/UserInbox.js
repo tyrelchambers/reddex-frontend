@@ -3,54 +3,53 @@ import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import UserInboxDumb from './UserInboxDumb';
 import Dashboard from '../../Pages/Dashboard/Dashboard';
+import { inject, observer } from 'mobx-react';
+import HR from '../HR/HR';
+import InboxMessage from '../InboxMessage/InboxMessage';
 
-const UserInbox = () => {
-  const [ inbox, setInbox ] = useState({
-    data: [],
-    after: ""
-  });
+const UserInbox = inject("InboxStore")(observer(({InboxStore}) => {
   const [ loading, setLoading ] = useState(false);
-
+  
   useEffect(() => {
     setLoading(true);
-    getInbox(setInbox, setLoading);
+    getInbox(InboxStore, setLoading);
   }, []);
 
-  if ( !loading ) {
-    if ( inbox.length === 0 ) return null;
-    return(
-      <Dashboard>
-        {inbox.data.map(x => {
-          return (
-            <UserInboxDumb 
-              data={x.data}
-            />
-          )
-        })}
-      </Dashboard>
-    )
-  } else {
-    return null;
+  const selectHandler = (msg) => {
+    return InboxStore.setSelectedMessage(msg);
   }
-}
 
-const filterInbox = (inbox, setInbox)  => {
-  const _ = inbox.data.children.filter(x => x.kind === "t4");
-  setInbox({
-    data: _,
-    after: inbox.data.after
-  });
-}
+  return(
+    <Dashboard loading={loading}>
+      <h1>Inbox</h1>
 
-const getInbox = async (setInbox, setLoading) => {
+      <div className="inbox-wrapper d-f">
+        <UserInboxDumb 
+          data={InboxStore.getMessages()}
+          onClick={selectHandler}
+        />
+
+        <InboxMessage 
+          data={InboxStore.getSelectedMessage()}
+        />
+      </div>
+    </Dashboard>
+  )
+  
+}));
+
+const getInbox = async (InboxStore, setLoading) => {
   const token = await fetchTokens();
-  Axios.get(`https://oauth.reddit.com/message/inbox`, {
+  Axios.get(`https://oauth.reddit.com/message/messages`, {
     headers: {
       "Authorization": `bearer ${token.access_token}`
     }
   })
   .then(res => {
-    filterInbox(res.data, setInbox);
+    InboxStore.setMessages({
+      data: res.data.data.children,
+      after: res.data.data.after
+    });
     setLoading(false);
   })
   .catch(console.log);

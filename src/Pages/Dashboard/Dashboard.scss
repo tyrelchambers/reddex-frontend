@@ -1,5 +1,11 @@
 @import '../../colours.scss';
 
+.dashboard-wrapper {
+  height: 100vh;
+  overflow: hidden;
+}
 .dashboard-inner {
   width: 100%;
+  height: 100vh;
+  overflow-y:scroll;
 }

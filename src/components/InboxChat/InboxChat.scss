@@ -1,0 +1,34 @@
+@import '../../colours.scss';
+
+.chat {
+  margin: 2em 0;
+}
+.chat-body {
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 10px;
+  line-height: 1.8em;
+}
+
+.chat-body-dark {
+  background-color: $blue7;
+  color: white;
+  border-bottom-left-radius: 0px;
+}
+
+.chat-body-light {
+  background-color: darken($grey10, 2%);
+  border-bottom-right-radius: 0px;
+}
+
+.chat-right {
+  text-align: right;
+}
+
+.chat-author {
+  color: $grey7;
+}
+
+.chat-date {
+  font-size: 0.8rem;
+}

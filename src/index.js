@@ -15,12 +15,11 @@ import UserStore from './stores/UserStore';
 import ModalStore from './stores/ModalStore';
 import SubredditStore from './stores/SubredditStore';
 import PostStore from './stores/PostStore';
-
+import InboxStore from './stores/InboxStore';
 import 'react-toastify/dist/ReactToastify.css';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
-import Dashboard from './Pages/Dashboard/Dashboard';
 import Overview from './Pages/Dashboard/Overview/Overview';
 import UserInbox from './components/UserInbox/UserInbox';
 
@@ -53,7 +52,8 @@ const stores = {
   UserStore,
   ModalStore,
   SubredditStore,
-  PostStore
+  PostStore,
+  InboxStore
 }
 
 const InitalLoad = () => { 

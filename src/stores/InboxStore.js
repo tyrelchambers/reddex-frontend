@@ -1,0 +1,33 @@
+import { observable, action, decorate, toJS } from 'mobx';
+
+class InboxStore {
+  messages = []
+  selectedMessage = {}
+
+  setMessages(data) {
+    this.messages = data;
+    console.log(toJS(this.messages))
+  }
+
+  getMessages() {
+    console.log(toJS(this.messages))
+    return toJS(this.messages);
+  }
+
+  setSelectedMessage(data) {
+    this.selectedMessage = data;
+  }
+
+  getSelectedMessage() {
+    return toJS(this.selectedMessage);
+  }
+}
+
+decorate(InboxStore, {
+  messages: observable,
+  setMessages: action,
+  selectedMessage: observable,
+  setSelectedMessage: action
+});
+
+export default new InboxStore();

@@ -1,0 +1,36 @@
+@import '../../colours.scss';
+
+.inbox-wrapper {
+  width: 100%;
+}
+
+.inbox-left-wrapper,
+.inbox-message-wrapper {
+  overflow-y: scroll;
+  padding: 0 1em;
+  height: calc(100vh - 190px);
+}
+
+.inbox-item {
+  background-color: white;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  border-radius: 5px;
+  box-shadow:0px 2px 40px rgba(black, 0.05);
+}
+
+.inbox-item-img {
+  color: $blue4;
+  font-size: 1.1rem;
+}
+
+.inbox-item-body {
+  display: block;
+  color: $grey7;
+  margin-top: 0.5em;
+  word-break: break-word;
+  white-space: nowrap;
+  width: 350px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
