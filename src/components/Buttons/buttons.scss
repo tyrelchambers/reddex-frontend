@@ -137,6 +137,40 @@
   outline: none;
 }
 
+.chat-action {
+  background-color: white;
+  border: none;
+  padding: 1em;
+  margin:0 1em;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $grey4; 
+  transition: all 0.2s ease;
+  outline: none;
+  font-size: 0.6rem;
+}
+
+.chat-action {
+  i {
+    font-size: 0.8rem;
+  }
+}
+
+.chat-action.primary {
+  background-color: $grey9;
+}
+
+.chat-action.danger {
+  background-color: transparent;
+  color: $accent;
+  border-radius: 0px;
+  border-bottom: 2px solid transparent;
+  &:hover {
+    border-bottom: 2px solid $accent;
+  }
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
