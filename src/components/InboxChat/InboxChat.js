@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment';
 import dateFns from 'date-fns';
 import './InboxChat.scss';
+import SendChatForm from '../Forms/SendChatForm';
 
 const InboxChat = ({data}) => {
+  const [ chatLogs, setChatLogs] = useState([])
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
-  console.log('------------ from inboxchat ---------', data)
-  const chats = data.sort((a, b) => {
+
+  useEffect(() => {
+    setChatLogs([...data]);
+  }, [data]);
+
+  const chats = chatLogs.sort((a, b) => {
     return a.created - b.created;
   }).map((x, id) => {
     const isCurrent = x.author === currentUser.replace(/\s/g, "") ? true : false;
@@ -27,6 +33,10 @@ const InboxChat = ({data}) => {
       <ul>
         {chats}
       </ul>
+      <SendChatForm
+        user={data}
+        sentMsg={v => setChatLogs([...chatLogs, v])}
+      />
     </div>
   )
 }

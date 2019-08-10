@@ -3,7 +3,6 @@ import './InboxMessage.scss';
 import isEmpty from '../../helpers/objIsEmpty';
 import HR from '../HR/HR';
 import InboxChat from '../InboxChat/InboxChat';
-import SendChatForm from '../Forms/SendChatForm';
 
 const InboxMessage = ({data}) => {
 
@@ -40,11 +39,6 @@ const InboxMessage = ({data}) => {
           data={msgArr}
         />
       </main>
-    
-      <SendChatForm
-        user={data}
-        sentMsg={v => msgArr.push(v)}
-      />
     </div>
   )
 }
