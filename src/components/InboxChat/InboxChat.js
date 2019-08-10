@@ -4,6 +4,8 @@ import dateFns from 'date-fns';
 import './InboxChat.scss';
 import '../Buttons/buttons.scss';
 import SendChatForm from '../Forms/SendChatForm';
+import { fetchTokens } from '../../helpers/renewRefreshToken';
+import Axios from 'axios';
 
 const InboxChat = ({data}) => {
   const [ chatLogs, setChatLogs] = useState([])
@@ -41,10 +43,6 @@ const InboxChat = ({data}) => {
                 <i className="fas fa-bookmark mr-"></i>
                 Add to Read List
               </button>
-              <button className="chat-action danger">
-                <i className="fas fa-trash mr-"></i>
-                Delete
-              </button>
             </div>
           </div>
         </div>
@@ -58,11 +56,15 @@ const InboxChat = ({data}) => {
         {chats}
       </ul>
       <SendChatForm
-        user={data}
-        sentMsg={v => setChatLogs([...chatLogs, v])}
+        user={chatLogs[0]}
+        sentMsg={v => {
+          setChatLogs([...chatLogs, v]);
+          
+        }}
       />
     </div>
   )
 }
+
 
 export default InboxChat
