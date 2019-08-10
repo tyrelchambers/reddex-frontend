@@ -5,7 +5,7 @@ import './InboxChat.scss';
 
 const InboxChat = ({data}) => {
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
-
+  console.log('------------ from inboxchat ---------', data)
   const chats = data.sort((a, b) => {
     return a.created - b.created;
   }).map((x, id) => {

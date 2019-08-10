@@ -6,9 +6,19 @@
 
 .inbox-left-wrapper,
 .inbox-message-wrapper {
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0 1em;
   height: calc(100vh - 190px);
+}
+
+.inbox-message-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.inbox-message-wrapper main {
+  height: 100%;
+  
 }
 
 .inbox-item {

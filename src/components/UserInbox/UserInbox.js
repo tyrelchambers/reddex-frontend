@@ -4,12 +4,12 @@ import { fetchTokens } from '../../helpers/renewRefreshToken';
 import UserInboxDumb from './UserInboxDumb';
 import Dashboard from '../../Pages/Dashboard/Dashboard';
 import { inject, observer } from 'mobx-react';
-import HR from '../HR/HR';
 import InboxMessage from '../InboxMessage/InboxMessage';
 
 const UserInbox = inject("InboxStore")(observer(({InboxStore}) => {
   const [ loading, setLoading ] = useState(false);
-  
+  const [ showChat, setShowChat ] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     getInbox(InboxStore, setLoading);
@@ -19,6 +19,8 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore}) => {
     return InboxStore.setSelectedMessage(msg);
   }
 
+  const showChatComp = showChat ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
+
   return(
     <Dashboard loading={loading}>
       <h1>Inbox</h1>
@@ -26,12 +28,13 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore}) => {
       <div className="inbox-wrapper d-f">
         <UserInboxDumb 
           data={InboxStore.getMessages()}
-          onClick={selectHandler}
+          onClick={(v) => {
+            selectHandler(v);
+            setShowChat(true);
+          }}
         />
 
-        <InboxMessage 
-          data={InboxStore.getSelectedMessage()}
-        />
+        {showChatComp}
       </div>
     </Dashboard>
   )
