@@ -8,24 +8,14 @@ const InboxMessage = ({data}) => {
 
   if ( isEmpty(data) ) return null;
   const msgArr = [];
-  
-  const dataObj = {
-    author: data.author,
-    body: data.body,
-    created: data.created
-  }
 
   if ( !isEmpty(data.replies) ) {
     data.replies.data.children.map(x => {
-      msgArr.push({
-        author: x.data.author,
-        body: x.data.body,
-        created: x.data.created
-      });
+      msgArr.push(x.data);
     });
   }
 
-  msgArr.push(dataObj);
+  msgArr.push(data);
 
   return (
     <div className="inbox-message-wrapper fx-1 ml+">
