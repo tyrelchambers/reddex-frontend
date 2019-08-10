@@ -29,7 +29,7 @@ const InboxChat = ({data}) => {
   })
 
   return (
-    <div className="chat-bubble">
+    <div className="chat-bubble animated fadeIn faster">
       <ul>
         {chats}
       </ul>

@@ -8,7 +8,6 @@ const UserInboxDumb = ({data, key, onClick}) => {
   if ( data.length === 0 ) return null;
 
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
-
   const listItem = data.data.map(x => {
 
     const formatThreads = () => {
@@ -25,7 +24,11 @@ const UserInboxDumb = ({data, key, onClick}) => {
     }
 
     return (
-      <li key={x.data.id}  className="inbox-item d-f ai-c fx-2" onClick={() => onClick(x.data)}>
+      <li key={x.data.id}  className="inbox-item d-f ai-c fx-2" name={x.data.name} onClick={(e) => {
+        removeActiveClasses();
+        e.target.closest('.inbox-item').classList.add('selected-inbox-message');
+        onClick(x.data);
+      }}>
         <i className="fas fa-user inbox-item-img mr+"></i>
         <div className="d-f fxd-c w-100pr">
           <div className="d-f ai-c jc-sb fx-1">
@@ -45,6 +48,15 @@ const UserInboxDumb = ({data, key, onClick}) => {
       </ul>
     </div>
   )
+}
+
+const removeActiveClasses = () => {
+  const el = document.querySelectorAll('.selected-inbox-message');
+  if (el) {
+    el.forEach(x => {
+      x.classList.remove('selected-inbox-message');
+    })
+  }
 }
 
 export default UserInboxDumb

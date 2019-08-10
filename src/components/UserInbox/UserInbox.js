@@ -32,6 +32,8 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore}) => {
             selectHandler(v);
             setShowChat(true);
           }}
+          
+          selected={InboxStore.getSelectedMessage()}
         />
 
         {showChatComp}
