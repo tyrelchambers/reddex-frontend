@@ -6,11 +6,9 @@ class InboxStore {
 
   setMessages(data) {
     this.messages = data;
-    console.log(toJS(this.messages))
   }
 
   getMessages() {
-    console.log(toJS(this.messages))
     return toJS(this.messages);
   }
 

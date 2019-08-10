@@ -6,13 +6,22 @@ import './UserInbox.scss';
 const UserInboxDumb = ({data, key, onClick}) => {
 
   if ( data.length === 0 ) return null;
+
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
 
   const listItem = data.data.map(x => {
 
     const formatThreads = () => {
-      const lastReply = x.data.replies.data.children[x.data.replies.data.children.length - 1].data
+      let lastReply;
+
+      if ( x.data.replies.length === 0 ) {
+        lastReply = x.data;      
+      } else {
+        lastReply = x.data.replies.data.children[x.data.replies.data.children.length - 1].data
+      }
+
       return lastReply.author === currentUser.replace(/\s/g, "") ? `You: ${lastReply.body}` : lastReply.body;
+
     }
 
     return (

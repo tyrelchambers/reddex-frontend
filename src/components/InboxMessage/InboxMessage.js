@@ -6,8 +6,6 @@ import InboxChat from '../InboxChat/InboxChat';
 
 const InboxMessage = ({data}) => {
   if ( isEmpty(data) ) return null;
-  console.log(data)
-
   const msgArr = [];
   
   const dataObj = {
@@ -16,13 +14,15 @@ const InboxMessage = ({data}) => {
     created: data.created
   }
 
-  data.replies.data.children.map(x => {
-    msgArr.push({
-      author: x.data.author,
-      body: x.data.body,
-      created: x.data.created
+  if ( !isEmpty(data.replies) ) {
+    data.replies.data.children.map(x => {
+      msgArr.push({
+        author: x.data.author,
+        body: x.data.body,
+        created: x.data.created
+      });
     });
-  });
+  }
 
   msgArr.push(dataObj);
 

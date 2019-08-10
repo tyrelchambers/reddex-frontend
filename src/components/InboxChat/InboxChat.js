@@ -11,7 +11,7 @@ const InboxChat = ({data}) => {
 
     return(
       <li key={id} className="chat">
-        <h4 className={`chat-author ${isCurrent ? "chat-right" : ""}`}>{x.author}</h4>
+        <h4 className={`chat-author ${isCurrent ? "chat-right" : ""}`}>{isCurrent ? "You" : x.author}</h4>
         <p className={`chat-body ${isCurrent ? "chat-body-light" : "chat-body-dark"}`}>
           {x.body}
         </p>
