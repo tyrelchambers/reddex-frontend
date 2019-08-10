@@ -13,7 +13,7 @@ const InboxChat = ({data}) => {
   }, [data]);
 
   const chats = chatLogs.sort((a, b) => {
-    return a.created - b.created;
+    return a.created_utc - b.created_utc;
   }).map((x, id) => {
     const isCurrent = x.author === currentUser.replace(/\s/g, "") ? true : false;
 
@@ -23,7 +23,7 @@ const InboxChat = ({data}) => {
         <p className={`chat-body ${isCurrent ? "chat-body-light" : "chat-body-dark"}`}>
           {x.body}
         </p>
-        <p className={`chat-date ${isCurrent ? "chat-right" : ""}`}>{dateFns.format(moment.unix(x.created)._d, "MMM DD, YYYY h:mm:ss aa")}</p>
+        <p className={`chat-date ${isCurrent ? "chat-right" : ""}`}>{dateFns.format(moment.unix(x.created_utc)._d, "MMM DD, YYYY h:mm:ss aa")}</p>
       </li>
     )
   })

@@ -33,7 +33,7 @@ const UserInboxDumb = ({data, key, onClick}) => {
         <div className="d-f fxd-c w-100pr">
           <div className="d-f ai-c jc-sb fx-1">
             <h4>{x.data.dest}</h4>
-            <p>{dateFns.format(moment.unix(x.data.created)._d, "MMM DD")}</p>
+            <p>{dateFns.format(moment.unix(x.data.created_utc)._d, "MMM DD")}</p>
           </div>
           <p className="inbox-item-body">{formatThreads()}</p>
         </div>

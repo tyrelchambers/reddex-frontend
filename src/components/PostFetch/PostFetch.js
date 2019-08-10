@@ -147,7 +147,7 @@ export const saveToDatabase = async (posts) => {
       ups: x.ups,
       url: x.url,
       num_comments: x.num_comments,
-      created: x.created,
+      created: x.created_utc,
       flair: x.link_flair_text,
       postId: x.id
     });
