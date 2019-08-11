@@ -1,6 +1,7 @@
 import { decorate, action, observable, toJS } from 'mobx';
 
 class ReadingListStore {
+  toRead = []
   readingList = []
   dim = false
 
@@ -16,7 +17,6 @@ class ReadingListStore {
 
   setReadingList(story) {
     this.readingList = [...story];
-    console.log(story)
   }
 
   getReadingList() {
@@ -26,6 +26,14 @@ class ReadingListStore {
   removeStoryFromList(id) {
     search(id, "name", this.readingList);
     //this.readingList.slice()
+  }
+
+  addToRead(story) {
+    this.toRead = [...story];
+  }
+
+  getToRead() {
+    return toJS(this.toRead);
   }
 }
 
@@ -44,6 +52,8 @@ decorate(ReadingListStore, {
   readingList: observable,
   setReadingList: action,
   dim: observable,
-  setDim: action
+  setDim: action,
+  toRead: observable,
+  addToRead: action
 });
 export default new ReadingListStore();

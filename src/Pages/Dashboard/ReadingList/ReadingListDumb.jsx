@@ -1,5 +1,6 @@
 import React from 'react'
 import './ReadingList.scss';
+import Axios from 'axios';
 
 const ReadingListDumb = ({list, setExpanded}) => {
   const stories = list.map((x, id) => 
@@ -14,6 +15,21 @@ const ReadingListDumb = ({list, setExpanded}) => {
         </div>
         <div className="message-tags mt-">
           <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
+          <div className="chat-actions d-f">
+            <div className="chat-action-toggle" >
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div className="chat-action-btn-wrapper d-f ai-c">
+              <button className="chat-action primary ai-c" onClick={() => {
+                addToCompleted(x, true);
+              }}>
+                <i className="fas fa-check mr-"></i>
+                Set as read
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -23,12 +39,29 @@ const ReadingListDumb = ({list, setExpanded}) => {
     </li>
   )
   return (
-    <div className="mt+">
+    <div className="m+ fx-1">
+      <h3>Accepted Stories</h3>
       <ul className="reading-list-list">
         {stories}
       </ul>
     </div>
   )
+}
+
+const addToCompleted = (data, bool) => {
+  const token = window.localStorage.getItem('token');
+
+  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/stories/completed`, {
+    author: data.author,
+    title: data.title,
+    read: bool
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then()
+  .catch(console.log)
 }
 
 export default ReadingListDumb

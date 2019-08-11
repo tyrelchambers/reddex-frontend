@@ -36,6 +36,14 @@
   }
 }
 
+.reading-list-item.opaque {
+  opacity: 0.7;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
 .reading-list-item-expanded {
   
   .reading-list-header {
@@ -51,21 +59,21 @@
 
 }
 
-.message-tags {
-  display: flex;
-  align-items: center;
-}
-.message-story-tag {
-  padding: 0.5em 1em;
-  background-color: $grey6;
-  font-size: 0.7rem;
-  color: white;
-  text-decoration: none;
-  border-radius: 20px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
+
 
 .dark-bg {
   background-color: $grey2;
+}
+
+.chat-action-btn-wrapper {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 100ms linear;
+}
+
+.chat-actions:hover {
+  .chat-action-btn-wrapper {
+    visibility: visible;
+    opacity: 1;
+  }
 }

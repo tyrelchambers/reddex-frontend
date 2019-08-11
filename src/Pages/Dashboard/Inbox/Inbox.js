@@ -5,6 +5,8 @@ import UserInbox from '../../../components/UserInbox/UserInbox';
 const Inbox = () => {
   return (
     <Dashboard>
+      <h1>Inbox</h1>
+
       <UserInbox/>
     </Dashboard>
   )

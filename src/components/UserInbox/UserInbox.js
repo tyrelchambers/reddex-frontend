@@ -22,8 +22,6 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore}) => {
   const showChatComp = showChat ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
 
   return(
-    <Dashboard loading={loading}>
-      <h1>Inbox</h1>
 
       <div className="inbox-wrapper d-f">
         <UserInboxDumb 
@@ -38,7 +36,6 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore}) => {
 
         {showChatComp}
       </div>
-    </Dashboard>
   )
   
 }));
