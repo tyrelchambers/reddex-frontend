@@ -1,4 +1,21 @@
+@import '../../colours.scss';
+
 .inbox-message-wrapper {
   width: 100%;
   max-width: 900px;
+}
+
+.message-tags {
+  display: flex;
+  align-items: center;
+}
+.message-story-tag {
+  padding: 0.5em 1em;
+  background-color: $grey6;
+  font-size: 0.7rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
 }

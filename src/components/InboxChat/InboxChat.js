@@ -6,10 +6,10 @@ import '../Buttons/buttons.scss';
 import SendChatForm from '../Forms/SendChatForm';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import ReadingListStore from '../../stores/ReadingListStore';
 
 const InboxChat = inject("ReadingListStore")(observer(({data, ReadingListStore}) => {
-  const [ chatLogs, setChatLogs] = useState([])
+  const [ chatLogs, setChatLogs] = useState([]);
+
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
 
   useEffect(() => {
@@ -66,6 +66,7 @@ const InboxChat = inject("ReadingListStore")(observer(({data, ReadingListStore})
     </div>
   )
 }));
+
 
 
 export default InboxChat
