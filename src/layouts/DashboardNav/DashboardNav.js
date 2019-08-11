@@ -1,11 +1,14 @@
 import React from 'react'
 import './DashboardNav.scss';
 import {NavLink, Link} from 'react-router-dom';
+import brandImg from '../../assets/reddex-logo.svg';
 
 const DashboardNav = () => {
   return (
     <nav className="dash-nav ">
-      <NavToggle />
+      <Brand
+        img={brandImg}
+      />
       <ul >
         <li>
           <NavLink to="/dashboard/home" className="dash-nav-item" activeClassName="dash-nav-item-active ">
@@ -36,17 +39,10 @@ const DashboardNav = () => {
   )
 }
 
-const NavToggle = () => {
+const Brand = ({img}) => {
   return (
-    <div className="d-f fxd-c jc-sb dash-nav-toggle">
-      <div className="d-f jc-sb">
-        <div className="nav-dot"></div>
-        <div className="nav-dot"></div>
-      </div>
-      <div className="d-f jc-sb">
-        <div className="nav-dot"></div>
-        <div className="nav-dot"></div>
-      </div>
+    <div className="d-f ai-c jc-c mt-">
+      <img src={img} alt="Brand" style={{width: "130px"}}/>
     </div>
   );
 }

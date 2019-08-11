@@ -25,6 +25,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     getPostsFromDatabase(setPosts);
     getSubredditsFromDatabase(setSubreddits);
   }, []);
+  
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
@@ -57,7 +58,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
 
       {loading &&
-        <Loading />
+        <Loading title="Wrangling reddit posts..." subtitle="This will take a minute or two, hold tight"/>
       }
 
       <Posts 
