@@ -4,10 +4,11 @@ import dateFns from 'date-fns';
 import './InboxChat.scss';
 import '../Buttons/buttons.scss';
 import SendChatForm from '../Forms/SendChatForm';
-import { fetchTokens } from '../../helpers/renewRefreshToken';
-import Axios from 'axios';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+import ReadingListStore from '../../stores/ReadingListStore';
 
-const InboxChat = ({data}) => {
+const InboxChat = inject("ReadingListStore")(observer(({data, ReadingListStore}) => {
   const [ chatLogs, setChatLogs] = useState([])
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
 
@@ -39,7 +40,7 @@ const InboxChat = ({data}) => {
               <span></span>
             </div>
             <div className="chat-action-btn-wrapper d-f">
-              <button className="chat-action primary ai-c">
+              <button className="chat-action primary ai-c" onClick={() => ReadingListStore.setReadingList(x)}>
                 <i className="fas fa-bookmark mr-"></i>
                 Add to Read List
               </button>
@@ -64,7 +65,7 @@ const InboxChat = ({data}) => {
       />
     </div>
   )
-}
+}));
 
 
 export default InboxChat

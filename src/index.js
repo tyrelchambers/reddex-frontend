@@ -5,7 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import LogRocket from 'logrocket';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Header from './layouts/Header/Header';
 import About from './Pages/About/About';
 import SignupPage from './Pages/SignupPage/SignupPage';
 import LoginPage from './Pages/LoginPage/LoginPage';
@@ -16,12 +15,14 @@ import ModalStore from './stores/ModalStore';
 import SubredditStore from './stores/SubredditStore';
 import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
+import ReadingListStore from './stores/ReadingListStore';
 import 'react-toastify/dist/ReactToastify.css';
 import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
 import Overview from './Pages/Dashboard/Overview/Overview';
 import UserInbox from './components/UserInbox/UserInbox';
+import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -53,7 +54,8 @@ const stores = {
   ModalStore,
   SubredditStore,
   PostStore,
-  InboxStore
+  InboxStore,
+  ReadingListStore
 }
 
 const InitalLoad = () => { 
@@ -67,7 +69,6 @@ const InitalLoad = () => {
     return(
       <Provider {...stores}>
         <Router>  
-          {/* <Header /> */}
           <ToastContainer />
           <Switch>
             <Route exact path="/" component={App}/>
@@ -77,6 +78,7 @@ const InitalLoad = () => {
             <PrivateRoute exact path="/account/:account_subpage" component={AccountPage}/>
             <PrivateRoute exact path="/dashboard/home" component={Overview}/>
             <PrivateRoute exact path="/dashboard/inbox" component={UserInbox}/>
+            <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
           </Switch>
         </Router>
       </Provider>
