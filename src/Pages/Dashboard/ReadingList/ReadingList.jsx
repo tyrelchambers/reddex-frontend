@@ -5,9 +5,9 @@ import ReadingListDumb from './ReadingListDumb';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import Axios from 'axios';
+import HR from '../../../components/HR/HR';
 
-const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => {
-
+const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => {  
   useEffect(() => {
     const token = window.localStorage.getItem('token');
 
@@ -16,16 +16,18 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
         token
       }
     })
-    .then(console.log)
+    .then(res => ReadingListStore.setReadingList(res.data))
     .catch(console.log);
   }, []);
 
   return (
     <Dashboard>
-      <h1>Reading List</h1>
-
+      <h1 className="mb-">Reading List</h1>
+      <HR />
       <ReadingListDumb 
         list={ReadingListStore.getReadingList()}
+        expanded={ReadingListStore.dim}
+        setExpanded={(v) => ReadingListStore.setDim(v)}
       />
     </Dashboard>
   )

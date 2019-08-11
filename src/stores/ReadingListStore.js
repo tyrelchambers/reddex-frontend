@@ -2,9 +2,20 @@ import { decorate, action, observable, toJS } from 'mobx';
 
 class ReadingListStore {
   readingList = []
+  dim = false
+
+  setDim(bool) {
+    const elms = document.querySelectorAll('.reading-list-item-expanded');
+    if ( elms.length === 0 ) {
+      this.dim = false;
+    } else {
+
+      this.dim = bool;
+    }
+  }
 
   setReadingList(story) {
-    this.readingList.push(story);
+    this.readingList = [...story];
     console.log(story)
   }
 
@@ -31,6 +42,8 @@ const search = (key, prop, array) => {
 
 decorate(ReadingListStore, {
   readingList: observable,
-  setReadingList: action
+  setReadingList: action,
+  dim: observable,
+  setDim: action
 });
 export default new ReadingListStore();
