@@ -2,28 +2,48 @@ import React, { useEffect, useState } from 'react'
 import './YouTubeStats.scss';
 import Axios from 'axios';
 
-const YouTubeStats = ({channel = "UCGB-bGTeEWfGKLNx2Wi9ytQ"}) => {
+const YouTubeStats = () => {
   const [ yt, setYt ] = useState();
-  const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
+  
+  useEffect(() => {
+    getYtChannel()
+  }, [])
 
-  const getYtChannel = () => {
-    return Axios.get(ytLink).then(res => setYt(res.data.items[0])).catch(console.log).then();
+  const getYtChannel = (channel = window.localStorage.getItem('youtube')) => {
+    const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
+    return Axios.get(ytLink).then(res => {
+      setYt(res.data.items[0])
+      window.localStorage.setItem('youtube',channel)
+    }).catch(console.log).then();
   }
 
-  useEffect(() => {
-    const _ = async () => {
-      await getYtChannel();
-    }
-    _();
-  }, [channel])
+  const getStatsHandler = e => {
+    e.preventDefault();
+    const input = document.querySelector("#youtubeInput").value;
+    getYtChannel(input);
+    
+  }
 
   if (!yt) return null;
+
+  if ( !window.localStorage.getItem('youtube') ) {
+    return(
+      <React.Fragment>
+        <div className="d-f ai-c">
+          <h1 className="dash-subtitle mr+ mb+">Youtube Stats</h1>
+        </div>
+        <form className="w-400px d-f ai-c mb+">
+          <input placeholder="Enter youtube username to get stats.." id="youtubeInput" className="input mr-"></input>
+          <button className="btn btn-secondary" onClick={e => getStatsHandler(e)}>Get Stats</button>
+        </form>
+      </React.Fragment>
+    );
+  }
 
   return (
     <div>
       <div className="d-f ai-c">
         <h1 className="dash-subtitle mr+">Youtube Stats</h1>
-        <a href={`https://youtube.com/channel/${channel}`} target="_blank" className="external-link"><i className="fas fa-link mr--"></i> View Channel</a>
       </div>
        
       <ul className="stat-list">
@@ -48,6 +68,9 @@ const YouTubeStats = ({channel = "UCGB-bGTeEWfGKLNx2Wi9ytQ"}) => {
     </div>
   )
 }
+
+
+
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
