@@ -2,14 +2,15 @@
 
 .stat-list {
   display: flex;
-  width: 800px;
+  max-width: 800px;
+  width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .stat-item {
   position: relative;
-  width: 160px;
+  width: 210px;
   height: 100px;
   margin: 1em;
 }
@@ -41,5 +42,11 @@
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0px 1px 10px rgba(black, 0.1);
+  }
+}
+
+@media screen and (max-width: 503px) {
+  .stat-list {
+    justify-content: center;
   }
 }
