@@ -4,12 +4,17 @@
   width: 30px;
   height: 30px;
   transition: all 0.2s ease;
-  margin: 1em;
-  &:hover {
-    transform: rotateZ(180deg);
-  }
+  margin: 0.5em 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: $grey4;
 }
 
+.closed {
+  transform: rotateZ(180deg);
+}
 .nav-dot {
   width: 10px;
   height: 10px;
@@ -27,6 +32,19 @@
   ul {
     margin-top: 2em;
 
+  }
+}
+
+.dash-nav.collapsed {
+  width: 70px;
+  .dash-nav-item {
+    p {
+      display: none;
+    }
+  }
+
+  .dash-nav-item-active {
+    display: none;
   }
 }
 
