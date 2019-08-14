@@ -12,6 +12,19 @@ const CompletedStories = ({list, addToRead}) => {
         </div>
         <div className="message-tags mt-">
           <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
+          <div className="chat-actions d-f">
+            <div className="chat-action-toggle" >
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div className="chat-action-btn-wrapper d-f">
+              <button className="chat-action primary ai-c" onClick={() => addToRead(x)}>
+                <i className="fas fa-bookmark mr-"></i>
+                Add back to Read List
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -32,3 +45,4 @@ const CompletedStories = ({list, addToRead}) => {
 
 
 export default CompletedStories;
+

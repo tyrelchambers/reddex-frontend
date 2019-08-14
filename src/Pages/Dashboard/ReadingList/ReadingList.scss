@@ -44,21 +44,15 @@
     opacity: 1;
   }
 }
-.reading-list-item-expanded {
-  
-  .reading-list-header {
-    margin-bottom: 2em;
-    border-bottom: 1px solid $grey9;
-    padding-bottom: 1em;
-  }
-  
-   .reading-list-body {
-    display: flex !important;
-    
-  }
-
+.reading-list-item-header.expanded {
+  margin-bottom: 2em;
+  border-bottom: 1px solid $grey9;
+  padding-bottom: 1em;
 }
-
+.reading-list-body.expanded {
+  display: flex !important;
+ 
+}
 
 
 .dark-bg {

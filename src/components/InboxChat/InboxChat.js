@@ -40,7 +40,7 @@ const InboxChat = inject("ReadingListStore")(observer(({data, ReadingListStore})
               <span></span>
             </div>
             <div className="chat-action-btn-wrapper d-f">
-              <button className="chat-action primary ai-c" onClick={() => ReadingListStore.setReadingList(x)}>
+              <button className="chat-action primary ai-c" onClick={() => ReadingListStore.addToRead(x)}>
                 <i className="fas fa-bookmark mr-"></i>
                 Add to Read List
               </button>

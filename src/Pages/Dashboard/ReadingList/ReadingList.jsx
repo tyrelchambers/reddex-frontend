@@ -12,7 +12,7 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
 
-    getReadingListFromDb(token, ReadingListStore)
+    getCompletedFromDb(token, ReadingListStore)
     getCompletedStoriesFromDb(token, ReadingListStore);
   }, []);
 
@@ -24,18 +24,20 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
         <ReadingListDumb 
           list={ReadingListStore.getToRead()}
           setExpanded={(v) => ReadingListStore.setDim(v)}
+          callback={(v) => ReadingListStore.removeStoryFromList(v)}
         />
 
         <CompletedStories 
-          list={ReadingListStore.getReadingList()}
+          list={ReadingListStore.getCompleted()}
           addToRead={x => ReadingListStore.addToRead(x)}
+          ReadingListStore={ReadingListStore}
         />
       </div>
     </Dashboard>
   )
 }));
 
-const getReadingListFromDb = (token, store) => {
+const getCompletedFromDb = (token, store) => {
   Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/reading_list?permission=true`, {
     headers: {
       token
@@ -51,7 +53,7 @@ const getCompletedStoriesFromDb = (token, ReadingListStore) => {
       token
     }
   })
-  .then(res => ReadingListStore.setReadingList(res.data))
+  .then(res => ReadingListStore.setCompleted(res.data))
   .catch(console.log);
 }
 

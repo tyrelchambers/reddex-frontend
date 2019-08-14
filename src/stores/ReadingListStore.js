@@ -2,11 +2,11 @@ import { decorate, action, observable, toJS } from 'mobx';
 
 class ReadingListStore {
   toRead = []
-  readingList = []
+  completed = []
   dim = false
 
   setDim(bool) {
-    const elms = document.querySelectorAll('.reading-list-item-expanded');
+    const elms = document.querySelectorAll('.expanded');
     if ( elms.length === 0 ) {
       this.dim = false;
     } else {
@@ -15,17 +15,18 @@ class ReadingListStore {
     }
   }
 
-  setReadingList(story) {
-    this.readingList = [...story];
+  setCompleted(story) {
+    this.completed = [...story];
   }
 
-  getReadingList() {
-    return toJS(this.readingList);
+  getCompleted() {
+    return toJS(this.completed);
   }
 
-  removeStoryFromList(id) {
-    search(id, "name", this.readingList);
-    //this.readingList.slice()
+  removeStoryFromList(data) {
+    const item = this.toRead.find((x) => x.postId === data.postId)
+    this.toRead.remove(item);
+    this.completed.push(item)
   }
 
   addToRead(story) {
@@ -37,23 +38,13 @@ class ReadingListStore {
   }
 }
 
-const search = (key, prop, array) => {
-  for ( let i = 0; i < array.length; i++ ) {
-    for (const k in array[i]) {
-      if (array[i].hasOwnProperty(prop)) {
-        const element = array[i][key];
-        console.log(element)
-      }
-    }
-  }
-}
-
 decorate(ReadingListStore, {
-  readingList: observable,
-  setReadingList: action,
+  completed: observable,
+  setCompleted: action,
   dim: observable,
   setDim: action,
   toRead: observable,
-  addToRead: action
+  addToRead: action,
+  removeStoryFromList: action
 });
 export default new ReadingListStore();
