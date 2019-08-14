@@ -46,7 +46,7 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
       <main>
         <div className="d-f fxd-c">
           <h2>{data.subject}</h2>
-          <p className="mb-">From: {destIsMe(data) ? data.author : data.dest}</p>
+          <p className="mb- message-subtitle">From: {destIsMe(data) ? data.author : data.dest}</p>
           <div className="message-tags">
             <MessageTags />
            

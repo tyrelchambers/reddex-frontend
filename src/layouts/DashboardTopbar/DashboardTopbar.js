@@ -24,6 +24,12 @@ const DashboardTopbar = () => {
   return (
     <div className="d-f fxd-c jc-sb dash-nav-toggle" onClick={(e) => {
       document.querySelector("#dashNav").classList.toggle('collapsed');
+      const bodyWidth = document.body.clientWidth;
+
+      if ( bodyWidth <= 425 ) {
+        document.querySelector(".topbar-account-widget").classList.toggle('collapsed');
+        console.log('true')
+      }
     }}>
       <i className="fas fa-angle-double-right"></i>
     </div>

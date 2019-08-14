@@ -42,7 +42,8 @@
   margin-top: 0.5em;
   word-break: break-word;
   white-space: nowrap;
-  width: 350px;
+  max-width: 350px;
+  width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -51,4 +52,34 @@
   opacity: 1;
   box-shadow:0px 2px 40px rgba(black, 0.05);
 
+}
+
+@media screen and (max-width: 1024px) {
+  .inbox-wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .inbox-message-wrapper {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .inbox-item-body {
+    white-space: pre-wrap !important;
+    height: 20px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .inbox-item-header-mobile {
+    flex-direction: column;
+    align-items: flex-start;
+
+    h4 {
+      word-break: break-all;
+    }
+  }
 }

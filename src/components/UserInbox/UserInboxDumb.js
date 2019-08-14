@@ -30,8 +30,8 @@ const UserInboxDumb = ({data, key, onClick}) => {
         onClick(x.data);
       }}>
         <i className="fas fa-user inbox-item-img mr+"></i>
-        <div className="d-f fxd-c w-100pr">
-          <div className="d-f ai-c jc-sb fx-1">
+        <div className="d-f fxd-c fx-1 ">
+          <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">
             <h4>{x.data.dest}</h4>
             <p>{dateFns.format(moment.unix(x.data.created_utc)._d, "MMM DD")}</p>
           </div>

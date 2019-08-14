@@ -50,6 +50,12 @@
   .chat-actions {
     align-self: flex-end;
   }
+
+  p {
+    width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
 }
 
 .chat-actions:hover {

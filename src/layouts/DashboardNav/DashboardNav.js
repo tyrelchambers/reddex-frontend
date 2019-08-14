@@ -3,8 +3,9 @@ import './DashboardNav.scss';
 import {NavLink, Link} from 'react-router-dom';
 
 const DashboardNav = () => {
+  const bodyWidth = document.body.clientWidth;
   return (
-    <nav className="dash-nav" id="dashNav">
+    <nav className={`dash-nav ${bodyWidth <= 768 ? "collapsed" : ""}`} id="dashNav">
       <ul >
         <li>
           <NavLink to="/dashboard/home" className="dash-nav-item" activeClassName="dash-nav-item-active ">
