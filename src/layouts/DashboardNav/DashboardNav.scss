@@ -4,17 +4,17 @@
   width: 30px;
   height: 30px;
   transition: all 0.2s ease;
-  margin: 0.5em 0.5em;
+  margin: 0.5em 0;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
   color: $grey4;
+  &:hover {
+    transform: rotateZ(180deg);
+  }
 }
 
-.closed {
-  transform: rotateZ(180deg);
-}
 .nav-dot {
   width: 10px;
   height: 10px;
@@ -29,23 +29,13 @@
   background-color: white;
   overflow: hidden;
   border-right: 1px solid $grey9;
-  ul {
-    margin-top: 2em;
-
-  }
+  position: relative;
+  bottom: 0;
+  
 }
 
 .dash-nav.collapsed {
-  width: 70px;
-  .dash-nav-item {
-    p {
-      display: none;
-    }
-  }
-
-  .dash-nav-item-active {
-    display: none;
-  }
+  display: none;
 }
 
 .dash-nav-item {

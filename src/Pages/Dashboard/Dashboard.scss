@@ -12,3 +12,19 @@
 .dashboard-page-wrapper {
   transition: all 0.2s ease;
 }
+
+@media screen and (max-width: 768px) {
+  .dashboard-page-wrapper {
+    padding: 1em;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .dashboard-page-wrapper {
+    padding: 0.5em;
+  }
+
+  .m\+ {
+    margin: 0.5em !important;
+  }
+}

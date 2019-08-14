@@ -6,7 +6,7 @@ const CompletedStories = ({list, addToRead}) => {
   const stories = list.map((x, id) => 
     <li key={id} className="reading-list-item opaque">
       <div className="d-f fxd-c reading-list-header ">
-        <div className="d-f ai-c jc-sb">
+        <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
           <h3 className="reading-list-title mr+">{x.title}</h3>
           <h4 className="reading-list-author">{x.author}</h4>
         </div>

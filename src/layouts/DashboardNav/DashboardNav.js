@@ -5,7 +5,6 @@ import {NavLink, Link} from 'react-router-dom';
 const DashboardNav = () => {
   return (
     <nav className="dash-nav" id="dashNav">
-      <NavToggle />
       <ul >
         <li>
           <NavLink to="/dashboard/home" className="dash-nav-item" activeClassName="dash-nav-item-active ">
@@ -36,15 +35,5 @@ const DashboardNav = () => {
   )
 }
 
-const NavToggle = () => {
-  return (
-    <div className="d-f fxd-c jc-sb dash-nav-toggle" onClick={(e) => {
-      document.querySelector("#dashNav").classList.toggle('collapsed');
-      e.target.classList.toggle('closed')
-    }}>
-      <i className="fas fa-angle-double-right"></i>
-    </div>
-  );
-}
 
 export default DashboardNav

@@ -20,7 +20,7 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
     <Dashboard>
       <h1 className="mb-">Reading List</h1>
       <HR />
-      <div className="d-f">
+      <div className="d-f mobile-column">
         <ReadingListDumb 
           list={ReadingListStore.getToRead()}
           setExpanded={(v) => ReadingListStore.setDim(v)}

@@ -7,7 +7,7 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
   const stories = list.map((x, id) => 
     <li key={id} className="reading-list-item">
       <div className="d-f" >
-        <i className="fas fa-chevron-down mt-- mr+mt+ mr+" onClick={(e) => {
+        <i className="fas fa-chevron-down mt- mr+ body-toggle" onClick={(e) => {
           const body = document.querySelector("#bodySec");
           const header = document.querySelector('.reading-list-item-header');
           body.classList.toggle('expanded');
@@ -16,7 +16,7 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
         }}></i>
         
         <div className="d-f fxd-c fx-1 reading-list-item-header">
-          <div className="d-f ai-c jc-sb ">
+          <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
             <h3 className="reading-list-title mr+">{x.title}</h3>
             <h4 className="reading-list-author">{x.author}</h4>
           </div>
