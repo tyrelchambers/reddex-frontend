@@ -8,6 +8,7 @@ import PostFetchComp from '../PostFetchComp/PostFetchComp';
 import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [subreddit, setSubreddit] = useState("");
@@ -24,6 +25,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     getPostsFromDatabase(setPosts);
     getSubredditsFromDatabase(setSubreddits);
   }, []);
+  
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
@@ -32,7 +34,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const Filters = () => posts.length > 0 ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
   
   return (
-    <React.Fragment>
+    <DisplayWrapper hasHeader={true}>
       <PostFetchComp 
         subreddit={subreddit}
         posts={posts}
@@ -56,7 +58,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
 
       {loading &&
-        <Loading />
+        <Loading title="Wrangling reddit posts..." subtitle="This will take a minute or two, hold tight"/>
       }
 
       <Posts 
@@ -67,7 +69,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       {ModalStore.isOpen && 
         <ConfirmModal />
       }
-    </React.Fragment>
+    </DisplayWrapper>
   );
   
 }));
@@ -146,7 +148,7 @@ export const saveToDatabase = async (posts) => {
       ups: x.ups,
       url: x.url,
       num_comments: x.num_comments,
-      created: x.created,
+      created: x.created_utc,
       flair: x.link_flair_text,
       postId: x.id
     });

@@ -1,0 +1,105 @@
+@import '../../colours.scss';
+
+.chat {
+  margin: 2em 0;
+
+ 
+}
+
+.chat-body {
+  width: fit-content;
+  min-width: 50%;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 10px;
+  line-height: 1.8em;
+}
+
+.chat-body-dark {
+  background-color: $blue7;
+  color: white;
+  border-bottom-left-radius: 0px;
+}
+
+.chat-body-light {
+  background-color: darken($grey10, 2%);
+  border-bottom-right-radius: 0px;
+}
+
+.chat-right {
+  text-align: right;
+}
+
+.chat-author {
+  color: $grey7;
+}
+
+.chat-date {
+  font-size: 0.8rem;
+}
+.chat-body-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.chat-body-wrapper.right {
+  display: flex;
+  flex-direction: column;
+  p,
+  .chat-actions {
+    align-self: flex-end;
+  }
+
+  p {
+    width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+.chat-actions:hover {
+  .chat-action-btn-wrapper {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.chat-action-toggle {
+  display: flex; 
+  align-items: center;
+  margin-left: 1em;
+  span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 0.3em;
+    background-color: $grey7;
+  }
+
+}
+
+.chat-action-btn-wrapper {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 100ms linear;
+}
+
+.chat-action-expanded {
+  display: flex;
+}
+
+.chat-footer.right {
+  width: 100%;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+
+  .chat-actions {
+    flex-direction: row-reverse;
+  }
+
+  .chat-action-toggle {
+    margin-right: 1em;
+  }
+}

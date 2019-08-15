@@ -1,0 +1,83 @@
+@import '../../colours';
+
+.dash-nav-toggle {
+  width: 30px;
+  height: 30px;
+  transition: all 0.2s ease;
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: $grey4;
+  &:hover {
+    transform: rotateZ(180deg);
+  }
+}
+
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  background: $grey3;
+  border-radius: 50%;
+}
+
+.dash-nav {
+  width: 180px;
+  height: 100%;
+  min-height: 100vh;
+  background-color: white;
+  overflow: hidden;
+  border-right: 1px solid $grey9;
+  position: relative;
+  bottom: 0;
+  
+}
+
+.collapsed {
+  display: none;
+}
+
+.dash-nav-item {
+  padding: 0.3em 1em;
+  color: $grey3;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0.2em 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  &::before{
+    transition: all 0.2s ease;
+  }
+  i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    font-size: 1.3rem;
+    margin: 0.3em;
+    color: $grey3;
+  }
+
+  &:hover {
+    background-color: $grey10;
+  }
+  
+}
+
+.dash-nav-item-active {
+  background-color: $grey10;
+
+  &::before {
+    content: "";
+    display: flex;
+    height: 100%;
+    width: 5px;
+    background-color: $blue6;
+    position: absolute;
+    left:-1px;
+    border-radius: 5px;
+  }
+}

@@ -8,7 +8,7 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color:hsl(210, 20%, 99%);
+  background-color:#F8F7FC;
   * {
     box-sizing: border-box;
   }
@@ -30,6 +30,9 @@ p {
   color: hsla(211, 12%, 48%,1);
 }
 
+.external-link {
+  color: $blue6;
+}
 
 
 ul {
@@ -107,4 +110,20 @@ ul {
     margin: 0.5em 0;
     font-size: 1.2rem;
   }
+}
+
+.message-tags {
+  display: flex;
+  align-items: center;
+}
+
+.message-story-tag {
+  padding: 0.5em 1em;
+ 
+  font-size: 0.7rem;
+  color: $blue6;
+  text-decoration: underline;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
 }

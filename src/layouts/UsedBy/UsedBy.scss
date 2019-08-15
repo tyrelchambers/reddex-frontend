@@ -1,0 +1,31 @@
+@import '../../colours.scss';
+
+.used-by-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.used-by-item {
+  margin: 1em;
+  opacity: 0.3;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 700;
+  color: $grey4;
+  &:hover {
+    opacity: 1;
+  }
+}
+.used-by-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h3 {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  border-bottom: 1px solid $grey9;
+}

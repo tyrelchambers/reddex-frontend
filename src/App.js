@@ -5,8 +5,9 @@ import { observer } from 'mobx-react-lite';
 import NewVisitor from './components/NewVisitor/NewVisitor';
 import AppLoader from './components/Loading/AppLoader';
 import { getSubreddits } from './helpers/getSubreddits';
-import reddexLogo from './assets/reddex-logo.svg';
 import ScrollToTop from './layouts/ScrollToTop/ScrollToTop';
+import Hero from './layouts/Hero/Hero';
+import UsedBy from './layouts/UsedBy/UsedBy';
 
 const App = observer(() => {
   
@@ -36,22 +37,23 @@ const App = observer(() => {
   }
 
   return (
-    <div className="App w-100pr pl+ pr+ ml-a mr-a">
-      <div className="mb- d-f fxd-c ai-c">
-        <img src={reddexLogo} className='w-266px mb+' alt=""/>
+    <React.Fragment>
+      <Hero />
+      <UsedBy />
+      <div className="App w-100pr pl+ pr+ ml-a mr-a">
         <h4 className="ta-c">Getting started:</h4>
-        <p className="ta-c">In the input field below, enter the subreddit that you want to get posts from. It will fetch up 1000 posts in a few seconds, then you can sort how you'd like! Hopefully this will help you find the good stuff, quicker.</p>
-      </div>
-      <PostFetch />
-      {(newVisitor === "null" || newVisitor === null) &&
-        <NewVisitor 
-          setLoad={setLoad}
-          handleClick={handleClick}
-        />
-      }
-      <ScrollToTop />
+        <p className="ta-c mb+">In the input field below, enter the subreddit that you want to get posts from. It will fetch up 1000 posts in a few seconds, then you can sort how you'd like! Hopefully this will help you find the good stuff, quicker.</p>
+        <PostFetch />
+        {(newVisitor === "null" || newVisitor === null) &&
+          <NewVisitor 
+            setLoad={setLoad}
+            handleClick={handleClick}
+          />
+        }
+        <ScrollToTop />
 
-    </div>
+      </div>
+    </React.Fragment>
   );
 });
 

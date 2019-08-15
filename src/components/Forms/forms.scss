@@ -25,3 +25,24 @@
   padding: 1em;
   border-radius: 5px;
 }
+
+.chat-send-form {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  bottom: 10px;
+  width: 100%;
+  background-color: white;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(black, 0.1);
+}
+
+.chat-input {
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  resize: none;
+  color: $grey4;
+}

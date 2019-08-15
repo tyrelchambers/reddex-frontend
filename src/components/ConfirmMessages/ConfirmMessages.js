@@ -81,6 +81,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
           onClick={() => {
             setLoading(true);
             saveAuthorToDb(data.author, data.postId);
+            saveStoryToUser(data);
             sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
           }} 
           value="Message Author"
@@ -109,6 +110,19 @@ export const saveAuthorToDb = async (author, postId)=> {
     }
   })
   .then()
+  .catch(console.log);
+}
+
+const saveStoryToUser = (data) => {
+  const token = window.localStorage.getItem('token');
+  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/save_story`, {
+    ...data
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(console.log)
   .catch(console.log);
 }
 

@@ -1,0 +1,29 @@
+@import '../../colours';
+
+.dashboard-topbar {
+  height: 60px;
+  background-color: white;
+  border-bottom: 1px solid $grey9;
+  width: 100%;
+  padding: 0.5em 1em;
+  align-items: center;
+  display: flex;
+}
+
+.profile-image.small {
+  border-radius: 3px;
+  width: 30px;
+  height: 30px;
+}
+
+.topbar-dropdown-toggle {
+  color: $grey6;
+}
+
+.topbar-account-widget {
+  position: relative;
+  height: 100%;
+  &:hover .dashboard-dropdown  {
+    display: flex;
+  }
+}

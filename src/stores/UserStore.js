@@ -53,10 +53,6 @@ class UserStore {
     })
     .then(res => {
       if (res.data.error) {
-        const url = new URL(window.location);
-
-        url.searchParams.delete("code");
-        url.searchParams.delete("state");
         return toast.error("Please re-authenticate");
       };
       return res.data;

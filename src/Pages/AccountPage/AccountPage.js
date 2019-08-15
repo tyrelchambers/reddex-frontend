@@ -6,6 +6,7 @@ import { inject } from 'mobx-react';
 import Home from './subpages/Home/Home';
 import AccountSubnav from '../../layouts/AccountSubnav/AccountSubnav';
 import AltMessage from './subpages/AltMessage/AltMessage';
+import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 
 const AccountPage = inject("UserStore")(observer(({UserStore, match}) => {
   const [ user, setUser ] = useState({
@@ -37,22 +38,24 @@ const AccountPage = inject("UserStore")(observer(({UserStore, match}) => {
  
 
   return (
-    <div className="d-f fxd-c jc-c ai-c w-100pr animated fadeIn faster account-wrapper">
-      <div className="wrapper d-f fxd-c ai-c">
-        <h1>Account</h1>
-        <h4 className="mt+ ta-c">Your registered email: {user.email}</h4>
+    <DisplayWrapper hasHeader={true}>
+      <div className="d-f fxd-c jc-c ai-c w-100pr animated fadeIn faster account-wrapper">
+        <div className="wrapper d-f fxd-c ai-c">
+          <h1>Account</h1>
+          <h4 className="mt+ ta-c">Your registered email: {user.email}</h4>
 
-        <AccountSubnav/>
+          <AccountSubnav/>
 
-        <Template 
-          slug={slug}
-          redditProfile={redditProfile}
-          user={user}
-          setUser={setUser}
-          UserStore={UserStore} 
-        />
+          <Template 
+            slug={slug}
+            redditProfile={redditProfile}
+            user={user}
+            setUser={setUser}
+            UserStore={UserStore} 
+          />
+        </div>
       </div>
-    </div>
+    </DisplayWrapper>
   )
 }));
 
