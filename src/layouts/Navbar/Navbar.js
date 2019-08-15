@@ -18,7 +18,7 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
     setRedditProfile({...profile});
   }, []);
 
-  const Username = () => redditProfile.subreddit ? <h4 className="nav-username">{redditProfile.subreddit.display_name_prefixed}</h4> : null;
+  const Username = () => (redditProfile.subreddit && UserStore.getUser()) ? <h4 className="nav-username">{redditProfile.subreddit.display_name_prefixed}</h4> : null;
   return(
     <React.Fragment>
       <div className="nav-toggle pos-a" onClick={() => setExtended(!extended)}>
@@ -30,7 +30,10 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
       <div className={"navbar-wrapper " + extendedNav}>
         <nav className="navbar">
           <ul>
-            <li className="d-f ai-c nav-link">
+            <li className="d-f ai-c nav-link ">
+              <Link onClick={() => setExtended(false)} to="/dashboard/home">Dashboard</Link>
+            </li>
+            <li className="d-f ai-c nav-link bdts-s bdtw-1">
               <Link onClick={() => setExtended(false)} to="/" >Home</Link>
             </li>
             <li className="d-f ai-c nav-link">

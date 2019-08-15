@@ -7,6 +7,8 @@ import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
+import { access } from 'fs';
+import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -56,6 +58,10 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const createAccount = async () => {
     const { email, password, access_token, refresh_token } = credentials;
     const inviteCode = window.sessionStorage.getItem("invite");
+
+    if (!email || !password) return toast.error("No email or password");
+    if ( !access_token || !refresh_token ) return toast.error("No reddit tokens, please try again.");
+    
     const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/register`, {
       email,
       password,
@@ -90,26 +96,28 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     )
   } else {
     return (
-      <div className="d-f jc-c ai-c w-708px ml-a mr-a h-100v fxd-c">
-        <div className="wrapper d-f fxd-c ai-c">
-          <h1 className="mb+">Signup With Reddex</h1>
-          <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. If you'd like to know why Reddex needs these permissions, please check out the <Link to="/faq">FAQ</Link>.</p>
-          
-          
-          <Flow 
-            approved={approved}
-            askForRedditApproval={askForRedditApproval}
-            credentialHandler={credentialHandler}
-            credentials={credentials}
-            errors={errors}
-            submitHandler={submitHandler}
-            flow={flow}
-            setFlow={setFlow}
-            invite={invite}
-            setInvite={setInvite}
-          />
-        </div>
-      </div> 
+      <DisplayWrapper hasHeader={true}>
+        <div className="d-f jc-c ai-c w-708px ml-a mr-a h-100v fxd-c">
+          <div className="wrapper d-f fxd-c ai-c">
+            <h1 className="mb+">Signup With Reddex</h1>
+            <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. If you'd like to know why Reddex needs these permissions, please check out the <Link to="/faq">FAQ</Link>.</p>
+            
+            
+            <Flow 
+              approved={approved}
+              askForRedditApproval={askForRedditApproval}
+              credentialHandler={credentialHandler}
+              credentials={credentials}
+              errors={errors}
+              submitHandler={submitHandler}
+              flow={flow}
+              setFlow={setFlow}
+              invite={invite}
+              setInvite={setInvite}
+            />
+          </div>
+        </div> 
+      </DisplayWrapper>
     );
   }
   

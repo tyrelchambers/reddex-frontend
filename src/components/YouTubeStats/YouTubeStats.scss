@@ -1,0 +1,52 @@
+@import '../../colours.scss';
+
+.stat-list {
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  position: relative;
+  width: 210px;
+  height: 100px;
+  margin: 1em;
+}
+
+.stat-icon i {
+  font-size: 4rem;
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $accent;
+}
+
+.stat-stats {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50px;
+
+  > h3 {
+    font-size: 2.8rem;
+    color: $grey3;
+  }
+
+  > h5 {
+    font-size: 1rem;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 10px rgba(black, 0.1);
+  }
+}
+
+@media screen and (max-width: 503px) {
+  .stat-list {
+    justify-content: center;
+  }
+}
