@@ -122,7 +122,7 @@ const saveStoryToUser = (data) => {
       token
     }
   })
-  .then(console.log)
+  .then()
   .catch(console.log);
 }
 

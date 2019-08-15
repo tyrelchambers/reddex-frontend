@@ -12,7 +12,6 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
     getInbox(InboxStore, setLoading);
   }, []);
   
-  console.log(InboxStore.messages.length)
   return (
     <Dashboard>
       <h1>Inbox</h1>
