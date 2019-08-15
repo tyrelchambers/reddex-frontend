@@ -34,19 +34,7 @@ const InboxChat = inject("ReadingListStore")(observer(({data, ReadingListStore})
         </div>
         <div className={`d-f ai-c chat-footer ${isCurrent ? "right" : ""}`}>
           <p className={`chat-date ${isCurrent ? "chat-right" : ""}`}>{dateFns.format(moment.unix(x.created_utc)._d, "MMM DD, YYYY h:mm:ss aa")}</p>
-          <div className="chat-actions d-f">
-            <div className="chat-action-toggle" >
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <div className="chat-action-btn-wrapper d-f">
-              <button className="chat-action primary ai-c" onClick={() => ReadingListStore.addToRead(x)}>
-                <i className="fas fa-bookmark mr-"></i>
-                Add to Read List
-              </button>
-            </div>
-          </div>
+          
         </div>
       </li>
     )
