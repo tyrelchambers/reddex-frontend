@@ -12,7 +12,6 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
           </li>
         ))}
       </ul>
-      {console.log('fe')}
       <div className="field-group">
         <label htmlFor="email" className="form-label">Email</label>
         <input type="email" className="form-input" placeholder="user@example.com" name="email" value={credentials.email} onChange={credentialHandler}/>

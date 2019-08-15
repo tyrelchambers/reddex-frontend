@@ -1,39 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import './YouTubeStats.scss';
 import Axios from 'axios';
+import isEmpty from '../../helpers/objIsEmpty';
 
 const YouTubeStats = () => {
-  const [ yt, setYt ] = useState();
-  
+  const [ yt, setYt ] = useState("");
+  const [ stats, setStats ] = useState({});
   useEffect(() => {
-    getYtChannel()
+    if (isEmpty(stats)) {
+
+      getYtChannel()
+    }
   }, [])
 
   const getYtChannel = (channel = window.localStorage.getItem('youtube')) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
     return Axios.get(ytLink).then(res => {
-      setYt(res.data.items[0])
+      setStats({...res.data.items[0].statistics})
       window.localStorage.setItem('youtube',channel)
-    }).catch(console.log).then();
+    }).catch(console.log);
   }
 
   const getStatsHandler = e => {
     e.preventDefault();
-    const input = document.querySelector("#youtubeInput").value;
-    getYtChannel(input);
+    getYtChannel(yt);
     
   }
 
-  if (!yt) return null;
-
-  if ( !window.localStorage.getItem('youtube') ) {
+  if ( isEmpty(stats) ) {
     return(
       <React.Fragment>
         <div className="d-f ai-c">
           <h1 className="dash-subtitle mr+ mb+">Youtube Stats</h1>
         </div>
         <form className="w-400px d-f ai-c mb+">
-          <input placeholder="Enter youtube username to get stats.." id="youtubeInput" className="input mr-"></input>
+          <input placeholder="Enter youtube ID to get stats.." id="youtubeInput" className="input mr-" value={yt} onChange={e => setYt(e.target.value)}></input>
           <button className="btn btn-secondary" onClick={e => getStatsHandler(e)}>Get Stats</button>
         </form>
       </React.Fragment>
@@ -48,19 +49,19 @@ const YouTubeStats = () => {
        
       <ul className="stat-list">
         <Stat 
-          stat={yt.statistics.subscriberCount}
+          stat={stats.subscriberCount}
           label="Subscribers"
           icon={<i className="fab fa-youtube"></i>}
         />
 
         <Stat 
-          stat={yt.statistics.videoCount}
+          stat={stats.videoCount}
           label="Videos"
           icon={<i className="fas fa-video"></i>}
         />
 
         <Stat 
-          stat={yt.statistics.viewCount}
+          stat={stats.viewCount}
           label="Views"
           icon={<i className="fas fa-eye"></i>}
         /> 

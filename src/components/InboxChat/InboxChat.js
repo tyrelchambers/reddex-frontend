@@ -14,6 +14,7 @@ const InboxChat = inject("ReadingListStore")(observer(({data, ReadingListStore})
 
   useEffect(() => {
     setChatLogs([...data]);
+    
   }, [data]);
 
   const chats = chatLogs.sort((a, b) => {

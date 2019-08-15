@@ -28,7 +28,6 @@ const DashboardTopbar = () => {
 
       if ( bodyWidth <= 425 ) {
         document.querySelector(".topbar-account-widget").classList.toggle('collapsed');
-        console.log('true')
       }
     }}>
       <i className="fas fa-angle-double-right"></i>
