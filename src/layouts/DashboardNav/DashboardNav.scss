@@ -1,19 +1,6 @@
 @import '../../colours';
 
-.dash-nav-toggle {
-  width: 30px;
-  height: 30px;
-  transition: all 0.2s ease;
-  margin: 0.5em 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  color: $grey4;
-  &:hover {
-    transform: rotateZ(180deg);
-  }
-}
+
 
 .nav-dot {
   width: 10px;
