@@ -22,7 +22,7 @@ const DashboardTopbar = () => {
 
  const NavToggle = () => {
   return (
-    <div className="d-f fxd-c jc-sb dash-nav-toggle" onClick={(e) => {
+    <div className=" dash-nav-toggle" onClick={(e) => {
       document.querySelector("#dashNav").classList.toggle('collapsed');
       const bodyWidth = document.body.clientWidth;
 
@@ -30,8 +30,10 @@ const DashboardTopbar = () => {
         document.querySelector(".topbar-account-widget").classList.toggle('collapsed');
       }
     }}>
-      <i className="fas fa-angle-double-right"></i>
-    </div>
+    <span className="toggle-line"></span>
+    <span className="toggle-line"></span>
+    <span className="toggle-line"></span>
+  </div>
   );
 }
 
