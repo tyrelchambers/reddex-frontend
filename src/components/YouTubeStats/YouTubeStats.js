@@ -3,17 +3,16 @@ import './YouTubeStats.scss';
 import Axios from 'axios';
 import isEmpty from '../../helpers/objIsEmpty';
 
-const YouTubeStats = () => {
+const YouTubeStats = ({user}) => {
   const [ yt, setYt ] = useState("");
   const [ stats, setStats ] = useState({});
   useEffect(() => {
     if (isEmpty(stats)) {
-
       getYtChannel()
     }
   }, [])
 
-  const getYtChannel = (channel = window.localStorage.getItem('youtube')) => {
+  const getYtChannel = (channel = user.youtubeId) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
     return Axios.get(ytLink).then(res => {
       setStats({...res.data.items[0].statistics})
@@ -21,10 +20,22 @@ const YouTubeStats = () => {
     }).catch(console.log);
   }
 
+  const saveYoutubeId = async (id) => {
+    const token = window.localStorage.getItem('token');
+
+    return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/youtube`, {
+      youtubeId: id
+    }, {
+      headers: {
+        token
+      }
+    }).then().catch(console.log);
+  }
+
   const getStatsHandler = e => {
     e.preventDefault();
     getYtChannel(yt);
-    
+    saveYoutubeId(yt);
   }
 
   if ( isEmpty(stats) ) {

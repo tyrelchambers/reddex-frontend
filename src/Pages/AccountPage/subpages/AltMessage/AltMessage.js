@@ -11,12 +11,12 @@ const AltMessage = ({redditProfile, user, setUser, UserStore}) => {
     <section className="default-message mt+ animated fadeIn faster">
         <p className="subtle mt- mb- ta-c">This is used when you've already messaged an author. It's useful so users don't feel like they're just getting copy and pasted messages.</p>
       <div className="current-message mt+ mb+">
-        <h4 className="form-label">Alternative Message</h4>
+        <h4 className="form-label">Recurring Message</h4>
         <DefaultMessage />
       </div>
       <form className="d-f fxd-c ai-fs">
         <div className="field-group">
-          <label htmlFor="defaultMessage" className="form-label">Your Alternative Message</label>
+          <label htmlFor="defaultMessage" className="form-label">Your Recurring Message</label>
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." onChange={e => setUser({...user, altMessage: e.target.value})}></textarea>
         </div>
         

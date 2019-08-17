@@ -2,12 +2,23 @@ import React from 'react'
 import dateFns from 'date-fns'
 import moment from 'moment';
 import './UserInbox.scss';
+import isEmpty from '../../helpers/objIsEmpty';
 
 const UserInboxDumb = ({data, key, onClick}) => {
 
   if ( data.length === 0 ) return null;
 
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
+  const getLastReply = (x) => {
+    let date;
+    if ( isEmpty(x.data.replies) ) {
+      date = dateFns.format(moment.unix(x.data.created_utc)._d, "MMM DD");
+    } else {
+      date = dateFns.format(moment.unix(x.data.replies.data.children[x.data.replies.data.children.length - 1].data.created_utc)._d, "MMM DD");;
+    }
+    
+    return date;
+  }
   const listItem = data.data.map(x => {
 
     const formatThreads = () => {
@@ -33,7 +44,7 @@ const UserInboxDumb = ({data, key, onClick}) => {
         <div className="d-f fxd-c fx-1 ">
           <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">
             <h4>{x.data.dest}</h4>
-            <p>{dateFns.format(moment.unix(x.data.created_utc)._d, "MMM DD")}</p>
+            <p>{getLastReply(x)}</p>
           </div>
           <p className="inbox-item-body">{formatThreads()}</p>
         </div>

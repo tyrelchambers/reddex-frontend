@@ -62,12 +62,12 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             <button 
               className=" btn btn-tiertiary"
               onClick={() => setDefaultMessage(UserStore.getUser().defaultMessage)}
-            > Default Message </button>
+            > Greeting Message </button>
 
             <button 
               className=" btn btn-tiertiary"
               onClick={() => setDefaultMessage(UserStore.getUser().altMessage)}
-            > Alternate Message </button>
+            > Recurring Message </button>
           </div>
         </div>
 
