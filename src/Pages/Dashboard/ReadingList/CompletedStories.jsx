@@ -2,7 +2,7 @@ import React from 'react'
 import './ReadingList.scss';
 import Axios from 'axios';
 
-const CompletedStories = ({list, addToRead}) => {
+const CompletedStories = ({list, ReadingListStore, callback}) => {
   const stories = list.map((x, id) => 
     <li key={id} className="reading-list-item opaque">
       <div className="d-f fxd-c reading-list-header ">
@@ -19,7 +19,10 @@ const CompletedStories = ({list, addToRead}) => {
               <span></span>
             </div>
             <div className="chat-action-btn-wrapper d-f">
-              <button className="chat-action primary ai-c" onClick={() => addToRead(x)}>
+              <button className="chat-action primary ai-c" onClick={() => {
+                addToReadingList(x, false)
+                callback(x);
+              }}>
                 <i className="fas fa-bookmark mr-"></i>
                 Add back to Read List
               </button>
@@ -43,6 +46,21 @@ const CompletedStories = ({list, addToRead}) => {
   )
 }
 
+const addToReadingList = (data, bool) => {
+  const token = window.localStorage.getItem('token');
+
+  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/stories/completed`, {
+    author: data.author,
+    title: data.title,
+    read: bool
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then()
+  .catch(console.log)
+}
 
 export default CompletedStories;
 

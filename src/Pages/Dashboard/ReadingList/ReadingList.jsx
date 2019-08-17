@@ -24,13 +24,14 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
         <ReadingListDumb 
           list={ReadingListStore.getToRead()}
           setExpanded={(v) => ReadingListStore.setDim(v)}
-          callback={(v) => ReadingListStore.removeStoryFromList(v)}
+          callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
         />
 
         <CompletedStories 
           list={ReadingListStore.getCompleted()}
-          addToRead={x => ReadingListStore.addToRead(x)}
           ReadingListStore={ReadingListStore}
+          callback={(v) => ReadingListStore.transferStoryFromList(v, "completed", "toRead")}
+
         />
       </div>
     </Dashboard>

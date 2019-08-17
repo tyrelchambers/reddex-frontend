@@ -23,10 +23,10 @@ class ReadingListStore {
     return toJS(this.completed);
   }
 
-  removeStoryFromList(data) {
-    const item = this.toRead.find((x) => x.postId === data.postId)
-    this.toRead.remove(item);
-    this.completed.push(item)
+  transferStoryFromList(data, fromArray, toArray) {
+    const item = this[fromArray].find((x) => x.postId === data.postId)
+    this[fromArray].remove(item);
+    this[toArray].push(item)
   }
 
   addToRead(story) {
