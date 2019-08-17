@@ -4,7 +4,7 @@
   background: url('../../assets/hero-bg.jpg') center no-repeat;
   height: 900px;
   position: relative;
-
+  background-attachment: fixed;
   &::after {
     content: "";
     display: block;

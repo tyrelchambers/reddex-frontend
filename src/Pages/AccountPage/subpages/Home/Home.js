@@ -7,14 +7,15 @@ const Home = ({redditProfile, user, setUser, UserStore}) => {
   const Username = () => redditProfile.subreddit ? <p>From: <span className="highlight-text">{redditProfile.subreddit.display_name_prefixed}</span></p> : null;
   return (
     <section className="default-message mt+ animated fadeIn faster">
+      <p className="subtle mt- mb- ta-c">This message is used when you haven't messaged an author before. Think of it as an initial greeting. Say hello, introduce yourself, go from there.</p>
       <div className="current-message mt+ mb+">
-        <h4 className="form-label">Your current default message</h4>
+        <h4 className="form-label">Your current greeting</h4>
         
         <DefaultMessage />
       </div>
       <form className="d-f fxd-c ai-fs">
         <div className="field-group">
-          <label htmlFor="defaultMessage" className="form-label">Your Default Message</label>
+          <label htmlFor="defaultMessage" className="form-label">Your Greeting Message</label>
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." onChange={e => setUser({...user, defaultMessage: e.target.value})}></textarea>
         </div>
         
