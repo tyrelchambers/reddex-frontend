@@ -18,7 +18,7 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
     setRedditProfile({...profile});
   }, []);
 
-  const Username = () => (redditProfile.subreddit && UserStore.getUser()) ? <h4 className="nav-username">{redditProfile.subreddit.display_name_prefixed}</h4> : null;
+  const Username = () => (redditProfile.subreddit && UserStore.getUser()) ? <h4 className="nav-username">Logged in as: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
   return(
     <React.Fragment>
       <div className="nav-toggle pos-a" onClick={() => setExtended(!extended)}>

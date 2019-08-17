@@ -63,12 +63,15 @@ const InitalLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
   
   useEffect(() => {
-    stores.UserStore.setUser();
-    setLoaded(true);
+    const _ = async () => {
+      await stores.UserStore.setUser();
+      setLoaded(true);
+    }
+    
+    _();
   }, [])
 
   if ( loaded ) {
- 
     return(
       <Provider {...stores}>
         <Router>  
