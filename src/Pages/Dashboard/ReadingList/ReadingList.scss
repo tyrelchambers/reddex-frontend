@@ -72,6 +72,17 @@
   }
 }
 
+.body-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 27px;
+  height: 27px;
+  background-color: $grey4;
+  color: white;
+}
+
 @media screen and (max-width: 768px) {
   .mobile-column {
     flex-direction: column;
