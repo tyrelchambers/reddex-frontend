@@ -9,9 +9,14 @@
   }
 }
 
-@media screen and (max-width: 375px) {
-  .inputs {
-    flex-direction: column;
+@media screen and (max-width: 425px) {
+  .filters-wrapper {
+    .inputs {
+      flex-direction: column;
+      input {
+        margin: 1em 0;
+      }
+    }
   }
 }
 
@@ -32,12 +37,4 @@
     }
   }
 
-  .filters-wrapper {
-    .inputs {
-      flex-direction: column;
-      input {
-        margin: 1em 0;
-      }
-    }
-  }
 }
