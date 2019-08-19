@@ -4,16 +4,16 @@ import Header from '../Header/Header';
 const DisplayWrapper = (props) => {
   if ( props.hasHeader ) {
     return (
-      <React.Fragment>
+      <div className={props.className}>
         <Header />
         {props.children}
-      </React.Fragment>
+      </div>
     )
   } else {
     return (
-      <React.Fragment>
+      <div className={props.className}>
         {props.children}
-      </React.Fragment>
+      </div>
     )
   }
 }

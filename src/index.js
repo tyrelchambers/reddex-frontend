@@ -24,6 +24,7 @@ import Overview from './Pages/Dashboard/Overview/Overview';
 import UserInbox from './components/UserInbox/UserInbox';
 import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 import Inbox from './Pages/Dashboard/Inbox/Inbox';
+import Approval from './Pages/Approval/Approval';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -81,6 +82,7 @@ const InitalLoad = () => {
             <Route exact path="/about" component={About} />
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/approval" component={Approval}/>
             <PrivateRoute exact path="/account/:account_subpage" component={AccountPage}/>
             <PrivateRoute exact path="/dashboard/home" component={Overview}/>
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
