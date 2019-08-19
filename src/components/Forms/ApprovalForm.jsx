@@ -5,22 +5,22 @@ const ApprovalForm = ({submitHandler, data, dataHandler}) => {
     <form className="mw-500">
       <div className="field-group">
         <label htmlFor="email" className="form-label">Email</label>
-        <input type="text" className="input" placeholder="user@example.com" name="email" onChange={dataHandler} value={data.email}/>
+        <input type="text" className="form-input" placeholder="user@example.com" name="email" onChange={dataHandler} value={data.email}/>
       </div>
 
       <div className="field-group">
         <label htmlFor="fullName" className="form-label">Your Name</label>
-        <input type="text" className="input" placeholder="John Smith" name="fullName" onChange={dataHandler} value={data.fullName}/>
+        <input type="text" className="form-input" placeholder="John Smith" name="fullName" onChange={dataHandler} value={data.fullName}/>
       </div>
 
       <div className="field-group">
         <label htmlFor="youtubeChannel" className="form-label">Youtube Channel</label>
-        <input type="text" className="input" placeholder="Youtube channel name" name="youtubeChannel" onChange={dataHandler} value={data.youtubeChannel}/>
+        <input type="text" className="form-input" placeholder="Youtube channel name" name="youtubeChannel" onChange={dataHandler} value={data.youtubeChannel}/>
       </div>
 
       <div className="field-group">
         <label htmlFor="youtubeLink" className="form-label">Youtube Channel Link</label>
-        <input type="text" className="input" placeholder="Link to your youtube channel" name="youtubeLink" onChange={dataHandler} value={data.youtubeLink}/>
+        <input type="text" className="form-input" placeholder="Link to your youtube channel" name="youtubeLink" onChange={dataHandler} value={data.youtubeLink}/>
       </div>
 
       <div className="field-group">
