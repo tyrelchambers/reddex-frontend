@@ -135,7 +135,7 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
 
   if ( flow === 0 ) {
     const params = (new URL(window.location)).searchParams;
-    const inviteParam = params.get("inviteCode") ? params.get("inviteCode") : false;
+    const inviteParam = params.get("inviteCode") ? params.get("inviteCode") : "";
     const inviteCode = invite ? invite : inviteParam
 
     return(
