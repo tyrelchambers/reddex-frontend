@@ -134,12 +134,16 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
   }
 
   if ( flow === 0 ) {
+    const params = (new URL(window.location)).searchParams;
+    const inviteParam = params.get("inviteCode") ? params.get("inviteCode") : false;
+    const inviteCode = invite ? invite : inviteParam
+
     return(
       <form className="w-100pr">
-        <input type="text" className="form-input w-100pr" placeholder="Enter invite code" onChange={(e) => setInvite(e.target.value)}/>
+        <input type="text" className="form-input w-100pr" placeholder="Enter invite code" value={inviteCode} onChange={(e) => setInvite(e.target.value)}/>
         <div className="d-f jc-sb ai-c">
         <button className="btn btn-secondary mt-" onClick={(e) => {
-          inviteHandler(e, setFlow, flow, invite)
+          inviteHandler(e, setFlow, flow, inviteCode)
         }}>Submit Code</button>
         <ApprovalLink/>
         </div>
