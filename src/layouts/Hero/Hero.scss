@@ -5,6 +5,7 @@
   height: 900px;
   position: relative;
   background-attachment: fixed;
+  background-size: cover;
   &::after {
     content: "";
     display: block;

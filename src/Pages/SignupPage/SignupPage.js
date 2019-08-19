@@ -7,7 +7,6 @@ import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
-import { access } from 'fs';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
