@@ -141,11 +141,11 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
     return(
       <form className="w-100pr">
         <input type="text" className="form-input w-100pr" placeholder="Enter invite code" value={inviteCode} onChange={(e) => setInvite(e.target.value)}/>
-        <div className="d-f jc-sb ai-c">
-        <button className="btn btn-secondary mt-" onClick={(e) => {
-          inviteHandler(e, setFlow, flow, inviteCode)
-        }}>Submit Code</button>
-        <ApprovalLink/>
+        <div className="d-f jc-sb ai-c mt-">
+          <button className="btn btn-secondary" onClick={(e) => {
+            inviteHandler(e, setFlow, flow, inviteCode)
+          }}>Submit Code</button>
+          <ApprovalLink/>
         </div>
       </form>
     )
