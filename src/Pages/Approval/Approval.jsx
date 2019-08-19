@@ -3,6 +3,7 @@ import './Approval.scss';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import ApprovalForm from '../../components/Forms/ApprovalForm';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Approval = () => {
 
@@ -43,12 +44,14 @@ const Approval = () => {
 const submitHandler = (e, data) => {
   e.preventDefault();
   
-  if (!data.youtubeChannel || !data.youtubeLink || !data.channelType || !data.channelType || !data.email || !data.fullName)
+  if (!data.youtubeChannel || !data.youtubeLink || !data.channelType || !data.channelType || !data.email || !data.fullName) {
+    return toast.error("All fields required");
+  }
 
   Axios.post(`${process.env.REACT_APP_BACKEND}/api/approval`, {
     ...data
   })
-  .then()
+  .then(res => window.location.pathname = "/")
   .catch();
 }
 
