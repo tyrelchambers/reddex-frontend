@@ -13,7 +13,7 @@ import { MainButton } from '../Buttons/Buttons';
           <label className="form-label light">Enter Subreddit</label>
           <div className="d-f ai-c mobile-fetch-inputs">
             <div className="w-100pr mr- pos-r">
-              <input type="text" className="input search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
+              <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
               <AutoComplete 
                 subreddits={subreddits}
                 subreddit={subreddit}

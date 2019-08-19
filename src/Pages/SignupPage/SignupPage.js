@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
+import ApprovalLink from '../../components/ApprovalLink/ApprovalLink';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -133,12 +134,19 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
   }
 
   if ( flow === 0 ) {
+    const params = (new URL(window.location)).searchParams;
+    const inviteParam = params.get("inviteCode") ? params.get("inviteCode") : "";
+    const inviteCode = invite ? invite : inviteParam
+
     return(
       <form className="w-100pr">
-        <input type="text" className="form-input w-100pr" placeholder="Enter invite code" onChange={(e) => setInvite(e.target.value)}/>
-        <button className="btn btn-secondary mt-" onClick={(e) => {
-          inviteHandler(e, setFlow, flow, invite)
-        }}>Submit Code</button>
+        <input type="text" className="form-input w-100pr" placeholder="Enter invite code" value={inviteCode} onChange={(e) => setInvite(e.target.value)}/>
+        <div className="d-f jc-sb ai-c mt-">
+          <button className="btn btn-secondary" onClick={(e) => {
+            inviteHandler(e, setFlow, flow, inviteCode)
+          }}>Submit Code</button>
+          <ApprovalLink/>
+        </div>
       </form>
     )
   }
