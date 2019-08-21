@@ -97,9 +97,9 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   } else {
     return (
       <DisplayWrapper hasHeader={true}>
-        <div className="d-f jc-c ai-c w-708px ml-a mr-a h-100v fxd-c">
+        <div className="d-f jc-c ai-c signup-wrapper ml-a mr-a h-100v fxd-c p-">
           <div className="wrapper d-f fxd-c ai-c">
-            <h1 className="mb+">Signup With Reddex</h1>
+            <h1 className="mb+ ta-c">Signup With Reddex</h1>
             <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. If you'd like to know why Reddex needs these permissions, please check out the <Link to="/faq">FAQ</Link>.</p>
             
             

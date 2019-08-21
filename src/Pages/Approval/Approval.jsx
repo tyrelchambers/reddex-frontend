@@ -25,9 +25,9 @@ const Approval = () => {
   return (
     <DisplayWrapper 
       hasHeader={true}
-      className="wrapper  center"
+      className="wrapper center"
     >
-       <div className="mt+ d-f fxd-c ai-c">
+       <div className="mt+ d-f fxd-c ai-c p-">
         <h1>Approval Form</h1>
         <p className="mb+ mw-500 ta-c mt+">Fill out this form to be considered for enhanced Reddex features. Keep in mind, this site is in constant development. <span className="error-text ">All fields are required</span></p>
 
