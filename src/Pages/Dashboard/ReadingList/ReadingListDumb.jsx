@@ -8,9 +8,9 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
     <li key={id} className="reading-list-item">
       <div className="d-f" >
         <i className="fas fa-chevron-down mt- mr+ body-toggle" onClick={(e) => {
-          const body = document.querySelector("#bodySec");
+          const body = e.target.closest(".reading-list-item");
           const header = document.querySelector('.reading-list-item-header');
-          body.classList.toggle('expanded');
+          body.querySelector("#bodySec").classList.toggle('expanded');
           header.classList.toggle('expanded');
           setExpanded(true)
         }}></i>
