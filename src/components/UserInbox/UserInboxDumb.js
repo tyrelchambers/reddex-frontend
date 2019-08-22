@@ -7,6 +7,7 @@ import isEmpty from '../../helpers/objIsEmpty';
 const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
   console.log(data)
 
+ 
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
   const getLastReply = (x) => {
     let date;
@@ -18,7 +19,7 @@ const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
     
     return date;
   }
-  const listItem = data.map(x => {
+  const listItem = data.length > 0 ? data.map(x => {
 
     const formatThreads = () => {
       let lastReply;
@@ -49,7 +50,7 @@ const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
         </div>
       </li>
     );
-  });
+  }) : <p className="mt+">No results found!</p>;
 
   return (
     <div key={key} className="inbox-left-wrapper mt+">
