@@ -5,7 +5,7 @@ class InboxStore {
   selectedMessage = {}
 
   setMessages(data) {
-    this.messages = data;
+    this.messages = data.data;
   }
 
   getMessages() {

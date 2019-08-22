@@ -4,10 +4,10 @@ import moment from 'moment';
 import './UserInbox.scss';
 import isEmpty from '../../helpers/objIsEmpty';
 
-const UserInboxDumb = ({data, key, onClick}) => {
+const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
+  console.log(data)
 
-  if ( data.length === 0 ) return null;
-
+ 
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
   const getLastReply = (x) => {
     let date;
@@ -19,7 +19,7 @@ const UserInboxDumb = ({data, key, onClick}) => {
     
     return date;
   }
-  const listItem = data.data.map(x => {
+  const listItem = data.length > 0 ? data.map(x => {
 
     const formatThreads = () => {
       let lastReply;
@@ -43,18 +43,19 @@ const UserInboxDumb = ({data, key, onClick}) => {
         <i className="fas fa-user inbox-item-img mr+"></i>
         <div className="d-f fxd-c fx-1 ">
           <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">
-            <h4>{x.data.dest}</h4>
+            <h4>{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</h4>
             <p>{getLastReply(x)}</p>
           </div>
           <p className="inbox-item-body">{formatThreads()}</p>
         </div>
       </li>
     );
-  });
+  }) : <p className="mt+">No results found!</p>;
 
   return (
-    <div key={key} className="inbox-left-wrapper">
-      <ul>
+    <div key={key} className="inbox-left-wrapper mt+">
+      <input type="text" className="input w-100pr" placeholder="Search inbox by name..." onChange={setSortVal}/>  
+      <ul className="mt+">
         {listItem}
       </ul>
     </div>
