@@ -3,7 +3,7 @@ import { observable, action, decorate, toJS } from 'mobx';
 class InboxStore {
   messages = []
   selectedMessage = {}
-
+  
   setMessages(data) {
     this.messages = data.data;
   }
