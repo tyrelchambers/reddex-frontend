@@ -54,7 +54,7 @@ const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
 
   return (
     <div key={key} className="inbox-left-wrapper mt+">
-      <input type="text" className="input w-100pr" placeholder="Search inbox..." onChange={setSortVal}/>  
+      <input type="text" className="input w-100pr" placeholder="Search inbox by name..." onChange={setSortVal}/>  
       <ul className="mt+">
         {listItem}
       </ul>
