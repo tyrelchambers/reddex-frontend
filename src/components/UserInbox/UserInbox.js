@@ -8,6 +8,25 @@ import Loading from '../Loading/Loading';
 
 const UserInbox = ({InboxStore, loading}) => {
   const [ showChat, setShowChat ] = useState(false);
+  const [ messages, setMessages ] = useState();
+  const [ sortVal, setSortVal ] = useState("");
+
+  useEffect(() => {
+    const _ = async () => {
+      const msgs = await InboxStore.getMessages();
+       setMessages(msgs);
+    };
+    _()
+  }, [InboxStore.messages])
+
+  useEffect(() => {
+    if ( sortVal ) {
+      const sort = sortInbox(InboxStore.getMessages(), sortVal);
+      setMessages(sort);
+    } else {
+      setMessages(InboxStore.getMessages())
+    }
+  }, [sortVal]);
 
   const selectHandler = (msg) => {
     return InboxStore.setSelectedMessage(msg);
@@ -20,12 +39,12 @@ const UserInbox = ({InboxStore, loading}) => {
   return(
     <div className="inbox-wrapper d-f">
       <UserInboxDumb 
-        data={InboxStore.getMessages()}
+        data={messages}
         onClick={(v) => {
           selectHandler(v);
           setShowChat(true);
         }}
-        
+        setSortVal={e => setSortVal(e.target.value)}
         selected={InboxStore.getSelectedMessage()}
       />
 
@@ -34,5 +53,16 @@ const UserInbox = ({InboxStore, loading}) => {
   )
 };
 
+const sortInbox = (data,  sortVal) => {
+  const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
+
+  return data.filter(x => {
+    const isCurrent = x.data.author === currentUser.replace(/\s/g, "") ? true : false;
+    const dest = x.data.dest.toLowerCase();
+    const author = x.data.author.toLowerCase();
+
+    return isCurrent ? dest.includes(sortVal) : author.includes(sortVal);
+  })
+}
 
 export default UserInbox
