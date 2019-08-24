@@ -36,19 +36,23 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
         <nav className="navbar">
           <ul>
             <li className="d-f ai-c nav-link">
-              <Link onClick={() => setExtended(false)} to="/" >Home</Link>
+              <Link to="/" >Home</Link>
             </li>
             <li className="d-f ai-c nav-link">
-              <Link onClick={() => setExtended(false)} to="/about" >What is Reddex?</Link>
+              <Link to="/about" >What is Reddex?</Link>
+            </li>
+
+            <li className="d-f ai-c nav-main-btn">
+              <Link to="/" >Get Posts</Link>
             </li>
 
             {!UserStore.getUser() && 
               <React.Fragment>
                 <li className="d-f ai-c nav-link ">
-                  <Link onClick={() => setExtended(false)} to="/signup" >Sign Up</Link>
+                  <Link to="/signup" >Sign Up</Link>
                 </li>
                 <li className="d-f ai-c nav-link">
-                  <Link onClick={() => setExtended(false)} to="/login" >Login</Link>
+                  <Link to="/login" >Login</Link>
                 </li>
               </React.Fragment>
             }
