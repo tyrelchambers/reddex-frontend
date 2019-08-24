@@ -4,10 +4,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 1em;
 }
 
 .used-by-item {
-  margin: 0.5em 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   opacity: 0.3;
   transition: all 0.2s ease;
   font-size: 1rem;
@@ -15,6 +17,10 @@
   color: $grey4;
   &:hover {
     opacity: 1;
+  }
+
+  &:not(:last-child) {
+    margin-right: 1em;
   }
 }
 .used-by-wrapper {
