@@ -39,9 +39,7 @@
   }
   
   li {
-   
-
-    &:hover {
+    &:not(:last-child):hover {
       background-color: $grey10;
     }
   }
@@ -118,6 +116,20 @@
   }
 }
 
+.nav-main-btn {
+  background-color: $blue7;
+  border-radius: 5px;
+  margin-left: 2em;
+  margin-right: 2em;
+
+  a {
+    color: white;
+  }  
+
+  &:hover {
+    background-color: darken($blue7, 5%);
+  }
+}
 @media screen and (max-width: 584px) {
   .close-modal {
     top: 1em ;

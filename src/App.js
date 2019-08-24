@@ -38,7 +38,6 @@ const App = observer(() => {
 
   return (
     <React.Fragment>
-      <Hero />
       <UsedBy />
       <div className="App w-100pr pl+ pr+ ml-a mr-a">
         <h4 className="ta-c">Getting started:</h4>
