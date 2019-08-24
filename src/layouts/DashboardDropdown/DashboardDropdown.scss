@@ -1,12 +1,15 @@
 @import '../../colours.scss';
 
-.dashboard-dropdown {
-  display: none;
-  width: 100%;
+.dropdown-wrapper {
   position: absolute;
-  background-color: white;
   top: 1.5em;
-  box-shadow: 0px 3px 30px rgba(black, 0.1);
+  width: 100%;
+  display: none;
+}
+.dashboard-dropdown {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 3px 30px rgba(black, 0.2);
   padding: 1em;
   border-radius: 5px;
 
