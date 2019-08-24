@@ -2,23 +2,28 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import { inject, observer } from 'mobx-react';
+import DashboardDropdown from '../DashboardDropdown/DashboardDropdown';
 
-const Navbar = inject("UserStore")(observer(({UserStore}) => {
+const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
   const [extended, setExtended] = useState(false);
   const extendedNav = extended ? "extended" : "";
-  const [ redditProfile, setRedditProfile ] = useState({});
+  const Username = () => {
+    if ( !redditProfile ) {
+      return null;
+    }
+    const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");
 
-  const resetVisitorStatus = () =>{
-    window.localStorage.setItem("new_visitor", null);
+    return (
+      <div className="d-f ai-c topbar-account-widget">
+        <img src={profileImg} className="profile-image small mr-" alt="Reddit User's profile"/>
+        <h5>{redditProfile.subreddit.title}</h5>
+        <i className="fas fa-chevron-down ml+ topbar-dropdown-toggle"></i>
+        <DashboardDropdown />
+      </div>
+    )
   }
+    
 
-  useEffect(() => {
-    const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
-
-    setRedditProfile({...profile});
-  }, []);
-
-  const Username = () => (redditProfile.subreddit && UserStore.getUser()) ? <h4 className="nav-username">Logged in as: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
   return(
     <React.Fragment>
       <div className="nav-toggle pos-a" onClick={() => setExtended(!extended)}>
@@ -30,45 +35,20 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
       <div className={"navbar-wrapper " + extendedNav}>
         <nav className="navbar">
           <ul>
-            {UserStore.getUser() &&
-              <li className="d-f ai-c nav-link ">
-                <Link onClick={() => setExtended(false)} to="/dashboard/home">Dashboard</Link>
-              </li>
-            }
-            <li className="d-f ai-c nav-link bdts-s bdtw-1">
+            <li className="d-f ai-c nav-link">
               <Link onClick={() => setExtended(false)} to="/" >Home</Link>
             </li>
             <li className="d-f ai-c nav-link">
               <Link onClick={() => setExtended(false)} to="/about" >What is Reddex?</Link>
             </li>
 
-            <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-              <Link onClick={() => {
-                setExtended(false)
-                resetVisitorStatus()
-              }} to="#">Reset Visitor Status</Link>
-            </li>
             {!UserStore.getUser() && 
               <React.Fragment>
-                <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
+                <li className="d-f ai-c nav-link ">
                   <Link onClick={() => setExtended(false)} to="/signup" >Sign Up</Link>
                 </li>
                 <li className="d-f ai-c nav-link">
                   <Link onClick={() => setExtended(false)} to="/login" >Login</Link>
-                </li>
-              </React.Fragment>
-            }
-
-            {UserStore.getUser() &&
-              <React.Fragment>
-                <li className="d-f ai-c nav-link bdts-s bdtw-1 ">
-                  <Link onClick={() => setExtended(false)} to="/account/default_message">Account</Link>
-                </li>
-                <li className="d-f ai-c">
-                  <Link to="/" onClick={() => {
-                    setExtended(false)
-                    UserStore.signOut()
-                  }}>Sign Out</Link>
                 </li>
               </React.Fragment>
             }

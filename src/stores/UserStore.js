@@ -4,7 +4,8 @@ import { toast } from 'react-toastify';
 
 
 class UserStore {
-  currentUser = {};
+  currentUser = {}
+  redditProfile = {}
 
   setUser = async (token) => {
     const tkn = window.localStorage.getItem("token") || token;
@@ -22,6 +23,14 @@ class UserStore {
 
   getUser = () => {
     return isEmpty(this.currentUser) ? null : toJS(this.currentUser);
+  }
+
+  setRedditProfile(profile) {
+    this.redditProfile = profile;
+  }
+
+  getRedditProfile() {
+    return isEmpty(this.redditProfile) ? null : toJS(this.redditProfile);
   }
 
   setToken(token) {
@@ -74,7 +83,9 @@ function isEmpty(obj) {
 decorate(UserStore, {
   currentUser: observable.shallow,
   loggedIn: observable,
-  setUser: action
+  setUser: action,
+  redditProfile: observable,
+  setRedditProfile: action
 });
 
 export default new UserStore();

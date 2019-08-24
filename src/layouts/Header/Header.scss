@@ -1,0 +1,16 @@
+.brand {
+  img {
+    width: 150px;
+  }
+}
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  background-color: white;
+  align-items: center;
+  padding: 0 1em;
+}
