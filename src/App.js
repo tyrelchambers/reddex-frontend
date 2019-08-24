@@ -6,8 +6,10 @@ import NewVisitor from './components/NewVisitor/NewVisitor';
 import AppLoader from './components/Loading/AppLoader';
 import { getSubreddits } from './helpers/getSubreddits';
 import ScrollToTop from './layouts/ScrollToTop/ScrollToTop';
-import Hero from './layouts/Hero/Hero';
 import UsedBy from './layouts/UsedBy/UsedBy';
+import DisplayWrapper from './layouts/DisplayWrapper/DisplayWrapper';
+import Aside from './layouts/Aside/Aside';
+import Announcement from './layouts/Announcement/Announcement';
 
 const App = observer(() => {
   
@@ -37,22 +39,31 @@ const App = observer(() => {
   }
 
   return (
-    <React.Fragment>
-      <UsedBy />
-      <div className="App w-100pr pl+ pr+ ml-a mr-a">
-        <h4 className="ta-c">Getting started:</h4>
-        <p className="ta-c mb+">In the input field below, enter the subreddit that you want to get posts from. It will fetch up 1000 posts in a few seconds, then you can sort how you'd like! Hopefully this will help you find the good stuff, quicker.</p>
-        <PostFetch />
-        {(newVisitor === "null" || newVisitor === null) &&
-          <NewVisitor 
-            setLoad={setLoad}
-            handleClick={handleClick}
-          />
-        }
-        <ScrollToTop />
+    <DisplayWrapper
+      hasHeader={true}
+      className="d-f fx-2 jc-c mt+"
+      announcementTitle="Getting Started"
+      announcementBody="Enter the subreddit you want to search, in the subreddit field. Then click 'Get Posts'"
+    > 
+      <main>
+        <div className="App w-100pr pl+ pr+ ">
+          
+          <PostFetch />
+          {(newVisitor === "null" || newVisitor === null) &&
+            <NewVisitor 
+              setLoad={setLoad}
+              handleClick={handleClick}
+            />
+          }
+          <ScrollToTop />
 
-      </div>
-    </React.Fragment>
+        </div>
+      </main>
+      <Aside>
+        <h3>Used By</h3>
+        <UsedBy/>
+      </Aside>
+    </DisplayWrapper>
   );
 });
 

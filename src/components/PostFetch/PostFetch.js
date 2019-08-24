@@ -34,7 +34,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const Filters = () => posts.length > 0 ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
   
   return (
-    <DisplayWrapper hasHeader={true}>
+    <React.Fragment>
       <PostFetchComp 
         subreddit={subreddit}
         posts={posts}
@@ -69,7 +69,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       {ModalStore.isOpen && 
         <ConfirmModal />
       }
-    </DisplayWrapper>
+    </React.Fragment>
   );
   
 }));

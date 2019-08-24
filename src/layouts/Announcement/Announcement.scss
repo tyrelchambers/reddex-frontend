@@ -1,0 +1,25 @@
+@import '../../colours.scss';
+
+.announcement {
+  background-color: $grey2;
+  display: flex;
+  padding: 1.4em;
+  &-title {
+    color: white;
+    font-weight: bold;
+    margin-right: 1em;
+  }
+
+  &-body {
+    color: rgba(white, 0.7);
+  }
+
+  &-close {
+    color: rgba(white,0.7);
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
