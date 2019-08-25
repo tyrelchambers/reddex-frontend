@@ -59,7 +59,9 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
           </ul>
         </nav>
 
-        <Username/>
+        {UserStore.getUser() &&
+          <Username/>
+        }
       </div>
       
     </React.Fragment>

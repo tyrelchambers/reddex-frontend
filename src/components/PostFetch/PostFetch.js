@@ -34,22 +34,25 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
   return (
     <React.Fragment>
-      <PostFetchComp 
-        subreddit={subreddit}
-        posts={posts}
-        setPosts={setPosts}
-        setLoading={setLoading}
-        categoryOptions={categoryOptions}
-        setCategoryOptions={setCategoryOptions}
-        setSubreddit={setSubreddit}
-        fetchPosts={fetchPosts}
-        subreddits={subreddits}
-        clearSelectedPosts={() => PostStore.clearSelectedPosts()}
-        loading={loading}
-      />
-      <Filters/>
+      <div className="fetch-inputs w-100pr">
+        <PostFetchComp 
+          subreddit={subreddit}
+          posts={posts}
+          setPosts={setPosts}
+          setLoading={setLoading}
+          categoryOptions={categoryOptions}
+          setCategoryOptions={setCategoryOptions}
+          setSubreddit={setSubreddit}
+          fetchPosts={fetchPosts}
+          subreddits={subreddits}
+          clearSelectedPosts={() => PostStore.clearSelectedPosts()}
+          loading={loading}
+        />
+        <Filters/>
+      </div>
+      
       {posts.length > 0 &&
-        <p className="current-subreddit mt- w-100pr">Showing posts from <span className="highlight-text-dark">{window.localStorage.getItem('subreddit')}</span></p>
+        <p className="mt- w-100pr">Showing posts from <span className="highlight-text-dark"> {window.localStorage.getItem('subreddit')}</span></p>
       }
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
