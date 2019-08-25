@@ -1,0 +1,61 @@
+@import '../../colours.scss';
+
+.select {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 100%;
+  background-color: $grey9;
+  margin-right: 1em;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: $grey3;
+  font-size: 0.9rem;
+}
+
+.select-dropdown {
+  height: 0;
+  display: none;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  left:0;
+  top: 2.5em;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0px 2px 10px rgba(black, 0.1);
+}
+
+.select-label {
+  i {
+    transition: all 0.2s ease;
+  }
+}
+
+.select-item {
+  padding: 0.5em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $grey10;
+  }
+}
+
+.expanded-select {
+  height: auto;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.expanded-title {
+  background-color: $grey3;
+  
+  .select-label {
+    color: white;
+  }
+
+  i {
+    transform: rotateZ(180deg);
+  }
+}

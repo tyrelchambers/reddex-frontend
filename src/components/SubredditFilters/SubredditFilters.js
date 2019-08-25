@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import './SubredditFilters.scss';
+import filterOptionsJSON from './filterOptions';
+import SelectField from '../SelectField/SelectField';
 
 const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
   const [ keywords, setKeywords ] = useState("");
@@ -13,14 +15,13 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
     <div className="d-f fxd-c w-100pr filters-wrapper">
       <div className=" d-f mt+ w-100pr">
         <div className="d-f w-100pr ai-c inputs">
-          <div className="select">
-            <select name="threshold" id="threshSelect" onChange={(e) => setFilterOptions({...filterOptions, operator: e.target.value})}>
-              <option value=">" >greater than</option>
-              <option value="<" >less than</option>
-              <option value="===" >equal to</option>
-            </select>
-            <div className="select__arrow"></div>
-          </div>
+          <SelectField 
+            data={filterOptionsJSON}
+            label="Greater than"
+            options={filterOptions}
+            setOptions={setFilterOptions}
+            prop="operator"
+          />
           
           <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
           <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>

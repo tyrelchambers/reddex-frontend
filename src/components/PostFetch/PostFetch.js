@@ -8,7 +8,6 @@ import PostFetchComp from '../PostFetchComp/PostFetchComp';
 import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
-import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [subreddit, setSubreddit] = useState("");
@@ -18,7 +17,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
-    timeframe: ""
+    timeframe: "day"
   });
 
   useEffect(() => {
@@ -74,28 +73,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
 }));
 
-
-
-export const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
-  if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
-    return (
-      <div className="select mr-">
-        <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, timeline: e.target.value})}>
-          <option value="hour">Past Hour</option>
-          <option value="day" selected>Past 24 Hours</option>
-          <option value="week" >Past Week</option>
-          <option value="month" >Past Month</option>
-          <option value="year" >Past Year</option>
-          <option value="all" >Of All Time</option>
-
-        </select>
-        <div className="select__arrow"></div>
-      </div>
-    );
-  } 
-  return null;
-}
-
 export const saveSubredditToLocalStorage = data => {
   return window.localStorage.setItem(`subreddit`, data);
 }
@@ -110,8 +87,8 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
     endpoint = `${sr}/${category.category}.json?limit=100`;
   } 
   
-  if ( category.timeline ) {
-    endpoint = `${sr}/${category.category}/.json?t=${category.timeline}`;
+  if ( category.timeframe !== "day") {
+    endpoint = `${sr}/${category.category}/.json?t=${category.timeframe}`;
   }
 
   const link = `https://www.reddit.com/r/${endpoint}`;

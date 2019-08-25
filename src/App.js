@@ -45,19 +45,15 @@ const App = observer(() => {
       announcementTitle="Getting Started"
       announcementBody="Enter the subreddit you want to search, in the subreddit field. Then click 'Get Posts'"
     > 
-      <main>
-        <div className="App w-100pr pl+ pr+ ">
-          
-          <PostFetch />
-          {(newVisitor === "null" || newVisitor === null) &&
-            <NewVisitor 
-              setLoad={setLoad}
-              handleClick={handleClick}
-            />
-          }
-          <ScrollToTop />
-
-        </div>
+      <main className="App fx-1 pl+ pr+ ">  
+        <PostFetch />
+        {(newVisitor === "null" || newVisitor === null) &&
+          <NewVisitor 
+            setLoad={setLoad}
+            handleClick={handleClick}
+          />
+        }
+        <ScrollToTop />  
       </main>
       <Aside>
         <h3>Used By</h3>
