@@ -13,7 +13,7 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
 
   return(
     <div className="d-f fxd-c w-100pr filters-wrapper">
-      <div className=" d-f mt+ w-100pr">
+      <div className=" d-f w-100pr">
         <div className="d-f w-100pr ai-c inputs">
           <SelectField 
             data={filterOptionsJSON}

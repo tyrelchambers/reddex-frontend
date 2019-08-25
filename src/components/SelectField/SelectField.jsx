@@ -13,10 +13,9 @@ const SelectField = ({label, data, options, setOptions, prop}) => {
   ));
 
   return (
-    <div className="select d-f ai-c">
+    <div className="select d-f ai-c" onClick={dropdownToggle}>
       <span 
-        className="select-label d-f jc-sb ai-c"
-        onClick={dropdownToggle}
+        className="select-label d-f jc-sb ai-c w-100pr"
         id="selectLabel"
       >
         <p id="label">{label}</p>

@@ -13,8 +13,8 @@ import timeframeJSON from './timeframeOptions';
     <section className="w-100pr">
       <div className="d-f post-fetch-header">
         <div className=" w-100pr ">  
-          <label className="form-label light">Enter Subreddit</label>
-          <div className="d-f ai-c mobile-fetch-inputs">
+          <label className="form-label dark">Enter Subreddit</label>
+          <div className="d-f ai-c h-48px mobile-fetch-inputs">
             <div className="w-100pr mr- pos-r">
               <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
               <AutoComplete 
