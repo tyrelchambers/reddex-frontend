@@ -8,6 +8,13 @@
   .default-message-input {
     width: 100%;
   }
+
+  .subject {
+    background-color: $grey10;
+    border: 1px solid $grey9;
+    padding:1em;
+    border-radius: 5px;
+  }
 }
 
 .confirm-title {

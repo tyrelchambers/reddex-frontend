@@ -111,7 +111,8 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   deletePostsCollection();
   saveToDatabase(posts);
   saveSubredditToLocalStorage(subreddit);
-  await getPostsFromDatabase(setPosts);
+  setPosts([...results]);
+  // await getPostsFromDatabase(setPosts);
   return setLoading(false);  
  
 }
@@ -129,7 +130,7 @@ export const saveToDatabase = async (posts) => {
       url: x.url,
       num_comments: x.num_comments,
       created: x.created_utc,
-      flair: x.link_flair_text,
+      link_flair_text: x.link_flair_text,
       postId: x.id
     });
   });
