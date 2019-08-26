@@ -1,12 +1,15 @@
 import React from 'react'
 import './Announcement.scss';
 
-const Announcement = ({title, body}) => {
+const Announcement = () => {
   const ann = window.localStorage.getItem('announcement');
 
   if ( ann === "false" ) {
     return null;
   }
+
+  const title = "Getting Started"
+  const body = "Enter the subreddit you want to search, in the subreddit field. Then click 'Get Posts'"
   
   return (
     <div className="d-f jc-c w-100pr announcement">

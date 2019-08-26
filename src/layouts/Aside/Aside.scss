@@ -1,8 +1,23 @@
+@import '../../colours.scss';
+
 .aside.lifted {
-  background-color: white;
+  background-color: $grey2;
   border-radius: 3px;
   height: 100%;
   padding: 1em;
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: white;
+  }
+
+  p {
+    color: rgba(white, 0.7);
+  }
 }
 .aside {
   width: 100%;
