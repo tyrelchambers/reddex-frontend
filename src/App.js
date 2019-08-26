@@ -41,22 +41,23 @@ const App = observer(() => {
   return (
     <DisplayWrapper
       hasHeader={true}
-      className="d-f fx-2 jc-c mt+"
     > 
-      <main className="App fx-1 pl+ pr+ ">  
-        <PostFetch />
-        {(newVisitor === "null" || newVisitor === null) &&
-          <NewVisitor 
-            setLoad={setLoad}
-            handleClick={handleClick}
-          />
-        }
-        <ScrollToTop />  
-      </main>
-      <Aside>
-        <h3>Used By</h3>
-        <UsedBy/>
-      </Aside>
+      <div className="d-f fx-2 jc-c mt+ mobile-column-1024">
+        <main className="App fx-1 pl+ pr+ ">  
+          <PostFetch />
+          {(newVisitor === "null" || newVisitor === null) &&
+            <NewVisitor 
+              setLoad={setLoad}
+              handleClick={handleClick}
+            />
+          }
+          <ScrollToTop />  
+        </main>
+        <Aside>
+          
+          <UsedBy/>
+        </Aside>
+      </div>
     </DisplayWrapper>
   );
 });
