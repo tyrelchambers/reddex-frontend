@@ -3,7 +3,8 @@ import './UsedBy.scss';
 
 const UsedBy = () => {
   return (
-    <div className="used-by-wrapper">
+    <div className="used-by-wrapper featured">
+      <h3>Used By</h3>
       <ul className="used-by-list">
         <li className="used-by-item">Dark Wolf Reads</li>
         <li className="used-by-item">Dead Leaf Clover</li>
