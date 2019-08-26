@@ -42,8 +42,6 @@ const App = observer(() => {
     <DisplayWrapper
       hasHeader={true}
       className="d-f fx-2 jc-c mt+"
-      announcementTitle="Getting Started"
-      announcementBody="Enter the subreddit you want to search, in the subreddit field. Then click 'Get Posts'"
     > 
       <main className="App fx-1 pl+ pr+ ">  
         <PostFetch />

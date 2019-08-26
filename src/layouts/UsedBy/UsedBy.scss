@@ -10,11 +10,11 @@
 .used-by-item {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  opacity: 0.3;
+  opacity: 0.8;
   transition: all 0.2s ease;
   font-size: 1rem;
   font-weight: 700;
-  color: $grey4;
+  color: white;
   &:hover {
     opacity: 1;
   }

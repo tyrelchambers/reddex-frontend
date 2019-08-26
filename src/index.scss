@@ -9,7 +9,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color:#F0F0F1;
-  padding-top: 75px;
   * {
     box-sizing: border-box;
   }
@@ -61,6 +60,10 @@ ul {
   }
 }
 
+
+.pt-large {
+  padding-top: 75px;
+}
 
 .link {
   text-transform: uppercase;
