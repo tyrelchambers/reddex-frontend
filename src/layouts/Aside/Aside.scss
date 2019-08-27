@@ -1,7 +1,9 @@
 @import '../../colours.scss';
 
 .aside-wrapper {
-  
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
 }
 
 .aside.lifted {
