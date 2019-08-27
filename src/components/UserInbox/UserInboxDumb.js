@@ -4,10 +4,7 @@ import moment from 'moment';
 import './UserInbox.scss';
 import isEmpty from '../../helpers/objIsEmpty';
 
-const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
-  console.log(data)
-
- 
+const UserInboxDumb = ({data, key, onClick, setSortVal}) => { 
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
   const getLastReply = (x) => {
     let date;
