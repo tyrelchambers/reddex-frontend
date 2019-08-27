@@ -23,3 +23,8 @@
   }
 }
 
+@media screen and (max-width: 425px) {
+  .announcement-content {
+    flex-direction: column;
+  }
+}

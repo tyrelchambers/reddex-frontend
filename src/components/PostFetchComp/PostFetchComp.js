@@ -10,56 +10,51 @@ import timeframeJSON from './timeframeOptions';
    const inputRef = useRef();
 
    return (
-    <section className="w-100pr">
-      <div className="d-f post-fetch-header">
-        <div className=" w-100pr ">  
-          <label className="form-label dark">Enter Subreddit</label>
-          <div className="d-f ai-c h-48px mobile-fetch-inputs">
-            <div className="w-100pr mr- pos-r">
-              <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
-              <AutoComplete 
-                subreddits={subreddits}
-                subreddit={subreddit}
-                setSubreddit={setSubreddit}
-                inputRef={inputRef}
-              />
-            </div>
+    <section className="w-100pr d-f post-fetch-header">
+      <div className=" w-100pr ">  
+        <label className="form-label dark">Enter Subreddit</label>
+        <div className="d-f ai-c h-48px mobile-fetch-inputs">
+          <div className="w-100pr mr- pos-r">
+            <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
+            <AutoComplete 
+              subreddits={subreddits}
+              subreddit={subreddit}
+              setSubreddit={setSubreddit}
+              inputRef={inputRef}
+            />
+          </div>
+          <SelectField
+            data={optionsJSON}
+            label="Hot"
+            options={categoryOptions}
+            setOptions={setCategoryOptions}
+            prop="category"
+          />
+
+          {(categoryOptions.category === "top" || categoryOptions.category === "controversial") &&
             <SelectField
-              data={optionsJSON}
-              label="Hot"
+              data={timeframeJSON}
+              label="Past 24 Hours"
               options={categoryOptions}
               setOptions={setCategoryOptions}
-              prop="category"
+              prop="timeframe"
             />
-
-            {(categoryOptions.category === "top" || categoryOptions.category === "controversial") &&
-              <SelectField
-                data={timeframeJSON}
-                label="Past 24 Hours"
-                options={categoryOptions}
-                setOptions={setCategoryOptions}
-                prop="timeframe"
-              />
-            }
-            <MainButton 
-              className="btn btn-primary" 
-              onClick={() => {
-                setLoading(true);
-                fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
-                clearSelectedPosts();
-              }}
-              disabled={subreddit.length === 0 ? true : false}
-              loading={loading}
-              value="Get Posts"
-            >
-              <i className="fas fa-sync"></i>
-            </MainButton>
-          </div>
+          }
+          <MainButton 
+            className="btn btn-primary" 
+            onClick={() => {
+              setLoading(true);
+              fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
+              clearSelectedPosts();
+            }}
+            disabled={subreddit.length === 0 ? true : false}
+            loading={loading}
+            value="Get Posts"
+          >
+            <i className="fas fa-sync"></i>
+          </MainButton>
         </div>
       </div>
-
-
-      
     </section>
    )
  }
