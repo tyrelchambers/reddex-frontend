@@ -27,8 +27,8 @@
 
 .post {
   width: 100%;
-  max-width: 300px;
-  height: 480px;
+
+  height: auto;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 2px 3px rgba(black, 0.3);
@@ -57,11 +57,6 @@
   color: hsla(211, 12%, 48%,1);
 }
 
-.post-list {
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
 
 .active-post-select {
   box-shadow: 0px 2px 20px rgba($accent, 0.4);

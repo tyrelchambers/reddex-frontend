@@ -3,29 +3,33 @@
 .used-by-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  margin-top: 1em;
 }
 
 .used-by-item {
-  margin: 1em;
-  opacity: 0.3;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  opacity: 0.8;
   transition: all 0.2s ease;
   font-size: 1rem;
   font-weight: 700;
-  color: $grey4;
+  color: white;
   &:hover {
     opacity: 1;
+  }
+
+  &:not(:last-child) {
+    margin-right: 1em;
   }
 }
 .used-by-wrapper {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-
+  padding: 1em;
   h3 {
-    text-align: center;
-    font-size: 2rem;
+    font-size: 1rem;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $grey4;
   }
 
-  border-bottom: 1px solid $grey9;
 }

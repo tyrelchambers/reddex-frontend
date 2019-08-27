@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
-import './Navbar.scss';
-import { inject, observer } from 'mobx-react';
+import React from 'react'
 import DashboardDropdown from '../DashboardDropdown/DashboardDropdown';
-
-const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
+import { Link } from 'react-router-dom';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+import './Navbar.scss';
+const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, extended = "", setExtended}) => {
   const Username = () => {
     if ( !redditProfile ) {
       return null;
@@ -20,44 +20,42 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
       </div>
     )
   }
-    
 
-  return(
-    <React.Fragment>      
-      <div className="navbar-wrapper">
-        <nav className="navbar">
+  return (
+    <div className={`mobile-navbar-wrapper ${extended}`}>
+        <nav className="mobile-navbar">
           <ul>
             <li className="d-f ai-c nav-link">
-              <Link to="/" >Home</Link>
+              <Link onClick={setExtended} to="/" >Home</Link>
             </li>
             <li className="d-f ai-c nav-link">
-              <Link to="/about" >What is Reddex?</Link>
+              <Link onClick={setExtended} to="/about" >What is Reddex?</Link>
             </li>
 
+            {UserStore.getUser() &&
+              <Username/>
+            }
+
             <li className="d-f ai-c nav-main-btn">
-              <Link to="/" >Get Posts</Link>
+              <Link onClick={setExtended} to="/" >Get Posts</Link>
             </li>
 
             {!UserStore.getUser() && 
               <React.Fragment>
                 <li className="d-f ai-c nav-link ">
-                  <Link to="/signup" >Sign Up</Link>
+                  <Link onClick={setExtended} to="/signup" >Sign Up</Link>
                 </li>
                 <li className="d-f ai-c nav-link">
-                  <Link to="/login" >Login</Link>
+                  <Link onClick={setExtended} to="/login" >Login</Link>
                 </li>
               </React.Fragment>
             }
           </ul>
         </nav>
 
-        {UserStore.getUser() &&
-          <Username/>
-        }
+        
       </div>
-      
-    </React.Fragment>
-  );
-}));
+  )
+}))
 
-export default Navbar;
+export default MobileNav

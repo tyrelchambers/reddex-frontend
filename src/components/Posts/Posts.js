@@ -31,7 +31,7 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
 
   if ( posts.length > 0 && !loading ) {
     return (
-      <ul className="post-list d-f ">
+      <ul className="post-list mt+">
 
         {posts.slice(0, endIndex).map(x => {
           return(

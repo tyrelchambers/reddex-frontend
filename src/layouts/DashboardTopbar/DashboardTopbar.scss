@@ -23,7 +23,7 @@
 .topbar-account-widget {
   position: relative;
   height: 100%;
-  &:hover .dashboard-dropdown  {
+  &:hover .dropdown-wrapper  {
     display: flex;
   }
 }

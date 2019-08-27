@@ -39,7 +39,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
         <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
         <p className="publish-tag m-- ml- sub-detail"> <i className="fas fa-history mr-"></i>{dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
         <Flair 
-          data={x.flair}
+          data={x.link_flair_text}
         />
       </div>
       <div className="d-f m- jc-sb post-actions">
