@@ -8,7 +8,6 @@ import PostFetchComp from '../PostFetchComp/PostFetchComp';
 import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
-import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [subreddit, setSubreddit] = useState("");
@@ -18,7 +17,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
-    timeframe: ""
+    timeframe: "day"
   });
 
   useEffect(() => {
@@ -34,23 +33,26 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const Filters = () => posts.length > 0 ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
   
   return (
-    <DisplayWrapper hasHeader={true}>
-      <PostFetchComp 
-        subreddit={subreddit}
-        posts={posts}
-        setPosts={setPosts}
-        setLoading={setLoading}
-        categoryOptions={categoryOptions}
-        setCategoryOptions={setCategoryOptions}
-        setSubreddit={setSubreddit}
-        fetchPosts={fetchPosts}
-        subreddits={subreddits}
-        clearSelectedPosts={() => PostStore.clearSelectedPosts()}
-        loading={loading}
-      />
-      <Filters/>
+    <React.Fragment>
+      <div className="fetch-inputs w-100pr">
+        <PostFetchComp 
+          subreddit={subreddit}
+          posts={posts}
+          setPosts={setPosts}
+          setLoading={setLoading}
+          categoryOptions={categoryOptions}
+          setCategoryOptions={setCategoryOptions}
+          setSubreddit={setSubreddit}
+          fetchPosts={fetchPosts}
+          subreddits={subreddits}
+          clearSelectedPosts={() => PostStore.clearSelectedPosts()}
+          loading={loading}
+        />
+        <Filters/>
+      </div>
+      
       {posts.length > 0 &&
-        <p className="current-subreddit mt-">Showing posts from <span className="highlight-text-dark">{window.localStorage.getItem('subreddit')}</span></p>
+        <p className="mt- w-100pr">Showing posts from <span className="highlight-text-dark"> {window.localStorage.getItem('subreddit')}</span></p>
       }
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
@@ -69,32 +71,10 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       {ModalStore.isOpen && 
         <ConfirmModal />
       }
-    </DisplayWrapper>
+    </React.Fragment>
   );
   
 }));
-
-
-
-export const SubSelect = ({ categoryOptions, setCategoryOptions }) => {
-  if ( categoryOptions.category === "top" || categoryOptions.category === "controversial" ) {
-    return (
-      <div className="select mr-">
-        <select name="threshold" id="threshSelect" onChange={(e) => setCategoryOptions({...categoryOptions, timeline: e.target.value})}>
-          <option value="hour">Past Hour</option>
-          <option value="day" selected>Past 24 Hours</option>
-          <option value="week" >Past Week</option>
-          <option value="month" >Past Month</option>
-          <option value="year" >Past Year</option>
-          <option value="all" >Of All Time</option>
-
-        </select>
-        <div className="select__arrow"></div>
-      </div>
-    );
-  } 
-  return null;
-}
 
 export const saveSubredditToLocalStorage = data => {
   return window.localStorage.setItem(`subreddit`, data);
@@ -110,8 +90,8 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
     endpoint = `${sr}/${category.category}.json?limit=100`;
   } 
   
-  if ( category.timeline ) {
-    endpoint = `${sr}/${category.category}/.json?t=${category.timeline}`;
+  if ( category.timeframe !== "day") {
+    endpoint = `${sr}/${category.category}/.json?t=${category.timeframe}`;
   }
 
   const link = `https://www.reddit.com/r/${endpoint}`;
@@ -131,7 +111,8 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   deletePostsCollection();
   saveToDatabase(posts);
   saveSubredditToLocalStorage(subreddit);
-  await getPostsFromDatabase(setPosts);
+  setPosts([...results]);
+  // await getPostsFromDatabase(setPosts);
   return setLoading(false);  
  
 }
@@ -149,7 +130,7 @@ export const saveToDatabase = async (posts) => {
       url: x.url,
       num_comments: x.num_comments,
       created: x.created_utc,
-      flair: x.link_flair_text,
+      link_flair_text: x.link_flair_text,
       postId: x.id
     });
   });

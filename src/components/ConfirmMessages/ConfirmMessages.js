@@ -50,9 +50,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
               charCount={subject.length}
             />
           </div>
-          <input type="text" className="form-input" placeholder="Enter a subject" name="subject" value={subject} onChange={(e) => {
-            setSubject(e.target.value);
-          }}/>
+          <p className="subject">{subject}</p>
         </div>
 
         <div className="mt+">
