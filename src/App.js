@@ -9,7 +9,6 @@ import ScrollToTop from './layouts/ScrollToTop/ScrollToTop';
 import UsedBy from './layouts/UsedBy/UsedBy';
 import DisplayWrapper from './layouts/DisplayWrapper/DisplayWrapper';
 import Aside from './layouts/Aside/Aside';
-import Announcement from './layouts/Announcement/Announcement';
 
 const App = observer(() => {
   
