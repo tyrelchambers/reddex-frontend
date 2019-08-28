@@ -61,16 +61,13 @@ const stores = {
 }
 
 const getProfiles = async stores => {
-  const token = window.localStorage.getItem("token");
   const profile = JSON.parse(window.localStorage.getItem("reddit_profile"))
 
     if (window.localStorage.getItem("token")) {
       renewRefreshToken() 
     }
 
-    if ( token ) {
-      stores.UserStore.setUser()
-    }
+    
 
     if (profile) {
       await stores.UserStore.setRedditProfile(profile);
@@ -81,7 +78,12 @@ const InitalLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
 
   useEffect(() => {
-    setLoaded(true);
+    const _ = async () => {
+      await stores.UserStore.setUser()
+      setLoaded(true);
+    }
+
+    _();
   }, [])
 
   if ( loaded ) {
