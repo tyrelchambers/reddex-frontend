@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Axios from 'axios';
-import { fetchTokens } from '../../helpers/renewRefreshToken';
 import UserInboxDumb from './UserInboxDumb';
-import { inject, observer } from 'mobx-react';
 import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
 
