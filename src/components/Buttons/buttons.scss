@@ -97,11 +97,8 @@
   background-color: $green;
   color: white;
   transition: all 0.2s ease;
-  border: none;
   &:hover {
     background-color: darken($green, 5%);
-    border: none;
-    color: white;
   }
 }
 

@@ -60,28 +60,23 @@ const stores = {
   ReadingListStore
 }
 
-const getProfiles = async stores => {
-  const token = window.localStorage.getItem("token");
-  const profile = JSON.parse(window.localStorage.getItem("reddit_profile"))
-
-    if (window.localStorage.getItem("token")) {
-      renewRefreshToken() 
-    }
-
-    if ( token ) {
-      stores.UserStore.setUser()
-    }
-
-    if (profile) {
-      await stores.UserStore.setRedditProfile(profile);
-    }
-}
-
 const InitalLoad = () => { 
   const [ loaded, setLoaded ] = useState(false);
+  const profile = JSON.parse(window.localStorage.getItem("reddit_profile"))
+  const token = window.localStorage.getItem("token");
 
   useEffect(() => {
-    setLoaded(true);
+    const _ = async () => {
+      if ( token ) {
+        await stores.UserStore.setUser()
+      }
+      if (profile) {
+        await stores.UserStore.setRedditProfile(profile);
+      }
+      setLoaded(true);
+    }
+    
+    _();
   }, [])
 
   if ( loaded ) {
@@ -110,7 +105,7 @@ const InitalLoad = () => {
 
 ReactDOM.render(
   <InitalLoad />
-  , document.getElementById('root'),() => getProfiles(stores));
+  , document.getElementById('root'),() => window.localStorage.getItem("token") ? renewRefreshToken() : null);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
