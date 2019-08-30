@@ -7,8 +7,8 @@ class UserStore {
   currentUser = {}
   redditProfile = {}
 
-  setUser = async (token) => {
-    const tkn = window.localStorage.getItem("token") || token;
+  setUser = async () => {
+    const tkn = window.localStorage.getItem("token");
     if ( !tkn ) return null;
     
     const user = await Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/auth`, {

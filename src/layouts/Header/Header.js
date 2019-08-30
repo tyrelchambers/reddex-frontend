@@ -12,8 +12,9 @@ const Header = inject("UserStore")(observer(({UserStore}) => {
   return(
     <header className="header d-f jc-c">
       <div className="wrapper d-f jc-sb ai-c">
-        <div className="brand">
+        <div className="brand d-f">
           <img src={reddexLogo} alt="Reddex"/>
+          <h3 className="ml-">Beta</h3>
         </div>
         <Navbar 
           redditProfile={UserStore.getRedditProfile()}
