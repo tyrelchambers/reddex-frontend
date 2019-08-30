@@ -10,7 +10,7 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
   useEffect(() => {
     const user = UserStore.getUser();
     if (user) setUsedPosts([...user.storiesUsed]);
-  });
+  }, []);
 
   useEffect(() => {
     document.addEventListener('scroll', infiniteScroll);
@@ -40,7 +40,6 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
               x={x}
               setPosts={setPosts}
               onClick={(e) => selectPost(e, PostStore)}
-              selectedPosts={() => PostStore.setSelectedPosts(x)}
               onClickHandler={() => selectPost(x, PostStore)}
               used={usedPosts.includes(x.postId)}
             />
@@ -62,6 +61,7 @@ var isInViewport = function (elem) {
 };
 
  const selectPost = (x, PostStore) => {
+   console.log(x)
   PostStore.setSelectedPosts(x);
 }
 
