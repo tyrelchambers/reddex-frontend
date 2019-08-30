@@ -106,13 +106,19 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
     }).catch(err => err);
   }
 
+
   posts.shift();
-  posts.map(x => results.push(x.data));
+  posts.map(x => {
+    const newObj = {...x};
+    newObj.data.postId = newObj.data.id;
+    delete newObj.data.id;
+    results.push(newObj.data)
+  });
+
   deletePostsCollection();
   saveToDatabase(posts);
   saveSubredditToLocalStorage(subreddit);
   setPosts([...results]);
-  // await getPostsFromDatabase(setPosts);
   return setLoading(false);  
  
 }
@@ -131,7 +137,7 @@ export const saveToDatabase = async (posts) => {
       num_comments: x.num_comments,
       created: x.created_utc,
       link_flair_text: x.link_flair_text,
-      postId: x.id
+      postId: x.postId
     });
   });
   return true;
