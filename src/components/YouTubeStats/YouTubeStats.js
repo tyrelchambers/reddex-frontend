@@ -7,9 +7,8 @@ const YouTubeStats = ({user}) => {
   const [ yt, setYt ] = useState("");
   const [ stats, setStats ] = useState({});
   useEffect(() => {
-    if (isEmpty(stats)) {
-      getYtChannel()
-    }
+    getYtChannel()
+
   }, [])
 
   const getYtChannel = (channel = user.youtubeId) => {
