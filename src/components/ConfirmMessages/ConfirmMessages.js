@@ -145,7 +145,6 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
     }
   })
   .then(res => {
-    toast.success(`Message sent to ${author}`)
     removeMessagedAuthor();
     setLoading(false)
   })
