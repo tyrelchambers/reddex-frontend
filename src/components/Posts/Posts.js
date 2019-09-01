@@ -61,7 +61,6 @@ var isInViewport = function (elem) {
 };
 
  const selectPost = (x, PostStore) => {
-   console.log(x)
   PostStore.setSelectedPosts(x);
 }
 
