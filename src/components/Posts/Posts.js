@@ -56,7 +56,7 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
 var isInViewport = function (elem) {
   var bounding = elem.getBoundingClientRect();
   return (
-      bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+      bounding.bottom <= ((window.innerHeight + 200) || document.documentElement.clientHeight)
   );
 };
 
