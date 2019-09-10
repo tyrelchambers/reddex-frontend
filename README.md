@@ -1,1 +1,1 @@
-[reddex](https://reddex.app)
+Check it out: [reddex](https://reddex.app)
