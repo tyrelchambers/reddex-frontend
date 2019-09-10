@@ -1,1 +1,1 @@
-# Reddex.app
+[reddex](https://reddex.app)
