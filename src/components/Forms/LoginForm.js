@@ -5,7 +5,7 @@ import { MainButton } from '../Buttons/Buttons';
 
 export default function LoginForm({credentialHandler, submitHandler, errors, loading, setLoading}) {
   return (
-    <form className="form">
+    <form className="form p-">
       <ul>
         {errors.map((x, id) => (
           <li key={id}>

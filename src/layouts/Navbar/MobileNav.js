@@ -35,11 +35,7 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
             {UserStore.getUser() &&
               <Username/>
             }
-
-            <li className="d-f ai-c nav-main-btn">
-              <Link onClick={setExtended} to="/" >Get Posts</Link>
-            </li>
-
+           
             {!UserStore.getUser() && 
               <React.Fragment>
                 <li className="d-f ai-c nav-link ">
@@ -50,6 +46,11 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
                 </li>
               </React.Fragment>
             }
+
+            <li className="d-f ai-c nav-main-btn">
+              <Link onClick={setExtended} to="/" >Get Posts</Link>
+            </li>
+
           </ul>
         </nav>
 

@@ -33,10 +33,10 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
     return (
       <ul className="post-list mt+">
 
-        {posts.slice(0, endIndex).map(x => {
+        {posts.slice(0, endIndex).map((x, id) => {
           return(
             <SubredditPost 
-              key={x.id} 
+              key={id}
               x={x}
               setPosts={setPosts}
               onClick={(e) => selectPost(e, PostStore)}

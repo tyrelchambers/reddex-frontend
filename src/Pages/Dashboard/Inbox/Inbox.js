@@ -4,6 +4,7 @@ import UserInbox from '../../../components/UserInbox/UserInbox';
 import { inject, observer } from 'mobx-react';
 import { fetchTokens } from '../../../helpers/renewRefreshToken';
 import Axios from 'axios';
+import './Inbox.scss'
 
 const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   const [ loading, setLoading ] = useState(true);
@@ -14,6 +15,13 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   
   return (
     <Dashboard>
+    
+      {InboxStore.openChatWindow &&
+        <Breadcrumbs
+          store={InboxStore}
+        />
+      }
+
       <h1>Inbox</h1>
 
       <UserInbox
@@ -24,6 +32,16 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   )
 }));
 
+const Breadcrumbs = ({store}) => {
+  return (
+    <div className="breadcrumb ">
+      <a href="#" className="d-f ai-c" onClick={() => store.setOpenChatWindow(false)}>
+        <i className="fas fa-chevron-left mr-"></i>
+        Close
+      </a>
+    </div>
+  )
+}
 
 const getInbox = async (InboxStore, setLoading) => {
   const token = await fetchTokens();

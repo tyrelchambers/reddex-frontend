@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SubredditFilters.scss';
 import filterOptionsJSON from './filterOptions';
 import SelectField from '../SelectField/SelectField';
+import { toast } from 'react-toastify';
 
 const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
   const [ keywords, setKeywords ] = useState("");
@@ -55,7 +56,7 @@ const resetFilters = (setFilterOptions) => {
 
 const seriesOnlyFilter = (data) => {
   const newPromise = new Promise((resolve, reject) => {
-    const posts = data.filter(x => x.flair === "Series");
+    const posts = data.filter(x => x.link_flair_text === "Series");
     resolve(posts);
   });
 
@@ -109,15 +110,36 @@ const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, ope
   let newPosts = [...posts];
 
   if ( keywords.length ) {
-    await keywordSearch(keywords, posts).then(res => newPosts = [...res]).catch(console.log);
+    await keywordSearch(keywords, posts).then(res => {
+      if ( res.length === 0 ) {
+        newPosts = [...res]
+        return toast.error(`No results found for ${keywords}`)
+      }
+
+      newPosts = [...res]
+    }).catch(console.log);
   }
 
   if ( seriesOnly ) {
-    await seriesOnlyFilter(newPosts, seriesOnly).then(res => newPosts = [...res]).catch(console.log);
+    await seriesOnlyFilter(newPosts, seriesOnly).then(res =>  {
+      if ( res.length === 0 ) {
+        newPosts = [...res]
+        return toast.error(`No results found`)
+      }
+
+      newPosts = [...res]
+    }).catch(console.log);
   }
 
   if ( upvoteCount > 0 ) {
-    await operatorSort(upvoteCount, newPosts, operator).then(res => newPosts = [...res]).catch(console.log);
+    await operatorSort(upvoteCount, newPosts, operator).then(res =>  {
+      if ( res.length === 0 ) {
+        newPosts = [...res]
+        return toast.error(`No results found`)
+      }
+
+      newPosts = [...res]
+    }).catch(console.log);
   }
   
   return setPosts([...newPosts]);
