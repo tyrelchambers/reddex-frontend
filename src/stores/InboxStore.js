@@ -4,6 +4,7 @@ class InboxStore {
   messages = []
   selectedMessage = {}
   latestAfter = ""
+  openChatWindow = false
 
   setMessages(data) {
     this.messages = data.data;
@@ -14,7 +15,9 @@ class InboxStore {
     return toJS(this.messages);
   }
 
-
+  setOpenChatWindow(boolean) {
+    this.openChatWindow = boolean;
+  }
 
   setSelectedMessage(data) {
     this.selectedMessage = data;
@@ -30,7 +33,8 @@ decorate(InboxStore, {
   setMessages: action,
   selectedMessage: observable,
   setSelectedMessage: action,
-  latestAfter: observable
+  latestAfter: observable,
+  openChatWindow: observable
 });
 
 export default new InboxStore();

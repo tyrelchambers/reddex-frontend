@@ -7,10 +7,10 @@ import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
 
 const UserInbox = ({InboxStore, loading}) => {
-  const [ showChat, setShowChat ] = useState(false);
   const [ messages, setMessages ] = useState();
   const [ sortVal, setSortVal ] = useState("");
 
+  const bodyWidth = document.documentElement.clientWidth;
   useEffect(() => {
     const _ = async () => {
       const msgs = await InboxStore.getMessages();
@@ -32,21 +32,27 @@ const UserInbox = ({InboxStore, loading}) => {
     return InboxStore.setSelectedMessage(msg);
   }
 
-  const showChatComp = showChat ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
+  const showChatComp = InboxStore.openChatWindow || bodyWidth >= 1025 ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
 
   if ( loading ) return <Loading title="Fetching inbox from Reddit"/>
 
   return(
     <div className="inbox-wrapper d-f">
-      <UserInboxDumb 
-        data={messages}
-        onClick={(v) => {
-          selectHandler(v);
-          setShowChat(true);
-        }}
-        setSortVal={e => setSortVal(e.target.value)}
-        selected={InboxStore.getSelectedMessage()}
-      />
+      {!InboxStore.openChatWindow &&
+        <UserInboxDumb 
+          data={messages}
+          onClick={(v) => {
+            selectHandler(v);
+
+            if ( bodyWidth <= 1024 ) {
+              InboxStore.setOpenChatWindow(true);
+
+            }
+          }}
+          setSortVal={e => setSortVal(e.target.value)}
+          selected={InboxStore.getSelectedMessage()}
+        />
+      }
 
       {showChatComp}
     </div>
