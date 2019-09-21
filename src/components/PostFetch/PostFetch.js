@@ -19,18 +19,15 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     category: "hot",
     timeframe: "day"
   });
-
+  
   useEffect(() => {
     getPostsFromDatabase(setPosts);
     getSubredditsFromDatabase(setSubreddits);
   }, []);
-  
 
   useEffect(() => {
     getPostsFromDatabase(setPosts);
   }, [reloadPosts]);
-
-  const Filters = () => posts.length > 0 ? <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/> : null
   
   return (
     <React.Fragment>
@@ -48,7 +45,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           clearSelectedPosts={() => PostStore.clearSelectedPosts()}
           loading={loading}
         />
-        <Filters/>
+        <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/>
+
       </div>
       
       {posts.length > 0 &&
@@ -75,6 +73,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   );
   
 }));
+
 
 export const saveSubredditToLocalStorage = data => {
   return window.localStorage.setItem(`subreddit`, data);
