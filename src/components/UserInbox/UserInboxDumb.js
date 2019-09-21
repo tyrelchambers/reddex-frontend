@@ -41,9 +41,11 @@ const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
         <i className="fas fa-user inbox-item-img mr+"></i>
         <div className="d-f fxd-c fx-1 ">
           <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">
-            <h4>{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</h4>
+            <h4 className="font-thin mb--">{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</h4>
             <p>{getLastReply(x)}</p>
           </div>
+          <h4>{concatTitle(x.data.subject)}</h4>
+
           <p className="inbox-item-body">{formatThreads()}</p>
         </div>
       </li>
@@ -67,6 +69,11 @@ const removeActiveClasses = () => {
       x.classList.remove('selected-inbox-message');
     })
   }
+}
+
+const concatTitle = title => {
+  const str = title.length < 70 ? title : title.slice(0,70) + "...";
+  return str; 
 }
 
 export default UserInboxDumb
