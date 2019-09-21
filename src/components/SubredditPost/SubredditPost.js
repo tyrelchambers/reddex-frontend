@@ -5,7 +5,7 @@ import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
 import { inject, observer } from 'mobx-react';
 
-const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, used, onClickHandler, PostStore}) => {
+const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, used, onClickHandler, PostStore, key }) => {
   let selectedClass = false
 
   const _ = PostStore.selectedPosts.find((el) => {
@@ -21,6 +21,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
       className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""}`} 
       data-id={x.id}
       data-postid={x.postId}
+      key={key}
     >
       <div className="d-f fxd-c w-100pr fx-1">
         <h1 className=" upvotes d-f jc-sb ai-c">

@@ -8,6 +8,7 @@ import PostFetchComp from '../PostFetchComp/PostFetchComp';
 import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import InboxStore from '../../stores/InboxStore';
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [subreddit, setSubreddit] = useState("");
@@ -26,9 +27,18 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }, []);
 
   useEffect(() => {
+    collCount();
+  })
+
+  useEffect(() => {
     getPostsFromDatabase(setPosts);
   }, [reloadPosts]);
   
+  const collCount = async () => {
+    const _ = await window.db.posts.count().then();
+    return PostStore.setCollectionCount(_);
+  }
+
   return (
     <React.Fragment>
       <div className="fetch-inputs w-100pr">
@@ -45,7 +55,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           clearSelectedPosts={() => PostStore.clearSelectedPosts()}
           loading={loading}
         />
-        <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/>
+        {(PostStore.collectionCount || posts.length) > 0 &&
+          <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/>
+        }
 
       </div>
       
