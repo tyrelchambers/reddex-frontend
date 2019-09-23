@@ -7,7 +7,8 @@ class InboxStore {
   openChatWindow = false
 
   setMessages(data) {
-    this.messages = data.data;
+    this.messages = [...this.messages, ...data.data];
+    console.log(toJS(this.messages))
     this.latestAfter = data.after;
   }
 

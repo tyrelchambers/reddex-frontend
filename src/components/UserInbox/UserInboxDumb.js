@@ -3,8 +3,9 @@ import dateFns from 'date-fns'
 import moment from 'moment';
 import './UserInbox.scss';
 import isEmpty from '../../helpers/objIsEmpty';
+import { MainButton } from '../Buttons/Buttons';
 
-const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
+const UserInboxDumb = ({data, key, onClick, setSortVal, getMoreMessages, loadingBtn}) => {
 
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
   const getLastReply = (x) => {
@@ -58,9 +59,21 @@ const UserInboxDumb = ({data, key, onClick, setSortVal}) => {
       <ul className="mt+">
         {listItem}
       </ul>
+
+      <div className="h-48px w-100pr">
+        <MainButton
+          loading={loadingBtn}
+          className="btn btn-tiertiary w-100pr"
+          onClick={getMoreMessages}
+        >
+          Get More Messages
+        </MainButton>
+      </div>
     </div>
   )
 }
+
+
 
 const removeActiveClasses = () => {
   const el = document.querySelectorAll('.selected-inbox-message');
