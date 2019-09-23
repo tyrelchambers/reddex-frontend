@@ -6,9 +6,10 @@ import { inject, observer } from 'mobx-react';
 import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
 
-const UserInbox = ({InboxStore, loading}) => {
+const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
   const [ messages, setMessages ] = useState();
   const [ sortVal, setSortVal ] = useState("");
+  const [ loadingBtn, setLoadingBtn ] = useState(false);
 
   const bodyWidth = document.documentElement.clientWidth;
   useEffect(() => {
@@ -51,13 +52,38 @@ const UserInbox = ({InboxStore, loading}) => {
           }}
           setSortVal={e => setSortVal(e.target.value)}
           selected={InboxStore.getSelectedMessage()}
+          getMoreMessages={() => {
+            setLoadingBtn(true)
+            getMoreMessages(InboxStore, setLoadingBtn)
+          }}
+          loadingBtn={loadingBtn}
         />
       }
 
       {showChatComp}
     </div>
   )
-};
+}));
+
+const getMoreMessages = async (InboxStore, setLoadingBtn) => {
+  const token = await fetchTokens();
+  const after = InboxStore.latestAfter;
+
+  Axios.get(`https://oauth.reddit.com/message/messages?after=${after}&count=25`, {
+    headers: {
+      "Authorization": `bearer ${token.access_token}`
+    }
+  })
+  .then(res => {
+    res.data.data.children.shift();
+    InboxStore.setMessages({
+      data: res.data.data.children,
+      after: res.data.data.after
+    });
+    setLoadingBtn(false)
+  })
+  .catch(console.log);
+}
 
 const sortInbox = (data,  sortVal) => {
   const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;

@@ -3,15 +3,17 @@ import './Aside.scss'
 
 const Aside = ({classNames = "", children}) => {
   const [extended, setExtended] = useState(false);
-  const extendedAside = extended ? "extended-aside" : "";
+  const extendedAside = extended ? "extended-aside animated slideInRight fastest" : "";
 
   return (
-    <div className={`aside-wrapper ${extendedAside}`}>
+    <React.Fragment>
       <div className="aside-toggle" onClick={() => setExtended(!extended)}>
         <div className="aside-toggle-item"></div>
         <div className="aside-toggle-item"></div>
         <div className="aside-toggle-item"></div>
       </div>
+    <div className={`aside-wrapper ${extendedAside}`}>
+      
       <aside
         className={`aside lifted ${classNames} `}
       >
@@ -19,6 +21,7 @@ const Aside = ({classNames = "", children}) => {
         {children}
       </aside>
     </div>
+    </React.Fragment>
   )
 }
 
