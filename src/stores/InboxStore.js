@@ -8,7 +8,6 @@ class InboxStore {
 
   setMessages(data) {
     this.messages = [...this.messages, ...data.data];
-    console.log(toJS(this.messages))
     this.latestAfter = data.after;
   }
 
