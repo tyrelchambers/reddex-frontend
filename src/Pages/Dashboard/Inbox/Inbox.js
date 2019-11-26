@@ -21,9 +21,6 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
           store={InboxStore}
         />
       }
-
-      <h1>Inbox</h1>
-
       <UserInbox
         loading={loading}
         InboxStore={InboxStore}

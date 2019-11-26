@@ -36,6 +36,15 @@ class ReadingListStore {
   getToRead() {
     return toJS(this.toRead);
   }
+
+  removeStoryFromList(list, item) {
+    this[list].filter((x, id) => {
+      if (x.postId === item) {
+        this[list].splice(id, 1);
+      }
+    });
+    
+  }
 }
 
 decorate(ReadingListStore, {

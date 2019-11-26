@@ -4,7 +4,7 @@ import './buttons.scss';
 export const MainButton = ({...props}) => {
   if ( props.loading ) {
     return (
-      <div className="ml- mr- d-f jc-c">
+      <div className="m- d-f jc-c">
         <div className="loader"></div>
       </div>
     )

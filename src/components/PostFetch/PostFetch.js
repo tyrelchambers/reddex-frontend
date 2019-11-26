@@ -8,7 +8,6 @@ import PostFetchComp from '../PostFetchComp/PostFetchComp';
 import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
-import InboxStore from '../../stores/InboxStore';
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [subreddit, setSubreddit] = useState("");

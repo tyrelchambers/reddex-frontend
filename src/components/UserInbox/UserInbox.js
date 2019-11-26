@@ -12,6 +12,7 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
   const [ loadingBtn, setLoadingBtn ] = useState(false);
 
   const bodyWidth = document.documentElement.clientWidth;
+
   useEffect(() => {
     const _ = async () => {
       const msgs = await InboxStore.getMessages();
@@ -38,29 +39,34 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
   if ( loading ) return <Loading title="Fetching inbox from Reddit"/>
 
   return(
-    <div className="inbox-wrapper d-f">
+    <div className="inbox-wrapper">
       {!InboxStore.openChatWindow &&
-        <UserInboxDumb 
-          data={messages}
-          onClick={(v) => {
-            selectHandler(v);
-
-            if ( bodyWidth <= 1024 ) {
-              InboxStore.setOpenChatWindow(true);
-
-            }
-          }}
-          setSortVal={e => setSortVal(e.target.value)}
-          selected={InboxStore.getSelectedMessage()}
-          getMoreMessages={() => {
-            setLoadingBtn(true)
-            getMoreMessages(InboxStore, setLoadingBtn)
-          }}
-          loadingBtn={loadingBtn}
-        />
+        <input type="text" className="search-large w-100pr  mb+" placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value)}/>  
       }
+      
+      <div className="d-f">
+        {!InboxStore.openChatWindow &&
+          <UserInboxDumb 
+            data={messages}
+            onClick={(v) => {
+              selectHandler(v);
 
-      {showChatComp}
+              if ( bodyWidth <= 1024 ) {
+                InboxStore.setOpenChatWindow(true);
+
+              }
+            }}
+            selected={InboxStore.getSelectedMessage()}
+            getMoreMessages={() => {
+              setLoadingBtn(true)
+              getMoreMessages(InboxStore, setLoadingBtn)
+            }}
+            loadingBtn={loadingBtn}
+          />
+        }
+
+        {showChatComp}
+      </div>
     </div>
   )
 }));

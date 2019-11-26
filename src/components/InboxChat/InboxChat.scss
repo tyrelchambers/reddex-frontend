@@ -13,6 +13,7 @@
   margin: 0.5em;
   border-radius: 10px;
   line-height: 1.8em;
+  word-break: break-all;
 }
 
 .chat-body-dark {
@@ -58,13 +59,6 @@
   }
 }
 
-.chat-actions:hover {
-  .chat-action-btn-wrapper {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
 .chat-action-toggle {
   display: flex; 
   align-items: center;
@@ -80,10 +74,10 @@
 
 }
 
-.chat-action-btn-wrapper {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 100ms linear;
+.chat-action.primary:hover {
+  background-color: $grey4;
+  color: white;
+  transition: all 0.2s ease;
 }
 
 .chat-action-expanded {
