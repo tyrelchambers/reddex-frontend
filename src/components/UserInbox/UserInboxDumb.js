@@ -54,12 +54,7 @@ const UserInboxDumb = ({data, key, onClick, setSortVal, getMoreMessages, loading
   }) : <p className="mt+">No results found!</p>;
 
   return (
-    <div key={key} className="inbox-left-wrapper mt+">
-      <input type="text" className="input w-100pr" placeholder="Search inbox by name..." onChange={setSortVal}/>  
-      <ul className="mt+">
-        {listItem}
-      </ul>
-
+    <div key={key} className="inbox-left-wrapper ">
       <div className="h-48px w-100pr">
         <MainButton
           loading={loadingBtn}
@@ -69,6 +64,11 @@ const UserInboxDumb = ({data, key, onClick, setSortVal, getMoreMessages, loading
           Get More Messages
         </MainButton>
       </div>
+      <ul className="mt+">
+        {listItem}
+      </ul>
+
+      
     </div>
   )
 }

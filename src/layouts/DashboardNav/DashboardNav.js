@@ -15,7 +15,7 @@ const DashboardNav = () => {
         </li>
         <li>
           <NavLink to="/dashboard/reading_list" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
-            <i className="fas fa-file-alt"></i>
+            <i className="fas fa-glasses"></i>
             <p>Stories</p>
           </NavLink>
         </li>
