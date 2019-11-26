@@ -52,10 +52,6 @@ const App = observer(() => {
           }
           <ScrollToTop />  
         </main>
-        <Aside>
-          
-          <UsedBy/>
-        </Aside>
       </div>
     </DisplayWrapper>
   );

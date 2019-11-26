@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './Header.scss';
 import Navbar from '../Navbar/Navbar';
 import reddexLogo from '../../assets/reddex-logo.svg';
@@ -7,8 +7,22 @@ import MobileNav from '../Navbar/MobileNav';
 
 const Header = inject("UserStore")(observer(({UserStore}) => {
   const [extended, setExtended] = useState(false);
+  const [ profile, setProfile ] = useState();
+  const [ loading, setLoading ] = useState(true);
   const extendedNav = extended ? "extended" : "";
 
+  useEffect(() => {
+    const fn = async () => {
+      const profile = await UserStore.getRedditProfile();
+      setProfile({...profile});
+      setLoading(false);
+    }
+
+    fn();
+  }, [])
+
+  if ( loading ) return null;
+  
   return(
     <header className="header d-f jc-c">
       <div className="wrapper d-f jc-sb ai-c">
@@ -17,10 +31,10 @@ const Header = inject("UserStore")(observer(({UserStore}) => {
           <h3 className="ml-">Beta</h3>
         </div>
         <Navbar 
-          redditProfile={UserStore.getRedditProfile()}
+          redditProfile={profile}
           />
         <MobileNav 
-          redditProfile={UserStore.getRedditProfile()}
+          redditProfile={profile}
           extended={extendedNav}
           setExtended={() => setExtended(false)}
         />
