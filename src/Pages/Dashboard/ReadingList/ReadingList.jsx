@@ -7,6 +7,7 @@ import { observer } from 'mobx-react-lite';
 import Axios from 'axios';
 import HR from '../../../components/HR/HR';
 import CompletedStories from './CompletedStories';
+import ReadingListStore from '../../../stores/ReadingListStore';
 
 const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => {  
   useEffect(() => {
@@ -18,8 +19,7 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
 
   return (
     <Dashboard>
-      <h1 className="mb-">Reading List</h1>
-      <HR />
+
       <div className="d-f mobile-column">
         <ReadingListDumb 
           list={ReadingListStore.getToRead()}
@@ -31,7 +31,7 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
           list={ReadingListStore.getCompleted()}
           ReadingListStore={ReadingListStore}
           callback={(v) => ReadingListStore.transferStoryFromList(v, "completed", "toRead")}
-
+          removeStoryFromDb={removeStoryFromDb}
         />
       </div>
     </Dashboard>
@@ -56,6 +56,19 @@ const getCompletedStoriesFromDb = (token, ReadingListStore) => {
   })
   .then(res => ReadingListStore.setCompleted(res.data))
   .catch(console.log);
+}
+
+const removeStoryFromDb = (token, item) => {
+  Axios.delete(`${process.env.REACT_APP_BACKEND}/api/profile/stories/remove`, {
+    headers: {
+      token
+    },
+    params: {
+      postId: item
+    }
+  })
+  .then()
+  .catch(console.log)
 }
 
 export default ReadingList

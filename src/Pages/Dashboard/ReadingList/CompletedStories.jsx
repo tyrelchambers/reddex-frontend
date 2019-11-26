@@ -2,7 +2,9 @@ import React from 'react'
 import './ReadingList.scss';
 import Axios from 'axios';
 
-const CompletedStories = ({list, ReadingListStore, callback}) => {
+const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb}) => {
+  const token = window.localStorage.getItem('token');
+
   const stories = list.map((x, id) => 
     <li key={id} className="reading-list-item opaque">
       <div className="d-f fxd-c reading-list-header ">
@@ -13,11 +15,6 @@ const CompletedStories = ({list, ReadingListStore, callback}) => {
         <div className="message-tags mt-">
           <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
           <div className="chat-actions d-f">
-            <div className="chat-action-toggle" >
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
             <div className="chat-action-btn-wrapper d-f">
               <button className="chat-action primary ai-c" onClick={() => {
                 addToReadingList(x, false)
@@ -25,6 +22,14 @@ const CompletedStories = ({list, ReadingListStore, callback}) => {
               }}>
                 <i className="fas fa-bookmark mr-"></i>
                 Add back to Read List
+              </button>
+
+              <button className="chat-action primary ai-c" onClick={() => {
+                ReadingListStore.removeStoryFromList("completed", x.postId);
+                removeStoryFromDb(token, x.postId)
+              }}>
+                <i className="fas fa-bookmark mr-"></i>
+                Remove from reading list
               </button>
             </div>
           </div>

@@ -49,39 +49,7 @@
   border-bottom: 1px solid $grey9;
   padding-bottom: 1em;
 }
-.reading-list-body.expanded {
-  display: flex !important;
- 
-}
 
-
-.dark-bg {
-  background-color: $grey2;
-}
-
-.chat-action-btn-wrapper {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 100ms linear;
-}
-
-.chat-actions:hover {
-  .chat-action-btn-wrapper {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
-.body-toggle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 27px;
-  height: 27px;
-  background-color: $grey4;
-  color: white;
-}
 
 @media screen and (max-width: 768px) {
   .mobile-column {

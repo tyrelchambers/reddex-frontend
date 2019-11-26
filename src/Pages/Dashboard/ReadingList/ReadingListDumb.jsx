@@ -7,12 +7,6 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
   const stories = list.map((x, id) => 
     <li key={id} className="reading-list-item">
       <div className="d-f" >
-        <i className="fas fa-chevron-down mt- mr+ body-toggle" onClick={(e) => {
-          const body = e.target.closest(".reading-list-item");
-          body.querySelector("#bodySec").classList.toggle('expanded');
-          body.querySelector(".reading-list-item-header").classList.toggle('expanded');
-          setExpanded(true)
-        }}></i>
         
         <div className="d-f fxd-c fx-1 reading-list-item-header">
           <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
@@ -22,11 +16,6 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
           <div className="message-tags mt-">
             <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
             <div className="chat-actions d-f">
-              <div className="chat-action-toggle" >
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
               <div className="chat-action-btn-wrapper d-f ai-c">
                 <button className="chat-action primary ai-c" onClick={() => {
                   addToCompleted(x, true);
@@ -39,10 +28,6 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
             </div>
           </div>
         </div>
-      </div>
-      
-      <div className="reading-list-body" id="bodySec">
-        <p>{x.selftext}</p>
       </div>
     </li>
   )
