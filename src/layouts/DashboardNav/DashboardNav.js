@@ -9,25 +9,25 @@ const DashboardNav = () => {
       <ul >
         <li>
           <NavLink to="/dashboard/home" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
-            <i className="fas fa-home"></i>
+            <div className="nav-indicator"></div>
             <p>Home</p>
           </NavLink>
         </li>
         <li>
           <NavLink to="/dashboard/reading_list" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
-            <i className="fas fa-glasses"></i>
+            <div className="nav-indicator"></div>
             <p>Stories</p>
           </NavLink>
         </li>
         <li>
           <NavLink to="/dashboard/inbox" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
-            <i className="fas fa-inbox"></i>
+            <div className="nav-indicator"></div>
             <p>Inbox</p>
           </NavLink>
         </li>
         <li>
           <Link to="/" className="dash-nav-item ta-c">
-            <i className="fas fa-download"></i>
+            <div className="nav-indicator"></div>
             <p>Get Stories</p>
           </Link>
         </li>
