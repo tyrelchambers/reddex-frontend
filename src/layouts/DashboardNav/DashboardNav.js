@@ -19,6 +19,14 @@ const DashboardNav = () => {
             <p>Stories</p>
           </NavLink>
         </li>
+
+        <li>
+          <NavLink to="/dashboard/contacts" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
+            <div className="nav-indicator"></div>
+            <p>Contacts</p>
+          </NavLink>
+        </li>
+
         <li>
           <NavLink to="/dashboard/inbox" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>

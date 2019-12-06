@@ -11,7 +11,7 @@ const Dashboard = inject("ReadingListStore")(observer(({loading, children, Readi
     <div className="d-f dashboard-wrapper">
       <DashboardNav />
       
-      <main className="dashboard-inner">
+      <main className="dashboard-inner" id="#dashboard-inner-slide">
         <DashboardTopbar />
 
         {loading &&

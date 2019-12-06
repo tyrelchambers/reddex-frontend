@@ -25,6 +25,7 @@ import UserInbox from './components/UserInbox/UserInbox';
 import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 import Inbox from './Pages/Dashboard/Inbox/Inbox';
 import Approval from './Pages/Approval/Approval';
+import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -94,6 +95,7 @@ const InitalLoad = () => {
             <PrivateRoute exact path="/dashboard/home" component={Overview}/>
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
             <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+            <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
           </Switch>
         </Router>
       </Provider>

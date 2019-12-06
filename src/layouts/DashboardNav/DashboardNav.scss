@@ -10,7 +10,7 @@
 }
 
 .dash-nav {
-  width: 200px;
+  min-width: 200px;
   height: 100%;
   min-height: 100vh;
   background-color: white;
@@ -18,11 +18,12 @@
   border-right: 1px solid $grey9;
   position: relative;
   bottom: 0;
-  
+  transition: all 0.2s ease;
 }
 
 .collapsed {
-  display: none;
+  min-width: 0;
+  margin-left: -150px;
 }
 
 .dash-nav-item {
@@ -34,6 +35,10 @@
   transition: all 0.2s ease;
   text-decoration: none;
   margin: 1.5em 0;  
+
+  p {
+    white-space: nowrap;
+  }
 }
 
 .dash-nav-item-active  {
