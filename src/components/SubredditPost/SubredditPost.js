@@ -43,6 +43,18 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
           data={x.link_flair_text}
         />
       </div>
+      <div className="reading-info d-f">
+        <div className="reading-time">
+          <span>{avgReadingTime(x.selftext)}</span>
+          min read
+        </div>
+        {x.selftext.length > 0 &&
+          <div className="reading-length">
+            <span>{x.selftext.length} </span>
+            characters
+          </div>
+        }
+      </div>
       <div className="d-f m- jc-sb post-actions">
         <div>
           {UserStore.getUser() &&
@@ -54,6 +66,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             </button>
           }
         </div>
+
         <a href={x.url} className="btn-link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
         
       </div>
@@ -69,6 +82,18 @@ const Flair = ({data}) => {
 
 }
 
+const avgReadingTime = (text) => {
+  const wordsPerMinute = 200; // Average case.
+  let result;
+  
+  let textLength = text.split(" ").length; // Split by words
+  if(textLength > 0){
+    let value = Math.ceil(textLength / wordsPerMinute);
+    result = `~${value} `;
+  }
+
+  return result;
+}
 
 const concatTitle = title => {
   const str = title.length < 70 ? title : title.slice(0,70) + "...";

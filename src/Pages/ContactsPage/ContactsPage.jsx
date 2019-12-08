@@ -6,7 +6,8 @@ import { ContactsList } from '../../components/ContactsList/ContactsList';
 import { saveContact, getContacts, updateContact } from '../../api/post'
 import { Contact } from '../../components/Contact/Contact';
 import { deleteContact } from '../../api/delete';
- 
+ import './ContactsPage.scss'
+
 export const ContactsPage = () => {
   const [ contacts, setContacts ] = useState([]);
   const [ state, setState ] = useState({
@@ -113,11 +114,12 @@ export const ContactsPage = () => {
           />
         }
         
-        <section className="d-f mt+">
+        <section className="d-f mt+ contact-main-wrapper">
           <ContactsList
             contacts={contacts}
             sortVal={sortVal}
             setSelectedContact={v => setSelectedContact(v)}
+            selectedContact={selectedContact}
           />
 
           {selectedContact &&
