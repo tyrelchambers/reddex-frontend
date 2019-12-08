@@ -29,6 +29,7 @@ const DashboardTopbar = () => {
       if ( bodyWidth <= 425 ) {
         document.querySelector(".topbar-account-widget").classList.toggle('collapsed');
       }
+
     }}>
     <span className="toggle-line"></span>
     <span className="toggle-line"></span>

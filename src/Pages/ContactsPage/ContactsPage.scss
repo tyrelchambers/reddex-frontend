@@ -1,0 +1,11 @@
+@import '../../colours.scss';
+
+@media screen and (max-width: 1024px) {
+  .contact-main-wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .contact-wrapper {
+    margin-left: 0.5em;
+  }
+}

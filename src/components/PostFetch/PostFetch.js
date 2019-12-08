@@ -54,7 +54,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           clearSelectedPosts={() => PostStore.clearSelectedPosts()}
           loading={loading}
         />
-        {(PostStore.collectionCount || posts.length) > 0 &&
+        {((PostStore.collectionCount || posts.length) > 0 && !loading) &&
           <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/>
         }
 

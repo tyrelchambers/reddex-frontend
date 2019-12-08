@@ -10,7 +10,7 @@
 }
 
 .dash-nav {
-  width: 110px;
+  min-width: 200px;
   height: 100%;
   min-height: 100vh;
   background-color: white;
@@ -18,55 +18,45 @@
   border-right: 1px solid $grey9;
   position: relative;
   bottom: 0;
-  
+  transition: all 0.2s ease;
 }
 
 .collapsed {
-  display: none;
+  min-width: 0;
+  margin-left: -150px;
 }
 
 .dash-nav-item {
-  padding: 0.3em 1em;
   color: $grey3;
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   margin: 0.2em 0;
   transition: all 0.2s ease;
   text-decoration: none;
-  &::before{
-    transition: all 0.2s ease;
-  }
-  i {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    font-size: 1.3rem;
-    margin: 0.3em;
-    color: $grey3;
-  }
+  margin: 1.5em 0;  
 
-  &:hover {
-    background-color: $grey10;
+  p {
+    white-space: nowrap;
   }
-  
 }
 
-.dash-nav-item-active {
-  background-color: $grey10;
-
-  &::before {
-    content: "";
-    display: flex;
-    height: 100%;
-    width: 5px;
-    background-color: $blue6;
-    position: absolute;
-    left:-1px;
-    top: 0;
-    border-radius: 5px;
+.dash-nav-item-active  {
+  p {
+    color: $blue7;
   }
+  .nav-indicator {
+
+    opacity: 1;
+  }
+}
+
+.nav-indicator {
+  width: 15px;
+  height: 4px;
+  background: $blue7;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  opacity: 0;
+  margin-right: 3em;
 }
