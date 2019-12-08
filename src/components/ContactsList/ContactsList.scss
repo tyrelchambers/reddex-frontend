@@ -1,1 +1,27 @@
 @import '../../colours.scss';
+
+.contact-list {
+  list-style-type: none;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 4em;
+}
+
+.contact-list-item {
+  border: 1px solid $grey9;
+  background-color: white;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  margin: 0.5em 0;
+
+  i {
+    font-size: 0.8rem;
+    color: $blue7;
+  }
+}
+
+.contact-list-name {
+  font-weight: bold;
+  color: $grey3;
+  font-size: 0.9rem;
+}
