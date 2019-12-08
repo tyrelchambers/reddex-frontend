@@ -21,3 +21,14 @@ export const getContacts = () => {
   })
   .then(res => res.data)
 }
+
+export const updateContact = (contact) => {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/contacts/update`, {
+    ...contact
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+}
