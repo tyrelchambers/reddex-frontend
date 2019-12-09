@@ -7,7 +7,7 @@ import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
 
 const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
-  const [ messages, setMessages ] = useState();
+  const [ messages, setMessages ] = useState([]);
   const [ sortVal, setSortVal ] = useState("");
   const [ loadingBtn, setLoadingBtn ] = useState(false);
 
@@ -16,7 +16,7 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
   useEffect(() => {
     const _ = async () => {
       const msgs = await InboxStore.getMessages();
-       setMessages(msgs);
+      setMessages([...msgs]);
     };
     _()
   }, [InboxStore.messages])

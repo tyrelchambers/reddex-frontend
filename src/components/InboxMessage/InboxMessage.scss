@@ -8,3 +8,8 @@
 .chat-action.primary:focus {
   background-color: darken($grey9, 10%);
 }
+
+.chat-action.no-action {
+  background-color: $green;
+  color: white;
+}

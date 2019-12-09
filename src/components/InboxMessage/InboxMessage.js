@@ -6,15 +6,26 @@ import InboxChat from '../InboxChat/InboxChat';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import { saveContact, getContacts } from '../../api/post';
 
 const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
   const [ storyLink, setStoryLink ] = useState("");
   const [ data, setData ] = useState();
+  const [ contacts, setContacts ] = useState([]);
 
   useEffect(() => {
     getStory(InboxStore.getSelectedMessage(), setStoryLink);
     setData(InboxStore.getSelectedMessage());
   }, [InboxStore.selectedMessage]);
+
+  useEffect(() => {
+    const fn = async () => {
+      const c = await getContacts();
+      setContacts([...c])
+    }
+
+    fn();
+  }, [data])
 
   if ( isEmpty(data) ) return null;
 
@@ -31,14 +42,34 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
   const MessageTags = () => {
     if (!storyLink) return null;
     return(
-      <div className="d-f ai-c mb- ">
-         <a href={storyLink} target="_blank" className="message-story-tag">Link to story</a>
-         <button className="chat-action primary ai-c" onClick={() => permissionHandler(true, data)}>
+      <div className="d-f ai-c ">
+        <a href={storyLink} target="_blank" className="message-story-tag">Link to story</a>
+        <button className="chat-action primary ai-c" onClick={() => permissionHandler(true, data)}>
           <i className="fas fa-bookmark mr-"></i>
           Add to reading List
         </button>
       </div>
     )
+  }
+
+  const IsInContacts = () => {
+    const isContact = contacts.filter((x, id) => (x.name === data.dest))
+
+    if ( isContact.length === 1 ) {
+      return (
+        <button className="chat-action ai-c no-action" disabled>
+          <i className="fas fa-user mr-"></i>
+          Already a contact
+        </button>
+      )
+    } else {
+      return (
+        <button className="chat-action primary ai-c" onClick={() => addToContacts(data)}>
+          <i className="fas fa-bookmark mr-"></i>
+          Add to contacts
+        </button>
+      )
+    }
   }
   
   return (
@@ -47,9 +78,9 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
         <div className="d-f fxd-c">
           <h2>{data.subject}</h2>
           <p className="mb- message-subtitle">From: {destIsMe(data) ? data.author : data.dest}</p>
-          <div className="message-tags">
+          <div className="message-tags mb-">
             <MessageTags />
-           
+            <IsInContacts />
           </div>
           <HR/>
         </div>
@@ -60,6 +91,10 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
     </div>
   )
 }));
+
+const addToContacts = (user) => {
+  saveContact({name: user.dest})
+}
 
 const permissionHandler = (bool, data) => {
   const token = window.localStorage.getItem('token');
