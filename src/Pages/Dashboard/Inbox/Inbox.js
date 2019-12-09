@@ -10,7 +10,11 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
-    getInbox(InboxStore, setLoading);
+    if ( InboxStore.messages.length === 0 ) {
+      getInbox(InboxStore, setLoading);
+    } else {
+      setLoading(false)
+    }
   }, []);
   
   return (

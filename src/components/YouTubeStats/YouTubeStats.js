@@ -94,7 +94,7 @@ const Stat = ({stat, label, icon}) => {
         {icon}
       </div>
 
-      <div className="stat-stats">
+      <div className="stat-stats w-100pr">
         <h3>{numberWithCommas(stat)}</h3>
         <h5>{label}</h5>
       </div>

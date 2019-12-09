@@ -48,12 +48,6 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
           <span>{avgReadingTime(x.selftext)}</span>
           min read
         </div>
-        {x.selftext.length > 0 &&
-          <div className="reading-length">
-            <span>{x.selftext.length} </span>
-            characters
-          </div>
-        }
       </div>
       <div className="d-f m- jc-sb post-actions">
         <div>
