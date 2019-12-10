@@ -12,12 +12,12 @@ const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalS
 
       </div>
 
-      <div className="d-f fxd-c ai-c">
-        <div className="message-author-body p- d-f jc-c">
-          <p className="subtle mt+">Confirming messages will open a pop-up that will walk you through each message to make sure it's correct. It will not send any messages.</p>
+      <div className="d-f fxd-c ai-c p-">
+        <div className="message-author-body d-f jc-c pb-">
+          <p className="subtle">Confirming messages will open a pop-up that will walk you through each message to make sure it's correct. It will not send any messages.</p>
         </div>
 
-        <button className="btn btn-tiertiary danger as-c mt- mb-" onClick={() => PostStore.clearSelectedPosts()}>Deselect All</button>
+        <button className="btn btn-tiertiary danger" onClick={() => PostStore.clearSelectedPosts()}>Deselect All</button>
       </div>
 
     </div>

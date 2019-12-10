@@ -92,12 +92,12 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
         <div className="mt-">
           <div className="account-tab mt- mb-">
             <button 
-              className=" btn btn-tiertiary"
+              className=" btn btn-tiertiary m--"
               onClick={() => setDefaultMessage(UserStore.getUser().defaultMessage)}
             > Prefill Greeting Message </button>
 
             <button 
-              className=" btn btn-tiertiary"
+              className=" btn btn-tiertiary m--"
               onClick={() => setDefaultMessage(UserStore.getUser().altMessage)}
             > Prefill Recurring Message </button>
           </div>

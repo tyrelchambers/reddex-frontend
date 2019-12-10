@@ -50,6 +50,16 @@
   }
 }
 
+@media screen and (max-width: 618px) {
+  .account-tab {
+    margin: 0;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
 @media screen and (max-width:572px) {
   .confirm-messages-wrapper {
     width: 100%;
