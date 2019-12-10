@@ -11,7 +11,7 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
         <div className="d-f fxd-c fx-1 reading-list-item-header">
           <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
             <div className="d-f ai-c w-100pr">
-              <h3 className="reading-list-title mr-">{x.title}</h3>
+              <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
               <div className="reading-info d-f mr+">
                 <div className="reading-time">
                   <span>{avgReadingTime(x.selftext)}</span>
