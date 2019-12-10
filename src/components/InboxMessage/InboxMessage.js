@@ -58,14 +58,14 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
     if ( isContact.length === 1 ) {
       return (
         <button className="chat-action ai-c no-action" disabled>
-          <i className="fas fa-user mr-"></i>
+          <i className="fas fa-address-book mr-"></i>
           Already a contact
         </button>
       )
     } else {
       return (
         <button className="chat-action primary ai-c" onClick={() => addToContacts(data)}>
-          <i className="fas fa-bookmark mr-"></i>
+          <i className="fas fa-address-book mr-"></i>
           Add to contacts
         </button>
       )

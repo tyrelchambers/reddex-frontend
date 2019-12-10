@@ -6,12 +6,15 @@ import { toast } from 'react-toastify';
 import { MainButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import { getContact } from '../../api/get';
 
 const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ subject, setSubject ] = useState("");
   const [ redditProfile, setRedditProfile ] = useState({});
   const [ loading, setLoading ] = useState(false);
+  const [ contact, setContact ] = useState();
+  const [ expandContact, setExpandContact ] = useState(false);
 
   useEffect(() => {
     setSubject(data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title);
@@ -22,6 +25,20 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
   useEffect(() => {
     messageHandler();
+    const fn = async () => {
+      const c = await getContact(data.author)
+      if (c ) {
+        setContact({...c})
+      } else {
+        setContact()
+      }
+    }
+
+    fn();
+
+    return () => {
+      setExpandContact(false);
+    }
   }, [data]);
 
   const Username = () => redditProfile.subreddit ? <h4 className="mt- mb-">From: {redditProfile.subreddit.display_name_prefixed}</h4> : null;
@@ -38,9 +55,28 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
     }
   }
 
+  const toggleContact = () => {
+    setExpandContact(!expandContact)
+  }
+
   return (
     <div className="confirm-messages-wrapper">
-      <h1 className="confirm-title" id="author" data-author={data.author}>To: {data.author}</h1>
+      <h1 className="confirm-title" id="author" data-author={data.author} onClick={() => toggleContact()}>
+        To: {data.author}
+
+        {contact &&
+          <span className="modal-contact-toggle ml-">
+            <i className="fas fa-address-book mr-"></i>
+            <p className="tt-u">Expand</p>
+          </span>
+        }
+      </h1>
+      {(contact && expandContact) &&
+        <div className="modal-contact-details-wrapper mt-">
+          <p>{contact.notes}</p>
+        </div>
+      }
+
       <Username/>
       <div className="d-f fxd-c">
         <div className="field-group">
@@ -53,19 +89,17 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
           <p className="subject">{subject}</p>
         </div>
 
-        <div className="mt+">
-          <h3>Prefill an existing message</h3>
-
+        <div className="mt-">
           <div className="account-tab mt- mb-">
             <button 
               className=" btn btn-tiertiary"
               onClick={() => setDefaultMessage(UserStore.getUser().defaultMessage)}
-            > Greeting Message </button>
+            > Prefill Greeting Message </button>
 
             <button 
               className=" btn btn-tiertiary"
               onClick={() => setDefaultMessage(UserStore.getUser().altMessage)}
-            > Recurring Message </button>
+            > Prefill Recurring Message </button>
           </div>
         </div>
 

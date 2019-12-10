@@ -21,6 +21,33 @@
   background-color: $grey10;
   padding: 0.5em;
   border-radius: 5px;
+  align-items: center;
+  display: flex;
+  i {
+    font-size: 1rem;
+  }
+}
+
+.modal-contact-details-wrapper {
+  white-space: pre-wrap;
+  background-color: $grey10;
+  border: 1px solid $grey9;
+  padding:1em;
+  border-radius: 5px;
+}
+
+.modal-contact-toggle {
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  background-color: $grey7;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+
+  p {
+    color: white;
+  }
 }
 
 @media screen and (max-width:572px) {
