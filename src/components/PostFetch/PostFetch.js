@@ -147,7 +147,8 @@ export const saveToDatabase = async (posts) => {
       num_comments: x.num_comments,
       created: x.created_utc,
       link_flair_text: x.link_flair_text,
-      postId: x.postId
+      postId: x.postId,
+      subreddit: x.subreddit
     });
   });
   return true;
