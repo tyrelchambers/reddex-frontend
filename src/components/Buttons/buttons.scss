@@ -47,7 +47,7 @@
   margin-left: 0.5em;
   border:1.5px solid hsla(211, 12%, 88%,1);
   transition: all 0.2s ease;
-  
+    background-color: transparent;
   &:hover {
     color: $blue8;
     border:1.5px solid $blue8;
