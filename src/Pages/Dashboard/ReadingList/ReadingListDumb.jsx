@@ -10,8 +10,21 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
         
         <div className="d-f fxd-c fx-1 reading-list-item-header">
           <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
-            <h3 className="reading-list-title mr+">{x.title}</h3>
-            <h4 className="reading-list-author">{x.author}</h4>
+            <div className="d-f ai-c">
+              <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
+              <div className="reading-info d-f mr+">
+                <div className="reading-time">
+                  <span>{avgReadingTime(x.selftext)}</span>
+                  min read
+                </div>
+              </div>
+            </div>
+            
+            <div className="d-f ai-c"> 
+              <h4 className="reading-list-author">{x.author}</h4>
+              <i className="fas fa-circle mr- ml- circle-divider"></i>
+              <h4 className="reading-list-author">{x.subreddit}</h4>
+            </div>
           </div>
           <div className="message-tags mt-">
             <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
@@ -40,6 +53,21 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
     </div>
   )
 }
+
+
+const avgReadingTime = (text) => {
+  const wordsPerMinute = 200; // Average case.
+  let result;
+  
+  let textLength = text.split(" ").length; // Split by words
+  if(textLength > 0){
+    let value = Math.ceil(textLength / wordsPerMinute);
+    result = `~${value} `;
+  }
+
+  return result;
+}
+
 
 const addToCompleted = (data, bool) => {
   const token = window.localStorage.getItem('token');

@@ -3,7 +3,7 @@ import './ConfirmMessages.scss';
 import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import { toast } from 'react-toastify';
-import { MainButton } from '../Buttons/Buttons';
+import { MainButton, MinimalButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { getContact } from '../../api/get';
@@ -108,17 +108,25 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
         </div>
 
-        <MainButton 
-          className="btn btn-primary" 
-          onClick={() => {
-            setLoading(true);
-            saveAuthorToDb(data.author, data.postId);
-            saveStoryToUser(data);
-            sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
-          }} 
-          value="Message Author"
-          loading={loading}
-        /> 
+        <div className="d-f jc-sb ai-c confirm-actions">
+          <MinimalButton
+            onClick={() => removeMessagedAuthor()}
+            classNames="danger-text"
+          >
+            Remove from queue
+          </MinimalButton>
+          <MainButton 
+            className="btn btn-primary" 
+            onClick={() => {
+              setLoading(true);
+              saveAuthorToDb(data.author, data.postId);
+              saveStoryToUser(data);
+              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
+            }} 
+            value="Message Author"
+            loading={loading}
+          /> 
+        </div>
         
       </div>
     </div>
