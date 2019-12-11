@@ -53,10 +53,9 @@
   border-bottom: 1px solid $grey9;
   padding-bottom: 1em;
 }
-.reading-info {
+.reading-time {
   padding: 0.5em;
-  div {
-    color: $grey4;
+  color: $grey4;
     font-size: 0.8rem;
     margin: 0 0.5em;
     white-space: nowrap;
@@ -64,7 +63,6 @@
       color: $blue6;
       font-weight: bold;
     }
-  }
 }
 
 
@@ -72,23 +70,24 @@
   .mobile-column {
     flex-direction: column;
   }
+
+  .reading-list-item-header-subheader {
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+    }
+
+    h3,
+    h4 {
+      text-align: center;
+    }
+  }
 }
 
 @media screen and (max-width: 425px ) {
   .reading-list-item {
-    .reading-list-item-header-subheader {
-      flex-direction: column;
-      align-items: center;
-
-      h3 {
-        margin: 0;
-      }
-
-      h3,
-      h4 {
-        text-align: center;
-      }
-    }
 
     .body-toggle {
       margin-right: 10px;

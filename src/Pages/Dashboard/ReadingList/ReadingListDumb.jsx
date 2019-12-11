@@ -6,46 +6,41 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
   if ( !list ) return null;
   const stories = list.map((x, id) => 
     <li key={id} className="reading-list-item">
-      <div className="d-f" >
-        
-        <div className="d-f fxd-c fx-1 reading-list-item-header">
-          <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
-            <div className="d-f ai-c w-100pr">
-              <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
+      <div className="d-f fxd-c fx-1 reading-list-item-header">
+        <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
+          <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
 
-            
-              <div className="d-f ai-c"> 
-                <div className="reading-info d-f mr+">
-                  <div className="reading-time">
-                    <span>{avgReadingTime(x.selftext)}</span>
-                    min read
-                  </div>
-                </div>
-              </div>
-              <h4 className="reading-list-author">{x.author}</h4>
-              {x.subreddit &&
-                <>
-                  <i className="fas fa-circle mr- ml- circle-divider"></i>
-                  <h4 className="reading-list-author">{x.subreddit}</h4>
-                </>
-              }
-            </div>
+        </div>
+        <div className="d-f ai-c mt- jc-sb fxw-w">
+          <div className="reading-time">
+            <span>{avgReadingTime(x.selftext)}</span>
+            min read
           </div>
-          <div className="message-tags mt-">
-            <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
-            <div className="chat-actions d-f">
-              <div className="chat-action-btn-wrapper d-f ai-c">
-                <button className="chat-action primary ai-c" onClick={() => {
-                  addToCompleted(x, true);
-                  callback(x);
-                }}>
-                  <i className="fas fa-check mr-"></i>
-                  Set as read
-                </button>
-              </div>
+          <div className="d-f ai-c fxw-w">
+            <h4 className="reading-list-author">{x.author}</h4>
+            {x.subreddit &&
+              <>
+                <i className="fas fa-circle mr- ml- circle-divider"></i>
+                <h4 className="reading-list-author">{x.subreddit}</h4>
+              </>
+            }
+          </div>
+        </div>
+        <div className="message-tags mt-">
+          <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
+          <div className="chat-actions d-f">
+            <div className="chat-action-btn-wrapper d-f ai-c">
+              <button className="chat-action primary ai-c" onClick={() => {
+                addToCompleted(x, true);
+                callback(x);
+              }}>
+                <i className="fas fa-check mr-"></i>
+                Set as read
+              </button>
             </div>
           </div>
         </div>
+        
       </div>
     </li>
   )
