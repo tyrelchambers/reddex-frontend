@@ -12,18 +12,23 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
           <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
             <div className="d-f ai-c w-100pr">
               <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
-              <div className="reading-info d-f mr+">
-                <div className="reading-time">
-                  <span>{avgReadingTime(x.selftext)}</span>
-                  min read
+
+            
+              <div className="d-f ai-c"> 
+                <div className="reading-info d-f mr+">
+                  <div className="reading-time">
+                    <span>{avgReadingTime(x.selftext)}</span>
+                    min read
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            <div className="d-f ai-c"> 
               <h4 className="reading-list-author">{x.author}</h4>
-              <i className="fas fa-circle mr- ml- circle-divider"></i>
-              <h4 className="reading-list-author">{x.subreddit}</h4>
+              {x.subreddit &&
+                <>
+                  <i className="fas fa-circle mr- ml- circle-divider"></i>
+                  <h4 className="reading-list-author">{x.subreddit}</h4>
+                </>
+              }
             </div>
           </div>
           <div className="message-tags mt-">
