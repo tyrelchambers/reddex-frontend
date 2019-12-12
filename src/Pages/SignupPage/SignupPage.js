@@ -50,7 +50,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       UserStore.getAccessToken(approvalStatus).then(res => {
         setCredentials({...credentials, access_token: res.access_token, refresh_token: res.refresh_token})
       }).catch(console.log);
-      setFlow(2);
+      setFlow(1);
       setApproved(true);
     } 
   }
@@ -124,7 +124,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
 }));
 
 const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, errors, submitHandler, flow, setFlow, invite, setInvite}) => {
-  if (!approved && flow === 1) {
+  if (!approved && flow === 0) {
     return(
       <button className="btn btn-primary" onClick={() => {
         setFlow(flow++)
@@ -133,25 +133,7 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
     )
   }
 
-  if ( flow === 0 ) {
-    const params = (new URL(window.location)).searchParams;
-    const inviteParam = params.get("inviteCode") ? params.get("inviteCode") : "";
-    const inviteCode = invite ? invite : inviteParam
-
-    return(
-      <form className="w-100pr">
-        <input type="text" className="form-input w-100pr" placeholder="Enter invite code" value={inviteCode} onChange={(e) => setInvite(e.target.value)}/>
-        <div className="d-f jc-sb ai-c mt-">
-          <button className="btn btn-secondary" onClick={(e) => {
-            inviteHandler(e, setFlow, flow, inviteCode)
-          }}>Submit Code</button>
-          <ApprovalLink/>
-        </div>
-      </form>
-    )
-  }
-
-  if (flow===2) {
+  if (flow===1) {
     return (
       <SignupForm 
         credentialHandler={credentialHandler}
