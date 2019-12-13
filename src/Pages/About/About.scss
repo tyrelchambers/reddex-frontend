@@ -1,18 +1,89 @@
+@import '../../colours.scss';
+
 .about-wrapper {
   width: 100%;
   max-width: 900px;
   min-height: 100vh;
   height: 100%;
   padding: 0 1em;
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 2em;
-  }
 
-  p {
-    line-height: 1.8em;
-    text-align: center;
-    font-size: 1.2rem;
+}
+
+.about-title {
+  font-size: 3rem;
+  margin-bottom: 2em;
+}
+
+.about-subtitle {
+  line-height: 1.8em;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.pricing-wrapper {
+  display: grid;
+  width: 600px;
+  grid-template-columns: 100%;
+  border-radius: 5px;
+  margin-top: 5em;
+}
+
+.pricing-headers {
+  display: grid;
+  grid-template-columns: 300px 300px;
+  height: 150px;
+}
+
+.block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  &:not(:first-child) {
+    border: 2px solid $grey9;
+    border-bottom-width: 0px;
+    background-color: white;
+
+  }
+}
+
+.block-title {
+  font-size: 1rem;
+  font-weight: normal;
+
+}
+
+.block-subtitle {
+  font-size: 1.9rem;
+  font-weight: bold;
+}
+
+.pricing-table  {
+  background-color: white;
+  border: 2px solid $grey9;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  .row {
+    display: grid;
+    grid-template-columns: 300px 300px;
+    height: 50px;
+    i {
+      justify-self: center;
+      color: $green;
+      padding: 1em;
+
+    }
+
+    .subtitle {
+      color: $grey5;
+      border-right: 2px solid $grey9;
+      padding: 1em;
+    }
   }
 }
 
