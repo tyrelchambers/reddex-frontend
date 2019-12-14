@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import './SignupPage.scss';
 import {fieldValidationSignup} from '../../helpers/FieldValidation';
 import SignupForm from '../../components/Forms/SignupForm';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
-import ApprovalLink from '../../components/ApprovalLink/ApprovalLink';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -145,25 +144,6 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
       />
     )
   }
-}
-
-const inviteHandler = async (e, setFlow, flow, invite) => {
-  e.preventDefault();
-
-  await Axios.get(`${process.env.REACT_APP_BACKEND}/api/invites/confirmInvite`, {
-    params: {
-      inviteCode: invite
-    }
-  })
-  .then(res => {
-    if ( res.status === 200 ) {
-      toast.success("Token Valid")
-      window.sessionStorage.setItem('invite', invite);
-      setFlow(flow + 1);
-    }
-  })
-  .catch(console.log);
-  
 }
 
 export default SignupPage;

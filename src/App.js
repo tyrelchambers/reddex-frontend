@@ -6,9 +6,7 @@ import NewVisitor from './components/NewVisitor/NewVisitor';
 import AppLoader from './components/Loading/AppLoader';
 import { getSubreddits } from './helpers/getSubreddits';
 import ScrollToTop from './layouts/ScrollToTop/ScrollToTop';
-import UsedBy from './layouts/UsedBy/UsedBy';
 import DisplayWrapper from './layouts/DisplayWrapper/DisplayWrapper';
-import Aside from './layouts/Aside/Aside';
 
 const App = observer(() => {
   

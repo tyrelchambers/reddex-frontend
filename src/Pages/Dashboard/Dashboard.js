@@ -19,7 +19,7 @@ const Dashboard = inject("ReadingListStore")(observer(({loading, children, Readi
         }
 
         {!loading &&
-          <div className={`p+ dashboard-page-wrapper ${ReadingListStore.dim ? "dark-bg" : ""}`}>
+          <div className={`p+ dashboard-page-wrapper`}>
             {children}
           </div>
         }
