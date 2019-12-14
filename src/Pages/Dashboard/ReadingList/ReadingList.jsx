@@ -48,7 +48,6 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
         {params.get('t') === "open" &&
           <ReadingListDumb 
             list={ReadingListStore.getToRead()}
-            setExpanded={(v) => ReadingListStore.setDim(v)}
             callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
           />
         }
