@@ -13,7 +13,7 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
           <h4 className="reading-list-author">{x.author}</h4>
         </div>
         <div className="message-tags mt-">
-          <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
+          <a className="message-story-tag" target="_blank" rel="noopener noreferrer" href={x.url}>Link to story</a>
           <div className="chat-actions d-f">
             <div className="chat-action-btn-wrapper d-f">
               <button className="chat-action primary ai-c" onClick={() => {

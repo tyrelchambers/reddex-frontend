@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Dashboard from '../Dashboard';
 import './ReadingList.scss';
 import ReadingListDumb from './ReadingListDumb';
@@ -8,7 +8,7 @@ import Axios from 'axios';
 import CompletedStories from './CompletedStories';
 import { NavLink, Redirect } from 'react-router-dom';
 
-const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore, location}) => {  
+const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => {  
   useEffect(() => {
     const token = window.localStorage.getItem('token');
 
