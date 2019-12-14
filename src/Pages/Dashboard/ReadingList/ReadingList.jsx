@@ -6,7 +6,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import Axios from 'axios';
 import CompletedStories from './CompletedStories';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore, location}) => {  
   useEffect(() => {
@@ -17,6 +17,10 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore, loca
   }, []);
 
   const params = new URLSearchParams(window.location.search);
+
+  if ( !params.get('t') ) {
+    return <Redirect to="/dashboard/reading_list?t=open" />
+  }
 
   const Tabs = () => (
     <ul className="tabs-wrapper">
