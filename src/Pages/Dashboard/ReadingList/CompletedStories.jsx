@@ -18,8 +18,12 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
         masterList[x.subreddit].push(x)
       }
     } else {
-      masterList["Uncategorized"] = [];
-      masterList["Uncategorized"].push(x)
+      if (masterList["Uncategorized"]) {
+        masterList["Uncategorized"].push(x)
+      } else {
+        masterList["Uncategorized"] = [];
+        masterList["Uncategorized"].push(x)
+      } 
     }
   });
 
