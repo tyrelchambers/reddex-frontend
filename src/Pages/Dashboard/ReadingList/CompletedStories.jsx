@@ -3,17 +3,39 @@ import './ReadingList.scss';
 import Axios from 'axios';
 
 const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb}) => {
+  if ( !list ) return null;
+
   const token = window.localStorage.getItem('token');
 
-  const stories = list.map((x, id) => 
-    <li key={id} className="reading-list-item opaque">
+  const masterList = [];
+
+  list.map(x => {
+    if ( x.subreddit ) {
+      if ( masterList[x.subreddit] ) {
+        masterList[x.subreddit].push(x)
+      } else {
+        masterList[x.subreddit] = [];
+        masterList[x.subreddit].push(x)
+      }
+    } else {
+      if (masterList["Uncategorized"]) {
+        masterList["Uncategorized"].push(x)
+      } else {
+        masterList["Uncategorized"] = [];
+        masterList["Uncategorized"].push(x)
+      } 
+    }
+  });
+
+  const Story = ({x}) => (
+    <li className="reading-list-item opaque">
       <div className="d-f fxd-c reading-list-header ">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
           <h3 className="reading-list-title mr+">{x.title}</h3>
           <h4 className="reading-list-author">{x.author}</h4>
         </div>
         <div className="message-tags mt-">
-          <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
+          <a className="message-story-tag" target="_blank" rel="noopener noreferrer" href={x.url}>Link to story</a>
           <div className="chat-actions d-f">
             <div className="chat-action-btn-wrapper d-f">
               <button className="chat-action primary ai-c" onClick={() => {
@@ -35,17 +57,23 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
           </div>
         </div>
       </div>
-      
-      <div className="reading-list-body">
-        <p>{x.selftext}</p>
-      </div>
     </li>
   )
+
+   
+  const renderedList = Object.keys(masterList).map((key, id) => {
+    return (
+      <React.Fragment key={id}>
+        <h3 className="tt-c thin">{key}</h3>
+        {masterList[key].map((x, id) => <Story x={x} key={id}/>)}
+      </React.Fragment>
+    )
+  })
+
   return (
     <div className="m+ all-stories-wrapper fx-1">
-      <h3>Completed Stories</h3>
       <ul className="reading-list-list ">
-        {stories}
+        {renderedList}
       </ul>
     </div>
   )

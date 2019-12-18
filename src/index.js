@@ -21,7 +21,6 @@ import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
 import Overview from './Pages/Dashboard/Overview/Overview';
-import UserInbox from './components/UserInbox/UserInbox';
 import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 import Inbox from './Pages/Dashboard/Inbox/Inbox';
 import Approval from './Pages/Approval/Approval';
@@ -87,7 +86,7 @@ const InitalLoad = () => {
           <ToastContainer />
           <Switch>
             <Route exact path="/" component={App}/>
-            <Route exact path="/about" component={About} />
+            {/* <Route exact path="/about" component={About} /> */}
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/approval" component={Approval}/>

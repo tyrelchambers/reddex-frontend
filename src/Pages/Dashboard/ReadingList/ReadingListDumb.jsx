@@ -2,10 +2,32 @@ import React from 'react'
 import './ReadingList.scss';
 import Axios from 'axios';
 
-const ReadingListDumb = ({list, setExpanded, callback}) => {
+const ReadingListDumb = ({list, callback}) => {
   if ( !list ) return null;
-  const stories = list.map((x, id) => 
-    <li key={id} className="reading-list-item">
+
+
+  const masterList = [];
+
+  list.map(x => {
+    if ( x.subreddit ) {
+      if ( masterList[x.subreddit] ) {
+        masterList[x.subreddit].push(x)
+      } else {
+        masterList[x.subreddit] = [];
+        masterList[x.subreddit].push(x)
+      }
+    } else {
+      if (masterList["Uncategorized"]) {
+        masterList["Uncategorized"].push(x)
+      } else {
+        masterList["Uncategorized"] = [];
+        masterList["Uncategorized"].push(x)
+      } 
+    }
+  });
+
+  const Story = ({x}) => (
+    <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
           <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
@@ -40,15 +62,23 @@ const ReadingListDumb = ({list, setExpanded, callback}) => {
             </div>
           </div>
         </div>
-        
       </div>
     </li>
   )
+  
+  const renderedList = Object.keys(masterList).map((key, id) => {
+    return (
+      <React.Fragment key={id}>
+        <h3 className="tt-c thin">{key}</h3>
+        {masterList[key].map((x, id) => <Story x={x} key={id}/>)}
+      </React.Fragment>
+    )
+  })
+
   return (
     <div className="m+ fx-1">
-      <h3>Accepted Stories</h3>
       <ul className="reading-list-list">
-        {stories}
+        {renderedList}
       </ul>
     </div>
   )

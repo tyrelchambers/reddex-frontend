@@ -14,7 +14,7 @@ const DashboardNav = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/dashboard/reading_list" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
+          <NavLink to="/dashboard/reading_list?t=open" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
             <p>Stories</p>
           </NavLink>

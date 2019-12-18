@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import { inject, observer } from 'mobx-react';
@@ -30,9 +30,7 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
             <li className="d-f ai-c nav-link">
               <Link to="/" >Home</Link>
             </li>
-            <li className="d-f ai-c nav-link">
-              <Link to="/about" >What is Reddex?</Link>
-            </li>
+        
 
             <li className="d-f ai-c nav-main-btn">
               <Link to="/" >Get Posts</Link>

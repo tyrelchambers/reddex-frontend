@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import './SignupPage.scss';
 import {fieldValidationSignup} from '../../helpers/FieldValidation';
 import SignupForm from '../../components/Forms/SignupForm';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
-import ApprovalLink from '../../components/ApprovalLink/ApprovalLink';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -50,7 +49,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       UserStore.getAccessToken(approvalStatus).then(res => {
         setCredentials({...credentials, access_token: res.access_token, refresh_token: res.refresh_token})
       }).catch(console.log);
-      setFlow(2);
+      setFlow(1);
       setApproved(true);
     } 
   }
@@ -100,7 +99,9 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
         <div className="d-f jc-c ai-c signup-wrapper ml-a mr-a h-100v fxd-c p-">
           <div className="wrapper d-f fxd-c ai-c">
             <h1 className="mb+ ta-c">Signup With Reddex</h1>
-            <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. If you'd like to know why Reddex needs these permissions, please check out the <Link to="/faq">FAQ</Link>.</p>
+            <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. This is so you can have access to your inbox, and the ability to send messages to authors.</p>
+
+            <p className="subtle mt+ mb+">Due to Reddit limitations, authentication can only happen with the desktop site.</p>
             
             
             <Flow 
@@ -124,7 +125,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
 }));
 
 const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, errors, submitHandler, flow, setFlow, invite, setInvite}) => {
-  if (!approved && flow === 1) {
+  if (!approved && flow === 0) {
     return(
       <button className="btn btn-primary" onClick={() => {
         setFlow(flow++)
@@ -133,25 +134,7 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
     )
   }
 
-  if ( flow === 0 ) {
-    const params = (new URL(window.location)).searchParams;
-    const inviteParam = params.get("inviteCode") ? params.get("inviteCode") : "";
-    const inviteCode = invite ? invite : inviteParam
-
-    return(
-      <form className="w-100pr">
-        <input type="text" className="form-input w-100pr" placeholder="Enter invite code" value={inviteCode} onChange={(e) => setInvite(e.target.value)}/>
-        <div className="d-f jc-sb ai-c mt-">
-          <button className="btn btn-secondary" onClick={(e) => {
-            inviteHandler(e, setFlow, flow, inviteCode)
-          }}>Submit Code</button>
-          <ApprovalLink/>
-        </div>
-      </form>
-    )
-  }
-
-  if (flow===2) {
+  if (flow===1) {
     return (
       <SignupForm 
         credentialHandler={credentialHandler}
@@ -161,25 +144,6 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
       />
     )
   }
-}
-
-const inviteHandler = async (e, setFlow, flow, invite) => {
-  e.preventDefault();
-
-  await Axios.get(`${process.env.REACT_APP_BACKEND}/api/invites/confirmInvite`, {
-    params: {
-      inviteCode: invite
-    }
-  })
-  .then(res => {
-    if ( res.status === 200 ) {
-      toast.success("Token Valid")
-      window.sessionStorage.setItem('invite', invite);
-      setFlow(flow + 1);
-    }
-  })
-  .catch(console.log);
-  
 }
 
 export default SignupPage;
