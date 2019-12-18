@@ -34,8 +34,8 @@ export const updateContact = (contact) => {
 }
 
 export const saveStoryToReadingList = (data) => {
-  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/stories/save_story`, {
-
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/save_story`, {
+    ...data
   },
   {
     headers: {

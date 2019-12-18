@@ -11,16 +11,24 @@ import { MinimalButton } from '../../../components/Buttons/Buttons';
 import { Modal } from '../../../components/Modal/Modal';
 import { ImportStoryForm } from '../../../components/Forms/ImportStoryForm';
 import { saveStoryToReadingList } from '../../../api/post';
+import { getImportedStory } from '../../../api/get';
+import { toast } from 'react-toastify';
+import { is_url } from '../../../helpers/isURL';
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ url, setURL ] = useState();
+  const [ refresh, setRefresh ] = useState(false);
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
 
     getCompletedFromDb(token, ReadingListStore)
     getCompletedStoriesFromDb(token, ReadingListStore);
-  }, []);
+
+    return () => {
+      setRefresh(false)
+    }
+  }, [refresh]);
 
   const params = new URLSearchParams(window.location.search);
 
@@ -47,25 +55,35 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
     </ul>
   )
 
-  const saveStoryFromURL = (e) => {
+  const saveStoryFromURL = async (e) => {
     e.preventDefault();
     
     const formattedURL = `${url}.json`;
-    const data = {
-      author: formattedURL.author,
-      title: formattedURL.title,
-      selftext: formattedURL.selftext,
-      ups: formattedURL.ups,
-      url: formattedURL.url,
-      num_comments: formattedURL.num_comments,
-      created: formattedURL.created_utc,
-      link_flair_text: formattedURL.link_flair_text,
-      postId: formattedURL.postId,
-      subreddit: formattedURL.subreddit
+
+    if ( !is_url(formattedURL) ) {
+      toast.error("Improper URL format, try again")
+      return false;
     }
-    console.log(formattedURL)
-    // saveStoryToReadingList()
-    
+
+    const story = await getImportedStory(formattedURL);
+
+    const data = {
+      author: story.author,
+      title: story.title,
+      selftext: story.selftext,
+      ups: story.ups,
+      url: story.url,
+      num_comments: story.num_comments,
+      created: story.created_utc,
+      link_flair_text: story.link_flair_text,
+      postId: story.id,
+      subreddit: story.subreddit,
+      permission: true
+    }
+    await saveStoryToReadingList(data);
+    ModalStore.setIsOpen(false);
+    setRefresh(true);
+    toast.success("Story added to list")
   }
 
   return (
