@@ -40,7 +40,7 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
   msgArr.push(data);
 
   const MessageTags = () => {
-    //if (!storyLink) return null;
+    if (!storyLink) return null;
     return(
       <div className="d-f ai-c">
         <a href={storyLink} target="_blank" className="message-story-tag">Link to story</a>
