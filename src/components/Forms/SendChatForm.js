@@ -50,8 +50,8 @@ const SendChatForm = ({user, sentMsg}) => {
         setMsg(e.target.value);
       }}/>  
       <button className="chat-send" onClick={submitHandler}>
-        <i className="fas fa-paper-plane"></i>
-      </button>
+          <i className="fas fa-paper-plane"></i>
+        </button>
     </form>
   )
 }
