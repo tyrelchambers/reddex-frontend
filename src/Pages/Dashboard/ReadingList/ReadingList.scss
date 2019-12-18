@@ -87,6 +87,10 @@
 @media screen and (max-width: 768px) {
   .mobile-column {
     flex-direction: column;
+
+    .mobile-margin {
+      margin: 1em 0;
+    }
   }
 
   .reading-list-item-header-subheader {

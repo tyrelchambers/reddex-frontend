@@ -13,3 +13,13 @@
   background-color: $green;
   color: white;
 }
+
+@media screen and (max-width: 623px) {
+  .message-tags {
+    flex-direction: column;
+
+    .chat-action {
+      margin-top: 1em;
+    }
+  }
+}

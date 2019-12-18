@@ -88,11 +88,12 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
 
   return (
     <Dashboard>
-      <div className="d-f ai-c">
+      <div className="d-f ai-c mobile-column">
         <Tabs />
         
         <MinimalButton
           onClick={() => ModalStore.setIsOpen(true)}
+          classNames="mobile-margin"
         >
           <i className="fas fa-plus mr-"></i>
           Import Story from URL

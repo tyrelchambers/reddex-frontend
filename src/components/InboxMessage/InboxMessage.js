@@ -42,7 +42,7 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
   const MessageTags = () => {
     if (!storyLink) return null;
     return(
-      <div className="d-f ai-c ">
+      <div className="d-f ai-c">
         <a href={storyLink} target="_blank" className="message-story-tag">Link to story</a>
         <button className="chat-action primary ai-c" onClick={() => permissionHandler(true, data)}>
           <i className="fas fa-bookmark mr-"></i>
@@ -82,6 +82,7 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
             <MessageTags />
             <IsInContacts />
           </div>
+
           <HR/>
         </div>
         <InboxChat 
