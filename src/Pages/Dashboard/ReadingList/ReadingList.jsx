@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Dashboard from '../Dashboard';
 import './ReadingList.scss';
 import ReadingListDumb from './ReadingListDumb';
@@ -7,14 +7,28 @@ import { observer } from 'mobx-react-lite';
 import Axios from 'axios';
 import CompletedStories from './CompletedStories';
 import { NavLink, Redirect } from 'react-router-dom';
+import { MinimalButton } from '../../../components/Buttons/Buttons';
+import { Modal } from '../../../components/Modal/Modal';
+import { ImportStoryForm } from '../../../components/Forms/ImportStoryForm';
+import { saveStoryToReadingList } from '../../../api/post';
+import { getImportedStory } from '../../../api/get';
+import { toast } from 'react-toastify';
+import { is_url } from '../../../helpers/isURL';
 
-const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => {  
+const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
+  const [ url, setURL ] = useState();
+  const [ refresh, setRefresh ] = useState(false);
+
   useEffect(() => {
     const token = window.localStorage.getItem('token');
 
     getCompletedFromDb(token, ReadingListStore)
     getCompletedStoriesFromDb(token, ReadingListStore);
-  }, []);
+
+    return () => {
+      setRefresh(false)
+    }
+  }, [refresh]);
 
   const params = new URLSearchParams(window.location.search);
 
@@ -41,9 +55,49 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
     </ul>
   )
 
+  const saveStoryFromURL = async (e) => {
+    e.preventDefault();
+    
+    const formattedURL = `${url}.json`;
+
+    if ( !is_url(formattedURL) ) {
+      toast.error("Improper URL format, try again")
+      return false;
+    }
+
+    const story = await getImportedStory(formattedURL);
+
+    const data = {
+      author: story.author,
+      title: story.title,
+      selftext: story.selftext,
+      ups: story.ups,
+      url: story.url,
+      num_comments: story.num_comments,
+      created: story.created_utc,
+      link_flair_text: story.link_flair_text,
+      postId: story.id,
+      subreddit: story.subreddit,
+      permission: true
+    }
+    await saveStoryToReadingList(data);
+    ModalStore.setIsOpen(false);
+    setRefresh(true);
+    toast.success("Story added to list")
+  }
+
   return (
     <Dashboard>
-      <Tabs />
+      <div className="d-f ai-c">
+        <Tabs />
+        
+        <MinimalButton
+          onClick={() => ModalStore.setIsOpen(true)}
+        >
+          <i className="fas fa-plus mr-"></i>
+          Import Story from URL
+        </MinimalButton>
+      </div>
       <div className="d-f mobile-column">
         {params.get('t') === "open" &&
           <ReadingListDumb 
@@ -61,6 +115,19 @@ const ReadingList = inject("ReadingListStore")(observer(({ReadingListStore}) => 
           />
         }
       </div>
+
+      {ModalStore.isOpen &&
+        <Modal>
+          <h2 className="ta-c">Import A Story </h2>
+          <div className="d-f jc-c">
+          <ImportStoryForm
+            url={url}
+            setURL={(e) => setURL(e.target.value)}
+            submitHandler={saveStoryFromURL}
+          />
+          </div>
+        </Modal>
+      }
     </Dashboard>
   )
 }));

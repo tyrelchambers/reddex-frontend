@@ -1,7 +1,7 @@
 @import '../../colours.scss';
 
 .modal-wrapper {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   position: fixed;
   padding-top: 3em;
@@ -12,13 +12,14 @@
   background-color: rgba(black, 0.9);
   z-index: 4;
   overflow-y: scroll;
+  align-items: center;
 }
 
 .modal-body {
   display: flex;
   flex-direction: column;
   background-color: white;
-  height: 900px;
+  
   width: 100%;
   max-width: 900px;
   border-radius: 10px;
