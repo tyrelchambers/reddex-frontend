@@ -140,7 +140,7 @@ ul {
 
 .message-story-tag {
   padding: 0.5em 1em;
- 
+  white-space: nowrap;
   font-size: 0.7rem;
   color: $blue6;
   text-decoration: underline;
