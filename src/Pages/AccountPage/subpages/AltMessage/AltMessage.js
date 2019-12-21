@@ -17,7 +17,7 @@ const AltMessage = ({redditProfile, user, setUser, UserStore}) => {
       <form className="d-f fxd-c ai-fs">
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">Your Recurring Message</label>
-          <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." onChange={e => setUser({...user, altMessage: e.target.value})}></textarea>
+          <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={user.altMessage} onChange={e => setUser({...user, altMessage: e.target.value})}></textarea>
         </div>
         
         <div className="d-f jc-sb ai-c w-100pr account-footer">
