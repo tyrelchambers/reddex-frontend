@@ -19,7 +19,7 @@ const Dashboard = inject("ReadingListStore")(observer(({loading, children, Readi
         }
 
         {!loading &&
-          <div className={`p+ dashboard-page-wrapper`}>
+          <div className={`p+ dashboard-page-wrapper animated fadeIn faster`}>
             {children}
           </div>
         }
