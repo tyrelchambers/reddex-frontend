@@ -41,7 +41,7 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
   return(
     <div className="inbox-wrapper">
       {!InboxStore.openChatWindow &&
-        <input type="text" className="search-large w-100pr  mb+" placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value)}/>  
+        <input type="text" className="search-large w-100pr  mb+" placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
       }
       
       <div className="d-f">
