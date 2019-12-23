@@ -1,0 +1,40 @@
+@import '../../../colours.scss';
+
+.multi-input {
+  height: 40px;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1.5px solid $grey7;
+}
+.preffix,
+.suffix {
+  background-color: $grey7;
+  height: 100%;
+  padding: 0.5em 1em;
+  color: $grey9;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabs-wrapper {
+  display: flex;
+  margin: 1em;
+}
+
+.tabs-item a {
+  text-decoration: none;
+  color: $grey7;
+  padding: 0.5em 1em;
+  transition: all 0.2s ease;
+}
+
+.tab-item-active {
+  background-color: $blue5;
+  color: white !important;
+  border-radius: 5px;
+  box-shadow: 0px 2px 15px rgba($blue5, 0.4);
+}
+
+

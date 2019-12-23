@@ -31,10 +31,6 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
             <li className="d-f ai-c nav-link">
               <Link to="/" >Home</Link>
             </li>
-            
-            <li className="d-f ai-c nav-link">
-              <Link to="#" onClick={() => addDomainAlias('test2')} >Add Domain</Link>
-            </li>
 
             <li className="d-f ai-c nav-main-btn">
               <Link to="/" >Get Posts</Link>

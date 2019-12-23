@@ -26,6 +26,8 @@ import Inbox from './Pages/Dashboard/Inbox/Inbox';
 import Approval from './Pages/Approval/Approval';
 import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 import Static from './Webbuilder/Static/Static'
+import SiteIndex from './Webbuilder/Dashboard/Settings/SiteIndex';
+import SiteStore from './stores/SiteStore';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -58,7 +60,8 @@ const stores = {
   SubredditStore,
   PostStore,
   InboxStore,
-  ReadingListStore
+  ReadingListStore,
+  SiteStore
 }
 
 const InitalLoad = () => { 
@@ -106,6 +109,7 @@ const InitalLoad = () => {
               <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
               <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
               <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+              <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
             </Switch>
           </Router>
         </Provider>
