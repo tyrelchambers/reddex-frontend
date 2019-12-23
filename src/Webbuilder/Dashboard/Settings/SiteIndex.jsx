@@ -60,11 +60,11 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
 
   return (
     <Dashboard>
+      <Tabs />
       <SiteSaveStatus
         config={config}
         store={SiteStore}
       />
-      <Tabs />
       <section style={{maxWidth: '600px'}} className="mt+">
         {params.get('t') === "general" &&
           <>
