@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './SiteIndex.scss'
 import Dashboard from '../../../Pages/Dashboard/Dashboard'
 import SiteBuilderForm from '../../../components/Forms/SiteBuilderForm'
@@ -13,6 +13,8 @@ import { toast } from 'react-toastify'
 import { getWebsiteWithToken } from '../../../api/get'
 
 const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
+  const pondRef = useRef()
+
   const [config, setConfig] = useState({
     subdomain: "",
     title: "",
@@ -22,6 +24,8 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     patreon: "",
     youtube: "",
     podcast: "",
+    introduction: "",
+    bannerURL: "",
     accent: "#000000",
     theme: "light"
   });
@@ -80,6 +84,8 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
       patreon: "",
       youtube: "",
       podcast: "",
+      introduction: "",
+      bannerURL: "",
       accent: "#000000",
       theme: "light"
     }
@@ -97,16 +103,34 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     if ( !config.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
-    SiteStore.setPreview(config)
+    let bannerURL;
+
+    if ( pondRef.current.getFiles().length > 0 ) {
+      bannerURL = await processFiles()
+    }
+
+    const payload = {
+      ...config,
+      bannerURL
+    }
+
+    SiteStore.setPreview(payload)
     await addDomainAlias(config.subdomain);
-    await updateWebsite(config).then(res => toast.success("Changes saved")).catch(console.log);
+    await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
+  }
+
+  const processFiles = async () => {
+    const banner = await pondRef.current.processFiles().then(files => {
+      return files[0].serverId;
+    });
+    return banner;
   }
 
   if (loading) return null;
 
   return (
     <Dashboard>
-      <h1>Site Builder</h1>
+      <h1 className="mb+">Site Builder</h1>
       {!activated &&
         <div className="mt- d-f ai-c">
           <p className="mr-">Activate website</p>
@@ -135,6 +159,7 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
                   configHandler={configHandler}
                   config={config}
                   resetChanges={resetChanges}
+                  pondRef={pondRef}
                 />
               </div>
             }

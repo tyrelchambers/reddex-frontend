@@ -1,9 +1,9 @@
 import React from 'react';
 import './SocialItem.scss'
 
-const SocialItem = ({icon, link, theme}) => {
+const SocialItem = ({icon, link, accent}) => {
   return (
-    <a href={link} className={`static-social-link ${theme}`}>
+    <a href={link} className={`static-social-link`} style={{color: accent}}>
       {icon}
     </a>
   );

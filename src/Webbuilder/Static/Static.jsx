@@ -40,7 +40,11 @@ const Static = () => {
 
   return (
     <div className="static-wrapper">
-      <header className={`static-header ${config.theme}`}>
+      <header className={`static-header ${config.theme}`} style={{
+        borderTopWidth: "3px",
+        borderTopColor: config.accent,
+        borderTopStyle:  'solid'
+      }}>
           <div className={`static-site-name ${config.theme}`}>
           <SocialBar
           config={config}

@@ -10,6 +10,8 @@ class SiteStore {
     patreon: "",
     youtube: "",
     podcast: "",
+    introduction: "",
+    bannerURL: "",
     accent: "#000000",
     theme: "light"
   }

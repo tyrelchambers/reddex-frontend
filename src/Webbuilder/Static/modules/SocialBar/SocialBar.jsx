@@ -17,7 +17,7 @@ const SocialBar = ({config}) => {
       <div className="static-social-list">
         {facebook &&
           <SocialItem
-            theme={config.theme}
+            accent={config.accent}
             icon={<i className="fab fa-facebook-square"></i>}
             link={facebook}
           />
@@ -25,7 +25,7 @@ const SocialBar = ({config}) => {
 
         {twitter &&
           <SocialItem
-            theme={config.theme}
+            accent={config.accent}
             icon={<i className="fab fa-twitter"></i>}
             link={twitter}
           />
@@ -33,7 +33,7 @@ const SocialBar = ({config}) => {
 
         {instagram &&
           <SocialItem
-            theme={config.theme}
+            accent={config.accent}
             icon={<i className="fab fa-instagram"></i>}
             link={instagram}
           />
@@ -41,7 +41,7 @@ const SocialBar = ({config}) => {
 
         {podcast &&
           <SocialItem
-            theme={config.theme}
+            accent={config.accent}
             icon={<i className="fas fa-podcast"></i>}
             link={podcast}
           />
@@ -49,7 +49,7 @@ const SocialBar = ({config}) => {
 
         {patreon &&
           <SocialItem
-            theme={config.theme}
+            accent={config.accent}
             icon={<i className="fab fa-patreon"></i>}
             link={patreon}
           />
@@ -57,7 +57,7 @@ const SocialBar = ({config}) => {
 
         {youtube &&
           <SocialItem
-            theme={config.theme}
+            accent={config.accent}
             icon={<i className="fab fa-youtube"></i>}
             link={youtube}
           />

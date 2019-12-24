@@ -1,7 +1,8 @@
 import React from 'react';
 import HR from '../HR/HR';
+import Uploader from '../Uploader/Uploader';
 
-const SiteBuilderForm = ({config, configHandler}) => {
+const SiteBuilderForm = ({config, configHandler, pondRef}) => {
   return (
     <form className="form ">
       <div className="field-group">
@@ -25,6 +26,16 @@ const SiteBuilderForm = ({config, configHandler}) => {
           <input type="text" className="form-input fx-1" name="title" value={config.title} placeholder="My Awesome Site" onChange={e => configHandler(e)}/>
         </div>
       </div>
+
+      <div className="field-group">
+        <label htmlFor="title" className="form-label">Site Introduction</label>
+        <textarea type="text" className="textarea" name="introduction" value={config.introduction} placeholder="A blurb about you or your site" onChange={e => configHandler(e)}/>
+
+      </div>
+
+      <Uploader
+        pondRef={pondRef}
+      />
 
       <HR
         classes="mt+ mb+"
@@ -88,6 +99,8 @@ const SiteBuilderForm = ({config, configHandler}) => {
           <input type="text" className="form-input fx-1" name="podcast" value={config.podcast}  placeholder="Link to your podcast" onChange={e => configHandler(e)}/>
         </div>
       </div>
+
+      
     </form>
   );
 }
