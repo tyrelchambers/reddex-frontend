@@ -7,6 +7,10 @@ import SiteBuilderThemeForm from '../../../components/Forms/SiteBuilderThemeForm
 import { inject } from 'mobx-react'
 import { observer } from 'mobx-react-lite'
 import SiteSaveStatus from '../../../layouts/SiteSaveStatus/SiteSaveStatus'
+import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus'
+import { addDomainAlias, activateWebsite, updateWebsite } from '../../../api/post'
+import { toast } from 'react-toastify'
+import { getWebsiteWithToken } from '../../../api/get'
 
 const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
   const [config, setConfig] = useState({
@@ -21,6 +25,22 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     accent: "#000000",
     theme: "light"
   });
+  const [activated, setActivated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fn = async () => {
+      await getWebsiteWithToken().then(res => {
+        if (res) {
+          setActivated(true)
+          setConfig({...config, ...res})
+          SiteStore.setPreview({...res})
+          setLoading(false);
+        }
+      });
+    }
+    fn();
+  }, []);
 
   const configHandler = (e) => {
     setConfig({...config, [e.target.name]: e.target.value});
@@ -47,52 +67,91 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
           }
         }}>Colour Theme</NavLink>
       </li>
-
-      <li className="tabs-item">
-        <NavLink to="/dashboard/site?t=preview" activeClassName="tab-item-active" isActive={() => {
-          if ( params.get('t') === "preview" ) {
-            return true
-          }
-        }}>Preview Site</NavLink>
-      </li>
     </ul>
   )
 
+  const resetChanges = () => {
+    const reset = {
+      subdomain: "",
+      title: "",
+      twitter: "",
+      facebook: "",
+      instagram: "",
+      patreon: "",
+      youtube: "",
+      podcast: "",
+      accent: "#000000",
+      theme: "light"
+    }
+
+    setConfig(reset)
+  }
+
+  const activateSiteHandler = async () => {
+    await activateWebsite().then(console.log);
+    toast.success("Site activated")
+    setActivated(true)
+  }
+
+  const submitHandler = async () => {
+    SiteStore.setPreview(config)
+    await updateWebsite(config).then(res => toast.success("Changes saved")).catch(console.log);
+  }
+
+  if (loading) return null;
+
   return (
     <Dashboard>
-      <Tabs />
-      <SiteSaveStatus
-        config={config}
-        store={SiteStore}
-      />
-      <section style={{maxWidth: '600px'}} className="mt+">
-        {params.get('t') === "general" &&
-          <>
-            <h2>General Settings</h2>
-            <SiteBuilderForm 
-              configHandler={configHandler}
-              config={config}
-            />
-          </>
-        }
-
-        {params.get("t") === "theme" &&
-          <>
-            <h2 className="title">Colour Theme</h2>
-            <SiteBuilderThemeForm 
-              configHandler={configHandler}
-              config={config}
-            />
-          </>
-        }
-
-        {params.get("t") === "preview" &&
-          <>
-            <h2 className="title">Site Preview</h2>
-            
-          </>
-        }
-      </section>
+      <h1>Site Builder</h1>
+      {!activated &&
+        <div className="mt- d-f ai-c">
+          <p className="mr-">Activate website</p>
+          <ToggleStatus
+            context="activate-site"
+            option="Activate"
+            setToggledHandler={activateSiteHandler}
+            toggled={activated ? true : false}
+          />
+        </div>
+      }
+      {activated &&
+        <>
+          <Tabs />
+          <SiteSaveStatus
+            config={config}
+            store={SiteStore}
+            resetChanges={resetChanges}
+            submitHandler={submitHandler}
+          />
+          <section  className="mt+">
+            {params.get('t') === "general" &&
+              <div style={{maxWidth: '600px'}}>
+                <h2>General Settings</h2>
+                <SiteBuilderForm 
+                  configHandler={configHandler}
+                  config={config}
+                  resetChanges={resetChanges}
+                />
+              </div>
+            }
+    
+            {params.get("t") === "theme" &&
+              <>
+                <div style={{maxWidth: '600px'}}>
+                  <h2>Colour Theme</h2>
+                  <SiteBuilderThemeForm 
+                    configHandler={configHandler}
+                    config={config}
+                  />
+                </div>
+    
+                <h2 className="mb- mt+">Site Preview</h2>
+                <iframe src="https://reddex.app" frameBorder="0" className="site-preview-window"></iframe>
+              </>
+            }
+          </section>
+        </>
+      }
     </Dashboard>
   )
 }));

@@ -19,6 +19,7 @@ class SiteStore {
   }
 
   setPreview(config) {
+    console.log(config)
     this.preview = {...config}
   }
 }

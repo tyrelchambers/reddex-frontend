@@ -32,11 +32,13 @@ const SiteBuilderThemeForm = ({config, configHandler}) => {
           option="Light"
           setToggledHandler={e => toggleHandler(e, "light")}
           toggled={theme === "light" ? true : false}
+          context="theme"
          />
          <ToggleStatus
           option="Dark"
           setToggledHandler={e => toggleHandler(e, "dark")}
           toggled={theme === "dark" ? true : false}
+          context="theme"
          />
         </div>
       </div>

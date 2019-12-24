@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import './SiteSaveStatus.scss'
-import { MainButton } from '../../components/Buttons/Buttons';
+import { MainButton, MinimalButton } from '../../components/Buttons/Buttons';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+import _ from 'lodash'
 
-const SiteSaveStatus = ({config, store}) => {
+const SiteSaveStatus = inject("SiteStore")(observer(({config, resetChanges, submitHandler, SiteStore}) => {
   const [same, setSame] = useState(true);
 
   useEffect(() => {
-    const preview = JSON.stringify(store.preview);
-    const configObj = JSON.stringify(config);
+    const preview = SiteStore.preview;
+    const configObj = config;
 
-    if ( preview === configObj ) {
+    if ( _.isEqual(preview, configObj) ) {
       setSame(true)
     } else {
       setSame(false)
     }
-  }, [config]);
+  }, [config, SiteStore.preview]);
 
   if ( !same ) {
     return (
@@ -22,9 +25,16 @@ const SiteSaveStatus = ({config, store}) => {
         <p>You have unsaved changes</p>
 
         <div className="site-save-actions">
+          <MinimalButton
+            classNames="tt-u mr-"
+            onClick={resetChanges}
+          >
+            Undo
+          </MinimalButton>
           <MainButton
             className="btn btn-primary"
             value="Save"
+            onClick={submitHandler}
           />
 
         </div>
@@ -33,6 +43,6 @@ const SiteSaveStatus = ({config, store}) => {
   } else {
     return null;
   }
-}
+}));
 
 export default SiteSaveStatus;

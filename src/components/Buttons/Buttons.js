@@ -1,7 +1,7 @@
 import React from 'react'
 import './buttons.scss';
 
-export const MainButton = ({...props}) => {
+export const MainButton = (props) => {
   if ( props.loading ) {
     return (
       <div className="m- d-f jc-c">

@@ -1,9 +1,10 @@
 import Axios from "axios"
 
 const token = window.localStorage.getItem("token")
+const BACKEND = process.env.REACT_APP_BACKEND;
 
 export const getContact = (name) => {
-  return Axios.get(`${process.env.REACT_APP_BACKEND}/api/contacts/name`, {
+  return Axios.get(`${BACKEND}/api/contacts/name`, {
     params: {
       name
     },
@@ -16,4 +17,13 @@ export const getContact = (name) => {
 
 export const getImportedStory = (url) => {
   return Axios.get(url).then(res => res.data[0].data.children[0].data)
+}
+
+export const getWebsiteWithToken = () => {
+  return Axios.get(`${BACKEND}/api/site/config`, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
 }
