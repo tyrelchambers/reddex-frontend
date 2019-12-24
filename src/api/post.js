@@ -45,21 +45,22 @@ export const saveStoryToReadingList = (data) => {
   .then(res => res.data)
 }
 
-export const addDomainAlias = async (siteId = "971dce32-5b61-4718-9e10-2598704895d9", alias) => {
+export const addDomainAlias = async (alias) => {
   // Get Netlify Site to read existing domain aliases
   const domainAlias = `${alias}.reddex.app`;
 
-  const getSite = await fetch(`https://api.netlify.com/api/v1/sites/${siteId}`, {
+  const getSite = await fetch(`https://api.netlify.com/api/v1/sites/971dce32-5b61-4718-9e10-2598704895d9`, {
       headers: {
           'User-Agent': `Tyrel Chambers (tychambers3@gmail.com)`,
           Authorization: `Bearer ${process.env.REACT_APP_NETLIFY_ACCESS_TOKEN}`,
       },
   });
   const site = await getSite.json();
+  console.log(site)
   // If Netlify Site does not have the domain alias we want to add
   if (!site.domain_aliases.includes(domainAlias)) {
       // Update the Netlify Site to include the domain alias we want to add
-      await fetch(`https://api.netlify.com/api/v1/sites/${siteId}`, {
+      await fetch(`https://api.netlify.com/api/v1/sites/971dce32-5b61-4718-9e10-2598704895d9`, {
           method: 'PUT',
           headers: {
               'User-Agent': `Tyrel Chambers (tychambers3@gmail.com)`,

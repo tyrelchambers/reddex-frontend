@@ -27,3 +27,12 @@ export const getWebsiteWithToken = () => {
   })
   .then(res => res.data)
 }
+
+export const getWebsiteFromProfile = (subdomain) => {
+  return Axios.get(`${BACKEND}/api/site/`, {
+    params: {
+      subdomain
+    }
+  })
+  .then(res => res.data)
+}

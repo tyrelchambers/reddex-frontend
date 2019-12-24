@@ -1,0 +1,46 @@
+@import '../../colours.scss';
+
+.static-hero {
+  height: 500px;
+  width: 100%;
+}
+
+.static-hero.light {
+  background-color: $grey2;
+}
+
+.static-hero.dark {
+  background-color: white;
+}
+
+.static-header {
+  height: 55px;
+  position: relative;
+}
+
+.static-header.light {
+  background-color: white;
+}
+
+.static-header.dark {
+  background-color: $grey3;
+}
+
+.static-site-name {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+  padding: 1em;
+  padding-top: 0;
+  border-radius: 20px;
+}
+
+.static-site-name.light {
+  background-color: white;
+}
+
+.static-site-name.dark {
+  background-color: $grey3;
+  color: white;
+}

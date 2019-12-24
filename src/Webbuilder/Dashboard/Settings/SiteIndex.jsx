@@ -94,7 +94,11 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
   }
 
   const submitHandler = async () => {
+    if ( !config.subdomain ) {
+      return toast.error("Subdomain can't be empty");
+    }
     SiteStore.setPreview(config)
+    await addDomainAlias(config.subdomain);
     await updateWebsite(config).then(res => toast.success("Changes saved")).catch(console.log);
   }
 
@@ -146,7 +150,13 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
                 </div>
     
                 <h2 className="mb- mt+">Site Preview</h2>
-                <iframe src="https://reddex.app" frameBorder="0" className="site-preview-window"></iframe>
+                {!config.subdomain &&
+                  <p>Please enter a subdomain in General Settings to view your site</p>
+                }
+
+                {/* {config.subdomain &&
+                  <iframe src={`http://${config.subdomain}.reddex.app`} frameBorder="0" className="site-preview-window"></iframe>
+                } */}
               </>
             }
           </section>
