@@ -47,13 +47,12 @@ const Static = () => {
       }}>
           <div className={`static-site-name ${config.theme}`}>
           <SocialBar
-          config={config}
-        />
+            config={config}
+          />
           <h2>{config.title}</h2>
         </div>
       </header>
-      
-      <section className={`static-hero ${config.theme}`}>
+      <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
         
       </section>
     </div>

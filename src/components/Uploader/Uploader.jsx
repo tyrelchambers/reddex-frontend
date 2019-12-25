@@ -5,9 +5,11 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import './Uploader.scss'
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const Uploader = ({pondRef}) => {
+const Uploader = inject("SiteStore")(observer(({pondRef, SiteStore}) => {
   const [_file, _setFile] = useState([]);
   const token = window.localStorage.getItem("token");
 
@@ -37,12 +39,12 @@ const Uploader = ({pondRef}) => {
           }}
           onupdatefiles={fileItems => {
             // Set currently active file objects to this.state
-            
+            SiteStore.setChanges(true);
             _setFile({file: fileItems.map(fileItem => fileItem.file)});
           }}
         />
     </div>
   )
-}
+}));
 
 export default Uploader

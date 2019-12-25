@@ -33,9 +33,13 @@ const SiteBuilderForm = ({config, configHandler, pondRef}) => {
 
       </div>
 
-      <Uploader
-        pondRef={pondRef}
-      />
+      <div className="field-group">
+        <label className="form-label">Banner Image</label>
+        <p className="subtle mb-">* upload image at 1500px (width) x 500px (height) for best results.</p>
+        <Uploader
+          pondRef={pondRef}
+        />
+      </div>
 
       <HR
         classes="mt+ mb+"

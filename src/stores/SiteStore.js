@@ -16,6 +16,8 @@ class SiteStore {
     theme: "light"
   }
 
+  changes = false;
+
   getPreview() {
     return this.preview;
   }
@@ -23,11 +25,16 @@ class SiteStore {
   setPreview(config) {
     this.preview = {...config}
   }
+
+  setChanges(state) {
+    this.changes = state;
+  } 
 }
 
 decorate(SiteStore, {
   preview: observable,
-  setPreview: action
+  setPreview: action,
+  changes: observable
 })
 
 export default new SiteStore();

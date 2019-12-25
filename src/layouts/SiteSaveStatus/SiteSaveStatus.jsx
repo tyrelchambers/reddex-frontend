@@ -11,13 +11,13 @@ const SiteSaveStatus = inject("SiteStore")(observer(({config, resetChanges, subm
   useEffect(() => {
     const preview = SiteStore.preview;
     const configObj = config;
-
-    if ( _.isEqual(preview, configObj) ) {
+    console.log(SiteStore.changes)
+    if ( _.isEqual(preview, configObj) && !SiteStore.changes ) {
       setSame(true)
     } else {
       setSame(false)
     }
-  }, [config, SiteStore.preview]);
+  }, [config, SiteStore.preview, SiteStore.changes]);
 
   if ( !same ) {
     return (
