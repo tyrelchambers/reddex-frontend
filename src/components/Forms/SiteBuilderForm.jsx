@@ -1,8 +1,9 @@
 import React from 'react';
 import HR from '../HR/HR';
 import Uploader from '../Uploader/Uploader';
+import {MinimalButton} from '../Buttons/Buttons'
 
-const SiteBuilderForm = ({config, configHandler, pondRef}) => {
+const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) => {
   return (
     <form className="form ">
       <div className="field-group">
@@ -35,10 +36,30 @@ const SiteBuilderForm = ({config, configHandler, pondRef}) => {
 
       <div className="field-group">
         <label className="form-label">Banner Image</label>
-        <p className="subtle mb-">* upload image at 1500px (width) x 500px (height) for best results.</p>
-        <Uploader
-          pondRef={pondRef}
-        />
+        {!config.bannerURL &&
+          <>
+            <p className="subtle mb-">* upload image at 1500px (width) x 500px (height) for best results.</p>
+            <Uploader
+              pondRef={pondRef}
+            />
+          </>
+        }
+
+        {config.bannerURL &&
+          <>
+            <img src={config.bannerURL} style={{
+              objectFit: "contain",
+              width: '100%'
+            }}/>
+            <div className="d-f jc-c mt-">
+              <MinimalButton
+                onClick={deleteImageHandler}
+              >
+                Remove Cover Photo
+              </MinimalButton>
+            </div>
+          </>
+        }
       </div>
 
       <HR

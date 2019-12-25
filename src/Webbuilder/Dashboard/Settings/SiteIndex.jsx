@@ -11,6 +11,7 @@ import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus'
 import { addDomainAlias, activateWebsite, updateWebsite } from '../../../api/post'
 import { toast } from 'react-toastify'
 import { getWebsiteWithToken } from '../../../api/get'
+import { deleteImageFromStorage } from '../../../api/delete'
 
 const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
   const pondRef = useRef()
@@ -126,6 +127,16 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     return banner;
   }
 
+  const deleteImageHandler = async (e) => {
+    e.preventDefault();
+    const payload = {
+      ...config,
+      bannerURL: ""
+    }
+    await deleteImageFromStorage(config.bannerURL).then(console.log);
+    await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
+  }
+
   if (loading) return null;
 
   return (
@@ -160,6 +171,7 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
                   config={config}
                   resetChanges={resetChanges}
                   pondRef={pondRef}
+                  deleteImageHandler={deleteImageHandler}
                 />
               </div>
             }
