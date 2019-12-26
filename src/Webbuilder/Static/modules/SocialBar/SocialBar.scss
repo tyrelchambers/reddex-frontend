@@ -9,5 +9,10 @@
 }
 
 .static-social-bar.dark {
-  background-color: $grey2;
+
+  a,
+  i {
+    color: white;
+  }
 }
+

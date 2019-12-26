@@ -12,10 +12,11 @@ import { addDomainAlias, activateWebsite, updateWebsite } from '../../../api/pos
 import { toast } from 'react-toastify'
 import { getWebsiteWithToken } from '../../../api/get'
 import { deleteImageFromStorage } from '../../../api/delete'
+import Forms from '../Forms/Forms'
 
 const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
   const pondRef = useRef()
-
+  const defaultImg = "https://images.unsplash.com/photo-1513346940221-6f673d962e97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80";
   const [config, setConfig] = useState({
     subdomain: "",
     title: "",
@@ -27,6 +28,7 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     podcast: "",
     introduction: "",
     bannerURL: "",
+    submissionForm: false,
     accent: "#000000",
     theme: "light"
   });
@@ -72,27 +74,15 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
           }
         }}>Colour Theme</NavLink>
       </li>
+      <li className="tabs-item">
+        <NavLink to="/dashboard/site?t=forms" activeClassName="tab-item-active" isActive={() => {
+          if ( params.get('t') === "forms" ) {
+            return true
+          }
+        }}>Submission Forms</NavLink>
+      </li>
     </ul>
   )
-
-  const resetChanges = () => {
-    const reset = {
-      subdomain: "",
-      title: "",
-      twitter: "",
-      facebook: "",
-      instagram: "",
-      patreon: "",
-      youtube: "",
-      podcast: "",
-      introduction: "",
-      bannerURL: "",
-      accent: "#000000",
-      theme: "light"
-    }
-
-    setConfig(reset)
-  }
 
   const activateSiteHandler = async () => {
     await activateWebsite().then(console.log);
@@ -104,9 +94,9 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     if ( !config.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
-    let bannerURL;
+    let bannerURL = config.bannerURL || "";
 
-    if ( pondRef.current.getFiles().length > 0 ) {
+    if ( pondRef.current && pondRef.current.getFiles().length > 0 ) {
       bannerURL = await processFiles()
     }
 
@@ -159,7 +149,6 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
           <SiteSaveStatus
             config={config}
             store={SiteStore}
-            resetChanges={resetChanges}
             submitHandler={submitHandler}
           />
           <section  className="mt+">
@@ -169,7 +158,6 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
                 <SiteBuilderForm 
                   configHandler={configHandler}
                   config={config}
-                  resetChanges={resetChanges}
                   pondRef={pondRef}
                   deleteImageHandler={deleteImageHandler}
                 />
@@ -194,6 +182,15 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
                 {/* {config.subdomain &&
                   <iframe src={`http://${config.subdomain}.reddex.app`} frameBorder="0" className="site-preview-window"></iframe>
                 } */}
+              </>
+            }
+
+            {params.get('t') === "forms" &&
+              <>
+                <Forms 
+                  config={config}
+                  setConfig={setConfig}
+                />
               </>
             }
           </section>

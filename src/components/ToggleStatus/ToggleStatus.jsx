@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from 'react';
+import React from 'react';
 import './ToggleStatus.scss'
 
 const ToggleStatus = ({option, toggled, setToggledHandler, context}) => {
@@ -12,7 +12,7 @@ const ToggleStatus = ({option, toggled, setToggledHandler, context}) => {
     );
   } else {
     return (
-      <div className="toggle toggled" name={context} value={option.toLowerCase()}>
+      <div className="toggle toggled" name={context} value={option.toLowerCase()} onClick={setToggledHandler}>
         <span className="toggle-status">
           <i className="fas fa-check"></i>
         </span>  

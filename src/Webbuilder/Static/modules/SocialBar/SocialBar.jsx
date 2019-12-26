@@ -13,7 +13,7 @@ const SocialBar = ({config}) => {
   } = config;
 
   return (
-    <div className={`static-social-bar`}>
+    <div className={`static-social-bar ${config.theme}`}>
       <div className="static-social-list">
         {facebook &&
           <SocialItem

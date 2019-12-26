@@ -41,9 +41,25 @@
 
 .static-site-name.light {
   background-color: white;
+
+  h2 {
+    color: $grey3;
+  }
 }
 
 .static-site-name.dark {
   background-color: $grey3;
-  color: white;
+
+  h2 {
+    color: white;
+  }
+}
+
+.static-forms {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0.5em;
+  margin: 1em 0;
 }

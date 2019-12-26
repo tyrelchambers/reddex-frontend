@@ -12,6 +12,7 @@ class SiteStore {
     podcast: "",
     introduction: "",
     bannerURL: "",
+    submissionForm: false,
     accent: "#000000",
     theme: "light"
   }

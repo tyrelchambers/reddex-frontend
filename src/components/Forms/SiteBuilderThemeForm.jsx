@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import ToggleStatus from '../ToggleStatus/ToggleStatus';
 
 const SiteBuilderThemeForm = ({config, configHandler}) => {
-  const [theme, setTheme] = useState("light");
-
-  const toggleHandler = (e, option) => {
+  const toggleHandler = (e) => {
     const trg = e.target.closest(".toggle").getAttribute("value");
     const evt = {
       target: {
@@ -13,7 +11,6 @@ const SiteBuilderThemeForm = ({config, configHandler}) => {
       }
     }
     configHandler(evt)
-    setTheme(option);
   }
   
   return (
@@ -31,13 +28,13 @@ const SiteBuilderThemeForm = ({config, configHandler}) => {
          <ToggleStatus
           option="Light"
           setToggledHandler={e => toggleHandler(e, "light")}
-          toggled={theme === "light" ? true : false}
+          toggled={config.theme === "light" ? true : false}
           context="theme"
          />
          <ToggleStatus
           option="Dark"
           setToggledHandler={e => toggleHandler(e, "dark")}
-          toggled={theme === "dark" ? true : false}
+          toggled={config.theme === "dark" ? true : false}
           context="theme"
          />
         </div>

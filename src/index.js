@@ -26,7 +26,7 @@ import Inbox from './Pages/Dashboard/Inbox/Inbox';
 import Approval from './Pages/Approval/Approval';
 import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 import Static from './Webbuilder/Static/Static'
-import SiteIndex from './Webbuilder/Dashboard/Settings/SiteIndex';
+import SiteIndex from './Webbuilder/Dashboard/SiteIndex/SiteIndex';
 import SiteStore from './stores/SiteStore';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
