@@ -87,11 +87,13 @@ const InitalLoad = () => {
     const subdomain = window.location.host.split('.');
     if ( subdomain.length > 1 ) {
       return(
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Static}/>
-          </Switch>
-        </Router>
+        <Provider {...stores}>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Static}/>
+            </Switch>
+          </Router>
+        </Provider>
       )
     } else {
       return(

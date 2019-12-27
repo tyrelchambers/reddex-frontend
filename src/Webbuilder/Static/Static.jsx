@@ -3,10 +3,16 @@ import { getWebsiteFromProfile } from '../../api/get';
 import SocialBar from './modules/SocialBar/SocialBar';
 import './Static.scss'
 import SubmissionForm from '../../components/Forms/SubmissionForm';
+import Youtube from 'react-youtube'
+import Axios from 'axios';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+import HR from '../../components/HR/HR';
 
-const Static = () => {
+const Static = inject("UserStore")(observer(({UserStore}) => {
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState({});
+  const [videoIds, setVideoIds] = useState();
 
   useEffect(() => {
     const subdomain = window.location.host.split('.')[0];
@@ -14,17 +20,38 @@ const Static = () => {
     const fn = async () => {
       const siteConfig = await getWebsiteFromProfile(subdomain);
       setConfig(siteConfig);
-      setLoading(false);
+    }
+    fn();
+  }, []);
+
+  useEffect(() => {
+    const getYT = async () => {
+      const ytId = config.youtubeId;
+      if ( ytId) {
+        const link = `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${ytId}&key=${process.env.REACT_APP_YOUTUBE_KEY}`
+        const vid = await Axios.get(link).then(res => res.data.items);
+        setVideoIds(vid)
+      }
+      setLoading(false)
+
     }
 
-    fn();
+    getYT();
 
-  }, []);
+  }, [config]);
 
   if (loading) return null;
 
+  const videos = videoIds ? videoIds.map((x, id) => (
+    <Youtube 
+      key={id}
+      videoId={x.id.videoId}
+      className="static-youtube-item"
+    />
+  )) : null
+
   return (
-    <div className="static-wrapper">
+    <div className={`static-wrapper ${config.theme}`}>
       <header className={`static-header ${config.theme}`} style={{
         borderTopWidth: "3px",
         borderTopColor: config.accent,
@@ -40,8 +67,25 @@ const Static = () => {
       <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
       </section>
 
-      <p className={`static-intro ${config.theme}`}>{config.introduction}</p>
+      {config.introduction && 
+        <section className="container center d-f ai-c mt+ mb+ fxd-c static-intro-wrapper">
+          <h2 className="mb-">About Me</h2>
+          <p className={`static-intro ${config.theme}`}>{config.introduction}</p>
+        </section>
+      }
 
+      {(config.youtubeId && config.youtubeTimeline) &&
+         <>
+          <h2 className="mb- ta-c">Latest Youtube Videos</h2>
+          <div className="static-youtube-wrapper container center">  
+            {videos}
+          </div>
+         </>
+      }
+
+      <div className="container center">
+      <HR/>
+      </div>
 
       {config.submissionForm &&
         <section className="static-forms">
@@ -51,6 +95,6 @@ const Static = () => {
       }
     </div>
   );
-}
+}));
 
 export default Static;

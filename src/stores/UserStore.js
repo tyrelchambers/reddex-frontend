@@ -18,6 +18,7 @@ class UserStore {
     })
     .then(res => res.data)
     .catch(console.log); 
+      
     this.currentUser = user;
   }
 

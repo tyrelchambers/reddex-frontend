@@ -13,8 +13,9 @@ import { toast } from 'react-toastify'
 import { getWebsiteWithToken } from '../../../api/get'
 import { deleteImageFromStorage } from '../../../api/delete'
 import Forms from '../Forms/Forms'
+import Youtube from '../Timelines/Youtube/Youtube'
 
-const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
+const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
   const defaultImg = "https://images.unsplash.com/photo-1513346940221-6f673d962e97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80";
   const [config, setConfig] = useState({
@@ -29,6 +30,8 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     introduction: "",
     bannerURL: "",
     submissionForm: false,
+    youtubeId: "",
+    youtubeTimeline: false,
     accent: "#000000",
     theme: "light"
   });
@@ -36,17 +39,20 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
+    const yt = UserStore.currentUser.youtubeId;
+
     const fn = async () => {
       await getWebsiteWithToken().then(res => {
         if (res) {
           setActivated(true)
-          setConfig({...config, ...res})
+          setConfig({...config, ...res, youtubeId: yt})
           SiteStore.setPreview({...res})
           setLoading(false);
         }
       });
     }
     fn();
+    
   }, []);
 
   const configHandler = (e) => {
@@ -81,6 +87,13 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
           }
         }}>Submission Forms</NavLink>
       </li>
+      <li className="tabs-item">
+        <NavLink to="/dashboard/site?t=timelines" activeClassName="tab-item-active" isActive={() => {
+          if ( params.get('t') === "timelines" ) {
+            return true
+          }
+        }}>Timelines</NavLink>
+      </li>
     </ul>
   )
 
@@ -94,6 +107,11 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
     if ( !config.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
+
+    if ( config.introduction > 1000 ) {
+      return toast.error("Introduction is too long")
+    }
+
     let bannerURL = config.bannerURL || "";
 
     if ( pondRef.current && pondRef.current.getFiles().length > 0 ) {
@@ -190,6 +208,16 @@ const SiteIndex = inject("SiteStore")(observer(({SiteStore}) => {
                 <Forms 
                   config={config}
                   setConfig={setConfig}
+                />
+              </>
+            }
+
+            {params.get('t') === "timelines" &&
+              <>
+                <Youtube
+                  config={config}
+                  setConfig={setConfig}
+                  store={UserStore}
                 />
               </>
             }

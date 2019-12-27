@@ -1,4 +1,5 @@
 import React from 'react';
+import { MainButton } from '../Buttons/Buttons';
 
 const SubmissionForm = () => {
   return (
@@ -32,7 +33,14 @@ const SubmissionForm = () => {
         </fieldset>
       </div>
 
-      
+      <div className="d-f jc-fe">
+        <MainButton
+          className="btn btn-primary"
+          value="Submit Form"
+        >
+
+        </MainButton>
+      </div>
     </form>
   );
 }

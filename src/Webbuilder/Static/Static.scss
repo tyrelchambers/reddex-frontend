@@ -63,3 +63,42 @@
   padding: 0 0.5em;
   margin: 1em 0;
 }
+
+.static-intro {
+  white-space: pre-line;
+  width: 100%;
+  max-width: 700px;
+  line-height: 1.8em;
+}
+
+.static-intro-wrapper {
+  margin-bottom: 5em;
+  margin-top: 3em;
+}
+
+.static-youtube-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3em;
+  margin-bottom: 2em;
+  >div {
+    margin: 0.2em;
+  }
+}
+
+.static-wrapper.dark {
+  background-color: $grey2;
+
+  h2 {
+    color: white;
+  }
+
+  p {
+    color: white;
+  }
+
+  label {
+    color: white;
+  }
+}

@@ -13,6 +13,8 @@ class SiteStore {
     introduction: "",
     bannerURL: "",
     submissionForm: false,
+    youtubeId: "",
+    youtubeTimeline: false,
     accent: "#000000",
     theme: "light"
   }

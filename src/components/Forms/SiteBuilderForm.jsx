@@ -30,8 +30,20 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
 
       <div className="field-group">
         <label htmlFor="title" className="form-label">Site Introduction</label>
-        <textarea type="text" className="textarea" name="introduction" value={config.introduction} placeholder="A blurb about you or your site" onChange={e => configHandler(e)}/>
+        <textarea type="text" className="textarea" name="introduction" value={config.introduction || ""} placeholder="A blurb about you or your site" onChange={e => {
+          const charCount = document.querySelector("#introCharCount");
+          charCount.innerHTML = `${e.target.value.length}/1000`;
 
+          configHandler(e)
+          
+          if (e.target.value.length <= 1000) {
+            charCount.style.color = "hsla(211, 12%, 48%,1)";
+          } else {
+            charCount.style.color = "red";
+          }
+          
+        }}/>
+        <p id="introCharCount"></p>
       </div>
 
       <div className="field-group">
