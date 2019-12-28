@@ -201,7 +201,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                 }
 
                 {(config.subdomain && !window.location.host.includes("localhost")) &&
-                  <iframe src={`http://${config.subdomain}.reddex.app`} frameBorder="0" className="site-preview-window"></iframe>
+                  <iframe src={`https://${config.subdomain}.reddex.app`} frameBorder="0" className="site-preview-window"></iframe>
                 }
               </>
             }
