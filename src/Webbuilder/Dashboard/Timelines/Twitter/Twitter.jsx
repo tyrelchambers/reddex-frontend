@@ -4,16 +4,24 @@ import ToggleStatus from '../../../../components/ToggleStatus/ToggleStatus';
 const Twitter = ({config, setConfig}) => {
   return (
     <div className="timeline twitter mt+">
-      <h2>Twitter</h2>
-      <p className="subtle mb-">Activate to show tweets from your profile</p>
-      <ToggleStatus
-        context="twitterTimeline"
-        option="Activate"
-        setToggledHandler={() => {
-          setConfig({...config, twitterTimeline: !config.twitterTimeline});
-        }}
-        toggled={config.twitterTimeline ? true : false}
-      />
+      <div className="d-f">
+        <div className="mr--- mt-">
+          <ToggleStatus
+            context="twitterTimeline"
+            option="Activate"
+            setToggledHandler={() => {
+              setConfig({...config, twitterTimeline: !config.twitterTimeline});
+            }}
+            toggled={config.twitterTimeline ? true : false}
+          />
+        </div>
+        <div className="d-f fxd-c">
+          <h2>Twitter</h2>
+          <p className="subtle mb-">Activate to show tweets from your profile</p>
+        </div>
+      </div>
+      
+      
 
       {config.twitterTimeline &&
         <div className="w-234px mt+">
