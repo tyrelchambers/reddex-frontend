@@ -195,14 +195,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                   />
                 </div>
     
-                <h2 className="mb- mt+">Site Preview</h2>
-                {!config.subdomain &&
-                  <p>Please enter a subdomain in General Settings to view your site</p>
-                }
-
-                {(config.subdomain && !window.location.host.includes("localhost")) &&
-                  <iframe src={`https://${config.subdomain}.reddex.app`} frameBorder="0" className="site-preview-window"></iframe>
-                }
+                <a href={`https://${config.subdomain}.reddex.app`} target="_blank" className="mb- mt+ td-n"><i className="fas fa-external-link-square-alt mr-"></i> View your site (refresh to see changes)</a>
               </>
             }
 
