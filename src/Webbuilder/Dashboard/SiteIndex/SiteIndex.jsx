@@ -152,7 +152,11 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
   return (
     <Dashboard>
-      <h1 className="mb+">Site Builder</h1>
+      <div className="d-f ai-c mb+">
+        <h1 className="mr+">Site Builder</h1>
+        <a href={`https://${config.subdomain}.reddex.app`} target="_blank" className="td-n"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
+      </div>
+
       {!activated &&
         <div className="mt- d-f ai-c">
           <p className="mr-">Activate website</p>
@@ -195,7 +199,6 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                   />
                 </div>
     
-                <a href={`https://${config.subdomain}.reddex.app`} target="_blank" className="mb- mt+ td-n"><i className="fas fa-external-link-square-alt mr-"></i> View your site (refresh to see changes)</a>
               </>
             }
 
