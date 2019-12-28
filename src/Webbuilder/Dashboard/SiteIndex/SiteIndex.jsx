@@ -50,8 +50,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
           setActivated(true)
           setConfig({...config, ...res, youtubeId: yt})
           SiteStore.setPreview({...res})
-          setLoading(false);
         }
+        setLoading(false);
       });
     }
     fn();
