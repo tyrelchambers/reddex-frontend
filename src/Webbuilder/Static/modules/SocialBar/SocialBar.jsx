@@ -27,7 +27,7 @@ const SocialBar = ({config}) => {
           <SocialItem
             accent={config.accent}
             icon={<i className="fab fa-twitter"></i>}
-            link={twitter}
+            link={`https://twitter.com/${twitter}`}
           />
         }
 
@@ -35,7 +35,7 @@ const SocialBar = ({config}) => {
           <SocialItem
             accent={config.accent}
             icon={<i className="fab fa-instagram"></i>}
-            link={instagram}
+            link={`https://instagram.com/${instagram}`}
           />
         }
 

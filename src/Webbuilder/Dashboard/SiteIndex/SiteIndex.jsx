@@ -21,7 +21,6 @@ import { MainButton } from '../../../components/Buttons/Buttons'
 
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
-  const defaultImg = "https://images.unsplash.com/photo-1513346940221-6f673d962e97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80";
   const [config, setConfig] = useState({
     _id: "",
     subdomain: "",
