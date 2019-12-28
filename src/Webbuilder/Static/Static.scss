@@ -72,8 +72,16 @@
 }
 
 .static-intro-wrapper {
-  margin-bottom: 5em;
-  margin-top: 3em;
+  padding-bottom: 5em;
+  padding-top: 3em;
+}
+
+.static-intro-wrapper.dark {
+  background-color: darken($grey2, 3%);
+}
+
+.static-intro-wrapper.light {
+  background-color: darken(white, 3%);
 }
 
 .static-youtube-wrapper {

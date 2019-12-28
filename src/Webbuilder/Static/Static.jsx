@@ -8,6 +8,7 @@ import Axios from 'axios';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import HR from '../../components/HR/HR';
+import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 
 const Static = inject("UserStore")(observer(({UserStore}) => {
   const [loading, setLoading] = useState(true);
@@ -68,15 +69,26 @@ const Static = inject("UserStore")(observer(({UserStore}) => {
       </section>
 
       {config.introduction && 
-        <section className="container center d-f ai-c mt+ mb+ fxd-c static-intro-wrapper">
-          <h2 className="mb-">About Me</h2>
-          <p className={`static-intro ${config.theme}`}>{config.introduction}</p>
+        <section className={`static-intro-wrapper ${config.theme}`}>
+         <div className="container center d-f ai-c ">
+          {(config.twitterTimeline && config.twitterId) &&
+            <section className="static-twitter-timeline d-f fxd-c ai-c mr+">
+              <Twitter
+                config={config}
+              />
+            </section>
+          }
+          <div className="d-f fxd-c">
+            <h2 className="mb-">About Me</h2>
+            <p className={`static-intro ${config.theme}`}>{config.introduction}</p>
+          </div>
+         </div>
         </section>
       }
 
       {(config.youtubeId && config.youtubeTimeline) &&
          <>
-          <h2 className="mb- ta-c">Latest Youtube Videos</h2>
+          <h2 className="mb- ta-c mt+">Latest Youtube Videos</h2>
           <div className="static-youtube-wrapper container center">  
             {videos}
           </div>
@@ -93,6 +105,8 @@ const Static = inject("UserStore")(observer(({UserStore}) => {
           <SubmissionForm />
         </section>
       }
+
+      
     </div>
   );
 }));

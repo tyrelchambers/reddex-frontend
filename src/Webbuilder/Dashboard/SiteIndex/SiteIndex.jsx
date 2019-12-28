@@ -14,6 +14,7 @@ import { getWebsiteWithToken } from '../../../api/get'
 import { deleteImageFromStorage } from '../../../api/delete'
 import Forms from '../Forms/Forms'
 import Youtube from '../Timelines/Youtube/Youtube'
+import Twitter from '../Timelines/Twitter/Twitter'
 
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
@@ -32,6 +33,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     submissionForm: false,
     youtubeId: "",
     youtubeTimeline: false,
+    twitterId: "",
+    twitterTimeline: false,
     accent: "#000000",
     theme: "light"
   });
@@ -197,9 +200,9 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                   <p>Please enter a subdomain in General Settings to view your site</p>
                 }
 
-                {/* {config.subdomain &&
+                {(config.subdomain && !window.location.host.includes("localhost")) &&
                   <iframe src={`http://${config.subdomain}.reddex.app`} frameBorder="0" className="site-preview-window"></iframe>
-                } */}
+                }
               </>
             }
 
@@ -218,6 +221,10 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                   config={config}
                   setConfig={setConfig}
                   store={UserStore}
+                />
+                <Twitter
+                  config={config}
+                  setConfig={setConfig}
                 />
               </>
             }

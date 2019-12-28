@@ -56,7 +56,7 @@ export const addDomainAlias = async (alias) => {
       },
   });
   const site = await getSite.json();
-  console.log(site)
+
   // If Netlify Site does not have the domain alias we want to add
   if (!site.domain_aliases.includes(domainAlias)) {
       // Update the Netlify Site to include the domain alias we want to add
