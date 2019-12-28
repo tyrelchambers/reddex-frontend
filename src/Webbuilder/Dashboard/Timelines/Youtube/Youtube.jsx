@@ -1,19 +1,27 @@
 import React from 'react';
 import ToggleStatus from '../../../../components/ToggleStatus/ToggleStatus';
 
-const Youtube = ({config, setConfig, store}) => {
+const Youtube = ({config, setConfig}) => {
   return (
     <div className="timeline youtube">
-      <h2>Youtube</h2>
-      <p className="subtle mb-">Activate to show the last 5 videos on your website</p>
-      <ToggleStatus
-        context="youtubeTimeline"
-        option="Activate"
-        setToggledHandler={() => {
-          setConfig({...config, youtubeTimeline: !config.youtubeTimeline});
-        }}
-        toggled={config.youtubeTimeline ? true : false}
-      />
+      <div className="d-f ">
+        <div className="mt--- mr-">
+          <ToggleStatus
+            context="youtubeTimeline"
+            option="Activate"
+            setToggledHandler={() => {
+              setConfig({...config, youtubeTimeline: !config.youtubeTimeline});
+            }}
+            toggled={config.youtubeTimeline ? true : false}
+          />
+        </div>
+        <div className="d-f fxd-c">
+          <h2>Youtube</h2>
+          <p className="subtle mb-">Activate to show the last 5 videos on your website</p>
+        </div>
+      </div>
+      
+      
 
       {config.youtubeTimeline &&
         <div className="w-234px mt+">

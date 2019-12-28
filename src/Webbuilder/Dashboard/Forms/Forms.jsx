@@ -3,18 +3,23 @@ import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus';
 
 const Forms = ({config, setConfig}) => {
   const SubForm = () => (
-    <>
-      <h2>Submission Form</h2>
-      <p className="mb-">Activate this submission form to allow visitors to email you their own stories</p>
-      <ToggleStatus
-        context="submissionForm"
-        option="Activate"
-        setToggledHandler={() => {
-          setConfig({...config, submissionForm: !config.submissionForm});
-        }}
-        toggled={config.submissionForm ? true : false}
-      />
-    </>
+    <div className="d-f">
+      <div className="mt--- mr-">
+        <ToggleStatus
+          context="submissionForm"
+          option="Activate"
+          setToggledHandler={() => {
+            setConfig({...config, submissionForm: !config.submissionForm});
+          }}
+          toggled={config.submissionForm ? true : false}
+        />
+      </div>
+      <div className="d-f fxd-c">
+        <h2>Submission Form</h2>
+        <p className="mb-">Activate this submission form to allow visitors to email you their own stories</p>
+      </div>
+      
+    </div>
   )
   return (
     <div>
