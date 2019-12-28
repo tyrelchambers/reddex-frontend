@@ -1,0 +1,18 @@
+@import '../../../../colours.scss';
+
+.static-social-bar {
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.static-social-bar.dark {
+
+  a,
+  i {
+    color: white;
+  }
+}
+

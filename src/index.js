@@ -25,6 +25,9 @@ import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 import Inbox from './Pages/Dashboard/Inbox/Inbox';
 import Approval from './Pages/Approval/Approval';
 import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
+import Static from './Webbuilder/Static/Static'
+import SiteIndex from './Webbuilder/Dashboard/SiteIndex/SiteIndex';
+import SiteStore from './stores/SiteStore';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -57,7 +60,8 @@ const stores = {
   SubredditStore,
   PostStore,
   InboxStore,
-  ReadingListStore
+  ReadingListStore,
+  SiteStore
 }
 
 const InitalLoad = () => { 
@@ -80,25 +84,39 @@ const InitalLoad = () => {
   }, [])
 
   if ( loaded ) {
-    return(
-      <Provider {...stores}>
-        <Router>  
-          <ToastContainer />
-          <Switch>
-            <Route exact path="/" component={App}/>
-            {/* <Route exact path="/about" component={About} /> */}
-            <Route exact path="/signup" component={SignupPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/approval" component={Approval}/>
-            <PrivateRoute exact path="/account/:account_subpage" component={AccountPage}/>
-            <PrivateRoute exact path="/dashboard/home" component={Overview}/>
-            <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-            <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
-            <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
-          </Switch>
-        </Router>
-      </Provider>
-    );
+    const subdomain = window.location.host.split('.');
+    if ( subdomain.length > 1 ) {
+      return(
+        <Provider {...stores}>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Static}/>
+            </Switch>
+          </Router>
+        </Provider>
+      )
+    } else {
+      return(
+        <Provider {...stores}>
+          <Router>  
+            <ToastContainer />
+            <Switch>
+              <Route exact path="/" component={App}/>
+              {/* <Route exact path="/about" component={About} /> */}
+              <Route exact path="/signup" component={SignupPage} />
+              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/approval" component={Approval}/>
+              <PrivateRoute exact path="/account/:account_subpage" component={AccountPage}/>
+              <PrivateRoute exact path="/dashboard/home" component={Overview}/>
+              <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
+              <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+              <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+              <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+            </Switch>
+          </Router>
+        </Provider>
+      );
+    }
   } else {
     return null
   }

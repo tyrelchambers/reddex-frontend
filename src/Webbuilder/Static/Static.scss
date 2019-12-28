@@ -1,0 +1,112 @@
+@import '../../colours.scss';
+
+.static-hero {
+  height: 500px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.static-hero.light {
+  background-color: $grey2;
+}
+
+.static-hero.dark {
+  background-color: white;
+}
+
+.static-header {
+  height: 55px;
+  position: relative;
+}
+
+.static-header.light {
+  background-color: white;
+}
+
+.static-header.dark {
+  background-color: $grey3;
+}
+
+.static-site-name {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+  padding: 1em;
+  padding-top: 0;
+  border-radius: 20px;
+}
+
+.static-site-name.light {
+  background-color: white;
+
+  h2 {
+    color: $grey3;
+  }
+}
+
+.static-site-name.dark {
+  background-color: $grey3;
+
+  h2 {
+    color: white;
+  }
+}
+
+.static-forms {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0.5em;
+  margin: 1em 0;
+}
+
+.static-intro {
+  white-space: pre-line;
+  width: 100%;
+  max-width: 700px;
+  line-height: 1.8em;
+}
+
+.static-intro-wrapper {
+  padding-bottom: 5em;
+  padding-top: 3em;
+}
+
+.static-intro-wrapper.dark {
+  background-color: darken($grey2, 3%);
+}
+
+.static-intro-wrapper.light {
+  background-color: darken(white, 3%);
+}
+
+.static-youtube-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3em;
+  margin-bottom: 2em;
+  >div {
+    margin: 0.2em;
+  }
+}
+
+.static-wrapper.dark {
+  background-color: $grey2;
+
+  h2 {
+    color: white;
+  }
+
+  p {
+    color: white;
+  }
+
+  label {
+    color: white;
+  }
+}

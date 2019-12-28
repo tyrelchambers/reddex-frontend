@@ -1,0 +1,13 @@
+@import '../../../../colours.scss';
+
+.static-social-link {
+  margin: 0.5em;
+}
+
+.static-social-link.light {
+  color: $grey6;
+}
+
+.static-social-link.dark {
+  color: $grey10;
+}

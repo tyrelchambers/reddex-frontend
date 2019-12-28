@@ -1,0 +1,50 @@
+@import '../../colours.scss';
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  background-color: $grey9;
+  margin-right: 0.5em;
+  padding: 0.5em;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  
+  &:not(:first-child) {
+    margin-left: 0.5em;
+
+  }
+}
+
+.toggle-option {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $grey5;
+}
+
+.toggle-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: $grey8;
+  margin-right: 10px;
+}
+
+.toggle.toggled {
+  background-color: $green;
+  box-shadow: 0px 2px 15px rgba(black, 0.2);
+  .toggle-status {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i {
+      color: $green;
+      font-size: 0.7rem;
+    }
+  }
+
+  .toggle-option {
+    color: white;
+  }
+}

@@ -13,3 +13,15 @@ export const deleteContact = (id) => {
   })
   .then(res => res.data)
 }
+
+export const deleteImageFromStorage = (url) => {
+  return Axios.delete(`${process.env.REACT_APP_BACKEND}/api/upload/revert`, {
+    params: {
+      url
+    },
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+}
