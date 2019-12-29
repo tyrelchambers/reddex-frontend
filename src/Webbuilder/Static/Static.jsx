@@ -5,15 +5,20 @@ import './Static.scss'
 import SubmissionForm from '../../components/Forms/SubmissionForm';
 import Youtube from 'react-youtube'
 import Axios from 'axios';
-import { inject } from 'mobx-react';
-import { observer } from 'mobx-react-lite';
 import HR from '../../components/HR/HR';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
+import { submitStoryForm } from '../../api/post';
 
-const Static = inject("UserStore")(observer(({UserStore}) => {
+const Static = () => {
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState({});
   const [videoIds, setVideoIds] = useState();
+  const [subForm, setSubForm] = useState({
+    email: "",
+    senderName: "",
+    message: "",
+    sentToOthers: false
+  });
 
   useEffect(() => {
     const subdomain = window.location.host.split('.')[0];
@@ -42,6 +47,16 @@ const Static = inject("UserStore")(observer(({UserStore}) => {
   }, [config]);
 
   if (loading) return null;
+
+  const submitFormHandler = async (e) => {
+    e.preventDefault();
+    const payload = {
+      ...subForm,
+      subdomain: config._id
+    }
+    
+    await submitStoryForm(payload)
+  }
 
   const videos = videoIds ? videoIds.map((x, id) => (
     <Youtube 
@@ -102,13 +117,17 @@ const Static = inject("UserStore")(observer(({UserStore}) => {
       {config.submissionForm &&
         <section className="static-forms">
           <h2>Send your story</h2>
-          <SubmissionForm />
+          <SubmissionForm
+            subForm={subForm}
+            setSubForm={setSubForm}
+            submitFormHandler={submitFormHandler}
+          />
         </section>
       }
 
       
     </div>
   );
-}));
+};
 
 export default Static;

@@ -98,3 +98,10 @@ export const updateWebsite = async (data) => {
   })
   .then(res => res.data)
 }
+
+export const submitStoryForm = (data) => {
+  return Axios.post(`${BACKEND}/api/submissionForm/submit`, {
+    ...data
+  })
+  .then(res => res.data)
+}
