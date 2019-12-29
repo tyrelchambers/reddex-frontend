@@ -11,15 +11,18 @@ import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus'
 import { addDomainAlias, activateWebsite, updateWebsite } from '../../../api/post'
 import { toast } from 'react-toastify'
 import { getWebsiteWithToken } from '../../../api/get'
-import { deleteImageFromStorage } from '../../../api/delete'
+import { deleteImageFromStorage, deleteSite } from '../../../api/delete'
+import { deleteDomainAlias } from '../../../api/put'
 import Forms from '../Forms/Forms'
 import Youtube from '../Timelines/Youtube/Youtube'
 import Twitter from '../Timelines/Twitter/Twitter'
+import HR from '../../../components/HR/HR'
+import { MainButton } from '../../../components/Buttons/Buttons'
 
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
-  const defaultImg = "https://images.unsplash.com/photo-1513346940221-6f673d962e97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80";
   const [config, setConfig] = useState({
+    _id: "",
     subdomain: "",
     title: "",
     twitter: "",
@@ -148,13 +151,23 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
   }
 
+  const deleteSiteHandler = (siteId) => {
+    const toDelete = window.confirm("Are you sure you want to delete?");
+    
+    if (toDelete) {
+      deleteDomainAlias(config.subdomain)
+      deleteSite(siteId).then(res => toast.success("Site deleted"))
+      window.location.reload();
+    }
+  }
+
   if (loading) return null;
 
   return (
     <Dashboard>
       <div className="d-f ai-c mb+">
         <h1 className="mr+">Site Builder</h1>
-        <a href={`https://${config.subdomain}.reddex.app`} target="_blank" className="td-n"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
+        <a href={`https://${config.subdomain}.reddex.app`} target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
       </div>
 
       {!activated &&
@@ -186,6 +199,21 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                   pondRef={pondRef}
                   deleteImageHandler={deleteImageHandler}
                 />
+
+                <div className="mt- mb-">
+                  <HR/>
+                </div>
+
+                <h2>Danger Zone</h2>
+                <p className="mb-">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
+                <MainButton
+                  value="Delete Site"
+                  className="btn btn-tiertiary danger"
+                  onClick={() => deleteSiteHandler(config._id)}
+                >
+                  <i className="fas fa-trash"></i>
+                  
+                </MainButton>
               </div>
             }
     

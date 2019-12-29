@@ -25,3 +25,16 @@ export const deleteImageFromStorage = (url) => {
   })
   .then(res => res.data)
 }
+
+
+export const deleteSite = (siteId) => {
+  return Axios.delete(`${process.env.REACT_APP_BACKEND}/api/site/delete`, {
+    params: {
+      siteId
+    }, 
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+}

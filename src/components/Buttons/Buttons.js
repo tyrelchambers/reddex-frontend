@@ -10,7 +10,7 @@ export const MainButton = (props) => {
     )
   } else {
     return (
-      <button className={props.className} onClick={props.onClick} disabled={props.disabled}>
+      <button className={props.className} onClick={props.onClick} disabled={props.disabled} type={props.type}>
         {props.children}
         {props.value}
       </button>
