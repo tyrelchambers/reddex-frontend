@@ -61,7 +61,7 @@ const PricingPage = () => {
   return (
     <DisplayWrapper hasHeader={true}>
       <section className="pricing-wrapper d-f fxd-c ai-c jc-c">
-        <h2 className="mb+">Our pricing will help make your job easier, without breaking the bank.</h2>
+        <h2 className="mb+ ta-c">Our pricing will help make your job easier, without breaking the bank.</h2>
         <div className="highlight tag d-f ai-c">
           <i className="fas fa-thumbs-up mr-"></i>
           <p className="subtle">14-day free trial. Cancel anytime.</p>
@@ -77,7 +77,7 @@ const PricingPage = () => {
               <h3>Yearly</h3>
             </div>
           </div>
-        <div className="d-f w-100pr jc-c">
+        <div className="d-f w-100pr jc-c mt+">
           <TermSwitch />
         </div>
        </div>
