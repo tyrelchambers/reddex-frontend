@@ -163,102 +163,113 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
   if (loading) return null;
 
-  return (
-    <Dashboard>
-      <div className="pb">
-        <div className="d-f ai-c mb+">
-          <h1 className="mr+">Site Builder</h1>
-          <a href={`https://${config.subdomain}.reddex.app`} target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
-        </div>
 
-        {!activated &&
-          <div className="mt- d-f ai-c">
-            <p className="mr-">Activate website</p>
-            <ToggleStatus
-              context="activate-site"
-              option="Activate"
-              setToggledHandler={activateSiteHandler}
-              toggled={activated ? true : false}
-            />
+
+  if ( window.innerWidth >= 1024 ) {
+    return (
+      <Dashboard>
+        <div className="pb-">
+          <div className="d-f ai-c mb+">
+            <h1 className="mr+">Site Builder</h1>
+            <a href={`https://${config.subdomain}.reddex.app`} target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
           </div>
-        }
-        {activated &&
-          <>
-            <Tabs />
-            <SiteSaveStatus
-              config={config}
-              store={SiteStore}
-              submitHandler={submitHandler}
-            />
-            <section  className="mt+">
-              {params.get('t') === "general" &&
-                <div style={{maxWidth: '600px'}}>
-                  <h2>General Settings</h2>
-                  <SiteBuilderForm 
-                    configHandler={configHandler}
-                    config={config}
-                    pondRef={pondRef}
-                    deleteImageHandler={deleteImageHandler}
-                  />
-
-                  <div className="mt- mb-">
-                    <HR/>
-                  </div>
-
-                  <h2>Danger Zone</h2>
-                  <p className="mb-">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
-                  <MainButton
-                    value="Delete Site"
-                    className="btn btn-tiertiary danger"
-                    onClick={() => deleteSiteHandler(config._id)}
-                  >
-                    <i className="fas fa-trash"></i>
-                    
-                  </MainButton>
-                </div>
-              }
-      
-              {params.get("t") === "theme" &&
-                <>
+  
+          {!activated &&
+            <div className="mt- d-f ai-c">
+              <p className="mr-">Activate website</p>
+              <ToggleStatus
+                context="activate-site"
+                option="Activate"
+                setToggledHandler={activateSiteHandler}
+                toggled={activated ? true : false}
+              />
+            </div>
+          }
+          {activated &&
+            <>
+              <Tabs />
+              <SiteSaveStatus
+                config={config}
+                store={SiteStore}
+                submitHandler={submitHandler}
+              />
+              <section  className="mt+">
+                {params.get('t') === "general" &&
                   <div style={{maxWidth: '600px'}}>
-                    <h2>Colour Theme</h2>
-                    <SiteBuilderThemeForm 
+                    <h2>General Settings</h2>
+                    <SiteBuilderForm 
                       configHandler={configHandler}
                       config={config}
+                      pondRef={pondRef}
+                      deleteImageHandler={deleteImageHandler}
                     />
+  
+                    <div className="mt- mb-">
+                      <HR/>
+                    </div>
+  
+                    <h2>Danger Zone</h2>
+                    <p className="mb-">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
+                    <MainButton
+                      value="Delete Site"
+                      className="btn btn-tiertiary danger"
+                      onClick={() => deleteSiteHandler(config._id)}
+                    >
+                      <i className="fas fa-trash"></i>
+                      
+                    </MainButton>
                   </div>
-      
-                </>
-              }
-
-              {params.get('t') === "forms" &&
-                <>
-                  <Forms 
-                    config={config}
-                    setConfig={setConfig}
-                  />
-                </>
-              }
-
-              {params.get('t') === "timelines" &&
-                <>
-                  <Youtube
-                    config={config}
-                    setConfig={setConfig}
-                    store={UserStore}
-                  />
-                  <Twitter
-                    config={config}
-                    setConfig={setConfig}
-                  />
-                </>
-              }
-            </section>
-          </>
-        }
-      </div>
-    </Dashboard>
-  )
+                }
+        
+                {params.get("t") === "theme" &&
+                  <>
+                    <div style={{maxWidth: '600px'}}>
+                      <h2>Colour Theme</h2>
+                      <SiteBuilderThemeForm 
+                        configHandler={configHandler}
+                        config={config}
+                      />
+                    </div>
+        
+                  </>
+                }
+  
+                {params.get('t') === "forms" &&
+                  <>
+                    <Forms 
+                      config={config}
+                      setConfig={setConfig}
+                    />
+                  </>
+                }
+  
+                {params.get('t') === "timelines" &&
+                  <>
+                    <Youtube
+                      config={config}
+                      setConfig={setConfig}
+                      store={UserStore}
+                    />
+                    <Twitter
+                      config={config}
+                      setConfig={setConfig}
+                    />
+                  </>
+                }
+              </section>
+            </>
+          }
+        </div>
+      </Dashboard>
+    ) 
+  } else {
+    return (
+      <Dashboard>
+        <h1>Screen size too small</h1>
+        <p>Please use your desktop to edit your site.</p>
+      </Dashboard>
+    )
+  }
 }));
 
 export default SiteIndex;
