@@ -8,8 +8,10 @@ import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
+import { useAuth0 } from '../../react-auth0-spa';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [ credentials, setCredentials ] = useState({
     email: "",
     password: "",
@@ -89,7 +91,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
 
   
 
-  if ( UserStore.getUser() ) {
+  if ( isAuthenticated ) {
     return (
       <Redirect to="/"/>
     )
@@ -115,6 +117,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
               setFlow={setFlow}
               invite={invite}
               setInvite={setInvite}
+              loginWithRedirect={loginWithRedirect}
             />
           </div>
         </div> 
@@ -124,7 +127,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   
 }));
 
-const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, errors, submitHandler, flow, setFlow, invite, setInvite}) => {
+const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, errors, submitHandler, flow, setFlow, loginWithRedirect}) => {
   if (!approved && flow === 0) {
     return(
       <button className="btn btn-primary" onClick={() => {
@@ -135,14 +138,7 @@ const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, e
   }
 
   if (flow===1) {
-    return (
-      <SignupForm 
-        credentialHandler={credentialHandler}
-        credentials={credentials}
-        errors={errors}
-        submitHandler={submitHandler}
-      />
-    )
+    return loginWithRedirect()
   }
 }
 

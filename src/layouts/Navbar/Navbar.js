@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import { inject, observer } from 'mobx-react';
 import DashboardDropdown from '../DashboardDropdown/DashboardDropdown';
-import { addDomainAlias } from '../../api/post';
+import { useAuth0 } from '../../react-auth0-spa';
 
 const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
   const Username = () => {
     if ( !redditProfile ) {
       return null;
@@ -36,20 +38,20 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
               <Link to="/" >Get Posts</Link>
             </li>
 
-            {!UserStore.getUser() && 
+            {!isAuthenticated && 
               <React.Fragment>
                 <li className="d-f ai-c nav-link ">
                   <Link to="/signup" >Sign Up</Link>
                 </li>
                 <li className="d-f ai-c nav-link">
-                  <Link to="/login" >Login</Link>
+                  <a href="#" onClick={() => loginWithRedirect()}>Login</a>
                 </li>
               </React.Fragment>
             }
           </ul>
         </nav>
 
-        {UserStore.getUser() &&
+        {isAuthenticated &&
           <Username/>
         }
       </div>

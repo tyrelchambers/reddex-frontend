@@ -28,6 +28,8 @@ import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 import Static from './Webbuilder/Static/Static'
 import SiteIndex from './Webbuilder/Dashboard/SiteIndex/SiteIndex';
 import SiteStore from './stores/SiteStore';
+import { Auth0Provider } from './react-auth0-spa';
+import history from './utils/history';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -64,6 +66,14 @@ const stores = {
   SiteStore
 }
 
+const onRedirectCallback = appState => {
+  history.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  );
+};
+
 const InitalLoad = () => { 
   const [ loaded, setLoaded ] = useState(false);
   const profile = JSON.parse(window.localStorage.getItem("reddit_profile"))
@@ -97,24 +107,32 @@ const InitalLoad = () => {
       )
     } else {
       return(
-        <Provider {...stores}>
-          <Router>  
-            <ToastContainer />
-            <Switch>
-              <Route exact path="/" component={App}/>
-              {/* <Route exact path="/about" component={About} /> */}
-              <Route exact path="/signup" component={SignupPage} />
-              <Route exact path="/login" component={LoginPage} />
-              <Route exact path="/approval" component={Approval}/>
-              <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
-              <PrivateRoute exact path="/dashboard/home" component={Overview}/>
-              <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-              <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
-              <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
-              <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
-            </Switch>
-          </Router>
-        </Provider>
+        <Auth0Provider
+          domain={process.env.REACT_APP_AUTH0_DOMAIN}
+          client_id={process.env.REACT_APP_AUTH0_CLIENT}
+          redirect_uri={window.location.origin}
+          onRedirectCallback={onRedirectCallback}
+        >
+          <Provider {...stores}>
+            <Router history={history}>  
+              <ToastContainer />
+              <Switch>
+                <Route exact path="/" component={App}/>
+                {/* <Route exact path="/about" component={About} /> */}
+                <Route exact path="/signup" component={SignupPage} />
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/approval" component={Approval}/>
+                <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
+                <PrivateRoute exact path="/dashboard/home" component={Overview}/>
+                <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
+                <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+                <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+                <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+              </Switch>
+            </Router>
+          </Provider>
+
+        </Auth0Provider>
       );
     }
   } else {

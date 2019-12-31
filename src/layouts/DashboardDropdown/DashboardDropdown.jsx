@@ -3,8 +3,11 @@ import './DashboardDropdown.scss';
 import { Link } from 'react-router-dom';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import { useAuth0 } from '../../react-auth0-spa';
 
 const DashboardDropdown = inject("UserStore")(observer(({UserStore}) => {
+  const {  logout } = useAuth0();
+
   const resetVisitorStatus = () =>{
     window.localStorage.setItem("new_visitor", null);
   }
@@ -29,9 +32,7 @@ const DashboardDropdown = inject("UserStore")(observer(({UserStore}) => {
         </li>
 
         <li>
-          <Link to="/" className="dropdown-link" onClick={() => {
-            UserStore.signOut()
-          }}>Sign Out</Link>
+          <Link to="/" className="dropdown-link" onClick={() => logout()}>Sign Out</Link>
         </li>
       </ul>
     </div>
