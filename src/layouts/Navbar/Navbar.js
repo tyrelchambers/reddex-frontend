@@ -32,8 +32,12 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
               <Link to="/" >Home</Link>
             </li>
 
-            <li className="d-f ai-c nav-main-btn">
-              <Link to="/" >Get Posts</Link>
+            <li className="d-f ai-c nav-link">
+              <Link to="/about" >About</Link>
+            </li>
+
+            <li className="d-f ai-c nav-link">
+              <Link to="/pricing" >Pricing</Link>
             </li>
 
             {!UserStore.getUser() && 

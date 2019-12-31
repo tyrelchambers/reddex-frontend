@@ -28,6 +28,7 @@ import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 import Static from './Webbuilder/Static/Static'
 import SiteIndex from './Webbuilder/Dashboard/SiteIndex/SiteIndex';
 import SiteStore from './stores/SiteStore';
+import PricingPage from './Pages/PricingPage/PricingPage';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -102,10 +103,11 @@ const InitalLoad = () => {
             <ToastContainer />
             <Switch>
               <Route exact path="/" component={App}/>
-              {/* <Route exact path="/about" component={About} /> */}
+              <Route exact path="/about" component={About} />
               <Route exact path="/signup" component={SignupPage} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/approval" component={Approval}/>
+              <Route exact path="/pricing" component={PricingPage} />
               <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
               <PrivateRoute exact path="/dashboard/home" component={Overview}/>
               <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
