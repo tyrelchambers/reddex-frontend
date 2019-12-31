@@ -1,7 +1,7 @@
 import React from 'react';
 import './ToggleStatus.scss'
 
-const ToggleStatus = ({option, toggled, setToggledHandler, context}) => {
+const ToggleStatus = ({option, toggled, setToggledHandler, context, disabledText}) => {
 
   if (!toggled) {
     return (
@@ -16,7 +16,7 @@ const ToggleStatus = ({option, toggled, setToggledHandler, context}) => {
         <span className="toggle-status">
           <i className="fas fa-check"></i>
         </span>  
-        <span className="toggle-option">{option}</span>
+        <span className="toggle-option">{disabledText ? disabledText : option}</span>
       </div> 
     );
   }

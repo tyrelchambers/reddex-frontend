@@ -115,7 +115,7 @@ const Static = () => {
       </div>
 
       {config.submissionForm &&
-        <section className="static-forms">
+        <section className={`static-forms ${config.theme}`}>
           <h2>Send your story</h2>
           <SubmissionForm
             subForm={subForm}
@@ -125,7 +125,11 @@ const Static = () => {
         </section>
       }
 
-      
+      <footer className="d-f jc-c mt+ pb- static-footer">
+        {config.showCreditLink &&
+          <p className="ta-c">Powered by <a href="https://reddex.app">Reddex</a></p>
+        }
+      </footer>
     </div>
   );
 };

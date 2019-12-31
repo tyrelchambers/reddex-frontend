@@ -15,6 +15,7 @@ class SiteStore {
     submissionForm: false,
     youtubeId: "",
     youtubeTimeline: false,
+    showCreditLink: true,
     accent: "#000000",
     theme: "light"
   }

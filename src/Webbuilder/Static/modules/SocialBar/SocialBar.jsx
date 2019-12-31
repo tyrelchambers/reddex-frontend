@@ -9,7 +9,8 @@ const SocialBar = ({config}) => {
     podcast,
     patreon,
     twitter,
-    youtube
+    youtube,
+    accent
   } = config;
 
   return (
@@ -18,7 +19,7 @@ const SocialBar = ({config}) => {
         {facebook &&
           <SocialItem
             accent={config.accent}
-            icon={<i className="fab fa-facebook-square"></i>}
+            icon={<i className="fab fa-facebook-square" style={{color: accent}}></i>}
             link={facebook}
           />
         }
@@ -26,7 +27,7 @@ const SocialBar = ({config}) => {
         {twitter &&
           <SocialItem
             accent={config.accent}
-            icon={<i className="fab fa-twitter"></i>}
+            icon={<i className="fab fa-twitter" style={{color: accent}}></i>}
             link={`https://twitter.com/${twitter}`}
           />
         }
@@ -34,7 +35,7 @@ const SocialBar = ({config}) => {
         {instagram &&
           <SocialItem
             accent={config.accent}
-            icon={<i className="fab fa-instagram"></i>}
+            icon={<i className="fab fa-instagram" style={{color: accent}}></i>}
             link={`https://instagram.com/${instagram}`}
           />
         }
@@ -42,7 +43,7 @@ const SocialBar = ({config}) => {
         {podcast &&
           <SocialItem
             accent={config.accent}
-            icon={<i className="fas fa-podcast"></i>}
+            icon={<i className="fas fa-podcast" style={{color: accent}}></i>}
             link={podcast}
           />
         }
@@ -50,7 +51,7 @@ const SocialBar = ({config}) => {
         {patreon &&
           <SocialItem
             accent={config.accent}
-            icon={<i className="fab fa-patreon"></i>}
+            icon={<i className="fab fa-patreon" style={{color: accent}}></i>}
             link={patreon}
           />
         }
@@ -58,7 +59,7 @@ const SocialBar = ({config}) => {
         {youtube &&
           <SocialItem
             accent={config.accent}
-            icon={<i className="fab fa-youtube"></i>}
+            icon={<i className="fab fa-youtube" style={{color: accent}}></i>}
             link={youtube}
           />
         }

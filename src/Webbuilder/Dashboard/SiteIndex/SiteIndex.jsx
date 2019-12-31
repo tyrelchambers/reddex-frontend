@@ -18,6 +18,7 @@ import Youtube from '../Timelines/Youtube/Youtube'
 import Twitter from '../Timelines/Twitter/Twitter'
 import HR from '../../../components/HR/HR'
 import { MainButton } from '../../../components/Buttons/Buttons'
+import Misc from '../Misc/Misc'
 
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
@@ -38,6 +39,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     youtubeTimeline: false,
     twitterId: "",
     twitterTimeline: false,
+    showCreditLink: true,
     accent: "#000000",
     theme: "light"
   });
@@ -99,6 +101,14 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
             return true
           }
         }}>Timelines</NavLink>
+      </li>
+
+      <li className="tabs-item">
+        <NavLink to="/dashboard/site?t=misc" activeClassName="tab-item-active" isActive={() => {
+          if ( params.get('t') === "misc" ) {
+            return true
+          }
+        }}>Miscellaneous</NavLink>
       </li>
     </ul>
   )
@@ -259,6 +269,15 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                       store={UserStore}
                     />
                     <Twitter
+                      config={config}
+                      setConfig={setConfig}
+                    />
+                  </>
+                }
+
+                {params.get('t') === "misc" &&
+                  <>
+                    <Misc
                       config={config}
                       setConfig={setConfig}
                     />
