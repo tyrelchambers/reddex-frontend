@@ -159,11 +159,11 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
   }
 
-  const deleteSiteHandler = (siteId) => {
+  const deleteSiteHandler = async (siteId) => {
     const toDelete = window.confirm("Are you sure you want to delete?");
     
     if (toDelete) {
-      deleteDomainAlias(config.subdomain)
+      await deleteDomainAlias(config.subdomain)
       deleteSite(siteId).then(res => toast.success("Site deleted"))
       window.location.reload();
     }
