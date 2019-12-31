@@ -18,7 +18,7 @@ const SiteBuilderThemeForm = ({config, configHandler}) => {
       <div className="field-group ">
         <label htmlFor="accent" className="form-label">Accent Colour (Click box to change)</label>
         <div className="d-f ai-c">
-          <input type="color" name="accent" className="colour-picker mr-" onChange={e => configHandler(e)}/>
+          <input type="color" name="accent" className="colour-picker mr-" value={config.accent} onChange={e => configHandler(e)}/>
           <p>{config.accent}</p>  
         </div>
       </div>
