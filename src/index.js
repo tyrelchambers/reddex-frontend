@@ -107,7 +107,7 @@ const InitalLoad = () => {
               <Route exact path="/signup" component={SignupPage} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/approval" component={Approval}/>
-              <Route exact path="/pricing" component={PricingPage} />
+              {/* <Route exact path="/pricing" component={PricingPage} /> */}
               <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
               <PrivateRoute exact path="/dashboard/home" component={Overview}/>
               <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>

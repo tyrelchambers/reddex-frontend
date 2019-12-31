@@ -209,7 +209,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                     </div>
   
                     <h2>Danger Zone</h2>
-                    <p className="mb-">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
+                    <p className="mb+ mt---">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
                     <MainButton
                       value="Delete Site"
                       className="btn btn-tiertiary danger"
