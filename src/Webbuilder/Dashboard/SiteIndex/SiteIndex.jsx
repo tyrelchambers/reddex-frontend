@@ -110,27 +110,35 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   }
 
   const submitHandler = async () => {
-    if ( !config.subdomain ) {
+    const data = {...config} 
+
+    data.subdomain = data.subdomain.trim().replace(/\W/g, "-");
+
+
+    if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
 
-    if ( config.introduction > 1000 ) {
+    if ( data.introduction > 1000 ) {
       return toast.error("Introduction is too long")
     }
 
-    let bannerURL = config.bannerURL || "";
+    let bannerURL = data.bannerURL || "";
 
     if ( pondRef.current && pondRef.current.getFiles().length > 0 ) {
       bannerURL = await processFiles()
     }
 
     const payload = {
-      ...config,
+      ...data,
       bannerURL
     }
 
+    if ( data.subdomain !== SiteStore.preview.subdomain ) {
+      await deleteDomainAlias(SiteStore.preview.subdomain)
+      await addDomainAlias(data.subdomain);
+    }
     SiteStore.setPreview(payload)
-    await addDomainAlias(config.subdomain);
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
   }
 
