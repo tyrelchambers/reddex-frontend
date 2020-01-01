@@ -1,8 +1,11 @@
 @import '../../colours.scss';
 
 .site-save-status {
-  background-color: $yellow7;
+  background: $yellow7;
   padding: 0.5em 1em;
   border-radius: 5px;
   box-shadow: 0px 2px 15px rgba(black, 0.2);
+  p {
+    font-weight: 700;
+  }
 }

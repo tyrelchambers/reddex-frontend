@@ -5,7 +5,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import _ from 'lodash'
 
-const SiteSaveStatus = inject("SiteStore")(observer(({config, submitHandler, SiteStore}) => {
+const SiteSaveStatus = inject("SiteStore")(observer(({config, submitHandler, SiteStore, saving}) => {
   const [same, setSame] = useState(true);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ const SiteSaveStatus = inject("SiteStore")(observer(({config, submitHandler, Sit
             className="btn btn-primary"
             value="Save"
             onClick={submitHandler}
+            loading={saving}
           />
 
         </div>

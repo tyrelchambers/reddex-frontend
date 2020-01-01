@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './SiteIndex.scss'
 import Dashboard from '../../../Pages/Dashboard/Dashboard'
 import SiteBuilderForm from '../../../components/Forms/SiteBuilderForm'
-import { NavLink, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import SiteBuilderThemeForm from '../../../components/Forms/SiteBuilderThemeForm'
 import { inject } from 'mobx-react'
 import { observer } from 'mobx-react-lite'
@@ -47,7 +47,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   });
   const [activated, setActivated] = useState(false);
   const [loading, setLoading] = useState(true);
-  
+  const [ saving, setSaving ] = useState(false);
   useEffect(() => {
     const yt = UserStore.currentUser.youtubeId;
 
@@ -81,11 +81,11 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   }
 
   const submitHandler = async () => {
+    setSaving(true)
     const data = {...config} 
 
     data.subdomain = data.subdomain.trim().replace(/\W/g, "-");
-
-
+    
     if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
@@ -115,6 +115,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
     SiteStore.setPreview(payload)
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
+    setSaving(false)
   }
 
   const processFiles = async () => {
@@ -177,6 +178,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                 config={config}
                 store={SiteStore}
                 submitHandler={submitHandler}
+                saving={saving}
               />
               <section  className="mt+">
                 {params.get('t') === "general" &&
