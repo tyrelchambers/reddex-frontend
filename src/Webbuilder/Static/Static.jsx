@@ -85,7 +85,7 @@ const Static = () => {
 
       {config.introduction && 
         <section className={`static-intro-wrapper ${config.theme}`}>
-         <div className="container center d-f ai-c ">
+         <div className="container center d-f ">
           {(config.twitterTimeline && config.twitterId) &&
             <section className="static-twitter-timeline d-f fxd-c ai-c mr+">
               <Twitter
