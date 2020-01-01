@@ -86,8 +86,7 @@ const InitalLoad = () => {
 
   if ( loaded ) {
     const subdomain = window.location.host.split('.');
-    if ( subdomain.length > 1 && subdomain[0] !== "development" ) {
-      console.log(subdomain)
+    if ( subdomain.length > 2 && subdomain[0] !== "development" ) {
       return(
         <Provider {...stores}>
           <Router>
