@@ -132,6 +132,11 @@
   }
 }
 
+.static-wrapper {
+  min-height: 100vh;
+  height: 100%;
+}
+
 @media screen and (max-width: 768px) {
   .static-intro-wrapper {
     padding: 0.5em;
