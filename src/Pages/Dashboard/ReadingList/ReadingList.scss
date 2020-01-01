@@ -78,7 +78,8 @@
 }
 
 .tab-item-active {
-  background-color: $blue5;
+  background: rgb(63,146,240);
+background: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
   color: white !important;
   border-radius: 5px;
   box-shadow: 0px 2px 15px rgba($blue5, 0.4);

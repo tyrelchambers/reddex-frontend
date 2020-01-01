@@ -4,20 +4,15 @@ import { Link } from 'react-router-dom';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Navbar.scss';
+import NavWidget from '../NavWidget/NavWidget';
 const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, extended = "", setExtended}) => {
   const Username = () => {
     if ( !redditProfile ) {
       return null;
     }
-    const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");
 
     return (
-      <div className="d-f ai-c topbar-account-widget">
-        <img src={profileImg} className="profile-image small mr-" alt="Reddit User's profile"/>
-        <h5>{redditProfile.subreddit.title}</h5>
-        <i className="fas fa-chevron-down ml+ topbar-dropdown-toggle"></i>
-        <DashboardDropdown />
-      </div>
+      <NavWidget />
     )
   }
 
