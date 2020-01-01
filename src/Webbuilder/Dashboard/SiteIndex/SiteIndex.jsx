@@ -139,6 +139,9 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       bannerURL = await processFiles()
     }
 
+    if (!bannerURL) {
+      bannerURL = "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80"
+    }
     const payload = {
       ...data,
       bannerURL
@@ -148,6 +151,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       await deleteDomainAlias(SiteStore.preview.subdomain)
       await addDomainAlias(data.subdomain);
     }
+
     SiteStore.setPreview(payload)
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
   }
