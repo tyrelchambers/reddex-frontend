@@ -85,15 +85,8 @@ const Static = () => {
 
       {config.introduction && 
         <section className={`static-intro-wrapper ${config.theme}`}>
-         <div className="container center d-f ">
-          {(config.twitterTimeline && config.twitterId) &&
-            <section className="static-twitter-timeline d-f fxd-c ai-c mr+">
-              <Twitter
-                config={config}
-              />
-            </section>
-          }
-          <div className="d-f fxd-c">
+         <div className="container center d-f jc-c">
+          <div className="d-f fxd-c ai-c">
             <h2 className="mb-">About Me</h2>
             <p className={`static-intro ${config.theme}`}>{config.introduction}</p>
           </div>
@@ -125,9 +118,16 @@ const Static = () => {
         </section>
       }
 
-      <footer className="d-f jc-c mt+ pb- static-footer">
+      <footer className="d-f fxd-c jc-c mt+ pb- static-footer">
+        {(config.twitterTimeline && config.twitterId) &&
+            <section className="static-twitter-timeline d-f fxd-c ai-c mr+">
+              <Twitter
+                config={config}
+              />
+            </section>
+          }
         {config.showCreditLink &&
-          <p className="ta-c">Powered by <a href="https://reddex.app">Reddex</a></p>
+          <p className="ta-c mt+">Powered by <a href="https://reddex.app">Reddex</a></p>
         }
       </footer>
     </div>

@@ -26,7 +26,7 @@
 }
 
 .static-header.dark {
-  background-color: $grey3;
+  background-color: $grey1;
 }
 
 .static-site-name {
@@ -48,7 +48,7 @@
 }
 
 .static-site-name.dark {
-  background-color: $grey3;
+  background-color: $grey1;
 
   h2 {
     color: white;
@@ -64,7 +64,7 @@
 }
 
 .static-forms.dark {
-  background-color: darken($grey2, 3%);
+  background-color: darken($grey1, 3%);
 }
 
 .static-forms.light {
@@ -85,7 +85,7 @@
 }
 
 .static-intro-wrapper.dark {
-  background-color: darken($grey2, 3%);
+  background-color: darken($grey1, 3%);
 }
 
 .static-intro-wrapper.light {
@@ -110,7 +110,7 @@
 }
 
 .static-wrapper.dark {
-  background-color: $grey2;
+  background-color: $grey1;
 
   h2 {
     color: white;
