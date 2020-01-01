@@ -6,7 +6,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import Axios from 'axios';
 import CompletedStories from './CompletedStories';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { MinimalButton } from '../../../components/Buttons/Buttons';
 import { Modal } from '../../../components/Modal/Modal';
 import { ImportStoryForm } from '../../../components/Forms/ImportStoryForm';
@@ -14,6 +14,8 @@ import { saveStoryToReadingList } from '../../../api/post';
 import { getImportedStory } from '../../../api/get';
 import { toast } from 'react-toastify';
 import { is_url } from '../../../helpers/isURL';
+import tabs from './tabs';
+import Tabs from '../../../layouts/Tabs/Tabs';
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ url, setURL ] = useState();
@@ -35,25 +37,6 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   if ( !params.get('t') ) {
     return <Redirect to="/dashboard/reading_list?t=open" />
   }
-
-  const Tabs = () => (
-    <ul className="tabs-wrapper">
-      <li className="tabs-item">
-        <NavLink to="/dashboard/reading_list?t=open" activeClassName="tab-item-active" isActive={() => {
-          if (params.get('t') === "open") {
-            return true;
-          }
-        }}>Accepted</NavLink>
-      </li>
-      <li className="tabs-item">
-        <NavLink to="/dashboard/reading_list?t=completed" activeClassName="tab-item-active" isActive={() => {
-          if ( params.get('t') === "completed" ) {
-            return true
-          }
-        }}>Completed</NavLink>
-      </li>
-    </ul>
-  )
 
   const saveStoryFromURL = async (e) => {
     e.preventDefault();
@@ -89,7 +72,11 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   return (
     <Dashboard>
       <div className="d-f ai-c mobile-column">
-        <Tabs />
+        <div className="d-f">
+          {tabs.map((x, id) => (
+            <Tabs {...x} id={id}/>
+          ))}
+        </div>
         
         <MinimalButton
           onClick={() => ModalStore.setIsOpen(true)}

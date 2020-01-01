@@ -40,7 +40,8 @@
   .upvotes {
     width: 100%;
     color: white;
-    background: rgba(87,46,222,1);
+    background: rgb(63,146,240);
+    background: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
     padding: 0.5em;
     transition: all 0.2s ease;
     font-size: 1.5rem;

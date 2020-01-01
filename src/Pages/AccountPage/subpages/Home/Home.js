@@ -22,7 +22,7 @@ const Home = ({redditProfile, user, setUser, UserStore}) => {
         <div className="d-f jc-sb ai-c w-100pr account-footer">
           <Username/>
 
-          <button className="btn btn-secondary" onClick={(e) => {
+          <button className="btn btn-green p-" onClick={(e) => {
             saveMessageHandler(e, user.defaultMessage, UserStore.getToken());
           }}>Save Message</button>
         </div>
