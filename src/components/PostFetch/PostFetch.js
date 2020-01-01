@@ -13,7 +13,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const [subreddit, setSubreddit] = useState("");
   const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
