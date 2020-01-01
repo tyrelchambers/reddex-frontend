@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import { inject, observer } from 'mobx-react';
 import DashboardDropdown from '../DashboardDropdown/DashboardDropdown';
+import { addDomainAlias } from '../../api/post';
 
 const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
   const Username = () => {
@@ -30,11 +31,14 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
             <li className="d-f ai-c nav-link">
               <Link to="/" >Home</Link>
             </li>
-        
 
-            <li className="d-f ai-c nav-main-btn">
-              <Link to="/" >Get Posts</Link>
+            <li className="d-f ai-c nav-link">
+              <Link to="/about" >About</Link>
             </li>
+
+            {/* <li className="d-f ai-c nav-link">
+              <Link to="/pricing" >Pricing</Link>
+            </li> */}
 
             {!UserStore.getUser() && 
               <React.Fragment>

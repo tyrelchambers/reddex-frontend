@@ -1,7 +1,7 @@
 import React from 'react'
 import './buttons.scss';
 
-export const MainButton = ({...props}) => {
+export const MainButton = (props) => {
   if ( props.loading ) {
     return (
       <div className="m- d-f jc-c">
@@ -10,7 +10,7 @@ export const MainButton = ({...props}) => {
     )
   } else {
     return (
-      <button className={props.className} onClick={props.onClick} disabled={props.disabled}>
+      <button className={props.className} onClick={props.onClick} disabled={props.disabled} type={props.type}>
         {props.children}
         {props.value}
       </button>

@@ -6,9 +6,9 @@ import { inject } from 'mobx-react';
 import Home from './subpages/Home/Home';
 import AccountSubnav from '../../layouts/AccountSubnav/AccountSubnav';
 import AltMessage from './subpages/AltMessage/AltMessage';
-import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
+import Dashboard from '../Dashboard/Dashboard';
 
-const AccountPage = inject("UserStore")(observer(({UserStore, match}) => {
+const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
     email: "",
     defaultMessage: "",
@@ -16,7 +16,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore, match}) => {
   });
 
   const [ redditProfile, setRedditProfile ] = useState({});
-  const slug = match.params.account_subpage;
+  const params = new URLSearchParams(window.location.search);
 
   useEffect(() => {
     getUserProfile(UserStore.getToken());
@@ -38,24 +38,32 @@ const AccountPage = inject("UserStore")(observer(({UserStore, match}) => {
  
 
   return (
-    <DisplayWrapper hasHeader={true}>
-      <div className="d-f fxd-c jc-c ai-c w-100pr animated fadeIn faster account-wrapper">
-        <div className="wrapper d-f fxd-c ai-c">
-          <h1>Account</h1>
-          <h4 className="mt+ ta-c">Your registered email: {user.email}</h4>
+    <Dashboard >
+      <div className="d-f fxd-c animated fadeIn faster account-wrapper">
+      <h1>Account</h1>
+          <h4 className="mt+">Your registered email: {user.email}</h4>
 
           <AccountSubnav/>
 
-          <Template 
-            slug={slug}
-            redditProfile={redditProfile}
-            user={user}
-            setUser={setUser}
-            UserStore={UserStore} 
-          />
-        </div>
+          {params.get("t") === "default_message" &&
+            <Home
+              redditProfile={redditProfile}
+              user={user}
+              setUser={setUser}
+              UserStore={UserStore}
+            />
+          }
+
+          {params.get("t") === "alt_message" &&
+            <AltMessage
+              redditProfile={redditProfile}
+              user={user}
+              setUser={setUser}
+              UserStore={UserStore}
+            />
+          }          
       </div>
-    </DisplayWrapper>
+    </Dashboard>
   )
 }));
 

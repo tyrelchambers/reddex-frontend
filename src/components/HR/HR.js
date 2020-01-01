@@ -5,9 +5,9 @@ const styles = {
   backgroundColor: "hsla(207, 20%, 91%,1)",
   width: "100%"
 }
-const HR = () => {
+const HR = ({classes}) => {
   return (
-    <div style={{...styles}}>
+    <div style={{...styles}} className={classes}>
       
     </div>
   )

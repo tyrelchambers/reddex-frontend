@@ -1,9 +1,11 @@
 @import '../../colours.scss';
 
-.title {
+.subreddit-title {
   text-overflow: ellipsis;
   height: 90px;
   width: 90%;
+  font-weight: 600;
+  font-size: 1.3rem;
 }
 
 .post-actions {
