@@ -86,7 +86,6 @@ const InitalLoad = () => {
 
   if ( loaded ) {
     const subdomain = window.location.host.split('.');
-    console.log(subdomain)
 
     if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1 && subdomain.includes("localhost:3000"))) {
       return(
