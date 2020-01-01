@@ -19,6 +19,8 @@ import Twitter from '../Timelines/Twitter/Twitter'
 import HR from '../../../components/HR/HR'
 import { MainButton } from '../../../components/Buttons/Buttons'
 import Misc from '../Misc/Misc'
+import tabs from '../tabs';
+import Tabs from '../../../layouts/Tabs/Tabs'
 
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
@@ -71,47 +73,6 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   if ( !params.get('t') ) {
     return <Redirect to="/dashboard/site?t=general" />
   }
-
-  const Tabs = () => (
-    <ul className="tabs-wrapper">
-      <li className="tabs-item">
-        <NavLink to="/dashboard/site?t=general" activeClassName="tab-item-active" isActive={() => {
-          if (params.get('t') === "general") {
-            return true;
-          }
-        }}>General Settings</NavLink>
-      </li>
-      <li className="tabs-item">
-        <NavLink to="/dashboard/site?t=theme" activeClassName="tab-item-active" isActive={() => {
-          if ( params.get('t') === "theme" ) {
-            return true
-          }
-        }}>Colour Theme</NavLink>
-      </li>
-      <li className="tabs-item">
-        <NavLink to="/dashboard/site?t=forms" activeClassName="tab-item-active" isActive={() => {
-          if ( params.get('t') === "forms" ) {
-            return true
-          }
-        }}>Submission Forms</NavLink>
-      </li>
-      <li className="tabs-item">
-        <NavLink to="/dashboard/site?t=timelines" activeClassName="tab-item-active" isActive={() => {
-          if ( params.get('t') === "timelines" ) {
-            return true
-          }
-        }}>Timelines</NavLink>
-      </li>
-
-      <li className="tabs-item">
-        <NavLink to="/dashboard/site?t=misc" activeClassName="tab-item-active" isActive={() => {
-          if ( params.get('t') === "misc" ) {
-            return true
-          }
-        }}>Miscellaneous</NavLink>
-      </li>
-    </ul>
-  )
 
   const activateSiteHandler = async () => {
     await activateWebsite().then(console.log);
@@ -209,7 +170,9 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
           }
           {activated &&
             <>
-              <Tabs />
+              <div className="d-f">
+                {tabs.map((x, id) => <Tabs {...x} id={id} />)}
+              </div>
               <SiteSaveStatus
                 config={config}
                 store={SiteStore}

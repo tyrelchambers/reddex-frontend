@@ -4,9 +4,10 @@ import './AccountPage.scss';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import Home from './subpages/Home/Home';
-import AccountSubnav from '../../layouts/AccountSubnav/AccountSubnav';
 import AltMessage from './subpages/AltMessage/AltMessage';
 import Dashboard from '../Dashboard/Dashboard';
+import tabs from './tabs'
+import Tabs from '../../layouts/Tabs/Tabs';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
@@ -41,9 +42,12 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
     <Dashboard >
       <div className="d-f fxd-c animated fadeIn faster account-wrapper">
       <h1>Account</h1>
+          <div className="d-f mt+">
+            {tabs.map((x, id) => (
+              <Tabs {...x} id={id}/>
+            ))}
+          </div>
           <h4 className="mt+">Your registered email: {user.email}</h4>
-
-          <AccountSubnav/>
 
           {params.get("t") === "default_message" &&
             <Home
@@ -66,16 +70,5 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
     </Dashboard>
   )
 }));
-
-const Template = ({slug, ...rest}) => {
-  const template = {
-    "default_message": <Home {...rest}/>,
-    "alt_message": <AltMessage {...rest}/>
-  }
-
-  return template[slug];
-}
-
-
 
 export default AccountPage;
