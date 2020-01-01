@@ -4,10 +4,13 @@ import './buttons.scss';
 export const MainButton = (props) => {
   if ( props.loading ) {
     return (
-      <div className="loader"></div>
+      <div className={`${props.className} d-f ai-c disabled`} onClick={props.onClick}>
+        <span className="dot"></span>
+        <span className="dot"></span>
+        <span className="dot"></span>
+      </div>
     )
   } else {
-    console.log(props.loading)
     return (
       <button className={props.className} onClick={props.onClick} disabled={props.disabled} type={props.type}>
         {props.children}

@@ -116,19 +116,10 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   background-color: $grey10;
 }
 
-.loader {
-  border: 7px solid #f3f3f3; /* Light grey */
-  border-top: 7px solid $grey5; /* Blue */
-  border-radius: 50%;
-  max-width: 90px;
-  max-height: 90px;
-  height: 100%;
-  width: 100%;
-  min-height: 40px;
-  min-width: 40px;
-  animation: spin 2s linear infinite;
+.btn-primary.disabled{
+  background: rgb(62,76,89);
+background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%);
 }
-
 .chat-send {
   border: none;
   height: 50px;
@@ -190,6 +181,28 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   }
 }
 
+.dot {
+  display: flex;
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+  background: white;
+  margin: 0 0.2em;
+  
+  &:nth-child(1) {
+    animation: grow 3s ease infinite;
+  }
+
+  &:nth-child(2) {
+    animation: grow 3s ease 300ms infinite;
+  }
+
+  &:nth-child(3) {
+    animation: grow 3s ease 600ms infinite;
+  }
+}
+
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -197,4 +210,20 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 
 button:disabled {
   background-color: $grey7;
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
