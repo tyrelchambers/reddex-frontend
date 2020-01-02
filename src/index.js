@@ -23,7 +23,6 @@ import { Provider } from 'mobx-react';
 import Overview from './Pages/Dashboard/Overview/Overview';
 import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 import Inbox from './Pages/Dashboard/Inbox/Inbox';
-import Approval from './Pages/Approval/Approval';
 import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 import Static from './Webbuilder/Static/Static'
 import SiteIndex from './Webbuilder/Dashboard/SiteIndex/SiteIndex';
@@ -107,7 +106,6 @@ const InitalLoad = () => {
               <Route exact path="/about" component={About} />
               <Route exact path="/signup" component={SignupPage} />
               <Route exact path="/login" component={LoginPage} />
-              <Route exact path="/approval" component={Approval}/>
               {/* <Route exact path="/pricing" component={PricingPage} /> */}
               <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
               <PrivateRoute exact path="/dashboard/home" component={Overview}/>
