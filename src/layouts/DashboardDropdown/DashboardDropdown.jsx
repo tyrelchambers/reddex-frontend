@@ -17,7 +17,19 @@ const DashboardDropdown = inject("UserStore")(observer(({UserStore}) => {
           >Dashboard</Link>
         </li>
         <li>
-          <Link to="/dashboard/account?t=default_message" className="dropdown-link">Account</Link>
+          <Link to="/dashboard/account?t=security" className="dropdown-link">Account</Link>
+        </li>
+
+        <li>
+          <Link to="/dashboard/inbox" className="dropdown-link">Inbox</Link>
+        </li>
+
+        <li>
+          <Link to="/dashboard/contacts" className="dropdown-link">Contacts</Link>
+        </li>
+
+        <li>
+          <Link to="/dashboard/site" className="dropdown-link">Site Builder</Link>
         </li>
         
         <li className="d-f ai-c ">

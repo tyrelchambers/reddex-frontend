@@ -95,13 +95,16 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 }
 
 .btn-green {
-  background-color: $green;
+  background: rgb(62,189,147);
+  background: linear-gradient(31deg, rgba(62,189,147,1) 0%, rgba(31,214,154,1) 100%);
   color: white;
   transition: all 0.2s ease;
   border: none;
   box-shadow: 0px 2px 10px rgba(black, 0.2);
   &:hover {
     background-color: darken($green, 5%);
+    box-shadow: 0px 2px 10px rgba(black, 0.4);
+
     border: none;
     color: white;
   }

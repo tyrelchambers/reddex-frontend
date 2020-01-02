@@ -74,7 +74,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       <div className="d-f ai-c mobile-column">
         <div className="d-f">
           {tabs.map((x, id) => (
-            <Tabs {...x} id={id}/>
+            <Tabs {...x} key={id}/>
           ))}
         </div>
         

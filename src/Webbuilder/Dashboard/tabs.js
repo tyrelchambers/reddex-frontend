@@ -2,31 +2,26 @@ export default [
   {
     text: "General Settings",
     paramKey: "t",
-    paramValue: "general",
-    link: "/dashboard/site"
+    paramValue: "general"
   },
   {
     text: "Colour Theme",
     paramKey: "t",
-    paramValue: "theme",
-    link: "/dashboard/site"
+    paramValue: "theme"
   },
   {
     text: "Submission Forms",
     paramKey: "t",
-    paramValue: "forms",
-    link: "/dashboard/site"
+    paramValue: "forms"
   },
   {
     text: "Timelines",
     paramKey: "t",
-    paramValue: "timelines",
-    link: "/dashboard/site"
+    paramValue: "timelines"
   },
   {
     text: "Miscellaneous",
     paramKey: "t",
-    paramValue: "misc",
-    link: "/dashboard/site"
+    paramValue: "misc"
   }
 ]
