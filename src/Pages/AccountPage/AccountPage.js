@@ -43,35 +43,31 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
     <Dashboard >
       <div className="d-f fxd-c animated fadeIn faster account-wrapper">
       <h1>Account</h1>
-          <div className="d-f mt+">
-            {tabs.map((x, id) => (
-              <Tabs url="/dashboard/account" {...x} key={id}/>
-            ))}
-          </div>
+        <Tabs url="/dashboard/account" data={tabs}/>
 
-          {params.get("t") === "security" &&
-            <Security
-              UserStore={UserStore}
-            />
-          }
+        {params.get("t") === "security" &&
+          <Security
+            UserStore={UserStore}
+          />
+        }
 
-          {params.get("t") === "default_message" &&
-            <Home
-              redditProfile={redditProfile}
-              user={user}
-              setUser={setUser}
-              UserStore={UserStore}
-            />
-          }
+        {params.get("t") === "default_message" &&
+          <Home
+            redditProfile={redditProfile}
+            user={user}
+            setUser={setUser}
+            UserStore={UserStore}
+          />
+        }
 
-          {params.get("t") === "alt_message" &&
-            <AltMessage
-              redditProfile={redditProfile}
-              user={user}
-              setUser={setUser}
-              UserStore={UserStore}
-            />
-          }          
+        {params.get("t") === "alt_message" &&
+          <AltMessage
+            redditProfile={redditProfile}
+            user={user}
+            setUser={setUser}
+            UserStore={UserStore}
+          />
+        }          
       </div>
     </Dashboard>
   )

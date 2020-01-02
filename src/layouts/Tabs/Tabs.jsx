@@ -1,17 +1,18 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'
 import './Tabs.scss'
+import Tab from '../Tab/Tab';
 
-const Tabs = ({url, paramValue, paramKey, text}) => {
+const Tabs = ({data, url}) => {
   const params = new URLSearchParams(window.location.search);
 
   return (
-    <div className="tabs-item">
-      <NavLink to={`${url}?${paramKey}=${paramValue}`} activeClassName="tab-item-active" isActive={() => {
-        if (params.get(paramKey) === paramValue) {
-          return true;
-        }
-      }}>{text}</NavLink>
+    <div className="tabs-wrapper">
+      {data.map((x, id) => <Tab 
+        {...x}
+        url={url}
+        params={params}
+        key={id}
+      />)}
     </div>
   );
 }
