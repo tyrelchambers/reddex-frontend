@@ -72,11 +72,8 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   return (
     <Dashboard>
       <div className="d-f ai-c mobile-column">
-        <div className="d-f">
-          {tabs.map((x, id) => (
-            <Tabs {...x} key={id}/>
-          ))}
-        </div>
+        <Tabs url="/dashboard/reading_list" data={tabs}/>
+
         
         <MinimalButton
           onClick={() => ModalStore.setIsOpen(true)}
