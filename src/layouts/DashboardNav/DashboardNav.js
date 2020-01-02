@@ -35,7 +35,7 @@ const DashboardNav = () => {
         </li>
 
         <li>
-          <NavLink to="/dashboard/account?t=default_message" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
+          <NavLink to="/dashboard/account?t=security" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
             <p>Account</p>
           </NavLink>

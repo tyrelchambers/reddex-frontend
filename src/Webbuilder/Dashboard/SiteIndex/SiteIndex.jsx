@@ -172,7 +172,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
           {activated &&
             <>
               <div className="d-f">
-                {tabs.map((x, id) => <Tabs {...x} id={id} />)}
+                {tabs.map((x, id) => <Tabs url="/dashboard/site" {...x} id={id} />)}
               </div>
               <SiteSaveStatus
                 config={config}

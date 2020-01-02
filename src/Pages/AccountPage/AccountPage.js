@@ -8,6 +8,7 @@ import AltMessage from './subpages/AltMessage/AltMessage';
 import Dashboard from '../Dashboard/Dashboard';
 import tabs from './tabs'
 import Tabs from '../../layouts/Tabs/Tabs';
+import Security from './Security/Security';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
@@ -44,10 +45,15 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
       <h1>Account</h1>
           <div className="d-f mt+">
             {tabs.map((x, id) => (
-              <Tabs {...x} id={id}/>
+              <Tabs url="/dashboard/account" {...x} key={id}/>
             ))}
           </div>
-          <h4 className="mt+">Your registered email: {user.email}</h4>
+
+          {params.get("t") === "security" &&
+            <Security
+              UserStore={UserStore}
+            />
+          }
 
           {params.get("t") === "default_message" &&
             <Home
