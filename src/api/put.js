@@ -1,3 +1,7 @@
+import Axios from "axios";
+
+const BACKEND = process.env.REACT_APP_BACKEND;
+const token = window.localStorage.getItem("token");
 
 export const deleteDomainAlias = async (alias) => {
   const domainAlias = `${alias}.reddex.app`;
@@ -36,4 +40,28 @@ export const deleteDomainAlias = async (alias) => {
         }),
     });
   }
+}
+
+export const editUserEmail = async (data) => {
+  return Axios.put(`${BACKEND}/api/profile/update/email`, {
+    email: data
+  },
+  {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+}
+
+export const editUserPassword = async (data) => {
+  return Axios.put(`${BACKEND}/api/profile/update/password`, {
+    ...data
+  },
+  {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
 }

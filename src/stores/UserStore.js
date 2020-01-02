@@ -22,6 +22,10 @@ class UserStore {
     this.currentUser = user;
   }
 
+  setCurrentUser(data) {
+    this.currentUser = data;
+  }
+
   getUser = () => {
     return isEmpty(this.currentUser) ? null : toJS(this.currentUser);
   }
@@ -86,7 +90,8 @@ decorate(UserStore, {
   loggedIn: observable,
   setUser: action,
   redditProfile: observable,
-  setRedditProfile: action
+  setRedditProfile: action,
+  setCurrentUser: action
 });
 
 export default new UserStore();

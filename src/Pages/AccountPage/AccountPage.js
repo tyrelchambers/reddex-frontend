@@ -8,6 +8,7 @@ import AltMessage from './subpages/AltMessage/AltMessage';
 import Dashboard from '../Dashboard/Dashboard';
 import tabs from './tabs'
 import Tabs from '../../layouts/Tabs/Tabs';
+import Security from './Security/Security';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
@@ -42,30 +43,31 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
     <Dashboard >
       <div className="d-f fxd-c animated fadeIn faster account-wrapper">
       <h1>Account</h1>
-          <div className="d-f mt+">
-            {tabs.map((x, id) => (
-              <Tabs {...x} id={id}/>
-            ))}
-          </div>
-          <h4 className="mt+">Your registered email: {user.email}</h4>
+        <Tabs url="/dashboard/account" data={tabs}/>
 
-          {params.get("t") === "default_message" &&
-            <Home
-              redditProfile={redditProfile}
-              user={user}
-              setUser={setUser}
-              UserStore={UserStore}
-            />
-          }
+        {params.get("t") === "security" &&
+          <Security
+            UserStore={UserStore}
+          />
+        }
 
-          {params.get("t") === "alt_message" &&
-            <AltMessage
-              redditProfile={redditProfile}
-              user={user}
-              setUser={setUser}
-              UserStore={UserStore}
-            />
-          }          
+        {params.get("t") === "default_message" &&
+          <Home
+            redditProfile={redditProfile}
+            user={user}
+            setUser={setUser}
+            UserStore={UserStore}
+          />
+        }
+
+        {params.get("t") === "alt_message" &&
+          <AltMessage
+            redditProfile={redditProfile}
+            user={user}
+            setUser={setUser}
+            UserStore={UserStore}
+          />
+        }          
       </div>
     </Dashboard>
   )
