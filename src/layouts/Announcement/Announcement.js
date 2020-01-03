@@ -14,7 +14,7 @@ const Announcement = () => {
   return (
     <div className="d-f jc-c w-100pr announcement">
       <div className="wrapper d-f jc-sb ai-c">
-        <div className="d-f announcement-content">
+        <div className="d-f announcement-content ai-c">
           <h4 className="announcement-title">{title}</h4>
           <p className="announcement-body">{body}</p>
         </div>
