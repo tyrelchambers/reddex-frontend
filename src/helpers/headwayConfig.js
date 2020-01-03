@@ -3,7 +3,7 @@ import React from 'react';
 const headwayConfig = () => {
   const HW_config = {
     selector: "#headway", // CSS selector where to inject the badge
-    account:  "J5jVZy",
+    account:  process.env.REACT_APP_HEADWAY,
     enabled: true
   }
   
