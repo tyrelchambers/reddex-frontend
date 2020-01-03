@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import './DashboardTopbar.scss';
 import NavWidget from '../NavWidget/NavWidget';
+import headwayConfig from '../../helpers/headwayConfig';
 
 const DashboardTopbar = () => {
-  
+  useEffect(() => {
+    headwayConfig()
+  })
+
   return (
     <div className="d-f dashboard-topbar jc-sb">
-      <NavToggle />
+      <div className="d-f">
+        <NavToggle />
+        <div id="headway" className="ml-"></div>
+      </div>
+
 
       <NavWidget/>
     </div>

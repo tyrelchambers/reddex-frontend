@@ -4,6 +4,7 @@ import Navbar from '../Navbar/Navbar';
 import reddexLogo from '../../assets/reddex-logo.svg';
 import {inject, observer } from 'mobx-react';
 import MobileNav from '../Navbar/MobileNav';
+import headwayConfig from '../../helpers/headwayConfig';
 
 const Header = inject("UserStore")(observer(({UserStore}) => {
   const [extended, setExtended] = useState(false);
@@ -11,7 +12,7 @@ const Header = inject("UserStore")(observer(({UserStore}) => {
   const [ loading, setLoading ] = useState(true);
   const extendedNav = extended ? "extended" : "";
 
-  useEffect(() => {
+  useEffect(() => {  
     const fn = async () => {
       const profile = await UserStore.getRedditProfile();
       setProfile({...profile});
@@ -21,14 +22,20 @@ const Header = inject("UserStore")(observer(({UserStore}) => {
     fn();
   }, [])
 
+  useEffect(() => {
+    headwayConfig()
+  })
+
   if ( loading ) return null;
   
   return(
     <header className="header d-f jc-c">
+
       <div className="wrapper d-f jc-sb ai-c">
         <div className="brand d-f">
           <img src={reddexLogo} alt="Reddex"/>
           <h3 className="ml-">Beta</h3>
+          <div id="headway"></div>
         </div>
         <Navbar 
           redditProfile={profile}

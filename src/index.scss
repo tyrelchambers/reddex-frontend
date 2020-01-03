@@ -161,3 +161,24 @@ ul {
   text-transform: uppercase;
   font-weight: bold;
 }
+
+#HW_badge_cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px !important;
+  width: 20px !important;
+}
+
+#HW_badge {
+  left: 2px !important;
+  top: 2px !important;
+}
+
+@media screen and (max-width: 425px) {
+  #HW_frame_cont {
+    width: 100% !important;
+  }
+
+
+}
