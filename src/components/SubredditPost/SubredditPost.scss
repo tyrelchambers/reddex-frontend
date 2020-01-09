@@ -98,14 +98,14 @@
 
 .has-been-used {
   .upvotes {
-    background-color: $green;
+    background: $green !important;
   }
 }
 
 .has-been-used-text {
   font-size: 0.8rem;
   font-weight: 700;
-  background-color: darken($green, 5%);
+  background: darken($green, 5%);
   padding: 0.5em;
   border-radius: 5px;
   
