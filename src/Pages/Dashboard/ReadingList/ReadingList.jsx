@@ -20,6 +20,7 @@ import Tabs from '../../../layouts/Tabs/Tabs';
 const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ url, setURL ] = useState();
   const [ refresh, setRefresh ] = useState(false);
+  const [ saving, setSaving ] = useState(false);
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -40,7 +41,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
 
   const saveStoryFromURL = async (e) => {
     e.preventDefault();
-    
+    setSaving(true)
     const formattedURL = `${url}.json`;
 
     if ( !is_url(formattedURL) ) {
@@ -109,6 +110,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
             url={url}
             setURL={(e) => setURL(e.target.value)}
             submitHandler={saveStoryFromURL}
+            loading={saving}
           />
           </div>
         </Modal>

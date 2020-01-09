@@ -56,7 +56,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
 
   const createAccount = async () => {
     const { email, password, access_token, refresh_token } = credentials;
-    const inviteCode = window.sessionStorage.getItem("invite");
 
     if (!email || !password) return toast.error("No email or password");
     if ( !access_token || !refresh_token ) return toast.error("No reddit tokens, please try again.");
@@ -65,8 +64,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       email,
       password,
       access_token,
-      refresh_token,
-      inviteCode
+      refresh_token
     })
     .then(res => {
       UserStore.setToken(res.data.token);

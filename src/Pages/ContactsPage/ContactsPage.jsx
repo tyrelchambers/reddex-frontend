@@ -20,13 +20,26 @@ export const ContactsPage = () => {
   const [ openForm, setOpenForm ] = useState(false);
 
   useEffect(() => {
+    document.addEventListener('click', clickHandler)
     const fn = async () => {
       const c = await getContacts();
       setContacts([...c])
     }
 
     fn();
+
+    return () => {
+      document.removeEventListener('click', clickHandler)
+
+    }
   }, []);
+
+  const clickHandler = (e) => {
+    const div = e.target.closest(".contact-list-item")
+    if (div === null) {
+      setSelectedContact();
+    }
+  }
 
   const openFormToggle = () => {
     setOpenForm(!openForm);

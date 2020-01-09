@@ -1,19 +1,23 @@
-import React from 'react'
+import React, {useRef, useEffect} from 'react'
 import './ContactsList.scss'
 
-export const ContactsList = ({contacts, sortVal, setSelectedContact, selectedContact}) => {
+export const ContactsList = ({contacts, sortVal, setSelectedContact}) => {
+
+
   const list = contacts.filter(x => x.name.toLowerCase().includes(sortVal.toLowerCase())).map((x, id) => (
-    <li key={x._id} className="contact-list-item visible d-f ai-c" onClick={() => {
-      if (selectedContact) {
-        setSelectedContact()
-      } else {
-        setSelectedContact(x)
-      }
+    <li key={x._id} className="contact-list-item visible" onClick={() => {
+      setSelectedContact(x)
+
     }}>
-      <p className="contact-list-name mr-">{x.name}</p>
-      {x.notes &&
-        <i className="far fa-clipboard"></i>
-      }
+      <div className="contact-item-icon">
+        <i className="fas fa-user"></i>
+      </div>
+      <div className="contact-list-item-body">
+        <h2 className="ta-c">{x.name}</h2>
+        {x.notes &&
+          <p className="ta-c mt--">Notes included</p>
+        }
+      </div>
     </li>
   ))
   return (

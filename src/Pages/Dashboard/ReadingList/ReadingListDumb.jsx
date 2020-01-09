@@ -31,23 +31,15 @@ const ReadingListDumb = ({list, callback}) => {
       <div className="d-f fxd-c fx-1 reading-list-item-header">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
           <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
-
-        </div>
-        <div className="d-f ai-c mt- jc-sb fxw-w">
-          <div className="reading-time">
-            <span>{avgReadingTime(x.selftext)}</span>
-            min read
-          </div>
-          <div className="d-f ai-c fxw-w">
-            <h4 className="reading-list-author">{x.author}</h4>
+          <h4 className="reading-list-author">{x.author}</h4>
             {x.subreddit &&
               <>
                 <i className="fas fa-circle mr- ml- circle-divider"></i>
                 <h4 className="reading-list-author">{x.subreddit}</h4>
               </>
             }
-          </div>
         </div>
+
         <div className="message-tags mt-">
           <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
           <div className="chat-actions d-f">
@@ -59,6 +51,10 @@ const ReadingListDumb = ({list, callback}) => {
                 <i className="fas fa-check mr-"></i>
                 Set as read
               </button>
+              <div className="reading-time">
+                <span>{avgReadingTime(x.selftext)}</span>
+                min read
+              </div>
             </div>
           </div>
         </div>
