@@ -27,6 +27,11 @@ export const ContactsPage = () => {
     }
 
     fn();
+
+    return () => {
+      document.removeEventListener('click', clickHandler)
+
+    }
   }, []);
 
   const clickHandler = (e) => {
