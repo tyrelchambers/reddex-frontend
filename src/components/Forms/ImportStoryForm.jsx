@@ -7,7 +7,7 @@ export const ImportStoryForm = ({setURL, submitHandler}) => {
     <form className="form">
       <div className="field-group">
         <label htmlFor="url" className="form-label">Story URL</label>
-        <input type="url" className="form-input" name="url" placeholder="Paste URL here..." onChange={setURL}/>
+        <input type="url" className="form-input" name="url" placeholder="Paste URL here..." onChange={setURL} autoFocus={true}/>
       </div>
       <div className="d-f ai-c jc-fe">
         <MainButton
