@@ -2,7 +2,7 @@ import React from 'react'
 import './forms.scss'
 import { MainButton } from '../Buttons/Buttons'
 
-export const ImportStoryForm = ({setURL, submitHandler}) => {
+export const ImportStoryForm = ({setURL, submitHandler, loading}) => {
   return (
     <form className="form">
       <div className="field-group">
@@ -14,6 +14,7 @@ export const ImportStoryForm = ({setURL, submitHandler}) => {
           className="btn btn-primary" 
           value="Import Story"
           onClick={e => submitHandler(e)}
+          loading={loading}
         >
           <i className="fas fa-check mr-"></i>
         </MainButton>
