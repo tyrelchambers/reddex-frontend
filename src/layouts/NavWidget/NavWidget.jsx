@@ -1,6 +1,6 @@
 import React from 'react';
 import DashboardDropdown from '../DashboardDropdown/DashboardDropdown';
-
+import './NavWidget.scss'
 const NavWidget = () => {
   const redditProfile = JSON.parse(window.localStorage.getItem('reddit_profile'));
   const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");

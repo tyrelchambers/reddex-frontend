@@ -1,0 +1,13 @@
+
+.topbar-account-widget {
+  position: relative;
+  height: 100%;
+  min-width: 241px;
+
+  h5 {
+    width: 100%;
+  }
+  &:hover .dropdown-wrapper  {
+    display: flex;
+  }
+}
