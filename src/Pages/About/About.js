@@ -16,7 +16,7 @@ const About = () => {
     <DisplayWrapper hasHeader={true}>
       <div className="about-wrapper ml-a mr-a d-f fxd-c ai-c mt+ animated fadeIn">
         <h1 className="about-title">What is Reddex?</h1>
-        <p className="about-subtitle">Reddex is a toolkit for Youtube narrators. The goal is simple: provide an application to help narrators be productive creators.</p>  
+        <p className="about-subtitle mb+">Reddex is a toolkit for Youtube narrators. The goal is simple: provide an application to help narrators be productive creators.</p>  
 
         <div className="about-block right">
           <img className="about-block-img" src={pic3}/>
@@ -69,12 +69,12 @@ const About = () => {
         <div className="about-block right">
           <img className="about-block-img" src={pic7}/>
           <div className="d-f fxd-c about-block-body">
-            <h3>post filtering</h3>
+            <h3>Post filtering</h3>
             <p>If you're looking for something super specific, try out filtering! Show the posts that are best suited for you through filtering by upvotes, keywords, or series only!</p>
           </div>
         </div>
 
-        <div className="about-cta d-f fxd-c ai-c">
+        <div className="about-cta d-f fxd-c ai-c mt+">
           <h1>Like what you've read?</h1>
           <MainButton
             value="Get Signed Up"
