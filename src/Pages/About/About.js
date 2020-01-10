@@ -80,7 +80,7 @@ const About = () => {
             value="Get Signed Up"
             className="btn btn-primary mt+"
           >
-            <i className="fab fa-jedi-order mr-"></i>
+            <i className="fas fa-jedi mr-"></i>
           </MainButton>
         </div>
       </div>
