@@ -6,9 +6,13 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   color: white;
   padding: 1em;
   font-size: 0.8rem;
-
+  transition: all 0.2s ease;
   i { 
     margin-right: 10px;
+  }
+
+  &:hover {
+    box-shadow: 0px 2px 15px rgba(black, 0.2);
   }
 }
 
