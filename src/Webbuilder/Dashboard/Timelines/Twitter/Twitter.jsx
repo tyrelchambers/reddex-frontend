@@ -8,7 +8,8 @@ const Twitter = ({config, setConfig}) => {
         <div className="mr--- mt-">
           <ToggleStatus
             context="twitterTimeline"
-            option="Activate"
+            option="Inactive"
+            disabledText="Active"
             setToggledHandler={() => {
               setConfig({...config, twitterTimeline: !config.twitterTimeline});
             }}

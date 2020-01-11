@@ -7,7 +7,8 @@ const Forms = ({config, setConfig}) => {
       <div className="mt--- mr-">
         <ToggleStatus
           context="submissionForm"
-          option="Activate"
+          option="Inactive"
+            disabledText="Active"
           setToggledHandler={() => {
             setConfig({...config, submissionForm: !config.submissionForm});
           }}
