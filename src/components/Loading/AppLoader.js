@@ -4,7 +4,7 @@ import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 
 export default function AppLoader({state}) {
   return (
-    <DisplayWrapper hasHeader={false}>
+    <DisplayWrapper hasHeader={true}>
       <div className="app-loader-wrapper">
         <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <h1 className="state-title">{state}</h1>
