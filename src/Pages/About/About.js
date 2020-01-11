@@ -2,6 +2,7 @@ import React from 'react';
 import './About.scss';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { MainButton } from '../../components/Buttons/Buttons';
+import { Redirect } from 'react-router-dom';
 const pic1 = require('../../assets/1.svg')
 const pic2 = require('../../assets/2.svg')
 const pic3 = require('../../assets/3.svg')
@@ -79,6 +80,7 @@ const About = () => {
           <MainButton
             value="Get Signed Up"
             className="btn btn-primary mt+"
+            onClick={() => window.location.pathname="/signup"}
           >
             <i className="fas fa-jedi mr-"></i>
           </MainButton>
