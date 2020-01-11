@@ -8,7 +8,8 @@ const Youtube = ({config, setConfig}) => {
         <div className="mt--- mr-">
           <ToggleStatus
             context="youtubeTimeline"
-            option="Activate"
+            option="Inactive"
+            disabledText="Active"
             setToggledHandler={() => {
               setConfig({...config, youtubeTimeline: !config.youtubeTimeline});
             }}
