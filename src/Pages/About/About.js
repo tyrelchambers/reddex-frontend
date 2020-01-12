@@ -2,7 +2,6 @@ import React from 'react';
 import './About.scss';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { MainButton } from '../../components/Buttons/Buttons';
-import { Redirect } from 'react-router-dom';
 const pic1 = require('../../assets/1.svg')
 const pic2 = require('../../assets/2.svg')
 const pic3 = require('../../assets/3.svg')
@@ -11,12 +10,11 @@ const pic5 = require('../../assets/5.svg')
 const pic6 = require('../../assets/6.svg')
 const pic7 = require('../../assets/7.svg')
 
-{/* <a href="https://youtube.com/storiesaftermidnight" target="_blank" rel="noopener noreferrer">myself</a> */}
 const About = () => {
   return(
     <DisplayWrapper hasHeader={true}>
       <div className="about-wrapper ml-a mr-a d-f fxd-c ai-c mt+ animated fadeIn">
-        <h1 className="about-title">What is Reddex?</h1>
+        <h1 className="about-title ta-c">What is Reddex?</h1>
         <p className="about-subtitle mb+">Reddex is a toolkit for Youtube narrators. The goal is simple: provide an application to help narrators be productive creators.</p>  
 
         <div className="about-block right">
