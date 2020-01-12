@@ -1,7 +1,7 @@
 import React from 'react'
 import './forms.scss';
 import { MainButton } from '../Buttons/Buttons';
-
+import { Link } from 'react-router-dom'
 
 export default function LoginForm({credentialHandler, submitHandler, errors, loading, setLoading}) {
   return (
@@ -23,6 +23,9 @@ export default function LoginForm({credentialHandler, submitHandler, errors, loa
         <label htmlFor="password" className="form-label">Password</label>
         <input type="password" className="form-input" placeholder="anything but password123" name="password" onChange={credentialHandler}/>
       </div>
+
+      <Link to="/signup" className="link m--">Register</Link>
+      <Link to="/request-reset" className="link m--">Forgot password?</Link>
 
       <div className="d-f jc-c">
         <MainButton 

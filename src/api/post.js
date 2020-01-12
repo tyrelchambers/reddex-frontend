@@ -1,4 +1,5 @@
 import Axios from "axios"
+import { toast } from "react-toastify";
 
 const token = window.localStorage.getItem("token")
 const BACKEND = process.env.REACT_APP_BACKEND;
@@ -101,6 +102,21 @@ export const updateWebsite = async (data) => {
 
 export const submitStoryForm = (data) => {
   return Axios.post(`${BACKEND}/api/submissionForm/submit`, {
+    ...data
+  })
+  .then(res => res.data)
+}
+
+export const requestReset = (email) => {
+  return Axios.post(`${BACKEND}/api/reset/get_reset_token`, {
+    email
+  })
+  .then(res => res.data)
+  .catch(err => toast.error(err.response.data))
+}
+
+export const resetPassword = (data) => {
+  return Axios.post(`${BACKEND}/api/reset`, {
     ...data
   })
   .then(res => res.data)
