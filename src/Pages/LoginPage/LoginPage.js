@@ -40,7 +40,10 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
       UserStore.setToken(res.data);
       window.location.pathname = "/";
     })
-    .catch(err => toast.error(err.response.data));
+    .catch(err => {
+      toast.error(err.response.data)
+      setLoading(false)
+    });
   
    
   
