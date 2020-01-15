@@ -134,10 +134,12 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
     if ( !config.bannerURL.match(/unsplash/gi) ) {
       await deleteImageFromStorage(config.bannerURL).then(console.log);
+      setConfig({...config, bannerURL: ""})
     } else {
       setConfig({...config, bannerURL: ""})
     }
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
+
   }
 
   const deleteSiteHandler = async (siteId) => {
