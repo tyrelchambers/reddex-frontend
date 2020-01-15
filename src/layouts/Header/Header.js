@@ -23,7 +23,9 @@ const Header = inject("UserStore")(observer(({UserStore}) => {
   }, [])
 
   useEffect(() => {
-    headwayConfig()
+    if ( window.Headway) {
+      headwayConfig()
+    }
   })
 
   if ( loading ) return null;

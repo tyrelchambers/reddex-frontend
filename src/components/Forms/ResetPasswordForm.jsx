@@ -6,12 +6,12 @@ const ResetPasswordForm = ({state, stateHandler, submitHandler}) => {
     <form className="form">
       <div className="field-group">
         <label htmlFor="newPassword" className="form-label">New Password</label>
-        <input type="password" className="form-input" name="newPassword" placeholder="New Password" autoComplete="new-password" name="newPassword" value={state.newPassword} onChange={e => stateHandler(e)}/>
+        <input type="password" className="form-input" placeholder="New Password" autoComplete="new-password" name="newPassword" value={state.newPassword} onChange={e => stateHandler(e)}/>
       </div>
 
       <div className="field-group">
-        <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
-        <input type="password" className="form-input" name="confirmPassword" placeholder="Confirm New Password" autoComplete="new-password" name="confirmNewPassword" value={state.confirmNewPassword} onChange={e => stateHandler(e)}/>
+        <label htmlFor="confirmNewPassword" className="form-label">Confirm New Password</label>
+        <input type="password" className="form-input" placeholder="Confirm New Password" autoComplete="new-password" name="confirmNewPassword" value={state.confirmNewPassword} onChange={e => stateHandler(e)}/>
       </div>
 
       <div className="d-f jc-fe">

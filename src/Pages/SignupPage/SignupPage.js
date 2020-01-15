@@ -20,7 +20,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ errors, setErrors ] = useState([]);
   const [ approved, setApproved ] = useState(false);
   const [ flow, setFlow ] = useState(0);
-  const [ invite, setInvite ] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -36,9 +35,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   useEffect(() => {
     getParams();
 
-    if (performance.navigation.type == 1) {
-      setApproved(false);
-    } 
   }, [])
 
   const getParams = () => {
@@ -58,7 +54,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     const { email, password, access_token, refresh_token } = credentials;
 
     if (!email || !password) return toast.error("No email or password");
-    if ( !access_token || !refresh_token ) return toast.error("No reddit tokens, please try again.");
     
     const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/register`, {
       email,
@@ -68,7 +63,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     })
     .then(res => {
       UserStore.setToken(res.data.token);
-      window.sessionStorage.removeItem("invite");
       return res.data.user;
     })
     .catch(err => toast.error(err.response.data));
@@ -97,10 +91,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
         <div className="d-f jc-c ai-c signup-wrapper ml-a mr-a h-100v fxd-c p-">
           <div className="wrapper d-f fxd-c ai-c">
             <h1 className="mb+ ta-c">Signup With Reddex</h1>
-            <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. This is so you can have access to your inbox, and the ability to send messages to authors.</p>
-
-            <p className="subtle mt+ mb+">Due to Reddit limitations, authentication can only happen with the desktop site.</p>
-            
+            <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. This is so you can have access to your inbox, and the ability to send messages to authors.</p>            
             
             <Flow 
               approved={approved}
@@ -111,8 +102,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
               submitHandler={submitHandler}
               flow={flow}
               setFlow={setFlow}
-              invite={invite}
-              setInvite={setInvite}
             />
           </div>
         </div> 
@@ -122,7 +111,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   
 }));
 
-const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, errors, submitHandler, flow, setFlow, invite, setInvite}) => {
+const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, errors, submitHandler, flow, setFlow}) => {
   if (!approved && flow === 0) {
     return(
       <button className="btn btn-primary" onClick={() => {
