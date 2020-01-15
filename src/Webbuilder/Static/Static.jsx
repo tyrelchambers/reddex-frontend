@@ -22,7 +22,6 @@ const Static = () => {
 
   useEffect(() => {
     const subdomain = window.location.host.split('.')[0];
-    
     const fn = async () => {
       const siteConfig = await getWebsiteFromProfile(subdomain);
       setConfig(siteConfig);
