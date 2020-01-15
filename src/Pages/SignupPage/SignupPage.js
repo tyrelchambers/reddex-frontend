@@ -71,7 +71,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       window.sessionStorage.removeItem("invite");
       return res.data.user;
     })
-    .catch(console.log);
+    .catch(err => toast.error(err.response.data));
   
     UserStore.setUser(user);   
   }
