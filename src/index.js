@@ -30,6 +30,7 @@ import SiteStore from './stores/SiteStore';
 import PricingPage from './Pages/PricingPage/PricingPage';
 import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
+import HelpPage from './Pages/HelpPage/HelpPage';
 
 if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
@@ -111,6 +112,7 @@ const InitalLoad = () => {
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/reset" component={ResetPassword} />
               <Route exact path="/request-reset" component={ResetPasswordConfirm} />
+              <Route exact path="/help" component={HelpPage} />
               {/* <Route exact path="/pricing" component={PricingPage} /> */}
               <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
               <PrivateRoute exact path="/dashboard/home" component={Overview}/>
