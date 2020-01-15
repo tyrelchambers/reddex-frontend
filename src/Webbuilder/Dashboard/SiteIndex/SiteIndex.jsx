@@ -84,7 +84,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     setSaving(true)
     const data = {...config} 
 
-    data.subdomain = data.subdomain.trim().replace(/\W/g, "-");
+    data.subdomain = data.subdomain.trim().replace(/\W/g, "-").toLowerCase();
     
     if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
