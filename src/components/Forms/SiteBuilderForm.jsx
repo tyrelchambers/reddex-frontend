@@ -14,7 +14,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           <span className="suffix">.reddex.app</span>
         </div>
         {config.subdomain &&
-          <p className="subtle mt-">https://{config.subdomain.trim().replace(/\W/g, "-")}.reddex.app</p>
+          <p className="subtle mt-">https://{config.subdomain.trim().replace(/\W/g, "-").toLowerCase()}.reddex.app</p>
         }
       </div>
 
