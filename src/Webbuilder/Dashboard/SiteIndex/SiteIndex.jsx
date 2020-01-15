@@ -75,7 +75,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   }
 
   const activateSiteHandler = async () => {
-    await activateWebsite().then(console.log);
+    await activateWebsite().then(res => setConfig({...config, ...res}));
     toast.success("Site activated")
     setActivated(true)
   }
@@ -131,7 +131,12 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       ...config,
       bannerURL: ""
     }
-    await deleteImageFromStorage(config.bannerURL).then(console.log);
+
+    if ( !config.bannerURL.match(/unsplash/gi) ) {
+      await deleteImageFromStorage(config.bannerURL).then(console.log);
+    } else {
+      setConfig({...config, bannerURL: ""})
+    }
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
   }
 
