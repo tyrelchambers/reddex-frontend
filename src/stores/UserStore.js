@@ -66,9 +66,6 @@ class UserStore {
       }
     })
     .then(res => {
-      if (res.data.error) {
-        return toast.error("Please re-authenticate");
-      };
       return res.data;
     })
     .catch(console.log);

@@ -1,5 +1,6 @@
 import React from 'react'
 import './forms.scss';
+import { MainButton } from '../Buttons/Buttons';
 
 
 const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => {
@@ -28,7 +29,11 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
       </div>
 
       <div className="field-actions d-f jc-c mt+">
-        <button type="submit" className="btn btn-secondary" onClick={submitHandler}>Create Account</button>
+        <MainButton
+          value="Create Account"
+          onClick={submitHandler}
+          className="btn btn-primary"
+        />
       </div>
     </form>
   )
