@@ -26,8 +26,11 @@ const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({U
         <div className="close-modal" onClick={() => {
           document.body.style.height = null;
           document.body.style.overflow = null;
-          ModalStore.setIsOpen(false)}
-        }>
+          ModalStore.setIsOpen(false);
+          if (index === postData.length) {
+            PostStore.clearSelectedPosts()
+          }
+        }}>
           <i className="fas fa-times"></i>
         </div>
         <div className="modal-body">
