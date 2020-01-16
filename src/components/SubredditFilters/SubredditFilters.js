@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './SubredditFilters.scss';
 import filterOptionsJSON from './filterOptions';
 import SelectField from '../SelectField/SelectField';
