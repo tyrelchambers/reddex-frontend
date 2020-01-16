@@ -2,16 +2,19 @@
 
 .post-fetch-header {
   width: 100%;
-  margin-bottom: 1em;
 }
 
 .fetch-inputs {
   background-color: white;
-  padding: 1em;
   border-radius: 5px;
   box-shadow: 0px 2px 10px rgba(black, 0.10);
   margin-bottom: 1em;
 }
+
+.post-fetch-search {
+  padding: 0.5em 1em;
+}
+
 .select__arrow {
   position: absolute;
   top: 14px;
@@ -24,6 +27,7 @@
   border-color: #7b7b7b transparent transparent transparent;
 
 }
+
 
 .current-subreddit {
   display: flex;
@@ -79,5 +83,10 @@
     .select {
       margin-top: 1em;
     }
+  }
+}
+@media screen and (max-width: 425px) {
+  .search-autocomplete-wrapper {
+    margin-right: 0;
   }
 }

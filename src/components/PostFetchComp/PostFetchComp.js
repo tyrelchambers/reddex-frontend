@@ -11,10 +11,10 @@ import timeframeJSON from './timeframeOptions';
 
    return (
     <section className="w-100pr d-f post-fetch-header">
-      <div className=" w-100pr ">  
+      <div className=" w-100pr post-fetch-search">  
         <label className="form-label dark">Enter Subreddit</label>
         <div className="d-f ai-c h-48px mobile-fetch-inputs">
-          <div className="w-100pr mr- pos-r">
+          <div className="w-100pr mr- pos-r search-autocomplete-wrapper">
             <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
             <AutoComplete 
               subreddits={subreddits}

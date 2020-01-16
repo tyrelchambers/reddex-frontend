@@ -66,3 +66,10 @@
     transform: rotateZ(180deg);
   }
 }
+
+@media screen and (max-width: 425px) {
+  .select {
+    width: 100%;
+    margin-right: 0;
+  }
+}

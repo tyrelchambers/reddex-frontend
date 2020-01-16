@@ -47,12 +47,13 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 
 .btn-tiertiary {
   color: hsla(211, 12%, 48%,1);
+
   box-shadow: none;
   padding: 1em;
   margin-left: 0.5em;
   border:1.5px solid hsla(211, 12%, 88%,1);
   transition: all 0.2s ease;
-    background-color: transparent;
+    background-color: white;
   &:hover {
     color: $blue8;
     border:1.5px solid $blue8;

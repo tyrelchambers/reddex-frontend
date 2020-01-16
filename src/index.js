@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import LogRocket from 'logrocket';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import About from './Pages/About/About';
 import SignupPage from './Pages/SignupPage/SignupPage';
@@ -31,8 +30,6 @@ import PricingPage from './Pages/PricingPage/PricingPage';
 import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
-
-if ( process.env.NODE_ENV !== "development") LogRocket.init('kstoxh/reddex');
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
