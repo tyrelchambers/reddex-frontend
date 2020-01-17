@@ -29,7 +29,6 @@
 
 .post {
   width: 100%;
-
   height: auto;
   background-color: white;
   border-radius: 5px;
@@ -43,7 +42,7 @@
     background: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
     padding: 1em;
     transition: all 0.2s ease;
-
+    height: 60px;
     h1,
     i {
       color: white;
@@ -89,7 +88,7 @@
   text-transform: uppercase;
   font-weight:bold;
   font-size: 0.8rem;
-  padding: 0.3em 0.7em;
+  padding: 0.3em ;
   border-radius: 20px;
   display: flex;
   align-self: flex-start;
@@ -110,9 +109,12 @@
   font-size: 0.8rem;
   font-weight: 700;
   background: darken($green, 5%);
-  padding: 0.5em;
+  padding: 0 0.5em;
   border-radius: 5px;
-  
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   p {
     color: white;
   }
