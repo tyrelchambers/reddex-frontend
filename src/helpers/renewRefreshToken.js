@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const renewRefreshToken = async () => {
   const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
@@ -43,7 +44,7 @@ export const fetchTokens = async () => {
     }
   })
   .then(res => res.data)
-  .catch();
+  .catch(err => toast.error(err.response.body));
 
   return _;
 }
