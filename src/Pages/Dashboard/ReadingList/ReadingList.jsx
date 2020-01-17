@@ -48,7 +48,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       toast.error("Improper URL format, try again")
       return false;
     }
-    console.log(formattedURL)
+
     const story = await getImportedStory(formattedURL);
 
     const data = {
