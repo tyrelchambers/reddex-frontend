@@ -73,6 +73,7 @@ const InitalLoad = () => {
     const _ = async () => {
       if ( token ) {
         await stores.UserStore.setUser()
+        await renewRefreshToken()
       }
       if (profile) {
         await stores.UserStore.setRedditProfile(profile);
@@ -129,7 +130,7 @@ const InitalLoad = () => {
 
 ReactDOM.render(
   <InitalLoad />
-  , document.getElementById('root'),() => window.localStorage.getItem("token") ? renewRefreshToken() : null);
+  , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
