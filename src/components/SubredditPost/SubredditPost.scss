@@ -39,12 +39,16 @@
   transition: all 0.2s ease;
   .upvotes {
     width: 100%;
-    color: white;
     background: rgb(63,146,240);
     background: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
-    padding: 0.5em;
+    padding: 1em;
     transition: all 0.2s ease;
-    font-size: 1.5rem;
+
+    h1,
+    i {
+      color: white;
+      font-size: 1.5rem;
+    }
   }
 
   .title {

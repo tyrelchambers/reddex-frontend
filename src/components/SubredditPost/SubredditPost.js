@@ -24,17 +24,17 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
       key={key}
     >
       <div className="d-f fxd-c w-100pr fx-1">
-        <h1 className=" upvotes d-f jc-sb ai-c">
+        <div className=" upvotes d-f jc-sb ai-c">
           <div className="d-f ai-c">
             <i className="fas fa-arrow-circle-up mr-"></i>  
-            {x.ups}
+            <h1>{x.ups}</h1>
           </div>
           {used &&
             <span className="has-been-used-text">
               <p>Used</p>
             </span>
           }
-        </h1>
+        </div>
         <p className="subreddit-title mt- mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
         <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
         <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
