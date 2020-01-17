@@ -42,13 +42,13 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   const saveStoryFromURL = async (e) => {
     e.preventDefault();
     setSaving(true)
-    const formattedURL = `${url}.json`;
+    const formattedURL = `${url.match(/[\s\S]+\//ig)}.json`;
 
     if ( !is_url(formattedURL) ) {
       toast.error("Improper URL format, try again")
       return false;
     }
-
+    console.log(formattedURL)
     const story = await getImportedStory(formattedURL);
 
     const data = {
@@ -64,9 +64,12 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       subreddit: story.subreddit,
       permission: true
     }
+
+    
     await saveStoryToReadingList(data);
     ModalStore.setIsOpen(false);
     setRefresh(true);
+    setSaving(false);
     toast.success("Story added to list")
   }
 
