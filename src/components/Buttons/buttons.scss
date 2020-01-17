@@ -26,6 +26,8 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   outline: none;
   transition: all 0.2s ease;
   height: 100%;
+  font-size: 0.7rem;
+
   i { 
     margin-right: 10px;
   }
@@ -47,6 +49,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 
 .btn-tiertiary {
   color: hsla(211, 12%, 48%,1);
+  font-size: 0.7rem;
 
   box-shadow: none;
   padding: 1em;
@@ -184,6 +187,8 @@ background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%
   text-transform: uppercase;
   font-weight: bold;
   color: $blue5;
+  font-size: 0.7rem;
+
   i {
     margin-right: 1em;
   }

@@ -1,6 +1,7 @@
 @import './atomic/main.scss';
 @import './colours.scss';
 @import './assets/styles/animate.css';
+@import './assets/normalize.css';
 
 body {
   margin: 0;
@@ -59,6 +60,8 @@ ul {
   flex:1 ;
   border-radius: 3px;
   padding: 1.5em 1em;
+  font-size: 0.7rem;
+
   outline: none;
   border: none;
   background-color: $grey8;
