@@ -41,7 +41,7 @@ import timeframeJSON from './timeframeOptions';
             />
           }
           <MainButton 
-            className="btn btn-primary" 
+            className={`btn btn-primary ${subreddit.length === 0 ? "disabled" : ""}`}
             onClick={() => {
               setLoading(true);
               fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
