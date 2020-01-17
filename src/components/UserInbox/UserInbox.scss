@@ -8,8 +8,7 @@
 .inbox-message-wrapper {
   overflow-y: auto;
   padding: 0 1em;
-  min-height: calc(100vh - 190px);
-  height: 100%;
+  height: calc(100vh - 190px);
 }
 
 .inbox-left-wrapper {
@@ -86,4 +85,10 @@
       word-break: break-all;
     }
   }
+}
+@media screen and (max-width: 768px) {
+  .inbox-left-wrapper,
+.inbox-message-wrapper {
+  height: 100%;
+}
 }
