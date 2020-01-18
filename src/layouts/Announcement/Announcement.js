@@ -1,5 +1,6 @@
 import React from 'react'
 import './Announcement.scss';
+import announcements from './announcements'
 
 const Announcement = () => {
   const ann = window.localStorage.getItem('announcement');
@@ -7,16 +8,17 @@ const Announcement = () => {
   if ( ann === "false" ) {
     return null;
   }
-
-  const title = "Getting Started"
-  const body = "Enter the subreddit you want to search, in the subreddit field. Then click 'Get Posts'"
   
+  const {
+    title,
+    body
+  } = announcements["productHunt"]
   return (
     <div className="d-f jc-c w-100pr announcement">
       <div className="wrapper d-f jc-sb ai-c">
         <div className="d-f announcement-content ai-c">
           <h4 className="announcement-title">{title}</h4>
-          <p className="announcement-body">{body}</p>
+          <div className="announcement-body">{body}</div>
         </div>
 
         <i className="fas fa-times announcement-close"
