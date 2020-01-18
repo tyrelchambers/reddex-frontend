@@ -13,6 +13,7 @@ const Announcement = () => {
     title,
     body
   } = announcements["productHunt"]
+  
   return (
     <div className="d-f jc-c w-100pr announcement">
       <div className="wrapper d-f jc-sb ai-c">
