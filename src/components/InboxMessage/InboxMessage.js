@@ -7,6 +7,7 @@ import Axios from 'axios';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { saveContact, getContacts } from '../../api/post';
+import { toast } from 'react-toastify';
 
 const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
   const [ storyLink, setStoryLink ] = useState("");
@@ -40,11 +41,14 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
   msgArr.push(data);
 
   const MessageTags = () => {
-    if (!storyLink) return null;
+    if (storyLink) return null;
     return(
       <div className="d-f ai-c">
         <a href={storyLink} target="_blank" className="message-story-tag">Link to story</a>
-        <button className="chat-action primary ai-c" onClick={() => permissionHandler(true, data)}>
+        <button className="chat-action primary ai-c" onClick={() => {
+          permissionHandler(true, data)
+          toast.success("Added to reading list")
+        }}>
           <i className="fas fa-bookmark mr-"></i>
           Add to reading List
         </button>
