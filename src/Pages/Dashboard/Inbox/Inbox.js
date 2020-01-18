@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 import { fetchTokens } from '../../../helpers/renewRefreshToken';
 import Axios from 'axios';
 import './Inbox.scss'
+import { checkValidTokens } from '../../../helpers/checkValidTokens';
 
 const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   const [ loading, setLoading ] = useState(true);
@@ -45,6 +46,7 @@ const Breadcrumbs = ({store}) => {
 }
 
 const getInbox = async (InboxStore, setLoading) => {
+  await checkValidTokens()
   const token = await fetchTokens();
   Axios.get(`https://oauth.reddit.com/message/messages`, {
     headers: {

@@ -30,6 +30,7 @@ import PricingPage from './Pages/PricingPage/PricingPage';
 import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
+import { checkValidTokens } from './helpers/checkValidTokens';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -73,7 +74,7 @@ const InitalLoad = () => {
     const _ = async () => {
       if ( token ) {
         await stores.UserStore.setUser()
-        await renewRefreshToken()
+        await checkValidTokens()
       }
       if (profile) {
         await stores.UserStore.setRedditProfile(profile);
