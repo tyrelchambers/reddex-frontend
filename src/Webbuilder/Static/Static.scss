@@ -18,7 +18,10 @@
 
 .static-header {
   height: 55px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
 }
 
 .static-header.light {
@@ -30,13 +33,7 @@
 }
 
 .static-site-name {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translate(-50%, 0);
-  padding: 1em;
-  padding-top: 0;
-  border-radius: 20px;
+  display: flex;
 }
 
 .static-site-name.light {
@@ -139,8 +136,7 @@
 
 @media screen and (max-width: 768px) {
   .static-intro-wrapper {
-    padding: 0.5em;
-    margin-top: 2em;
+    padding: 1em;
     text-align: center;
     > div {
       flex-direction: column-reverse;
@@ -159,5 +155,12 @@
     h2 {
       text-align: center;
     }
+  }
+}
+
+@media screen and (max-width: 511px) {
+  .static-header {
+    flex-direction: column;
+    height: 100%;
   }
 }

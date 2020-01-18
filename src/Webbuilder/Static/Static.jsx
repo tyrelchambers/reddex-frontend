@@ -72,12 +72,12 @@ const Static = () => {
         borderTopColor: config.accent,
         borderTopStyle:  'solid'
       }}>
-        <div className={`static-site-name ${config.theme}`}>
+        <h2 style={{
+          color: config.accent
+        }}>{config.title}</h2>
           <SocialBar
             config={config}
           />
-          <h2>{config.title}</h2>
-        </div>
       </header>
       <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
       </section>
@@ -102,9 +102,6 @@ const Static = () => {
          </>
       }
 
-      <div className="container center">
-      <HR/>
-      </div>
 
       {config.submissionForm &&
         <section className={`static-forms ${config.theme}`}>
