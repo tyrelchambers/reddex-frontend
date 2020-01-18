@@ -116,7 +116,7 @@ const Static = () => {
 
       <footer className="d-f fxd-c jc-c mt+ pb- static-footer">
         {(config.twitterTimeline && config.twitterId) &&
-            <section className="static-twitter-timeline d-f fxd-c ai-c mr+">
+            <section className="static-twitter-timeline d-f fxd-c ai-c">
               <Twitter
                 config={config}
               />
