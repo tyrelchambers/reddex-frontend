@@ -14,13 +14,11 @@ export const ContactsPage = () => {
     name: "",
     notes: ""
   })
-  const [ selectedContact, setSelectedContact ] = useState();
   const [ sortVal, setSortVal ] = useState("");
 
   const [ openForm, setOpenForm ] = useState(false);
 
   useEffect(() => {
-    document.addEventListener('click', clickHandler)
     const fn = async () => {
       const c = await getContacts();
       setContacts([...c])
@@ -28,18 +26,7 @@ export const ContactsPage = () => {
 
     fn();
 
-    return () => {
-      document.removeEventListener('click', clickHandler)
-
-    }
   }, []);
-
-  const clickHandler = (e) => {
-    const div = e.target.closest(".contact-list-item")
-    if (div === null) {
-      setSelectedContact();
-    }
-  }
 
   const openFormToggle = () => {
     setOpenForm(!openForm);
@@ -90,7 +77,6 @@ export const ContactsPage = () => {
          setContacts([...copy])
        }
       });
-      setSelectedContact();
     }
   }
  
@@ -130,17 +116,10 @@ export const ContactsPage = () => {
           <ContactsList
             contacts={contacts}
             sortVal={sortVal}
-            setSelectedContact={v => setSelectedContact(v)}
-            selectedContact={selectedContact}
+  
+            editHandler={editHandler}
+            deleteHandler={deleteHandler}
           />
-
-          {selectedContact &&
-            <Contact
-              contact={selectedContact}
-              editHandler={editHandler}
-              deleteHandler={deleteHandler}
-            />
-          }
         </section>
     </>
   )

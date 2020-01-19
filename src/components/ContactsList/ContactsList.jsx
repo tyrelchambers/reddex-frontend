@@ -1,22 +1,28 @@
-import React, {useRef, useEffect} from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import './ContactsList.scss'
 
-export const ContactsList = ({contacts, sortVal, setSelectedContact}) => {
+export const ContactsList = ({contacts, sortVal, editHandler, deleteHandler}) => {
 
 
   const list = contacts.filter(x => x.name.toLowerCase().includes(sortVal.toLowerCase())).map((x, id) => (
-    <li key={x._id} className="contact-list-item visible" onClick={() => {
-      setSelectedContact(x)
-
-    }}>
-      <div className="contact-item-icon">
-        <i className="fas fa-user"></i>
+    <li key={x._id} className="contact-list-item visible">
+      <div className="contact-item-header">
+        <h2>{x.name}</h2>
       </div>
       <div className="contact-list-item-body">
-        <h2 className="ta-c">{x.name}</h2>
         {x.notes &&
-          <p className="ta-c mt--">Notes included</p>
+          <p className=" mt--">{x.notes}</p>
         }
+        {!x.notes &&
+          <p className="mt--">No notes on contact</p>
+        }
+      </div>
+      <div className="d-f contact-actions">
+        <Link className="edit" to="/dashboard/contacts?edit=true" onClick={() => editHandler(x)}>
+          Edit Contact
+        </Link>
+        <i className="fas fa-trash delete" onClick={() => deleteHandler(x._id)}></i>
       </div>
     </li>
   ))
