@@ -158,7 +158,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
   if ( window.innerWidth >= 1024 ) {
     return (
-      <Dashboard>
+      <>
         <div className="pb-">
           <div className="d-f ai-c mb+">
             <h1 className="mr+">Site Builder</h1>
@@ -266,14 +266,14 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
             </>
           }
         </div>
-      </Dashboard>
+      </>
     ) 
   } else {
     return (
-      <Dashboard>
+      <>
         <h1>Screen size too small</h1>
         <p>Please use your desktop to edit your site.</p>
-      </Dashboard>
+      </>
     )
   }
 }));
