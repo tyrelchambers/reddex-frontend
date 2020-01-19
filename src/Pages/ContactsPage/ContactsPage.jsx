@@ -118,8 +118,7 @@ export const ContactsPage = () => {
           </MinimalButton>
         }
       </div>
-      <main>
-        {openForm &&
+      {openForm &&
           <AddContactForm
             saveContact={saveContactHandler}
             stateHandler={stateHandler}
@@ -143,7 +142,6 @@ export const ContactsPage = () => {
             />
           }
         </section>
-      </main>
     </>
   )
 }
