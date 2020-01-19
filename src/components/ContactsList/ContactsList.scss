@@ -54,3 +54,9 @@
   color: $grey3;
   font-size: 0.9rem;
 }
+
+@media screen and (max-width: 425px) {
+  .contact-list {
+    justify-content: center;
+  }
+}

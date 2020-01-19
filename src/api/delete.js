@@ -1,9 +1,10 @@
 import Axios from "axios"
 
 const token = window.localStorage.getItem('token');
+const BACKEND = process.env.REACT_APP_BACKEND;
 
 export const deleteContact = (id) => {
-  return Axios.delete(`${process.env.REACT_APP_BACKEND}/api/contacts/delete`, {
+  return Axios.delete(`${BACKEND}/api/contacts/delete`, {
     params: {
       id
     },
@@ -15,7 +16,7 @@ export const deleteContact = (id) => {
 }
 
 export const deleteImageFromStorage = (url) => {
-  return Axios.delete(`${process.env.REACT_APP_BACKEND}/api/upload/revert`, {
+  return Axios.delete(`${BACKEND}/api/upload/revert`, {
     params: {
       url
     },
@@ -28,7 +29,7 @@ export const deleteImageFromStorage = (url) => {
 
 
 export const deleteSite = (siteId) => {
-  return Axios.delete(`${process.env.REACT_APP_BACKEND}/api/site/delete`, {
+  return Axios.delete(`${BACKEND}/api/site/delete`, {
     params: {
       siteId
     }, 
@@ -37,4 +38,17 @@ export const deleteSite = (siteId) => {
     }
   })
   .then(res => res.data)
+}
+
+export const deleteAccount = (id) => {
+  return Axios.delete(`${BACKEND}/api/profile/delete`, {
+    params: {
+      id
+    },
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.response.data)
 }

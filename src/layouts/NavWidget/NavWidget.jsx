@@ -2,10 +2,11 @@ import React from 'react';
 import DashboardDropdown from '../DashboardDropdown/DashboardDropdown';
 import './NavWidget.scss'
 const NavWidget = () => {
-  const redditProfile = JSON.parse(window.localStorage.getItem('reddit_profile'));
-  const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");
+  const redditProfile = window.localStorage.getItem('reddit_profile') ? JSON.parse(window.localStorage.getItem('reddit_profile')) : null;
 
-  if (profileImg && redditProfile) {
+  if (redditProfile) {
+    const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");
+
     return (
       <div className="d-f ai-c topbar-account-widget">
         <img src={profileImg} className="profile-image small mr-" alt="Reddit User's profile"/>
