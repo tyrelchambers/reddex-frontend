@@ -31,6 +31,7 @@ import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConf
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
 import { checkValidTokens } from './helpers/checkValidTokens';
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -113,12 +114,14 @@ const InitalLoad = () => {
               <Route exact path="/request-reset" component={ResetPasswordConfirm} />
               <Route exact path="/help" component={HelpPage} />
               {/* <Route exact path="/pricing" component={PricingPage} /> */}
-              <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
-              <PrivateRoute exact path="/dashboard/home" component={Overview}/>
-              <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-              <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
-              <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
-              <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+              <Dashboard>
+                <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
+                <PrivateRoute exact path="/dashboard/home" component={Overview}/>
+                <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
+                <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+                <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+                <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+              </Dashboard>
             </Switch>
           </Router>
         </Provider>

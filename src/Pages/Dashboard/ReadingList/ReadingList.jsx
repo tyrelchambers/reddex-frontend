@@ -74,7 +74,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   }
 
   return (
-    <Dashboard>
+    <>
       <div className="d-f ai-c mobile-column">
         <Tabs url="/dashboard/reading_list" data={tabs}/>
 
@@ -118,7 +118,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
           </div>
         </Modal>
       }
-    </Dashboard>
+    </>
   )
 }));
 

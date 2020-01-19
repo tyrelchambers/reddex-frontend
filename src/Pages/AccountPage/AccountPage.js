@@ -40,8 +40,8 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
  
 
   return (
-    <Dashboard >
-      <div className="d-f fxd-c animated fadeIn faster account-wrapper">
+    <>
+    <div className="d-f fxd-c animated fadeIn faster account-wrapper">
       <h1>Account</h1>
         <Tabs url="/dashboard/account" data={tabs}/>
 
@@ -69,7 +69,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
           />
         }          
       </div>
-    </Dashboard>
+    </>
   )
 }));
 

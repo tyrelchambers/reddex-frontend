@@ -19,8 +19,7 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   }, []);
   
   return (
-    <Dashboard>
-    
+    <>
       {InboxStore.openChatWindow &&
         <Breadcrumbs
           store={InboxStore}
@@ -29,8 +28,8 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
       <UserInbox
         loading={loading}
         InboxStore={InboxStore}
-      />
-    </Dashboard>
+      />  
+    </>
   )
 }));
 

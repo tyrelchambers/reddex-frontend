@@ -95,7 +95,7 @@ export const ContactsPage = () => {
   }
  
   return (
-    <Dashboard>
+    <>
       <input type="text" className="search-large w-100pr  mb+" placeholder="Search contact list..." onChange={e => setSortVal(e.target.value)}/>  
 
       <div className="d-f">
@@ -144,6 +144,6 @@ export const ContactsPage = () => {
           }
         </section>
       </main>
-    </Dashboard>
+    </>
   )
 }
