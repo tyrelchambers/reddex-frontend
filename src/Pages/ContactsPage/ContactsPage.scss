@@ -1,5 +1,8 @@
 @import '../../colours.scss';
 
+.contact-main-wrapper {
+height: 100%;
+}
 @media screen and (max-width: 1024px) {
   .contact-main-wrapper {
     flex-direction: column-reverse;
