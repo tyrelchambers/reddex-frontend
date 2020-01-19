@@ -5,52 +5,89 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-
+  height: 100%;
 }
 
 .contact-list-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 1em;
   transition: all 0.2s ease;
-  height: 200px;
   position: relative;
   width: 300px;
+  min-height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0px 2px 15px rgba(black, 0.2);
+}
 
+.contact-item-header {
+  background: $grey2;
+  width: 100%;
+  padding: 1em;
+
+  h2 {
+    color: white;
+  }
 }
 
 .contact-list-item-body {
-  border: 1px solid $grey9;
-  background-color: white;
-  padding: 1em;
-  border-radius: 15px;
-  position: absolute;
-  bottom: 0;
-  padding-top: 3.5em;
-  box-shadow: 0px 2px 30px rgba(black, 0.1);
-  width: 100%;
-  height: 150px;
-}
-
-.contact-item-icon {
-  position: absolute;
-  top: 10px;
-  z-index: 1;
-  i {
-    font-size: 2rem;
-    color: white;
-    padding: 0.9em 1em;
-    background-color: $grey3;
-    border-radius: 50%;
-    box-shadow: 0px 2px 15px rgba(black, 0.2);
-
-  }
+  padding: 0.5em;
+  flex: 1;
 }
 
 .contact-list-name {
   font-weight: bold;
   color: $grey3;
   font-size: 0.9rem;
+}
+
+.contact-actions {
+  width: 100%;
+  align-items: center;
+}
+
+.contact-actions  {
+  > .edit {
+    display: flex;
+    align-items: center;
+    background-color: $grey9;
+    width: 100%;
+    height: 40px;
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 8px;
+    color: $grey4;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    &:hover {
+      background: $green;
+      color: white;
+    }
+  }
+
+  > .delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: $grey4;
+    padding: 1em;
+    background: $grey10;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    &:hover {
+      background: $accent;
+      color: white;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .contact-list {
+    justify-content: center;
+  }
 }

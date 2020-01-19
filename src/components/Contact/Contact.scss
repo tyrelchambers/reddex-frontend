@@ -1,17 +1,5 @@
 @import '../../colours.scss';
 
-.contact-header {
-  align-items: center;
-  justify-content: space-between;
-  .fa-edit {
-    color: $green;
-  }
-
-  .fa-trash {
-    color: $accent;
-  }
-}
-
 .contact-actions {
   i {
     margin: 0 0.5em;
