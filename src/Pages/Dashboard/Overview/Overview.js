@@ -6,12 +6,12 @@ import { inject, observer } from 'mobx-react';
 
 const Overview = inject("UserStore")(observer(({UserStore}) => {
   return (
-    <Dashboard>
+    <>
       <YouTubeStats
         user={UserStore.getUser()}
       />
       <HR/>
-    </Dashboard>
+    </>
   )
 }));
 
