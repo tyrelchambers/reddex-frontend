@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Dashboard from '../Dashboard';
 import './ReadingList.scss';
 import ReadingListDumb from './ReadingListDumb';
 import { inject } from 'mobx-react';
