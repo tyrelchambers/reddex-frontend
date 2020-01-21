@@ -36,3 +36,13 @@ export const getWebsiteFromProfile = (subdomain) => {
   })
   .then(res => res.data)
 }
+
+export const getProfile = () => {
+  return Axios.get(`${BACKEND}/api/profile/`, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.response.data)
+}
