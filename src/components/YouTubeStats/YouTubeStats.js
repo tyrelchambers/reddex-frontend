@@ -52,7 +52,7 @@ const YouTubeStats = ({user}) => {
   }
 
   return (
-    <div>
+    <div className="mt+ mb+">
       <div className="d-f ai-c">
         <h1 className="dash-subtitle mr+">Youtube Stats</h1>
       </div>
