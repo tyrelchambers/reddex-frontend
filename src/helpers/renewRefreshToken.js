@@ -44,7 +44,7 @@ export const fetchTokens = async () => {
     }
   })
   .then(res => res.data)
-  .catch(err => toast.error(err.response.body));
+  .catch(err => toast.error(err.response.data));
 
   return _;
 }

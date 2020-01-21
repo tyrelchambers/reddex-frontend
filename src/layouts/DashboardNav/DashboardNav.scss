@@ -10,7 +10,10 @@
 }
 
 .dash-nav {
-  min-width: 200px;
+  min-width: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
   min-height: 100vh;
   background-color: white;
@@ -23,7 +26,7 @@
 
 .collapsed {
   min-width: 0;
-  margin-left: -150px;
+  margin-left: -195px;
 }
 
 .dash-nav-item {
@@ -34,16 +37,25 @@
   margin: 0.2em 0;
   transition: all 0.2s ease;
   text-decoration: none;
-  margin: 1.5em 0;  
-
+  margin: 0.5em;  
+  padding: 0.3em;
+  border-radius: 20px;
   p {
     white-space: nowrap;
+  }
+
+  i {
+    margin-right: 1em;
   }
 }
 
 .dash-nav-item-active  {
-  p {
-    color: $blue7;
+  background: rgb(21,100,135);
+  background: linear-gradient(45deg, rgba(21,100,135,1) 0%, rgba(60,108,237,1) 100%);
+  box-shadow: 0px 2px 10px rgba($blue3, 0.5);
+  p, 
+  i {
+    color: white;
   }
   .nav-indicator {
 
@@ -52,11 +64,11 @@
 }
 
 .nav-indicator {
-  width: 15px;
-  height: 4px;
-  background: $blue7;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
   opacity: 0;
-  margin-right: 3em;
+  margin-right: 1.5em;
+  margin-left:  1em;
 }
