@@ -10,19 +10,22 @@ const DashboardNav = () => {
         <li>
           <NavLink to="/dashboard/home" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
+            <i className="fas fa-home"></i>
             <p>Home</p>
           </NavLink>
         </li>
         <li>
           <NavLink to="/dashboard/reading_list?t=open" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
-            <p>Stories</p>
+            <i className="fas fa-list"></i>
+            <p>Reading List</p>
           </NavLink>
         </li>
 
         <li>
           <NavLink to="/dashboard/contacts" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
+            <i className="fas fa-user-astronaut"></i>
             <p>Contacts</p>
           </NavLink>
         </li>
@@ -30,6 +33,7 @@ const DashboardNav = () => {
         <li>
           <NavLink to="/dashboard/inbox" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
+            <i className="fas fa-at"></i>
             <p>Inbox</p>
           </NavLink>
         </li>
@@ -37,6 +41,7 @@ const DashboardNav = () => {
         <li>
           <NavLink to="/dashboard/account?t=security" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
+            <i className="fas fa-shield-alt"></i>
             <p>Account</p>
           </NavLink>
         </li>
@@ -44,6 +49,7 @@ const DashboardNav = () => {
         <li>
           <NavLink to="/dashboard/site" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
+            <i className="fas fa-globe-americas"></i>
             <p>Site Builder</p>
           </NavLink>
         </li>
@@ -51,6 +57,7 @@ const DashboardNav = () => {
         <li>
           <Link to="/" className="dash-nav-item ta-c">
             <div className="nav-indicator"></div>
+            <i className="fas fa-arrow-right"></i>
             <p>Get Stories</p>
           </Link>
         </li>
