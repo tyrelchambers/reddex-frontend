@@ -5,7 +5,6 @@ import './Static.scss'
 import SubmissionForm from '../../components/Forms/SubmissionForm';
 import Youtube from 'react-youtube'
 import Axios from 'axios';
-import HR from '../../components/HR/HR';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 import { submitStoryForm } from '../../api/post';
 

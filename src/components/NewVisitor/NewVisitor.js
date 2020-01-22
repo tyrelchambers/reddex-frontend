@@ -6,7 +6,7 @@ export default function NewVisitor({setLoad, handleClick}) {
     <div className="d-f new-visitor-wrapper jc-sb animated fadeInUp ai-c">
       <div className="d-f fxd-c">
         <h3 className="mb--">Autopopulate Subreddits?</h3>
-        <p className="subtle ta-l">Welcome! Would you like to preload Subreddits to make use of our search autocomplete? (About 30-60 seconds; lots of subreddits)</p>
+        <p className="subtle ta-l">Would you like to preload Subreddits to make use of our search autocomplete? (About 30-60 seconds; lots of subreddits)</p>
       </div>
 
       <div className="d-f visitor-actions ai-c">
