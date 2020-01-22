@@ -13,3 +13,21 @@
     
   }
 }
+.module {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 8px;
+}
+
+.grid {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+.grid-item {
+  width: 100%;
+}

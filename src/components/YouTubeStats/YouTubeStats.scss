@@ -2,34 +2,23 @@
 
 .stat-list {
   display: flex;
-  max-width: 800px;
-  width: 100%;
+  width: fit-content;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .stat-item {
   position: relative;
-  width: 210px;
+  width: 260px;
   height: 100px;
   margin: 1em;
 }
 
-.stat-icon i {
-  font-size: 4rem;
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.stat-icon {
   color: $accent;
 }
 
 .stat-stats {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 50px;
 
   > h3 {
     font-size: 2.8rem;
@@ -37,6 +26,7 @@
   }
 
   > h5 {
+    width: 100%;
     font-size: 1rem;
     background-color: white;
     padding: 5px;

@@ -121,3 +121,14 @@ export const resetPassword = (data) => {
   })
   .then(res => res.data)
 }
+
+export const saveModule = (mod) => {
+  return Axios.post(`${BACKEND}/api/dashboard/modules`, {
+    mod
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => console.log(res))
+}

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './YouTubeStats.scss';
 import Axios from 'axios';
 import isEmpty from '../../helpers/objIsEmpty';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-const YouTubeStats = ({user}) => {
+const YouTubeStats = inject("UserStore")(observer(({UserStore}) => {
   const [ yt, setYt ] = useState("");
   const [ stats, setStats ] = useState({});
   useEffect(() => {
@@ -11,7 +13,7 @@ const YouTubeStats = ({user}) => {
 
   }, [])
 
-  const getYtChannel = (channel = user.youtubeId) => {
+  const getYtChannel = (channel = UserStore.getUser().youtubeId) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
     return Axios.get(ytLink).then(res => {
       setStats({...res.data.items[0].statistics})
@@ -40,9 +42,6 @@ const YouTubeStats = ({user}) => {
   if ( isEmpty(stats) ) {
     return(
       <React.Fragment>
-        <div className="d-f ai-c">
-          <h1 className="dash-subtitle mr+ mb+">Youtube Stats</h1>
-        </div>
         <form className="w-400px d-f ai-c mb+">
           <input placeholder="Enter youtube ID to get stats.." id="youtubeInput" className="input mr-" value={yt} onChange={e => setYt(e.target.value)}></input>
           <button className="btn btn-secondary" onClick={e => getStatsHandler(e)}>Get Stats</button>
@@ -52,33 +51,29 @@ const YouTubeStats = ({user}) => {
   }
 
   return (
-    <div className="mt+ mb+">
-      <div className="d-f ai-c">
-        <h1 className="dash-subtitle mr+">Youtube Stats</h1>
-      </div>
-       
+    <div className="mb+">       
       <ul className="stat-list">
         <Stat 
           stat={stats.subscriberCount}
           label="Subscribers"
-          icon={<i className="fab fa-youtube"></i>}
+          icon={<i className="fab fa-youtube stat-icon"></i>}
         />
 
         <Stat 
           stat={stats.videoCount}
           label="Videos"
-          icon={<i className="fas fa-video"></i>}
+          icon={<i className="fas fa-video stat-icon"></i>}
         />
 
         <Stat 
           stat={stats.viewCount}
           label="Views"
-          icon={<i className="fas fa-eye"></i>}
+          icon={<i className="fas fa-eye stat-icon"></i>}
         /> 
       </ul>
     </div>
   )
-}
+}));
 
 
 
@@ -90,12 +85,8 @@ function numberWithCommas(x) {
 const Stat = ({stat, label, icon}) => {
   return (
     <li className="stat-item">
-      <div className="stat-icon">
-        {icon}
-      </div>
-
       <div className="stat-stats w-100pr">
-        <h3>{numberWithCommas(stat)}</h3>
+        <h3>{icon} {numberWithCommas(stat)}</h3>
         <h5>{label}</h5>
       </div>
     </li>

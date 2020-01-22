@@ -1,0 +1,24 @@
+@import '../../colours.scss';
+
+.toggler {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin: 0 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $grey4;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $grey10;
+  }
+}
+
+.toggler.toggled {
+  background: rgb(21,100,135);
+  background: linear-gradient(45deg, rgba(21,100,135,1) 0%, rgba(60,108,237,1) 100%);
+  color: white;
+  box-shadow: 0px 2px 15px rgba(21,100,135, 0.5);
+}
