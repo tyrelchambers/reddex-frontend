@@ -26,9 +26,7 @@ const DashboardDropdown = inject("UserStore")(observer(({UserStore}) => {
         </li>
 
         <li>
-          <Link to="/" className="dropdown-link" onClick={() => {
-            UserStore.signOut()
-          }}>Sign Out</Link>
+          <Link to="/signout" className="dropdown-link" >Sign Out</Link>
         </li>
       </ul>
     </div>
