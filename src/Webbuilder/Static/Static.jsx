@@ -79,8 +79,8 @@ const Static = () => {
             config={config}
           />
       </header>
-      <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
-      </section>
+      {config.bannerURL && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
+      </section>}
 
       {config.introduction && 
         <section className={`static-intro-wrapper ${config.theme}`}>

@@ -37,3 +37,11 @@
     margin: 0.5em !important;
   }
 }
+@media screen and (min-width: 769px) {
+  .dashboard-wrapper {
+    overflow: hidden;
+  position: fixed;
+  width: 100%;
+  }
+  
+}

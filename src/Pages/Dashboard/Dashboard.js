@@ -3,10 +3,8 @@ import DashboardNav from '../../layouts/DashboardNav/DashboardNav';
 import './Dashboard.scss';
 import DashboardTopbar from '../../layouts/DashboardTopbar/DashboardTopbar';
 import Loading from '../../components/Loading/Loading';
-import { inject } from 'mobx-react';
-import { observer } from 'mobx-react-lite';
 
-const Dashboard = inject("ReadingListStore")(observer(({loading, children, ReadingListStore}) => {
+const Dashboard = ({loading, children}) => {
   return (
     <div className="d-f dashboard-wrapper">
       <DashboardNav />
@@ -26,7 +24,7 @@ const Dashboard = inject("ReadingListStore")(observer(({loading, children, Readi
       </main>
     </div>
   )
-}));
+};
 
 
 
