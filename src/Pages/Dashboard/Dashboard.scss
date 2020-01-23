@@ -3,13 +3,11 @@
 .dashboard-wrapper {
   min-height: 100vh;
   height: 100%;
-  overflow: hidden;
   position: fixed;
   width: 100%;
 }
 .dashboard-inner {
   width: 100%;
-  overflow-y: auto;
 }
 .dashboard-page-wrapper {
   transition: all 0.2s ease;
