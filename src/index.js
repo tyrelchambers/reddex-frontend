@@ -109,6 +109,10 @@ const InitalLoad = () => {
               <Route exact path="/" component={App}/>
               <Route exact path="/about" component={About} />
               <Route exact path="/signup" component={SignupPage} />
+              <Route exact path="/signout" render={() => {
+                UserStore.signOut();
+                window.location.pathname = "/"
+              }} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/reset" component={ResetPassword} />
               <Route exact path="/request-reset" component={ResetPasswordConfirm} />
