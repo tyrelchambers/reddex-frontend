@@ -31,7 +31,7 @@ const Overview = inject("UserStore")(observer(({UserStore}) => {
         
         <div className="d-f ai-c">
           <div className="quick-actions-body fx-1">
-            {profile.website.subdomain &&
+            {profile.website &&
               <a href={`https://${profile.website.subdomain}.reddex.app`} rel="noopener noreferrer" target="_blank" className="td-n link action"><i className="fas fa-external-link-square-alt mr---"></i> View your site</a>
             }
           </div>
