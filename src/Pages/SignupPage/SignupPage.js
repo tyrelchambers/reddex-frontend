@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
+import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -66,7 +67,9 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       return res.data.user;
     })
     .catch(err => toast.error(err.response.data));
-  
+
+    const profile = await getCurrentAuthenticatedUser(access_token)
+    UserStore.setRedditProfile(profile)
     UserStore.setUser(user);   
   }
 
