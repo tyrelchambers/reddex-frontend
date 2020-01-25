@@ -12,7 +12,7 @@ const AltMessage = ({redditProfile, repeatGreeting, setRepeatGreeting}) => {
     if (repeatGreeting.uuid) {
       await updateAltMessage(repeatGreeting)
     } else {
-      await createNewAltMessage(repeatGreeting.text).then(console.log);
+      await createNewAltMessage(repeatGreeting.text);
     }
 
   

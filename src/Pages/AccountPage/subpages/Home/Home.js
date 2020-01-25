@@ -13,7 +13,7 @@ const Home = ({redditProfile, setInitialGreeting, initialGreeting}) => {
     if (initialGreeting.uuid) {
       await updateDefaultMessage(initialGreeting)
     } else {
-      await createNewDefaultMessage(initialGreeting.text).then(console.log);
+      await createNewDefaultMessage(initialGreeting.text);
     }
 
   }

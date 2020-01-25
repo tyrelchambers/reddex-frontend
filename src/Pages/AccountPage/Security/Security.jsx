@@ -47,7 +47,7 @@ const Security = ({UserStore}) => {
      const prompt = window.confirm("Are you sure you want to delete your account?");
 
      if ( prompt ) {
-        await deleteAccount(u._id)
+        await deleteAccount(u.uuid)
         window.localStorage.clear();
         window.location.search = ""
         window.location.pathname = "/"

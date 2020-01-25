@@ -40,10 +40,10 @@ export const deleteSite = (siteId) => {
   .then(res => res.data)
 }
 
-export const deleteAccount = (id) => {
+export const deleteAccount = (uuid) => {
   return Axios.delete(`${BACKEND}/api/profile/delete`, {
     params: {
-      id
+      uuid
     },
     headers: {
       token
