@@ -67,7 +67,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       return res.data.user;
     })
     .catch(err => toast.error(err.response.data));
-
+    console.log(user)
     const profile = await getCurrentAuthenticatedUser(access_token)
     UserStore.setRedditProfile(profile)
     UserStore.setUser(user);   

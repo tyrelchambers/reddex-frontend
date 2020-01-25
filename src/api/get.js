@@ -46,3 +46,13 @@ export const getProfile = () => {
   .then(res => res.data)
   .catch(err => err.response.data)
 }
+
+export const getStoriesUsedFromUser = () => {
+  return Axios.get(`${BACKEND}/api/profile/stories_used`, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.response.data)
+}
