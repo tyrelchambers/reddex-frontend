@@ -68,7 +68,7 @@ export const getAuthorsMessaged = () => {
 }
 
 export const getInitialGreeting = () => {
-  return Axios.get(`${BACKEND}/api/profile/default_message`, {
+  return Axios.get(`${BACKEND}/api/default_message`, {
     headers: {
       token
     }
@@ -78,7 +78,7 @@ export const getInitialGreeting = () => {
 }
 
 export const getRepeatGreeting = () => {
-  return Axios.get(`${BACKEND}/api/profile/alt_message`, {
+  return Axios.get(`${BACKEND}/api/alt_message`, {
     headers: {
       token
     }

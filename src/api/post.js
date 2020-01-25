@@ -123,7 +123,7 @@ export const resetPassword = (data) => {
 }
 
 export const createNewDefaultMessage = (text) => {
-  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/default_message`, {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/default_message`, {
     text
   }, {
     headers: {
@@ -141,7 +141,7 @@ export const createNewDefaultMessage = (text) => {
 }
 
 export const createNewAltMessage = (text) => {
-  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/alt_message`, {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/alt_message`, {
     text
   }, {
     headers: {

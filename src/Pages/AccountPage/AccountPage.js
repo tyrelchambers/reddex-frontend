@@ -12,11 +12,6 @@ import Security from './Security/Security';
 import { getInitialGreeting, getRepeatGreeting } from '../../api/get';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
-  const [ user, setUser ] = useState({
-    email: "",
-    defaultMessage: "",
-    altMessage: ""
-  });
   const [ redditProfile, setRedditProfile ] = useState({});
   const [ initialGreeting, setInitialGreeting ] = useState({
     text: '',
@@ -40,20 +35,8 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
 
     am()
     im();
-    getUserProfile(UserStore.getToken());
     setRedditProfile({...profile});
   }, []);
-
-  const getUserProfile = (token) => {
-    Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/auth`, {
-      headers: {
-        "token": token
-      }
-    })
-    .then(res => setUser({...res.data}))
-    .catch(console.log);
-  }
-
  
 
   return (

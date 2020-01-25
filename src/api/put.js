@@ -68,7 +68,7 @@ export const editUserPassword = async (data) => {
 }
 
 export const updateDefaultMessage = (data) => {
-  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/profile/default_message`, {
+  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/default_message`, {
     uuid: data.uuid,
     text: data.text
   }, {
@@ -87,7 +87,7 @@ export const updateDefaultMessage = (data) => {
 }
 
 export const updateAltMessage = (data) => {
-  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/profile/alt_message`, {
+  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/alt_message`, {
     uuid: data.uuid,
     text: data.text
   }, {
