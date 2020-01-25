@@ -1,11 +1,9 @@
 import React from 'react'
-import { toast } from 'react-toastify';
-import Axios from 'axios';
 import { createNewDefaultMessage } from '../../../../api/post';
 import { updateDefaultMessage } from '../../../../api/put';
 
 const Home = ({redditProfile, setInitialGreeting, initialGreeting}) => {
-  const DefaultMessage = () => initialGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{initialGreeting.text}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No default message saved</p>
+  const DefaultMessage = () => initialGreeting.text ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{initialGreeting.text}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No default message saved</p>
   const Username = () => redditProfile.subreddit ? <p>From: <span className="highlight-text">{redditProfile.subreddit.display_name_prefixed}</span></p> : null;
 
 
@@ -13,10 +11,8 @@ const Home = ({redditProfile, setInitialGreeting, initialGreeting}) => {
     e.preventDefault();
     
     if (initialGreeting.uuid) {
-      console.log('1')
       await updateDefaultMessage(initialGreeting)
     } else {
-      console.log('2')
       await createNewDefaultMessage(initialGreeting.text).then(console.log);
     }
 
@@ -33,7 +29,7 @@ const Home = ({redditProfile, setInitialGreeting, initialGreeting}) => {
       <form className="d-f fxd-c ai-fs">
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">Your Greeting Message</label>
-          <textarea name="defaultMessage" className="textarea" id="defaultMessage" placeholder="Enter default message.." value={initialGreeting.text} onChange={e => setInitialGreeting({...initialGreeting, text: e.target.value})}></textarea>
+          <textarea name="defaultMessage" className="textarea" id="defaultMessage" placeholder="Enter default message.." value={initialGreeting.text || ""} onChange={e => setInitialGreeting({...initialGreeting, text: e.target.value})}></textarea>
         </div>
         
         <div className="d-f jc-sb ai-c w-100pr account-footer">

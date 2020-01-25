@@ -68,7 +68,26 @@ export const editUserPassword = async (data) => {
 }
 
 export const updateDefaultMessage = (data) => {
-  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/profile/default_message/update`, {
+  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/profile/default_message`, {
+    uuid: data.uuid,
+    text: data.text
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => {
+    toast.success("Message saved")
+    return res.data
+  })
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
+}
+
+export const updateAltMessage = (data) => {
+  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/profile/alt_message`, {
     uuid: data.uuid,
     text: data.text
   }, {

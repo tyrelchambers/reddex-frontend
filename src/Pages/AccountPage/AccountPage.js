@@ -9,7 +9,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import tabs from './tabs'
 import Tabs from '../../layouts/Tabs/Tabs';
 import Security from './Security/Security';
-import { getInitialGreeting } from '../../api/get';
+import { getInitialGreeting, getRepeatGreeting } from '../../api/get';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
@@ -21,7 +21,9 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ initialGreeting, setInitialGreeting ] = useState({
     text: '',
   });
-  const [ repeatGreeting, setRepeatGreeting ] = useState();
+  const [ repeatGreeting, setRepeatGreeting ] = useState({
+    text: ''
+  });
 
   const params = new URLSearchParams(window.location.search);
 
@@ -31,7 +33,12 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
       const data = await getInitialGreeting();
       setInitialGreeting({...initialGreeting, ...data[0]})
     }
+    const am = async () => {
+      const data = await getRepeatGreeting();
+      setRepeatGreeting({...repeatGreeting, ...data[0]})
+    }
 
+    am()
     im();
     getUserProfile(UserStore.getToken());
     setRedditProfile({...profile});
@@ -72,9 +79,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
         {params.get("t") === "alt_message" &&
           <AltMessage
             redditProfile={redditProfile}
-            user={user}
-            setUser={setUser}
-            UserStore={UserStore}
+            setRepeatGreeting={setRepeatGreeting}
             repeatGreeting={repeatGreeting}
           />
         }          

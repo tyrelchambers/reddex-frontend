@@ -76,3 +76,13 @@ export const getInitialGreeting = () => {
   .then(res => res.data)
   .catch(err => err.response.data)
 }
+
+export const getRepeatGreeting = () => {
+  return Axios.get(`${BACKEND}/api/profile/alt_message`, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.response.data)
+}
