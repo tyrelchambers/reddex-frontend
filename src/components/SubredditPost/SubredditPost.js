@@ -9,7 +9,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
   let selectedClass = false
 
   const _ = PostStore.selectedPosts.find((el) => {
-    return el.postId == x.postId;
+    return el.post_id == x.post_id;
   });
 
   if ( _ ) {
@@ -20,7 +20,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
     <li 
       className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""}`} 
       data-id={x.id}
-      data-postid={x.postId}
+      data-postid={x.post_id}
       key={key}
     >
       <div className="d-f fxd-c w-100pr fx-1">
@@ -45,7 +45,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
       </div>
       <div className="reading-info d-f">
         <div className="reading-time">
-          <span>{avgReadingTime(x.selftext)}</span>
+          <span>{avgReadingTime(x.self_text)}</span>
           min read
         </div>
       </div>

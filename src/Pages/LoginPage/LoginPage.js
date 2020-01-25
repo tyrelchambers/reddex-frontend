@@ -37,7 +37,8 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
       ...payload
     })
     .then(res => {
-      UserStore.setToken(res.data);
+      UserStore.setToken(res.data.token);
+      UserStore.setCurrentUser(res.data.user)
       window.location.pathname = "/";
     })
     .catch(err => {

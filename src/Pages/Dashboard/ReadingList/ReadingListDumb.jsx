@@ -52,7 +52,7 @@ const ReadingListDumb = ({list, callback}) => {
                 Set as read
               </button>
               <div className="reading-time">
-                <span>{avgReadingTime(x.selftext)}</span>
+                <span>{avgReadingTime(x.self_text)}</span>
                 min read
               </div>
             </div>

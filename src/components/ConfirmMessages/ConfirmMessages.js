@@ -123,8 +123,8 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             onClick={() => {
               setLoading(true);
               saveAuthorToDb(data.name, data.post_id);
-              //saveStoryToUser(data);
-              //sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
+              saveStoryToUser(data);
+              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
             }} 
             value="Message Author"
             loading={loading}
@@ -182,7 +182,7 @@ export const sendMessageToAuthors = async (author, subject, message, removeMessa
   body.set('to', `/u/${author}`);
   body.set("subject", fmtSubject);
   body.set("text", message);
-
+  
   await Axios.post(link, body, {
     headers: {
       "Authorization": `bearer ${tokens.access_token}`,

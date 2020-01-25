@@ -47,8 +47,8 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
               </button>
 
               <button className="chat-action primary ai-c" onClick={() => {
-                ReadingListStore.removeStoryFromList("completed", x.postId);
-                removeStoryFromDb(token, x.postId)
+                ReadingListStore.removeStoryFromList("completed", x.post_id);
+                removeStoryFromDb(token, x.post_id)
               }}>
                 <i className="fas fa-bookmark mr-"></i>
                 Remove from reading list
@@ -81,7 +81,7 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
 
 const addToReadingList = (data, bool) => {
   const token = window.localStorage.getItem('token');
-
+  
   Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/stories/completed`, {
     author: data.author,
     title: data.title,

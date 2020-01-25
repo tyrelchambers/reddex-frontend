@@ -3,6 +3,7 @@ import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { inject, observer } from 'mobx-react';
 import { getStoriesUsedFromUser } from '../../api/get';
+import isEmpty from '../../helpers/objIsEmpty';
 
 const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPosts, UserStore, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
@@ -13,7 +14,10 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
       const stories = await getStoriesUsedFromUser();
       setUsedPosts([...stories])
     }
-    fn();
+    
+    if (!isEmpty(UserStore.currentUser)) {
+      fn();
+    }
   }, []);
 
   useEffect(() => {
