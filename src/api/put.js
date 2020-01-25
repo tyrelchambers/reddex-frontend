@@ -53,6 +53,10 @@ export const editUserEmail = async (data) => {
     }
   })
   .then(res => res.data)
+  .catch(err => {
+    toast.error(err.response.data)
+    return err.response;
+  })
 }
 
 export const editUserPassword = async (data) => {
@@ -65,6 +69,10 @@ export const editUserPassword = async (data) => {
     }
   })
   .then(res => res.data)
+  .catch(err => {
+    toast.error(err.response.data)
+    return err.response;
+  })
 }
 
 export const updateDefaultMessage = (data) => {

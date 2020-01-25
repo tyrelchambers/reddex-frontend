@@ -20,21 +20,26 @@ const Security = ({UserStore}) => {
     setChanges({...changes, [e.target.name]: e.target.value})
   }
 
-  const submitHandler = async (e) => { 
+  const changeEmailHandler = async (e) => {
     e.preventDefault();
     
-    if (changes.email) await editUserEmail(changes.email).then(res => UserStore.setCurrentUser(res));
+    await editUserEmail(changes.email).then(res => {
+      UserStore.setCurrentUser(res)
+      toast.success("Changes saved");
+    })
+  }
+  const changePasswordHandler = async (e) => { 
+    e.preventDefault();
 
-    if (changes.newPassword && changes.confirmPassword) {
-      if ( changes.newPassword.length < 8 ) return toast.error("Password must be longer than 8 characters") 
-      if ( changes.newPassword !== changes.confirmPassword ) return toast.error("Confirmation password and new password, don't match")
-      if (!changes.currentPassword) return toast.error("Please provide your current password");
+    if ( changes.newPassword.length < 8 ) return toast.error("Password must be longer than 8 characters") 
+    if ( changes.newPassword !== changes.confirmPassword ) return toast.error("Confirmation password and new password, don't match")
+    if (!changes.currentPassword) return toast.error("Please provide your current password");
 
-      await editUserPassword(changes)
-            .catch(err => toast.error(err));
-    }
+    await editUserPassword(changes)
+          .then(res => {
+            toast.success("Password changed");
+          })
 
-    toast.success("Changes saved");
     window.location.reload()
    }
 
@@ -55,7 +60,8 @@ const Security = ({UserStore}) => {
 
       <EditUserForm
         stateHandler={stateHandler}
-        submitHandler={submitHandler}
+        changeEmailHandler={changeEmailHandler}
+        changePasswordHandler={changePasswordHandler}
       />
 
       <HR

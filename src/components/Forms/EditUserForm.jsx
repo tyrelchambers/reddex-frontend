@@ -2,14 +2,20 @@ import React from 'react';
 import './forms.scss'
 import HR from '../../components/HR/HR'
 import { MainButton } from '../Buttons/Buttons';
-const EditUserForm = ({stateHandler, submitHandler}) => {
+const EditUserForm = ({stateHandler, changeEmailHandler, changePasswordHandler}) => {
   return (
     <form className="form" >
       <div className="field-group">
         <label htmlFor="email" className="form-label">Email</label>
         <input type="email" className="form-input" placeholder="user@example.com" name="email" onChange={e => stateHandler(e)}/>
       </div>
-
+      <div className="d-f jc-fe pb-">
+        <MainButton
+          value="Change Email"
+          className="btn btn-green p-"
+          onClick={changeEmailHandler}
+        />
+      </div>
       <HR />
 
       <div className="field-group">
@@ -27,14 +33,12 @@ const EditUserForm = ({stateHandler, submitHandler}) => {
         <input type="password" className="form-input" name="confirmPassword" placeholder="Confirm New Password" autoComplete="new-password" onChange={e => stateHandler(e)}/>
       </div>
 
-      <HR />
-
-      <div className="d-f jc-fe pt-">
-      <MainButton
-        value="Save Changes"
-        className="btn btn-green p-"
-        onClick={submitHandler}
-      />
+      <div className="d-f jc-fe ">
+        <MainButton
+          value="Change Password"
+          className="btn btn-green p-"
+          onClick={changePasswordHandler}
+        />
       </div>
     </form>
   );
