@@ -121,3 +121,21 @@ export const resetPassword = (data) => {
   })
   .then(res => res.data)
 }
+
+export const createNewDefaultMessage = (text) => {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/default_message`, {
+    text
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => {
+    toast.success("Message saved")
+    return res.data
+  })
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
+}

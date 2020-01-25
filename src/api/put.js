@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 const BACKEND = process.env.REACT_APP_BACKEND;
 const token = window.localStorage.getItem("token");
@@ -65,3 +66,23 @@ export const editUserPassword = async (data) => {
   })
   .then(res => res.data)
 }
+
+export const updateDefaultMessage = (data) => {
+  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/profile/default_message/update`, {
+    uuid: data.uuid,
+    text: data.text
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => {
+    toast.success("Message saved")
+    return res.data
+  })
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
+}
+

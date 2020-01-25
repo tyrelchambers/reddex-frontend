@@ -72,7 +72,7 @@ export const ContactsPage = () => {
     
     if ( deleteItem === "OK" ) {
       contacts.filter((x, id) => {
-        if ( x._id === data ) {
+        if ( x.uuid === data ) {
          copy.splice(id, 1);
          setContacts([...copy])
        }

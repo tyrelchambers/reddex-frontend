@@ -56,3 +56,23 @@ export const getStoriesUsedFromUser = () => {
   .then(res => res.data)
   .catch(err => err.response.data)
 }
+
+export const getAuthorsMessaged = () => {
+  return Axios.get(`${BACKEND}/api/profile/authors_messaged`, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.response.data)
+}
+
+export const getInitialGreeting = () => {
+  return Axios.get(`${BACKEND}/api/profile/default_message`, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.response.data)
+}

@@ -22,7 +22,7 @@ export const ContactsList = ({contacts, sortVal, editHandler, deleteHandler}) =>
         <Link className="edit" to="/dashboard/contacts?edit=true" onClick={() => editHandler(x)}>
           Edit Contact
         </Link>
-        <i className="fas fa-trash delete" onClick={() => deleteHandler(x._id)}></i>
+        <i className="fas fa-trash delete" onClick={() => deleteHandler(x.uuid)}></i>
       </div>
     </li>
   ))

@@ -11,7 +11,7 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
   useEffect(() => {
     const fn = async () => {
       const stories = await getStoriesUsedFromUser();
-      console.log(stories)
+      setUsedPosts([...stories])
     }
     fn();
   }, []);
@@ -45,7 +45,7 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
               setPosts={setPosts}
               onClick={(e) => selectPost(e, PostStore)}
               onClickHandler={() => selectPost(x, PostStore)}
-              used={usedPosts.includes(x.postId)}
+              used={usedPosts.includes(x.post_id)}
             />
           )
         })}

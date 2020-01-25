@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { MainButton, MinimalButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import { getContact } from '../../api/get';
+import { getContact, getAuthorsMessaged } from '../../api/get';
 
 const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
@@ -15,6 +15,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
   const [ loading, setLoading ] = useState(false);
   const [ contact, setContact ] = useState();
   const [ expandContact, setExpandContact ] = useState(false);
+  const [authorsMessaged, setAuthorsMessaged] = useState([]);
 
   useEffect(() => {
     setSubject(data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title);
@@ -27,6 +28,8 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
     messageHandler();
     const fn = async () => {
       const c = await getContact(data.author)
+      const authors = await getAuthorsMessaged();
+      setAuthorsMessaged([...authors])
       if (c ) {
         setContact({...c})
       } else {
@@ -46,7 +49,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
   const messageHandler = () => {
     let authorExists = false;
     
-    userProfile.authorsMessaged.map(x => x === data.author ? authorExists = true : null);
+    authorsMessaged.map(x => x === data.name ? authorExists = true : null);
 
     if ( authorExists ) {
       setDefaultMessage(userProfile.altMessage);
@@ -119,9 +122,9 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             className="btn btn-primary" 
             onClick={() => {
               setLoading(true);
-              saveAuthorToDb(data.author, data.postId);
-              saveStoryToUser(data);
-              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
+              saveAuthorToDb(data.name, data.post_id);
+              //saveStoryToUser(data);
+              //sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
             }} 
             value="Message Author"
             loading={loading}
@@ -139,11 +142,11 @@ const CharCounter = ({charCount}) => {
   );
 }
 
-export const saveAuthorToDb = async (author, postId)=> {
+export const saveAuthorToDb = async (name, post_id)=> {
   const token = window.localStorage.getItem("token");
   await Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/saveAuthors`, {
-    author,
-    postId
+    name,
+    post_id
   }, {
     headers: {
       token

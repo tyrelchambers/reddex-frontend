@@ -9,6 +9,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import tabs from './tabs'
 import Tabs from '../../layouts/Tabs/Tabs';
 import Security from './Security/Security';
+import { getInitialGreeting } from '../../api/get';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ user, setUser ] = useState({
@@ -16,14 +17,23 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
     defaultMessage: "",
     altMessage: ""
   });
-
   const [ redditProfile, setRedditProfile ] = useState({});
+  const [ initialGreeting, setInitialGreeting ] = useState({
+    text: '',
+  });
+  const [ repeatGreeting, setRepeatGreeting ] = useState();
+
   const params = new URLSearchParams(window.location.search);
 
   useEffect(() => {
-    getUserProfile(UserStore.getToken());
     const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
+    const im = async () => {
+      const data = await getInitialGreeting();
+      setInitialGreeting({...initialGreeting, ...data[0]})
+    }
 
+    im();
+    getUserProfile(UserStore.getToken());
     setRedditProfile({...profile});
   }, []);
 
@@ -54,9 +64,8 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
         {params.get("t") === "default_message" &&
           <Home
             redditProfile={redditProfile}
-            user={user}
-            setUser={setUser}
-            UserStore={UserStore}
+            initialGreeting={initialGreeting}
+            setInitialGreeting={setInitialGreeting}
           />
         }
 
@@ -66,6 +75,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
             user={user}
             setUser={setUser}
             UserStore={UserStore}
+            repeatGreeting={repeatGreeting}
           />
         }          
       </div>
