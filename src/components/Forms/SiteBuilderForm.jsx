@@ -24,7 +24,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           <span className="preffix">
             <i className="fas fa-id-badge"></i>
           </span>
-          <input type="text" className="form-input fx-1" name="title" value={config.title} placeholder="My Awesome Site" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input fx-1" name="title" value={config.title || ""} placeholder="My Awesome Site" onChange={e => configHandler(e)}/>
         </div>
       </div>
 

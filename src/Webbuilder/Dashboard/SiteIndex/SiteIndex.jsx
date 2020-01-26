@@ -25,7 +25,7 @@ import Tabs from '../../../layouts/Tabs/Tabs'
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
   const [config, setConfig] = useState({
-    _id: "",
+    uuid: "",
     subdomain: "",
     title: "",
     twitter: "",
@@ -35,13 +35,13 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     youtube: "",
     podcast: "",
     introduction: "",
-    bannerURL: "",
-    submissionForm: false,
-    youtubeId: "",
-    youtubeTimeline: false,
-    twitterId: "",
-    twitterTimeline: false,
-    showCreditLink: true,
+    banner_url: "",
+    submission_form: false,
+    youtube_id: "",
+    youtube_timeline: false,
+    twitter_id: "",
+    twitter_timeline: false,
+    show_credit_link: true,
     accent: "#000000",
     theme: "light"
   });
@@ -49,13 +49,12 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   const [loading, setLoading] = useState(true);
   const [ saving, setSaving ] = useState(false);
   useEffect(() => {
-    const yt = UserStore.currentUser.youtubeId;
-
+    const yt = UserStore.currentUser.youtube_id;
     const fn = async () => {
       await getWebsiteWithToken().then(res => {
         if (res) {
           setActivated(true)
-          setConfig({...config, ...res, youtubeId: yt})
+          setConfig({...config, ...res, youtube_id: yt})
           SiteStore.setPreview({...res})
         }
         setLoading(false);
@@ -94,18 +93,18 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       return toast.error("Introduction is too long")
     }
 
-    let bannerURL = data.bannerURL || "";
+    let banner_url = data.banner_url || "";
 
     if ( pondRef.current && pondRef.current.getFiles().length > 0 ) {
-      bannerURL = await processFiles()
+      banner_url = await processFiles()
     }
 
-    if (!bannerURL) {
-      bannerURL = "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80"
+    if (!banner_url) {
+      banner_url = "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80"
     }
     const payload = {
       ...data,
-      bannerURL
+      banner_url
     }
 
     if ( data.subdomain !== SiteStore.preview.subdomain ) {
@@ -129,25 +128,25 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     e.preventDefault();
     const payload = {
       ...config,
-      bannerURL: ""
+      banner_url: ""
     }
 
-    if ( !config.bannerURL.match(/unsplash/gi) ) {
-      await deleteImageFromStorage(config.bannerURL).then(console.log);
-      setConfig({...config, bannerURL: ""})
+    if ( !config.banner_url.match(/unsplash/gi) ) {
+      await deleteImageFromStorage(config.banner_url).then(console.log);
+      setConfig({...config, banner_url: ""})
     } else {
-      setConfig({...config, bannerURL: ""})
+      setConfig({...config, banner_url: ""})
     }
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
 
   }
 
-  const deleteSiteHandler = async (siteId) => {
+  const deleteSiteHandler = async (uuid) => {
     const toDelete = window.confirm("Are you sure you want to delete?");
     
     if (toDelete) {
       await deleteDomainAlias(config.subdomain)
-      deleteSite(siteId).then(res => toast.success("Site deleted"))
+      deleteSite(uuid).then(res => toast.success("Site deleted"))
       window.location.reload();
     }
   }
@@ -210,7 +209,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                     <MainButton
                       value="Delete Site"
                       className="btn btn-tiertiary danger"
-                      onClick={() => deleteSiteHandler(config._id)}
+                      onClick={() => deleteSiteHandler(config.uuid)}
                     >
                       <i className="fas fa-trash"></i>
                       

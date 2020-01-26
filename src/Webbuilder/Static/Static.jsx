@@ -52,7 +52,7 @@ const Static = () => {
     e.preventDefault();
     const payload = {
       ...subForm,
-      subdomain: config._id
+      subdomain: config.subdomain
     }
     
     await submitStoryForm(payload).then(res => toast.success("Story submitted"))
@@ -94,7 +94,7 @@ const Static = () => {
         </section>
       }
 
-      {(config.youtubeId && config.youtubeTimeline) &&
+      {(config.youtubeId && config.youtube_timeline) &&
          <>
           <h2 className="mb- ta-c mt+">Latest Youtube Videos</h2>
           <div className="static-youtube-wrapper container center">  
@@ -104,7 +104,7 @@ const Static = () => {
       }
 
 
-      {config.submissionForm &&
+      {config.submission_form &&
         <section className={`static-forms ${config.theme}`}>
           <h2>Send your story</h2>
           <SubmissionForm
@@ -116,14 +116,14 @@ const Static = () => {
       }
 
       <footer className="d-f fxd-c jc-c mt+ pb- static-footer">
-        {(config.twitterTimeline && config.twitterId) &&
+        {(config.twitter_timeline && config.twitter_id) &&
             <section className="static-twitter-timeline d-f fxd-c ai-c">
               <Twitter
                 config={config}
               />
             </section>
           }
-        {config.showCreditLink &&
+        {config.show_credit_link &&
           <p className="ta-c mt+">Powered by <a href="https://reddex.app">Reddex</a></p>
         }
       </footer>

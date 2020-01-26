@@ -28,10 +28,10 @@ export const deleteImageFromStorage = (url) => {
 }
 
 
-export const deleteSite = (siteId) => {
+export const deleteSite = (uuid) => {
   return Axios.delete(`${BACKEND}/api/site/delete`, {
     params: {
-      siteId
+      uuid
     }, 
     headers: {
       token
