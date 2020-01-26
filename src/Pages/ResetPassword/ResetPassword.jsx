@@ -27,8 +27,9 @@ const ResetPassword = () => {
     if ( payload.password.length < 8 ) return toast.error("Password must be longer than 8 characters") 
     if ( payload.password !== password.confirmNewPassword ) return toast.error("Confirmation password and new password, don't match")
 
-    await resetPassword(payload);
-    window.location.pathname="/"
+    await resetPassword(payload).then(res => toast.success("Password reset successful"));
+    window.location.search = ""
+    window.location.pathname="/login"
   }
   return (
     <DisplayWrapper hasHeader={true}>
