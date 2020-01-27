@@ -3,8 +3,6 @@
 .dashboard-wrapper {
   min-height: 100vh;
   height: 100%;
-  overflow: hidden;
-  position: fixed;
   width: 100%;
 }
 .dashboard-inner {
@@ -44,4 +42,10 @@
   width: 100%;
   }
   
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-wrapper {
+    margin-top: 4em;
+  }
 }

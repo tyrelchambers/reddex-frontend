@@ -16,8 +16,7 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
     )
   }
     
-console.log(  isEmpty(redditProfile)
-)
+
   return(
     <React.Fragment>      
       <div className="navbar-wrapper">
