@@ -16,7 +16,6 @@ import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
 import ReadingListStore from './stores/ReadingListStore';
 import 'react-toastify/dist/ReactToastify.css';
-import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
 import Overview from './Pages/Dashboard/Overview/Overview';

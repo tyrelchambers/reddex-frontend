@@ -32,7 +32,9 @@ export const getCurrentAuthenticatedUser = (token) => {
     }
   })
   .then(res => {
-    window.localStorage.setItem('reddit_profile', JSON.stringify(res.data))
+    if(res.data) {
+      window.localStorage.setItem('reddit_profile', JSON.stringify(res.data))
+    }
     return res.data
   })
   .catch(console.log);

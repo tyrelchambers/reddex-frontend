@@ -7,7 +7,7 @@ import isEmpty from '../../helpers/objIsEmpty';
 
 const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
   const Username = () => {
-    if ( !redditProfile ) {
+    if ( !UserStore.getUser() ) {
       return null;
     }
 
