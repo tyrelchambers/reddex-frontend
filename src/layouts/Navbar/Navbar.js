@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import { inject, observer } from 'mobx-react';
 import NavWidget from '../NavWidget/NavWidget';
+import isEmpty from '../../helpers/objIsEmpty';
 
 const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
   const Username = () => {

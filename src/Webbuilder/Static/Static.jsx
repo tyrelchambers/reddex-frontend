@@ -8,6 +8,7 @@ import Axios from 'axios';
 import HR from '../../components/HR/HR';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 import { submitStoryForm } from '../../api/post';
+import { toast } from 'react-toastify';
 
 const Static = () => {
   const [loading, setLoading] = useState(true);
@@ -55,7 +56,7 @@ const Static = () => {
       subdomain: config._id
     }
     
-    await submitStoryForm(payload)
+    await submitStoryForm(payload).then(res => toast.success("Story submitted"))
   }
 
   const videos = videoIds ? videoIds.map((x, id) => (
@@ -80,8 +81,8 @@ const Static = () => {
             config={config}
           />
       </header>
-      <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
-      </section>
+      {config.bannerURL && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
+      </section>}
 
       {config.introduction && 
         <section className={`static-intro-wrapper ${config.theme}`}>

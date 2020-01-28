@@ -26,12 +26,15 @@ export const renewRefreshToken = async () => {
 // called in renewRefreshToken
 export const getCurrentAuthenticatedUser = (token) => {
 
-  Axios.get('https://oauth.reddit.com/api/v1/me', {
+  return Axios.get('https://oauth.reddit.com/api/v1/me', {
     headers: {
       "Authorization": `bearer ${token}`
     }
   })
-  .then(res => window.localStorage.setItem('reddit_profile', JSON.stringify(res.data)))
+  .then(res => {
+    window.localStorage.setItem('reddit_profile', JSON.stringify(res.data))
+    return res.data
+  })
   .catch(console.log);
 }
 

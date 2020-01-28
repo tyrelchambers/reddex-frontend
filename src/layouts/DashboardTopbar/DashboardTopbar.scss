@@ -39,3 +39,15 @@
     background-color: $grey2;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .dashboard-topbar {
+    position: fixed;
+    top: 0;
+    z-index: 3;
+  }
+  .dash-nav-toggle {
+    position: relative;
+    z-index: 4;
+  }
+}
