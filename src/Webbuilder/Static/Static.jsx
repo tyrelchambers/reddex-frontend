@@ -21,32 +21,32 @@ const Static = () => {
     sentToOthers: false
   });
 
+
   useEffect(() => {
     const subdomain = window.location.host.split('.')[0];
+
     const fn = async () => {
-      const siteConfig = await getWebsiteFromProfile(subdomain);
-      setConfig(siteConfig);
+      const c = await getSiteConfig(subdomain, setConfig);
+      setConfig(c)
     }
-    fn();
+    fn()
   }, []);
 
-  useEffect(() => {
-    const getYT = async () => {
-      const ytId = config.youtubeId;
-      if ( ytId) {
-        const link = `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${ytId}&key=${process.env.REACT_APP_YOUTUBE_KEY}`
-        const vid = await Axios.get(link).then(res => res.data.items);
-        setVideoIds(vid)
-      }
-      setLoading(false)
 
+
+  useEffect(() => {
+    
+    const fn = async () => {
+      const yt = await getYT(config.youtubeId);
+      setVideoIds(yt)
     }
 
-    getYT();
-
+    fn();
+    setLoading(false)
   }, [config]);
 
   if (loading) return null;
+ 
 
   const submitFormHandler = async (e) => {
     e.preventDefault();
@@ -58,6 +58,33 @@ const Static = () => {
     await submitStoryForm(payload).then(res => toast.success("Story submitted"))
   }
 
+  
+
+  return (
+    <StaticChild 
+      config={config}
+      submitFormHandler={submitFormHandler}
+      videoIds={videoIds}  
+      subForm={subForm}
+      setSubForm={setSubForm}
+    />
+  );
+};
+
+const getSiteConfig = async (subdomain) => {
+
+  const siteConfig = await getWebsiteFromProfile(subdomain);
+  return siteConfig;
+}
+
+const getYT = async (id) => {
+  if ( id ) {
+    const link = `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${id}&key=${process.env.REACT_APP_YOUTUBE_KEY}`
+    return await Axios.get(link).then(res => res.data.items);
+  }
+}
+
+const StaticChild = ({config, submitFormHandler, videoIds, subForm, setSubForm}) => {
   const videos = videoIds ? videoIds.map((x, id) => (
     <Youtube 
       key={id}
@@ -128,7 +155,13 @@ const Static = () => {
         }
       </footer>
     </div>
-  );
-};
+  )
+}
+
 
 export default Static;
+
+export {
+  getSiteConfig,
+  StaticChild
+}
