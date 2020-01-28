@@ -24,6 +24,7 @@ const Static = () => {
     const subdomain = window.location.host.split('.')[0];
     const fn = async () => {
       const siteConfig = await getWebsiteFromProfile(subdomain);
+      console.log(siteConfig)
       setConfig(siteConfig);
     }
     fn();
