@@ -1,10 +1,8 @@
 import React, { useEffect, useState} from 'react'
-import Dashboard from '../Dashboard/Dashboard'
 import { MinimalButton } from '../../components/Buttons/Buttons'
 import { AddContactForm } from '../../components/Forms/AddContactForm';
 import { ContactsList } from '../../components/ContactsList/ContactsList';
 import { saveContact, getContacts, updateContact } from '../../api/post'
-import { Contact } from '../../components/Contact/Contact';
 import { deleteContact } from '../../api/delete';
  import './ContactsPage.scss'
 
