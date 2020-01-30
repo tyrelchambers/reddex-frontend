@@ -7,13 +7,13 @@ const Misc = ({config, setConfig}) => {
       <div className="d-f">
         <div className="mr--- mt-">
           <ToggleStatus
-            context="showCreditLink"
+            context="show_credit_link"
             option="Hidden"
             disabledText="Visible"
             setToggledHandler={() => {
-              setConfig({...config, showCreditLink: !config.showCreditLink});
+              setConfig({...config, show_credit_link: !config.show_credit_link});
             }}
-            toggled={config.showCreditLink ? true : false}
+            toggled={config.show_credit_link ? true : false}
           />
         </div>
         <div className="d-f fxd-c">

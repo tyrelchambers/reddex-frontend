@@ -32,7 +32,7 @@ const Static = () => {
 
   useEffect(() => {
     const getYT = async () => {
-      const ytId = config.youtubeId;
+      const ytId = config.youtube_id;
       if ( ytId) {
         const link = `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${ytId}&key=${process.env.REACT_APP_YOUTUBE_KEY}`
         const vid = await Axios.get(link).then(res => res.data.items);
@@ -80,7 +80,7 @@ const Static = () => {
             config={config}
           />
       </header>
-      {config.bannerURL && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
+      {config.banner_url && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.banner_url})`}}>
       </section>}
 
       {config.introduction && 
@@ -94,7 +94,7 @@ const Static = () => {
         </section>
       }
 
-      {(config.youtubeId && config.youtube_timeline) &&
+      {(config.youtube_id && config.youtube_timeline) &&
          <>
           <h2 className="mb- ta-c mt+">Latest Youtube Videos</h2>
           <div className="static-youtube-wrapper container center">  
