@@ -48,7 +48,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
 
       <div className="field-group">
         <label className="form-label">Banner Image</label>
-        {!config.bannerURL &&
+        {!config.banner_url &&
           <>
             <p className="subtle mb-">* upload image at 1500px (width) x 500px (height) for best results.</p>
             <Uploader
@@ -57,9 +57,9 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           </>
         }
 
-        {config.bannerURL &&
+        {config.banner_url &&
           <>
-            <img src={config.bannerURL} style={{
+            <img src={config.banner_url} style={{
               objectFit: "contain",
               width: '100%'
             }}/>

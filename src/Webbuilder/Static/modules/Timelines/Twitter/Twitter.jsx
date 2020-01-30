@@ -6,7 +6,7 @@ const Twitter = ({config}) => {
   return (
     <TwitterTimelineEmbed
       sourceType="profile"
-      screenName={config.twitterId}
+      screenName={config.twitter_id}
       options={{height: 400}}
     />
   );
