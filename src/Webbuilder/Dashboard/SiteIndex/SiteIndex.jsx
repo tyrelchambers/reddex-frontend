@@ -54,7 +54,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       await getWebsiteWithToken().then(res => {
         if (res) {
           setActivated(true)
-          setConfig({...config, ...res, youtube_id: res.data.youtube_id || yt})
+          setConfig({...config, ...res, youtube_id: res.youtube_id || yt})
           SiteStore.setPreview({...res})
         }
         setLoading(false);
