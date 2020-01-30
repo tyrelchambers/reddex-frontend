@@ -2,6 +2,7 @@ import { decorate, observable, action } from "mobx";
 
 class SiteStore {
   preview = {
+    uuid: "",
     subdomain: "",
     title: "",
     twitter: "",
