@@ -5,18 +5,13 @@ import { inject, observer } from 'mobx-react';
 import NavWidget from '../NavWidget/NavWidget';
 import isEmpty from '../../helpers/objIsEmpty';
 
-const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
+const Navbar = inject("UserStore")(observer(({UserStore}) => {
   const Username = () => {
-    if ( !UserStore.getUser() ) {
-      return null;
-    }
-
     return (
       <NavWidget />
     )
   }
-    
-
+  
   return(
     <React.Fragment>      
       <div className="navbar-wrapper">
@@ -50,7 +45,6 @@ const Navbar = inject("UserStore")(observer(({UserStore, redditProfile}) => {
             }
           </ul>
         </nav>
-
         {UserStore.getUser() &&
           <Username/>
         }

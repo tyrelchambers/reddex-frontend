@@ -70,7 +70,6 @@ const stores = {
 
 const InitalLoad = () => { 
   const [ loaded, setLoaded ] = useState(false);
-  const profile = JSON.parse(window.localStorage.getItem("reddit_profile"))
   const token = window.localStorage.getItem("token");
 
   useEffect(() => {
@@ -78,9 +77,8 @@ const InitalLoad = () => {
       if ( token ) {
         await stores.UserStore.setUser()
         await checkValidTokens()
-      }
-      if (profile) {
-        await stores.UserStore.setRedditProfile(profile);
+        const profile = stores.UserStore.getUser();
+        stores.UserStore.setRedditProfile(profile.reddit_profile)
       }
       setLoaded(true);
     }

@@ -18,7 +18,6 @@ export const renewRefreshToken = async () => {
   })
   .then(res => {
     saveTokensToDb(res.data.access_token, token.refresh_token, jwt);
-    getCurrentAuthenticatedUser(res.data.access_token);
   })
   .catch(console.log);
 }
@@ -32,9 +31,6 @@ export const getCurrentAuthenticatedUser = (token) => {
     }
   })
   .then(res => {
-    if(res.data) {
-      window.localStorage.setItem('reddit_profile', JSON.stringify(res.data))
-    }
     return res.data
   })
   .catch(console.log);

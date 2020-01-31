@@ -39,7 +39,6 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
       UserStore.setCurrentUser(res.data.user)
       if (res.data.user.reddit_profile) {
         UserStore.setRedditProfile(res.data.user.reddit_profile)
-        window.localStorage.setItem("reddit_profile", JSON.stringify(res.data.user.reddit_profile))
       }
       window.location.pathname = "/";
     })
