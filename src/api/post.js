@@ -163,9 +163,9 @@ export const saveRedditProfileToProfile = profile => {
     profile
   }, {
     headers: {
-      token
+      token: window.localStorage.getItem("token")
     }
   })
-  .then(res => console.log(res))
+  .then(res => res.data)
   .catch(console.log)
 }
