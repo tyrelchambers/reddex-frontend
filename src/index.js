@@ -32,6 +32,7 @@ import HelpPage from './Pages/HelpPage/HelpPage';
 import { checkValidTokens } from './helpers/checkValidTokens';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import LogRocket from 'logrocket';
+import Page404 from './Pages/Misc/404';
 
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -119,15 +120,13 @@ const InitalLoad = () => {
               <Route exact path="/request-reset" component={ResetPasswordConfirm} />
               <Route exact path="/help" component={HelpPage} />
               {/* <Route exact path="/pricing" component={PricingPage} /> */}
-              <Dashboard>
-                
-                <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
-                <PrivateRoute exact path="/dashboard/home" component={Overview}/>
-                <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-                <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
-                <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
-                <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
-              </Dashboard>
+              <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
+              <PrivateRoute exact path="/dashboard/home" component={Overview}/>
+              <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
+              <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+              <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+              <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+              <Route component={Page404}/>
             </Switch>
           </Router>
         </Provider>

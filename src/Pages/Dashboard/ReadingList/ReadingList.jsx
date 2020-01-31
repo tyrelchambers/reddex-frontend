@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import { is_url } from '../../../helpers/isURL';
 import tabs from './tabs';
 import Tabs from '../../../layouts/Tabs/Tabs';
+import Dashboard from '../Dashboard';
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ url, setURL ] = useState();
@@ -72,7 +73,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   }
 
   return (
-    <>
+    <Dashboard>
       <div className="d-f ai-c mobile-column">
         <Tabs url="/dashboard/reading_list" data={tabs}/>
 
@@ -116,7 +117,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
           </div>
         </Modal>
       }
-    </>
+    </Dashboard>
   )
 }));
 

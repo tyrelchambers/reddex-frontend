@@ -8,6 +8,7 @@ import tabs from './tabs'
 import Tabs from '../../layouts/Tabs/Tabs';
 import Security from './Security/Security';
 import { getInitialGreeting, getRepeatGreeting } from '../../api/get';
+import Dashboard from '../Dashboard/Dashboard';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ redditProfile, setRedditProfile ] = useState({});
@@ -38,7 +39,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
  
 
   return (
-    <>
+    <Dashboard>
     <div className="d-f fxd-c animated fadeIn faster account-wrapper">
       <h1>Account</h1>
         <Tabs url="/dashboard/account" data={tabs}/>
@@ -65,7 +66,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
           />
         }          
       </div>
-    </>
+    </Dashboard>
   )
 }));
 
