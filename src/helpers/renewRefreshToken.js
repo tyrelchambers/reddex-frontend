@@ -8,7 +8,7 @@ export const renewRefreshToken = async () => {
 
   if ( !token || !token.access_token ) return null;
 
-  await Axios.post('https://www.reddit.com/api/v1/access_token', 
+  return await Axios.post('https://www.reddit.com/api/v1/access_token', 
     `grant_type=refresh_token&refresh_token=${token.refresh_token}`,
   {
     headers: {
@@ -18,6 +18,7 @@ export const renewRefreshToken = async () => {
   })
   .then(res => {
     saveTokensToDb(res.data.access_token, token.refresh_token, jwt);
+    return res.data
   })
   .catch(console.log);
 }
