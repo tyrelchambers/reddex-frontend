@@ -160,12 +160,12 @@ export const createNewAltMessage = (text) => {
 
 export const saveRedditProfileToProfile = profile => {
   return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/reddit_profile`, {
-    ...profile
+    profile
   }, {
     headers: {
       token
     }
   })
-  .then(res => res.data)
+  .then(res => console.log(res))
   .catch(console.log)
 }

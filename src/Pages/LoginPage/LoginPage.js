@@ -14,13 +14,13 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
   });
 
   const [ loading, setLoading ] = useState(false);
-  const redditProfile = window.localStorage.getItem('reddit_profile')
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    const redditProfile = window.localStorage.getItem('reddit_profile')
 
     if ( !credentials.password ) {
       setLoading(false)
@@ -48,14 +48,13 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
     });
     
     if (redditProfile) {
-      await saveRedditProfileToProfile(redditProfile).then(console.log)
+      await saveRedditProfileToProfile(redditProfile)
     }
    
     history.push('/')
 
   }
-  
-  return (
+  return(
     <DisplayWrapper hasHeader={true}>
       <div className="d-f jc-c ai-c w-100pr mt+ fxd-c animated fadeIn">
         <h1>Login to Reddex</h1>
