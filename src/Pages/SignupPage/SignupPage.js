@@ -66,6 +66,9 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     })
     .then(res => {
       UserStore.setToken(res.data.token);
+      if (res.data.user.reddit_profile) {
+        UserStore.setRedditProfile(res.data.user.reddit_profile)
+      }
       return res.data.user;
     })
     .catch(err => toast.error(err.response.data));

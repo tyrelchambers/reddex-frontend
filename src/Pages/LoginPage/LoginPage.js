@@ -13,7 +13,6 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
     password: ""
   });
 
-  const [ errors, setErrors ] = useState([]);  
   const [ loading, setLoading ] = useState(false);
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
@@ -21,16 +20,15 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const validation = fieldValidation(credentials);
-  
-    if ( !validation ) {
-      return setErrors([...validation]);
-    };
 
-    if ( errors.length > 0 ) {
-      return;
+    if ( !credentials.password ) {
+      setLoading(false)
+      return toast.error("No password provided")
     }
-  
+    if ( !credentials.email ) {
+      setLoading(false)
+      return toast.error("No email provided");
+    }
     const payload = credentials;
     
     await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
@@ -61,7 +59,6 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
         <LoginForm 
           credentialHandler={credentialHandler}
           submitHandler={submitHandler}
-          errors={errors}
           loading={loading}
           setLoading={setLoading}
         />
