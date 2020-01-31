@@ -96,6 +96,8 @@ const InitalLoad = () => {
           <Router>
             <Switch>
               <Route exact path="/" component={Static}/>
+              <Route component={Page404}/>
+
             </Switch>
           </Router>
         </Provider>

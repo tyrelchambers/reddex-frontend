@@ -113,6 +113,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     }
 
     SiteStore.setPreview(payload)
+    SiteStore.setChanges(false)
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
     setSaving(false)
   }
