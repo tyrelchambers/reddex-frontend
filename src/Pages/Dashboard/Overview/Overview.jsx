@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import YouTubeStats from '../../../components/YouTubeStats/YouTubeStats';
-import HR from '../../../components/HR/HR';
 import { inject, observer } from 'mobx-react';
 import './Overview.scss';
+import Dashboard from '../Dashboard';
 
 const Overview = inject("UserStore")(observer(({UserStore}) => {
   const [profile, setProfile] = useState();
@@ -15,7 +15,7 @@ const Overview = inject("UserStore")(observer(({UserStore}) => {
   if ( !profile ) return null;
 
   return (
-    <>
+    <Dashboard>
       <div className="quick-actions">
         <h3 className="mb-">Quick Actions</h3>
         
@@ -29,7 +29,7 @@ const Overview = inject("UserStore")(observer(({UserStore}) => {
         user={UserStore.getUser()}
       />
 
-    </>
+    </Dashboard>
   )
 }));
 

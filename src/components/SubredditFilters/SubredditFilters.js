@@ -72,7 +72,7 @@ const keywordSearch = (data, posts) => {
     let results;
     for ( let i = 0; i < keywords.length; i++ ) {
       let postsTitle = posts.filter(x => x.title.toLowerCase().includes(keywords[i].toLowerCase()));
-      let postsBody = posts.filter(x => x.selftext.toLowerCase().includes(keywords[i].toLowerCase()));
+      let postsBody = posts.filter(x => x.self_text.toLowerCase().includes(keywords[i].toLowerCase()));
       let set = new Set([...postsTitle, ...postsBody]);
       results = [...set];
     }

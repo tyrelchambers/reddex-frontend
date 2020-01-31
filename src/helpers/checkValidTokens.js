@@ -6,8 +6,12 @@ const checkValidTokens = async () => {
   const today = Date.now();
   
   if ( !expDate || dateFns.isAfter(today, expDate) ) {
-    await renewRefreshToken();
-    window.localStorage.setItem('token_exp_date', dateFns.addHours(today, 1));
+    await renewRefreshToken().then(res => {
+      console.log(res)
+      if (res) {
+        window.localStorage.setItem('token_exp_date', dateFns.addHours(today, 1));
+      }
+    })
   }
 
   return true

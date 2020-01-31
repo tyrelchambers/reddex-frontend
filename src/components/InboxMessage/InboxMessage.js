@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite';
 import { saveContact, getContacts } from '../../api/post';
 import { toast } from 'react-toastify';
 
-const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
+const InboxMessage = inject("InboxStore", "UserStore")(observer(({InboxStore, UserStore}) => {
   const [ storyLink, setStoryLink ] = useState("");
   const [ data, setData ] = useState();
   const [ contacts, setContacts ] = useState([]);
@@ -81,7 +81,7 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
       <main>
         <div className="d-f fxd-c">
           <h2>{data.subject}</h2>
-          <p className="mb- message-subtitle">From: {destIsMe(data) ? data.author : data.dest}</p>
+          <p className="mb- message-subtitle">From: {destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</p>
           <div className="message-tags mb-">
             <MessageTags />
             <IsInContacts />
@@ -91,6 +91,7 @@ const InboxMessage = inject("InboxStore")(observer(({InboxStore}) => {
         </div>
         <InboxChat 
           data={msgArr}
+          UserStore={UserStore}
         />
       </main>
     </div>
@@ -127,9 +128,8 @@ const getStory = (data, setStoryLink) => {
   .catch(console.log);
 }
 
-export const destIsMe = (data) => {
-  const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
-  return (data.dest === currentUser.replace(/\s/g, ""));
+export const destIsMe = (data, currentUser) => {
+  return (data.dest === currentUser.name.replace(/\s/g, ""));
 }
 
 export default InboxMessage

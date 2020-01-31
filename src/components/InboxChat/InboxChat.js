@@ -6,10 +6,10 @@ import '../Buttons/buttons.scss';
 import SendChatForm from '../Forms/SendChatForm';
 
 
-const InboxChat = ({data}) => {
+const InboxChat = ({data, UserStore}) => {
   const [ chatLogs, setChatLogs] = useState([]);
 
-  const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
+  const currentUser = UserStore.redditProfile.subreddit.title;
 
   useEffect(() => {
     setChatLogs([...data]);

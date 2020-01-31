@@ -30,7 +30,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
 
       <div className="field-group">
         <label htmlFor="title" className="form-label">Site Introduction</label>
-        <textarea type="text" className="textarea" name="introduction" value={config.introduction || ""} placeholder="A blurb about you or your site" onChange={e => {
+        <textarea type="text" className="textarea" name="introduction" value={config.introduction} placeholder="A blurb about you or your site" onChange={e => {
           const charCount = document.querySelector("#introCharCount");
           charCount.innerHTML = `${e.target.value.length}/1000`;
 
@@ -48,7 +48,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
 
       <div className="field-group">
         <label className="form-label">Banner Image</label>
-        {!config.bannerURL &&
+        {!config.banner_url &&
           <>
             <p className="subtle mb-">* upload image at 1500px (width) x 500px (height) for best results.</p>
             <Uploader
@@ -57,12 +57,12 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           </>
         }
 
-        {config.bannerURL &&
+        {config.banner_url &&
           <>
-            <img src={config.bannerURL} style={{
+            <img src={config.banner_url} style={{
               objectFit: "contain",
               width: '100%'
-            }}/>
+            }} alt="Website banner"/>
             <div className="d-f jc-c mt-">
               <MinimalButton
                 onClick={deleteImageHandler}

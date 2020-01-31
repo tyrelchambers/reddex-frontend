@@ -6,7 +6,7 @@ class PostStore {
 
   setSelectedPosts(post) {
     const dupe = this.selectedPosts.find((el) => {
-      return el.postId === post.postId ? this.selectedPosts.remove(el) : false
+      return el.post_id === post.post_id ? this.selectedPosts.remove(el) : false
     });
 
     if ( !dupe ) {

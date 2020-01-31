@@ -11,7 +11,7 @@ const YouTubeStats = ({user}) => {
 
   }, [])
 
-  const getYtChannel = (channel = user.youtubeId) => {
+  const getYtChannel = (channel = user.youtube_id) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
     return Axios.get(ytLink).then(res => {
       setStats({...res.data.items[0].statistics})
@@ -23,7 +23,7 @@ const YouTubeStats = ({user}) => {
     const token = window.localStorage.getItem('token');
 
     return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/youtube`, {
-      youtubeId: id
+      youtube_id: id
     }, {
       headers: {
         token

@@ -6,8 +6,9 @@ const HelpPage = () => {
   return (
     <DisplayWrapper hasHeader={true}>
       <div className="container d-f fxd-c center mt+ mb+">
-        <h1 className="title ta-c">Help</h1>
+        <h1 className="title ta-c mb-">Help</h1>
         <p className="ta-c">Need some help using Reddex? Check out the topics below.</p>
+        <p className="ta-c">If you need additional help or if you found a bug, email me at <a href="mailto: reddexapp@gmail.com">reddexapp@gmail.com</a></p>
         <div className="d-f fxd-c mt+">
           <div className="d-f help-item ai-c">
             <i className="fas fa-life-ring mr-"></i>

@@ -5,9 +5,9 @@ import './UserInbox.scss';
 import isEmpty from '../../helpers/objIsEmpty';
 import { MainButton } from '../Buttons/Buttons';
 
-const UserInboxDumb = ({data, key, onClick, setSortVal, getMoreMessages, loadingBtn}) => {
+const UserInboxDumb = ({data, key, onClick, getMoreMessages, loadingBtn, UserStore}) => {
 
-  const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
+  const currentUser = UserStore.redditProfile.name;
   const getLastReply = (x) => {
     let date;
     if ( isEmpty(x.data.replies) ) {
