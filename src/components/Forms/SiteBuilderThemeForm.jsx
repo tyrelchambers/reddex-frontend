@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ToggleStatus from '../ToggleStatus/ToggleStatus';
 
 const SiteBuilderThemeForm = ({config, configHandler}) => {

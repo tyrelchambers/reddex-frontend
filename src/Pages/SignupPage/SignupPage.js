@@ -53,6 +53,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
 
   const createAccount = async () => {
     const { email, password, access_token, refresh_token } = credentials;
+    const profile = await getCurrentAuthenticatedUser(access_token)
 
     if (!email || !password) return toast.error("No email or password");
     
@@ -60,15 +61,18 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       email,
       password,
       access_token,
-      refresh_token
+      refresh_token,
+      reddit_profile: profile
     })
     .then(res => {
       UserStore.setToken(res.data.token);
+      if (res.data.user.reddit_profile) {
+        UserStore.setRedditProfile(res.data.user.reddit_profile)
+      }
       return res.data.user;
     })
     .catch(err => toast.error(err.response.data));
 
-    const profile = await getCurrentAuthenticatedUser(access_token)
     UserStore.setRedditProfile(profile)
     UserStore.setUser(user);   
   }

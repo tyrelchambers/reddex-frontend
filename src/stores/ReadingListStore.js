@@ -24,7 +24,7 @@ class ReadingListStore {
   }
 
   transferStoryFromList(data, fromArray, toArray) {
-    const item = this[fromArray].find((x) => x.postId === data.postId)
+    const item = this[fromArray].find((x) => x.post_id === data.post_id)
     this[fromArray].remove(item);
     this[toArray].push(item)
   }
@@ -39,7 +39,7 @@ class ReadingListStore {
 
   removeStoryFromList(list, item) {
     this[list].filter((x, id) => {
-      if (x.postId === item) {
+      if (x.post_id === item) {
         this[list].splice(id, 1);
       }
     });

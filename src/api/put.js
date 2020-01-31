@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 const BACKEND = process.env.REACT_APP_BACKEND;
 const token = window.localStorage.getItem("token");
@@ -52,6 +53,10 @@ export const editUserEmail = async (data) => {
     }
   })
   .then(res => res.data)
+  .catch(err => {
+    toast.error(err.response.data)
+    return err.response;
+  })
 }
 
 export const editUserPassword = async (data) => {
@@ -64,4 +69,47 @@ export const editUserPassword = async (data) => {
     }
   })
   .then(res => res.data)
+  .catch(err => {
+    toast.error(err.response.data)
+    return err.response;
+  })
 }
+
+export const updateDefaultMessage = (data) => {
+  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/default_message`, {
+    uuid: data.uuid,
+    text: data.text
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => {
+    toast.success("Message saved")
+    return res.data
+  })
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
+}
+
+export const updateAltMessage = (data) => {
+  return Axios.put(`${process.env.REACT_APP_BACKEND}/api/alt_message`, {
+    uuid: data.uuid,
+    text: data.text
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => {
+    toast.success("Message saved")
+    return res.data
+  })
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
+}
+

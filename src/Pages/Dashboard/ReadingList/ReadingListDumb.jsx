@@ -41,7 +41,7 @@ const ReadingListDumb = ({list, callback}) => {
         </div>
 
         <div className="message-tags mt-">
-          <a className="message-story-tag" target="_blank" href={x.url}>Link to story</a>
+          <a className="message-story-tag" target="_blank" rel="noopener noreferrer" href={x.url}>Link to story</a>
           <div className="chat-actions d-f">
             <div className="chat-action-btn-wrapper d-f ai-c">
               <button className="chat-action primary ai-c" onClick={() => {
@@ -52,7 +52,7 @@ const ReadingListDumb = ({list, callback}) => {
                 Set as read
               </button>
               <div className="reading-time">
-                <span>{avgReadingTime(x.selftext)}</span>
+                <span>{avgReadingTime(x.self_text)}</span>
                 min read
               </div>
             </div>
