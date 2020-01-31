@@ -10,7 +10,7 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
       <NavWidget />
     )
   }
-  
+
   return(
     <React.Fragment>      
       <div className="navbar-wrapper">

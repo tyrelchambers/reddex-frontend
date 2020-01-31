@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 class UserStore {
   currentUser = {}
-  redditProfile = {}
+  redditProfile = {} || window.localStorage.getItem('reddit_profile')
 
   setUser = async () => {
     const tkn = window.localStorage.getItem("token");
