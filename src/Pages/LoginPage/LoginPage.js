@@ -48,7 +48,9 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
     });
     
     if (redditProfile) {
-      await saveRedditProfileToProfile(redditProfile)
+      await saveRedditProfileToProfile(redditProfile).then(res => {
+        window.localStorage.removeItem('reddit_profile')
+      })
     }
    
     history.push('/')
