@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { observer } from 'mobx-react-lite';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
+import { saveRedditProfileToProfile } from '../../api/post';
 const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
   
   const [ credentials, setCredentials ] = useState({
@@ -13,6 +14,7 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
   });
 
   const [ loading, setLoading ] = useState(false);
+  const redditProfile = window.localStorage.getItem('reddit_profile')
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }
@@ -38,16 +40,19 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
       UserStore.setCurrentUser(res.data.user)
       if (res.data.user.reddit_profile) {
         UserStore.setRedditProfile(res.data.user.reddit_profile)
-        history.push('/')
       }
     })
     .catch(err => {
       toast.error(err.response)
       setLoading(false)
     });
-  
+    
+    if (redditProfile) {
+      await saveRedditProfileToProfile(redditProfile).then(console.log)
+    }
    
-  
+    history.push('/')
+
   }
   
   return (

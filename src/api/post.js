@@ -157,3 +157,15 @@ export const createNewAltMessage = (text) => {
     console.log(err);
   });
 }
+
+export const saveRedditProfileToProfile = profile => {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/reddit_profile`, {
+    ...profile
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => res.data)
+  .catch(console.log)
+}
