@@ -1,13 +1,12 @@
 import React, {useState } from 'react'
 import LoginForm from '../../components/Forms/LoginForm';
-import {fieldValidation} from '../../helpers/FieldValidation';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 import { observer } from 'mobx-react-lite';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
-
-const LoginPage = inject("UserStore")(observer(({UserStore}) => {
+const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
+  
   const [ credentials, setCredentials ] = useState({
     email: "",
     password: ""
@@ -39,8 +38,8 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
       UserStore.setCurrentUser(res.data.user)
       if (res.data.user.reddit_profile) {
         UserStore.setRedditProfile(res.data.user.reddit_profile)
+        history.push('/')
       }
-      window.location.pathname = "/";
     })
     .catch(err => {
       toast.error(err.response)

@@ -4,7 +4,7 @@ import SubredditPost from '../SubredditPost/SubredditPost';
 import { inject, observer } from 'mobx-react';
 import { getStoriesUsedFromUser } from '../../api/get';
 
-const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPosts, UserStore, PostStore}) => {
+const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ endIndex, setEndIndex ] = useState(40);
 
@@ -19,7 +19,7 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
       
       fn();
     }
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     document.addEventListener('scroll', infiniteScroll);

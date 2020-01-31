@@ -11,30 +11,23 @@ import { getInitialGreeting, getRepeatGreeting } from '../../api/get';
 import Dashboard from '../Dashboard/Dashboard';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
-  const [ redditProfile, setRedditProfile ] = useState({});
-  const [ initialGreeting, setInitialGreeting ] = useState({
-    text: '',
-  });
-  const [ repeatGreeting, setRepeatGreeting ] = useState({
-    text: ''
-  });
+  const [ initialGreeting, setInitialGreeting ] = useState("");
+  const [ repeatGreeting, setRepeatGreeting ] = useState("");
 
   const params = new URLSearchParams(window.location.search);
 
   useEffect(() => {
-    const profile = JSON.parse(window.localStorage.getItem("reddit_profile"));
     const im = async () => {
       const data = await getInitialGreeting();
-      setInitialGreeting({...initialGreeting, ...data[0]})
+      setInitialGreeting(data[0].initial_message)
     }
     const am = async () => {
       const data = await getRepeatGreeting();
-      setRepeatGreeting({...repeatGreeting, ...data[0]})
+      setRepeatGreeting(data[0].repeat_message)
     }
 
     am()
     im();
-    setRedditProfile({...profile});
   }, []);
  
 
@@ -52,7 +45,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
 
         {params.get("t") === "default_message" &&
           <Home
-            redditProfile={redditProfile}
+            UserStore={UserStore}
             initialGreeting={initialGreeting}
             setInitialGreeting={setInitialGreeting}
           />
@@ -60,7 +53,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
 
         {params.get("t") === "alt_message" &&
           <AltMessage
-            redditProfile={redditProfile}
+            UserStore={UserStore}
             setRepeatGreeting={setRepeatGreeting}
             repeatGreeting={repeatGreeting}
           />

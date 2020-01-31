@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 const NavWidget = inject("UserStore")(observer(({UserStore}) => {
   const redditProfile = UserStore.getRedditProfile() ? UserStore.getRedditProfile() : null;
 
+
   if ( !redditProfile ) return null;
 
   const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");
