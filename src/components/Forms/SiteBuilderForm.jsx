@@ -62,7 +62,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
             <img src={config.banner_url} style={{
               objectFit: "contain",
               width: '100%'
-            }}/>
+            }} alt="Website banner"/>
             <div className="d-f jc-c mt-">
               <MinimalButton
                 onClick={deleteImageHandler}

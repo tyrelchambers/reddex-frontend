@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import YouTubeStats from '../../../components/YouTubeStats/YouTubeStats';
-import HR from '../../../components/HR/HR';
 import { inject, observer } from 'mobx-react';
 import './Overview.scss';
 import Dashboard from '../Dashboard';

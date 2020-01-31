@@ -1,7 +1,5 @@
 import { observable, action,decorate, toJS } from 'mobx';
 import Axios from 'axios';
-import { toast } from 'react-toastify';
-
 
 class UserStore {
   currentUser = {}

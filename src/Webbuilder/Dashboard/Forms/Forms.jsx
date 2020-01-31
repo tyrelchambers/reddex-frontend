@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus';
 
 const Forms = ({config, setConfig}) => {
