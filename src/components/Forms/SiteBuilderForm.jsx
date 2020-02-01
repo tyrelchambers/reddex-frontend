@@ -85,7 +85,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         <label htmlFor="twitter" className="form-label">Twitter</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">@</span>
-          <input type="text" className="form-input fx-1" name="twitter" value={config.twitter} placeholder="twitter handle" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input fx-1" name="twitter" value={config.twitter} placeholder="Exact twitter username" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
@@ -93,12 +93,12 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         <label htmlFor="instagram" className="form-label">Instagram</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">@</span>
-          <input type="text" className="form-input fx-1" name="instagram"  value={config.instagram} placeholder="instagram handle" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input fx-1" name="instagram"  value={config.instagram} placeholder="Instagram username" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
       <div className="field-group">
-        <label htmlFor="facebook" className="form-label">Facebook URL</label>
+        <label htmlFor="facebook" className="form-label">Facebook Link</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">
             <i className="fab fa-facebook-f"></i>
@@ -108,7 +108,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
       </div>
 
       <div className="field-group">
-        <label htmlFor="patreon" className="form-label">Patreon URL</label>
+        <label htmlFor="patreon" className="form-label">Patreon Link</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">
             <i className="fab fa-patreon"></i>
@@ -118,7 +118,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
       </div>
 
       <div className="field-group">
-        <label htmlFor="youtube" className="form-label">Youtube Channel ID</label>
+        <label htmlFor="youtube" className="form-label">Youtube Channel Link</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">
             <i className="fab fa-youtube"></i>
@@ -128,7 +128,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
       </div>
 
       <div className="field-group">
-        <label htmlFor="podcast" className="form-label">Podcast</label>
+        <label htmlFor="podcast" className="form-label">Podcast Link</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">
             <i className="fas fa-podcast"></i>
