@@ -29,6 +29,17 @@
   }
 }
 
+.help-wrapper {
+  h1,
+  p {
+    color: var(--secondary);
+  }
+
+  a {
+    color: var(--accent-primary);
+  }
+}
+
 @media screen and (max-width: 425px) {
   .help-item {
     i {
