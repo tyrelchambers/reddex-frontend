@@ -44,5 +44,17 @@ db.version(6).stores({
   })
 });
 
+const upgradeItems = async () => {
+  db.posts.toCollection().modify(item => {
+    item.self_text = item.selftext;
+    item.post_id = item.postId;
+    delete item.postId;
+    delete item.selftext;
+  })
+}
+
+if (db.verno === 5) {
+  upgradeItems()
+}
 
 export default db;
