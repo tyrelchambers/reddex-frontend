@@ -9,6 +9,7 @@ import Axios from 'axios';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
+import {checkValidEmail} from '../../helpers/checkValidEmail'
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -56,6 +57,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     const profile = await getCurrentAuthenticatedUser(access_token)
 
     if (!email || !password) return toast.error("No email or password");
+    if (!checkValidEmail(email)) return toast.error("Improper email format")
     
     const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/register`, {
       email,
