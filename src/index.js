@@ -84,7 +84,7 @@ const InitalLoad = () => {
         const user = stores.UserStore.getUser();
         stores.UserStore.setRedditProfile(user.reddit_profile)
 
-        if (redditProfile || !user.reddit_profile) {
+        if ((redditProfile && !user.reddit_profile) || (!redditProfile && !user.reddit_profile)) {
           const profile = await getCurrentAuthenticatedUser(user.access_token)
           if (profile) {
             await saveRedditProfileToProfile(profile).then(res => {

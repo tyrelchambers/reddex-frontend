@@ -77,6 +77,7 @@ const Flair = ({data}) => {
 }
 
 const avgReadingTime = (text) => {
+
   const wordsPerMinute = 200; // Average case.
   let result;
   
