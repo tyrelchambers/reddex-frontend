@@ -16,31 +16,34 @@
   justify-content: center;
   height: 100%;
   min-height: 100vh;
-  background-color: white;
-  border-right: 1px solid $grey9;
+  background-color: var(--highlight);
   position: relative;
   bottom: 0;
-  transition: all 0.2s ease;
+   
+  border-right: 2px solid var(--tiertiary);
+
 }
 
 .collapsed {
   min-width: 0;
-  margin-left: -195px;
+  margin-left: -200px;
 }
 
 .dash-nav-item {
-  color: $grey3;
+  color: var(--secondary);
   position: relative;
   display: flex;
   align-items: center;
   margin: 0.2em 0;
-  transition: all 0.2s ease;
+   
   text-decoration: none;
   margin: 0.5em;  
   padding: 0.3em;
   border-radius: 20px;
   p {
     white-space: nowrap;
+    color: var(--secondary);
+
   }
 
   i {

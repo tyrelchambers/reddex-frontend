@@ -60,7 +60,7 @@
   height: 300px;
   border-radius: 5px;
   padding: 0.5em;
-  color: $grey4;
+  color: var(--secondary);
   resize: vertical;
   line-height: 1.8em;
   font-size: 0.8rem;
@@ -72,11 +72,16 @@
 }
 
 .search-large {
-  border: 2px solid $grey9;
+  border: 2px solid var(--tiertiary);
   border-radius: 3px;
-  background-color: white;
+  background-color: var(--tiertiary);
   font-size: 0.8rem;
   padding:1em;
+  color: var(--primary);
+
+  &::placeholder {
+    color: var(--secondary);
+  }
 }
 
 .colour-picker {

@@ -96,19 +96,9 @@
 .navbar-wrapper {
   display: flex;
   align-items: center;
-  transition: all 0.2s ease;
+   
 }
 
-
-.dashboard-topbar {
-  height: 60px;
-  background-color: white;
-  border-bottom: 1px solid $grey9;
-  width: 100%;
-  padding: 0.5em 1em;
-  align-items: center;
-  display: flex;
-}
 
 .profile-image.small {
   border-radius: 3px;
@@ -133,7 +123,7 @@
 .dash-nav-toggle {
   width: 30px;
   height: 40px;
-  transition: all 0.2s ease;
+   
   display: flex;
   justify-content: center;
   align-items: center;

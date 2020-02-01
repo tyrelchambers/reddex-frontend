@@ -17,7 +17,7 @@
 }
 
 .theme-light {
-  --primary:  white;
+  --primary:  #F5F7FA;
   --secondary: #323F4B;
   --tiertiary:#E4E7EB;
   --highlight: white;
@@ -38,7 +38,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   * {
     box-sizing: border-box;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease;
+
   }
 }
 
@@ -93,7 +94,7 @@ ul {
   outline: none;
   border: none;
   background-color: $grey8;
-  transition: all 0.2s ease;
+   
   &:focus {
     background-color: white;
   }
