@@ -27,25 +27,21 @@
   a {
     width: 100%;
     display: flex;
-    color: $grey2;
+    color: var(--secondary);
     text-decoration: none;
     font-weight: 400;
     padding: 0.5em;
   }
   
   i {
-    color: $orange;
+    color: var(--accent-warning);
   }
   
   li {
     &:hover {
-      background-color: $grey10;
+      background-color: var(--highlight);
     }
   }
-}
-
-.nav-link.bdts-s {
-  border-color: $grey8;
 }
 
 .extended {

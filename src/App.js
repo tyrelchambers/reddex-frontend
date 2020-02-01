@@ -39,7 +39,6 @@ const App = observer(() => {
   return (
     <DisplayWrapper
       hasHeader={true}
-      className="theme-light"
     > 
       <div className="d-f fxd-c ai-c mt+ mobile-column-1024">
         <Preferences />

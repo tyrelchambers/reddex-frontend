@@ -73,7 +73,14 @@ const InitalLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
   const token = window.localStorage.getItem("token");
   const redditProfile = window.localStorage.getItem('reddit_profile')
-  const darkMode = window.localStorage.getItem('dark_mode')
+  
+  useEffect(() => {
+    if (localStorage.getItem('theme') === "dark") {
+      document.querySelector("body").classList.add('theme-dark')
+    } else {
+      document.querySelector("body").classList.add('theme-light')
+    }
+  }, [localStorage.getItem('theme')])
 
   useEffect(() => {
     const _ = async () => {

@@ -19,7 +19,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 .btn {
   border: none;
   color: white;
-  border-radius: 5px;
+  border-radius:5px;
   font-weight: bold;
   text-transform: uppercase;
   white-space: nowrap;
@@ -34,7 +34,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 }
 
 .btn-secondary {
-  background-color: white;
+  background-color: var(--highlight);
   border: 2px solid hsla(201, 87%, 54%,1);
   padding: 1em;
   font-size: 0.7rem;
@@ -48,16 +48,17 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 }
 
 .btn-tiertiary {
-  color: hsla(211, 12%, 48%,1);
+  color: var(--secondary);
   font-size: 0.7rem;
   font-weight: 700;
   box-shadow: none;
   padding: 1em;
   margin-left: 0.5em;
-  border:1.5px solid hsla(211, 12%, 88%,1);
   transition: all 0.2s ease;
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--highlight);
+  border-radius:5px;
+  border:1.5px solid transparent;
+
   &:hover {
     color: $blue8;
     border:1.5px solid $blue8;
@@ -73,7 +74,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 .btn-tiertiary.danger {
   border: 2px solid $accent;
   color: $accent;
-
+  background-color: var(--highlight);
   &:hover {
     background-color: $accent;
     color: white;
@@ -88,7 +89,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   width: 40px;
   height: 40px;
   color: $grey8;
-  border-radius: 50%;
+  border-radius:50%;
   font-size: 1rem;
   box-shadow: none;
   background-color: white;
@@ -123,7 +124,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   border: none;
   padding: 0.5em;
   border: 1px solid $grey9;
-  border-radius: 5px;
+  border-radius:5px;
   width: 70px;
   background-color: $grey10;
 }
@@ -153,7 +154,7 @@ background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%
   border: none;
   padding: 1em;
   margin:0 1em;
-  border-radius: 5px;
+  border-radius:5px;
   text-transform: uppercase;
   font-weight: bold;
   color: $grey4; 
@@ -175,7 +176,7 @@ background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%
 .chat-action.danger {
   background-color: transparent;
   color: $accent;
-  border-radius: 0px;
+  border-radius:5px;
   border-bottom: 2px solid transparent;
   &:hover {
     border-bottom: 2px solid $accent;
@@ -199,7 +200,7 @@ background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%
   display: flex;
   height: 9px;
   width: 9px;
-  border-radius: 50%;
+  border-radius:50%;
   background: white;
   margin: 0 0.2em;
   

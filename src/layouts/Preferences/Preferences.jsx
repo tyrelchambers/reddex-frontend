@@ -5,20 +5,33 @@ const fOff = require('../../assets/flashlight-pff.svg');
 const fOn = require('../../assets/flashlight-on.svg')
 
 const Preferences = () => {
-  const [darkMode, setDarkMode] = useState(window.localStorage.getItem('dark_mode'))
+  const [theme, setTheme] = useState("" || localStorage.getItem('theme'));
   
-  const switcher = darkMode ? (
+  const setThemeHandler = (theme) => {
+    setTheme(theme)
+    window.localStorage.setItem('theme', theme)
+    document.querySelector("body").className = `theme-${theme}`
+
+  }
+
+  const toggleTheme = () => {
+    if (theme === "dark") {
+      setThemeHandler('light')
+    }  else {
+      setThemeHandler('dark')
+    }
+  }
+
+  const switcher = theme === 'dark' ? (
     <button className="pref dark-mode-switch d-f ai-c" onClick={() => {
-      setDarkMode(false)
-      window.localStorage.setItem('dark_mode', false)
+      toggleTheme('light')
     }}>
-      <img src={fOn} alt="Dark mode off" />
+      <img src={fOn} alt="Dark mode on" />
       <p className="dark-mode-on">LIGHT MODE</p>
     </button>
   ) : (
     <button className="pref dark-mode-switch d-f ai-c" onClick={() => {
-      setDarkMode(true)
-      window.localStorage.setItem('dark_mode', true)
+      toggleTheme('dark')
 
     }}>
       <img src={fOff} alt="Dark mode off" />
