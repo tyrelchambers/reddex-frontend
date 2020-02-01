@@ -19,7 +19,7 @@ class UserStore {
       if (err.response) {
         if(err.response.data.err === "Auth token is old. Please sign in again.") {
           window.localStorage.clear();
-          window.location.reload() 
+          window.location.pathname = "/login" 
         }
       }
     })
