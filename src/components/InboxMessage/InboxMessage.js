@@ -79,7 +79,7 @@ const InboxMessage = inject("InboxStore", "UserStore")(observer(({InboxStore, Us
   return (
     <div className="inbox-message-wrapper fx-1 ml+">
       <main>
-        <div className="d-f fxd-c">
+        <div className="d-f fxd-c inbox-message-header">
           <h2>{data.subject}</h2>
           <p className="mb- message-subtitle">From: {destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</p>
           <div className="message-tags mb-">

@@ -9,7 +9,7 @@
   border-radius: 8px;
   color: white;
   overflow: hidden;
-  transition: all 0.2s ease;
+   
   p {
     color: white;
   }
@@ -26,6 +26,17 @@
 
   &:hover {
     box-shadow: 0px 5px 20px rgba(black, 0.4);
+  }
+}
+
+.help-wrapper {
+  h1,
+  p {
+    color: var(--secondary);
+  }
+
+  a {
+    color: var(--accent-primary);
   }
 }
 

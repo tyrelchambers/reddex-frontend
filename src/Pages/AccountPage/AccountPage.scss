@@ -4,6 +4,10 @@
   height: 100%;
   padding: 1em;
   margin-bottom: 3em;
+
+  > h1 {
+    color: var(--secondary);
+  }
 }
 .default-message {
   width: 100%;
@@ -11,13 +15,12 @@
 }
 .default-message-input {
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Muli', sans-serif;
   width: 100%;
   height: 300px;
-  border: 1px solid $grey8;
   border-radius: 5px;
   padding: 0.5em;
-  color: $grey4;
+  color: var(--secondary);
   resize: vertical;
 
   &::placeholder {
@@ -27,10 +30,10 @@
 
 .default-message-holder {
   white-space: pre-wrap;
-  background-color: $grey10;
+  background-color: var(--tiertiary);
   padding: 0.5em;
   border-radius: 0.5em;
-  border: 1px solid $grey9;
+  color: var(--secondary);
 }
 
 

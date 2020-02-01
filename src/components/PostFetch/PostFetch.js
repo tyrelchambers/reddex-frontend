@@ -61,7 +61,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       </div>
       
       {posts.length > 0 &&
-        <p className="mt- w-100pr">Showing posts from <span className="highlight-text-dark"> {window.localStorage.getItem('subreddit')}</span></p>
+        <p className="mt- w-100pr current-subreddit">Showing posts from <span className="highlight-text-dark"> {window.localStorage.getItem('subreddit')}</span></p>
       }
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&

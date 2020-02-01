@@ -4,7 +4,6 @@ import './ContactsList.scss'
 
 export const ContactsList = ({contacts, sortVal, editHandler, deleteHandler}) => {
 
-
   const list = contacts.filter(x => x.name.toLowerCase().includes(sortVal.toLowerCase())).map((x, id) => (
     <li key={x.id} className="contact-list-item visible">
       <div className="contact-item-header">

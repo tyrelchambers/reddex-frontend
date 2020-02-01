@@ -17,7 +17,7 @@ const Forms = ({config, setConfig}) => {
       </div>
       <div className="d-f fxd-c">
         <h2>Submission Form</h2>
-        <p className="mb-">Activate this submission form to allow visitors to email you their own stories</p>
+        <p className="mb- subtle">Activate this submission form to allow visitors to email you their own stories</p>
       </div>
       
     </div>

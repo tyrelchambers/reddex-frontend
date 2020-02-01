@@ -84,7 +84,7 @@ export const ContactsPage = () => {
       <input type="text" className="search-large w-100pr  mb+" placeholder="Search contact list..." onChange={e => setSortVal(e.target.value)}/>  
 
       <div className="d-f">
-        <h2 className="mr+">Contacts</h2>
+        <h2 className="mr+ contact-title">Contacts</h2>
         {!openForm &&
           <MinimalButton
             onClick={openFormToggle}

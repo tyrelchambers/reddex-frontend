@@ -2,6 +2,10 @@
   img {
     width: 150px;
   }
+
+  h3 {
+    color: var(--secondary);
+  }
 }
 
 .header {
@@ -10,7 +14,7 @@
   top: 0;
   right: 0;
   z-index: 3;
-  background-color: white;
+  background-color: var(--highlight);
   align-items: center;
   padding: 0 1em;
   height: 75px;

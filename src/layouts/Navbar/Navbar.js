@@ -5,12 +5,6 @@ import { inject, observer } from 'mobx-react';
 import NavWidget from '../NavWidget/NavWidget';
 
 const Navbar = inject("UserStore")(observer(({UserStore}) => {
-  const Username = () => {
-    return (
-      <NavWidget />
-    )
-  }
-
   return(
     <React.Fragment>      
       <div className="navbar-wrapper">
@@ -45,7 +39,7 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
           </ul>
         </nav>
         {UserStore.getUser() &&
-          <Username/>
+          <NavWidget />
         }
       </div>
       
