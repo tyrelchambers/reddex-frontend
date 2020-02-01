@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { saveRedditProfileToProfile } from '../../api/post';
+import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
 const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
   
   const [ credentials, setCredentials ] = useState({
@@ -20,7 +21,6 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const redditProfile = window.localStorage.getItem('reddit_profile')
 
     if ( !credentials.password ) {
       setLoading(false)
@@ -32,7 +32,7 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
     }
     const payload = credentials;
     
-    const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
+    await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
       ...payload
     })
     .then(res => {
@@ -47,14 +47,8 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
       toast.error(err.response)
       setLoading(false)
     });
-    
-    if (redditProfile && !user.reddit_profile) {
-      await saveRedditProfileToProfile(redditProfile).then(res => {
-        UserStore.setRedditProfile(res.reddit_profile)
-      })
-    }
    
-    history.push('/')
+    window.location.pathname = '/'
 
   }
   return(

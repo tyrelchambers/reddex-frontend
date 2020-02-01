@@ -33,6 +33,8 @@ import { checkValidTokens } from './helpers/checkValidTokens';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
+import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
+import { saveRedditProfileToProfile } from './api/post';
 
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -71,14 +73,27 @@ const stores = {
 const InitalLoad = () => { 
   const [ loaded, setLoaded ] = useState(false);
   const token = window.localStorage.getItem("token");
+  const redditProfile = window.localStorage.getItem('reddit_profile')
 
   useEffect(() => {
     const _ = async () => {
+      
       if ( token ) {
         await stores.UserStore.setUser()
         await checkValidTokens()
-        const profile = stores.UserStore.getUser();
-        stores.UserStore.setRedditProfile(profile.reddit_profile)
+        const user = stores.UserStore.getUser();
+        stores.UserStore.setRedditProfile(user.reddit_profile)
+
+        if (redditProfile) {
+          const profile = await getCurrentAuthenticatedUser(user.access_token)
+          
+          if (profile) {
+            await saveRedditProfileToProfile(profile).then(res => {
+              stores.UserStore.setRedditProfile(res.reddit_profile)
+              window.localStorage.removeItem('reddit_profile')
+            })
+          }
+        }
       }
       setLoaded(true);
     }
