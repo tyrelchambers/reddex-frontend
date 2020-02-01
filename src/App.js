@@ -7,6 +7,7 @@ import AppLoader from './components/Loading/AppLoader';
 import { getSubreddits } from './helpers/getSubreddits';
 import ScrollToTop from './layouts/ScrollToTop/ScrollToTop';
 import DisplayWrapper from './layouts/DisplayWrapper/DisplayWrapper';
+import Preferences from './layouts/Preferences/Preferences';
 
 const App = observer(() => {
   
@@ -38,8 +39,10 @@ const App = observer(() => {
   return (
     <DisplayWrapper
       hasHeader={true}
+      className="theme-light"
     > 
-      <div className="d-f fx-2 jc-c mt+ mobile-column-1024">
+      <div className="d-f fxd-c ai-c mt+ mobile-column-1024">
+        <Preferences />
         <main className="App fx-1 pl+ pr+ ">  
           <PostFetch />
           {(newVisitor === "null" || newVisitor === null) &&

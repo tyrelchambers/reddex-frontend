@@ -1,0 +1,29 @@
+.dark-mode-switch {
+  border: none;
+  background: transparent;
+  position: relative;
+  width: 200px;
+  outline: none;
+  > img {
+    height: 40px;
+    position: absolute;
+    z-index: 0;
+    left: 0;
+  }
+
+  > p {
+    margin-top: -2px;
+    font-weight: 700;
+    z-index: 1;
+    margin-left: 3em;
+    
+
+    &.dark-mode-on {
+      -webkit-text-fill-color: transparent;
+      background: rgb(255,255,255);
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(50,50,50,0) 100%);
+      -webkit-background-clip: text;
+
+    }
+  }
+}
