@@ -32,7 +32,7 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
     }
     const payload = credentials;
     
-    await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
+    const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
       ...payload
     })
     .then(res => {
@@ -41,16 +41,16 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
       if (res.data.user.reddit_profile) {
         UserStore.setRedditProfile(res.data.user.reddit_profile)
       }
+      return res.data;
     })
     .catch(err => {
       toast.error(err.response)
       setLoading(false)
     });
     
-    if (redditProfile) {
+    if (redditProfile && !user.reddit_profile) {
       await saveRedditProfileToProfile(redditProfile).then(res => {
         UserStore.setRedditProfile(res.reddit_profile)
-        window.localStorage.removeItem('reddit_profile')
       })
     }
    
