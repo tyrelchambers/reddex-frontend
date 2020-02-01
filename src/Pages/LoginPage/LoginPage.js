@@ -5,8 +5,7 @@ import Axios from 'axios';
 import { observer } from 'mobx-react-lite';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
-import { saveRedditProfileToProfile } from '../../api/post';
-import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
+
 const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
   
   const [ credentials, setCredentials ] = useState({
