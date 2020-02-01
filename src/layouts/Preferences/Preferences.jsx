@@ -39,7 +39,7 @@ const Preferences = () => {
     </button>
   )
   return (
-    <div className="d-f jc-fs mb- mt-">
+    <div className="d-f preferences-wrapper mb- mt-">
       <div className="d-f ai-c pref-wrapper">
         {switcher}
       </div>
