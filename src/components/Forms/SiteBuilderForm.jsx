@@ -85,7 +85,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         <label htmlFor="twitter" className="form-label">Twitter</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">@</span>
-          <input type="text" className="form-input fx-1" name="twitter" value={config.twitter} placeholder="Exact twitter username" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input fx-1" name="twitter" value={config.twitter} placeholder="@twitter_handle" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
