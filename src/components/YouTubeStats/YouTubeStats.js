@@ -40,10 +40,11 @@ const YouTubeStats = ({user}) => {
   if ( isEmpty(stats) ) {
     return(
       <React.Fragment>
-        <div className="d-f ai-c">
-          <h1 className="dash-subtitle mr+ mb+">Youtube Stats</h1>
+        <div className="d-f fxd-c mt+">
+          <h1 className="dash-subtitle mr+">Youtube Stats</h1>
+          <p className="mb+">Example: https://www.youtube.com/channel/<span style={{color: '#F35627'}}>your-channel-id</span></p>
         </div>
-        <form className="w-400px d-f ai-c mb+">
+        <form className="w-400px d-f ai-c mb-">
           <input placeholder="Enter youtube ID to get stats.." id="youtubeInput" className="input mr-" value={yt} onChange={e => setYt(e.target.value)}></input>
           <button className="btn btn-secondary" onClick={e => getStatsHandler(e)}>Get Stats</button>
         </form>
