@@ -46,7 +46,7 @@ db.version(6).stores({
 
 const upgradeItems = async () => {
    db.posts.toCollection().first().then(x => {
-    if (x.selftext) {
+    if (x.hasOwnProperty("selftext") && x.hasOwnProperty("postId")) {
       db.posts.toCollection().modify(item => {
         item.self_text = item.selftext;
         item.post_id = item.postId;
