@@ -53,14 +53,15 @@ h2,
 h3,
 h4,
 h5,
-h6,
-p {
+h6 {
   margin: 0;
-  color: hsla(211, 12%, 48%,1);
+  color: var(--secondary);
 }
 
 p {
   line-height: 1.8em;
+  margin: 0;
+  color: hsla(211, 12%, 48%,1);
 }
 
 .external-link {

@@ -190,7 +190,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                 submitHandler={submitHandler}
                 saving={saving}
               />
-              <section  className="mt+">
+              <section  className="mt+ site-general-wrapper">
                 {params.get('t') === "general" &&
                   <div style={{maxWidth: '600px'}}>
                     <h2>General Settings</h2>
@@ -206,7 +206,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                     </div>
   
                     <h2>Danger Zone</h2>
-                    <p className="mb+ mt---">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
+                    <p className="mb+ mt--- subtle">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
                     <MainButton
                       value="Delete Site"
                       className="btn btn-tiertiary danger"
