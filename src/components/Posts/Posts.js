@@ -48,7 +48,6 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
               key={id}
               x={x}
               setPosts={setPosts}
-              onClick={(e) => selectPost(e, PostStore)}
               onClickHandler={() => selectPost(x, PostStore)}
               used={usedPosts.includes(x.post_id)}
             />
