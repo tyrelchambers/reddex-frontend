@@ -2,13 +2,49 @@ import React from 'react'
 import './SelectField.scss';
 
 const SelectField = ({label, data, options, setOptions, prop}) => {
-
   const selectItems = data.map(x => (
     <div className="select-item" data-value={x.value} data-label={x.label} key={x.label} onClick={e => {
       setHandler(e, options, setOptions, prop)
       resetStyles(e)
     }}>
       {x.label}
+    </div>
+  ));
+
+  return (
+    <div className="select d-f ai-c" onClick={dropdownToggle}>
+      <span 
+        className="select-label d-f jc-sb ai-c w-100pr"
+        id="selectLabel"
+      >
+        <p id="label">{label}</p>
+        <i className="fas fa-chevron-down"></i>  
+      </span>
+
+      <div className="select-dropdown" id="dropdownList">
+        {selectItems}
+      </div>
+    </div>
+  )
+}
+
+/*
+  For data types that are an array of objects.
+
+  [
+    example: [{}],
+    examples2: [{}]
+  ]
+*/
+
+const SelectField2 = (label, data, setOptions, prop) => {
+  console.log(data)
+  const selectItems = data.map(x => (
+    <div className="select-item" data-value={x} key={x} onClick={e => {
+      setOptions(x)
+      resetStyles(e)
+    }}>
+      {x}
     </div>
   ));
 
@@ -59,3 +95,7 @@ const changeLabel = (e, value) => {
 }
 
 export default SelectField
+
+export {
+  SelectField2
+}

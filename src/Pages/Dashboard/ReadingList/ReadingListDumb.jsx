@@ -1,30 +1,53 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './ReadingList.scss';
 import Axios from 'axios';
+import { SelectField2 } from '../../../components/SelectField/SelectField';
 
 const ReadingListDumb = ({list, callback}) => {
+  const [state, setState] = useState([]);
+  const [sortVals, setSortVals] = useState([])
+  useEffect(() => {
+   formatStateData()
+  }, [list]);
+
+  useEffect(() => {
+    parseSubreddits()
+
+  }, [state]);
+
   if ( !list ) return null;
 
+  const formatStateData = () => {
+    const masterList = [];
 
-  const masterList = [];
-
-  list.map(x => {
-    if ( x.subreddit ) {
-      if ( masterList[x.subreddit] ) {
-        masterList[x.subreddit].push(x)
+    list.map((x, id) => {
+      
+      if ( x.subreddit ) {
+        if ( masterList[x.subreddit] ) {
+          masterList[x.subreddit].push(x)
+        } else {
+          masterList[x.subreddit] = [];
+          masterList[x.subreddit].push(x)
+        }
       } else {
-        masterList[x.subreddit] = [];
-        masterList[x.subreddit].push(x)
+        if (masterList["Uncategorized"]) {
+          masterList["Uncategorized"].push(x)
+        } else {
+          masterList["Uncategorized"] = [];
+          masterList["Uncategorized"].push(x)
+        } 
       }
-    } else {
-      if (masterList["Uncategorized"]) {
-        masterList["Uncategorized"].push(x)
-      } else {
-        masterList["Uncategorized"] = [];
-        masterList["Uncategorized"].push(x)
-      } 
-    }
-  });
+      if (id === list.length - 1) {
+        setState(masterList)
+      }
+    });
+  }
+
+  const parseSubreddits = () => {
+    const keys = [];
+    Object.keys(state).map(x => keys.push(x))
+    setSortVals([...keys])
+  }
 
   const Story = ({x}) => (
     <li className="reading-list-item">
@@ -62,17 +85,22 @@ const ReadingListDumb = ({list, callback}) => {
     </li>
   )
   
-  const renderedList = Object.keys(masterList).map((key, id) => {
+  const renderedList = Object.keys(state).map((key, id) => {
     return (
       <React.Fragment key={id}>
         <h3 className="tt-c thin">{key}</h3>
-        {masterList[key].map((x, id) => <Story x={x} key={id}/>)}
+        {state[key].map((x, id) => <Story x={x} key={id}/>)}
       </React.Fragment>
     )
   })
 
+
   return (
     <div className="m+ fx-1">
+      <SelectField2
+        label="Sort by subreddit"
+        data={sortVals}
+      />
       <ul className="reading-list-list">
         {renderedList}
       </ul>
