@@ -18,7 +18,7 @@
 
   &-item {
     margin: 1em 0;
-    background-color: white;
+    background-color: var(--highlight);
     padding: 1em;
     box-shadow:0px 2px 40px rgba(black, 0.05);
     border-radius: 5px;
@@ -42,25 +42,28 @@
 }
 .reading-list-item.opaque {
   opacity: 0.7;
-  transition: all 0.2s ease;
+   
 
   &:hover {
     opacity: 1;
   }
 }
-.reading-list-item-header.expanded {
-  margin-bottom: 2em;
-  border-bottom: 1px solid $grey9;
-  padding-bottom: 1em;
+
+.reading-list-item-header-subheader {
+  h3,
+  h4 {
+    color: var(--secondary);
+  }
 }
+
 .reading-time {
   padding: 0.5em;
-  color: $grey4;
+  color: var(--secondary);
     font-size: 0.8rem;
     margin: 0 0.5em;
     white-space: nowrap;
     span {
-      color: $blue6;
+      color: var(--accent-primary);
       font-weight: bold;
     }
 }

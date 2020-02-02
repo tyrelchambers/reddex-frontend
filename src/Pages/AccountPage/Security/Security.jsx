@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import HR from '../../../components/HR/HR';
 import { MainButton } from '../../../components/Buttons/Buttons';
 import { deleteAccount } from '../../../api/delete';
+import './Security.scss'
 
 const Security = ({UserStore}) => {
   const [u, setU] = useState();
@@ -55,7 +56,7 @@ const Security = ({UserStore}) => {
    }
 
   return (
-    <div>
+    <div className="account-security-wrapper">
       <h4 className="mt+">Your registered email: {u.email}</h4>
 
       <EditUserForm

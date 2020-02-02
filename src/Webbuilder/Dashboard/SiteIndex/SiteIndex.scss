@@ -5,6 +5,7 @@
   border-radius: 5px;
   overflow: hidden;
   border: 1.5px solid $grey7;
+  background-color: var(--secondary);
 }
 .preffix,
 .suffix {
@@ -27,7 +28,7 @@
   text-decoration: none;
   color: $grey7;
   padding: 0.5em 1em;
-  transition: all 0.2s ease;
+   
 }
 
 .tab-item-active {

@@ -18,7 +18,7 @@
 .modal-body {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: var(--primary);
   position: absolute;
   top: 3em;
   width: 100%;
@@ -26,6 +26,10 @@
   border-radius: 10px;
   box-shadow: 0px 3px 10px rgba(black, 0.5);
   padding: 1em;
+
+  h3 {
+    color: var(--secondary);
+  }
 }
 
 .close-modal {
@@ -41,7 +45,7 @@
   height: 50px;
   border-radius: 50%;
   background-color: rgba($grey6, 0.2);
-  transition: all 0.2s ease;
+   
   z-index: 99;
   &:hover {
     background-color: white;

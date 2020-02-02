@@ -1,5 +1,8 @@
 @import '../../colours.scss';
 
+.contact-title {
+  color: var(--secondary);
+}
 @media screen and (max-width: 1024px) {
   .contact-main-wrapper {
     flex-direction: column-reverse;

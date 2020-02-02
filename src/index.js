@@ -30,7 +30,6 @@ import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConf
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
 import { checkValidTokens } from './helpers/checkValidTokens';
-import Dashboard from './Pages/Dashboard/Dashboard';
 import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
@@ -74,6 +73,14 @@ const InitalLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
   const token = window.localStorage.getItem("token");
   const redditProfile = window.localStorage.getItem('reddit_profile')
+  
+  useEffect(() => {
+    if (localStorage.getItem('theme') === "dark") {
+      document.querySelector("body").classList.add('theme-dark')
+    } else {
+      document.querySelector("body").classList.add('theme-light')
+    }
+  }, [localStorage.getItem('theme')])
 
   useEffect(() => {
     const _ = async () => {
