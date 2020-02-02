@@ -10,9 +10,9 @@ const Forms = ({config, setConfig}) => {
           option="Inactive"
             disabledText="Active"
           setToggledHandler={() => {
-            setConfig({...config, submissionForm: !config.submissionForm});
+            setConfig({...config, submission_form: !config.submission_form});
           }}
-          toggled={config.submissionForm ? true : false}
+          toggled={config.submission_form ? true : false}
         />
       </div>
       <div className="d-f fxd-c">

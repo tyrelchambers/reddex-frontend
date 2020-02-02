@@ -82,12 +82,12 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   const submitHandler = async () => {
     setSaving(true)
     const data = {...config} 
-
-    data.subdomain = data.subdomain.trim().replace(/\W/g, "-").toLowerCase();
-    
     if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
+    data.subdomain = data.subdomain.trim().replace(/\W/g, "-").toLowerCase();
+    
+   
 
     if ( data.introduction > 1000 ) {
       return toast.error("Introduction is too long")

@@ -46,18 +46,23 @@ db.version(6).stores({
 
 const upgradeItems = async () => {
    db.posts.toCollection().first().then(x => {
-    if (x.hasOwnProperty("selftext") && x.hasOwnProperty("postId")) {
-      db.posts.toCollection().modify(item => {
-        item.self_text = item.selftext;
-        item.post_id = item.postId;
-        delete item.postId;
-        delete item.selftext;
-      })
+    if ( !x ) {
+      return
+    } else {
+      if (x.hasOwnProperty("selftext") && x.hasOwnProperty("postId")) {
+        db.posts.toCollection().modify(item => {
+          item.self_text = item.selftext;
+          item.post_id = item.postId;
+          delete item.postId;
+          delete item.selftext;
+        })
+      }
     }
   });  
 }
 
-if (db.verno === 5 || db.verno === 6) {
+if ((db.verno === 5 || db.verno === 6)) {
+  
   upgradeItems()
 }
 
