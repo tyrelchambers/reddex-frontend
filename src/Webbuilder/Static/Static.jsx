@@ -31,16 +31,6 @@ const Static = () => {
     fn()
   }, []);
 
-  useEffect(() => {
-    const getYT = async () => {
-      const ytId = config.youtube_id;
-      if ( ytId) {
-        const link = `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${ytId}&key=${process.env.REACT_APP_YOUTUBE_KEY}`
-        const vid = await Axios.get(link).then(res => res.data.items);
-        setVideoIds(vid)
-      }
-      setLoading(false)
-
 
   useEffect(() => {
     
@@ -54,7 +44,15 @@ const Static = () => {
   }, [config]);
 
   if (loading) return null;
- 
+  const getYT = async () => {
+    const ytId = config.youtube_id;
+    if ( ytId) {
+      const link = `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${ytId}&key=${process.env.REACT_APP_YOUTUBE_KEY}`
+      const vid = await Axios.get(link).then(res => res.data.items);
+      setVideoIds(vid)
+    }
+    setLoading(false)
+  }
 
   const submitFormHandler = async (e) => {
     e.preventDefault();

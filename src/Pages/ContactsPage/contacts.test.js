@@ -3,6 +3,8 @@ import { render } from 'react-testing-library';
 import { ContactsPage } from './ContactsPage';
 import { ContactsList } from '../../components/ContactsList/ContactsList';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'mobx-react';
+import * as stores from '../../stores/index';
 
 const mockContacts = [
   {
@@ -20,9 +22,16 @@ const mockContacts = [
     __v: 0
   }
 ]
+
 describe('<ContactsPage />', () => {
   it('renders', () => {
-    const {getByText} = render(<ContactsPage/>);
+    const {getByText} = render(
+      <Provider {...stores}>
+        <BrowserRouter>
+          <ContactsPage/>
+        </BrowserRouter>
+      </Provider>
+    );  
     getByText("Contacts")
   })
 })

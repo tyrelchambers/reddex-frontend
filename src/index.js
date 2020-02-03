@@ -34,6 +34,7 @@ import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
 import { saveRedditProfileToProfile } from './api/post';
+import {* as stores} from './stores/index';
 
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -57,16 +58,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       }
     />
   );
-}
-
-const stores = {
-  UserStore,
-  ModalStore,
-  SubredditStore,
-  PostStore,
-  InboxStore,
-  ReadingListStore,
-  SiteStore
 }
 
 const InitalLoad = () => { 

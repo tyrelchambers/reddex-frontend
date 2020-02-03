@@ -5,7 +5,7 @@ import { ContactsList } from '../../components/ContactsList/ContactsList';
 import { saveContact, getContacts, updateContact } from '../../api/post'
 import { deleteContact } from '../../api/delete';
  import './ContactsPage.scss'
-
+import Dashboard from '../Dashboard/Dashboard'
 export const ContactsPage = () => {
   const [ contacts, setContacts ] = useState([]);
   const [ state, setState ] = useState({

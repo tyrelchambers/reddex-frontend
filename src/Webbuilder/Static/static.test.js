@@ -30,7 +30,11 @@ describe('<StaticChild />', () => {
   })
 
   it('shows submission form if true', () => {
-    const {getByText} = render(<StaticChild {...props}/>);
+    const cProps = {
+      ...props
+    }
+    cProps.config.submission_form = true
+    const {getByText} = render(<StaticChild {...cProps}/>);
     getByText('Your Name or Alias')
   })
 
@@ -38,28 +42,28 @@ describe('<StaticChild />', () => {
     const cProps = {
       ...props
     }
-    cProps.config.submissionForm = false
+    cProps.config.submission_form = false
     const { queryByText } = render(<StaticChild {...cProps}/>);
 
     expect(queryByText('Your Name or Alias')).toBeNull()
   })
 
-  it('shows twitterline if true', () => {
+  it('shows twitter timeline if true', () => {
     const cProps = {
       ...props
     }
-    cProps.config.twitterTimeline = true;
-    const {container} = render(<StaticChild {...props}/>);
+    cProps.config.twitter_timeline = true;
+    const {container} = render(<StaticChild {...cProps}/>);
 
-    expect(container.querySelector('.static-twitter-timeline').innerHTML).toBeTruthy()
+    expect(container.querySelector('.static-twitter-timeline')).toBeTruthy()
   })
 
-  it('doesn\'t show twitterline if false', () => {
+  it('doesn\'t show twitter timeline if false', () => {
     const cProps = {
       ...props
     }
-    cProps.config.twitterTimeline = false;
-    const {container} = render(<StaticChild {...props}/>);
+    cProps.config.twitter_timeline = false;
+    const {container} = render(<StaticChild {...cProps}/>);
 
     expect(container.querySelector('.static-twitter-timeline')).toBeNull()
 
@@ -69,10 +73,10 @@ describe('<StaticChild />', () => {
     const cProps = {
       ...props
     }
-    cProps.config.youtubeTimeline = true;
-    cProps.config.youtubeId = 'UCGB-bGTeEWfGKLNx2Wi9ytQ';
+    cProps.config.youtube_timeline = true;
+    cProps.config.youtube_id = 'UCGB-bGTeEWfGKLNx2Wi9ytQ';
 
-    const {getByText} = render(<StaticChild {...props}/>);
+    const {getByText} = render(<StaticChild {...cProps}/>);
     
     getByText('Latest Youtube Videos')
   })
@@ -81,8 +85,8 @@ describe('<StaticChild />', () => {
     const cProps = {
       ...props
     }
-    cProps.config.youtubeTimeline = false;
-    const {container} = render(<StaticChild {...props}/>);
+    cProps.config.youtube_timeline = false;
+    const {container} = render(<StaticChild {...cProps}/>);
     expect(container.querySelector('.static-youtube-item')).toBeNull();
   })
 
@@ -91,7 +95,7 @@ describe('<StaticChild />', () => {
       ...props
     }
     cProps.config.introduction = "Hey"
-    const {getByText} = render(<StaticChild {...props}/>);
+    const {getByText} = render(<StaticChild {...cProps}/>);
     getByText("About Me")
   })
 
@@ -100,7 +104,7 @@ describe('<StaticChild />', () => {
       ...props
     }
     cProps.config.introduction = ""
-    const {queryByText} = render(<StaticChild {...props}/>);
+    const {queryByText} = render(<StaticChild {...cProps}/>);
     expect(queryByText('About Me')).toBeNull()
   })
 })
