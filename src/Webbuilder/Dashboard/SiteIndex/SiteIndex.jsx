@@ -25,7 +25,7 @@ import Tabs from '../../../layouts/Tabs/Tabs'
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
   const [config, setConfig] = useState({
-    _id: "",
+    uuid: "",
     subdomain: "",
     title: "",
     twitter: "",
@@ -35,13 +35,13 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     youtube: "",
     podcast: "",
     introduction: "",
-    bannerURL: "",
-    submissionForm: false,
-    youtubeId: "",
-    youtubeTimeline: false,
-    twitterId: "",
-    twitterTimeline: false,
-    showCreditLink: true,
+    banner_url: "",
+    submission_form: false,
+    youtube_id: "",
+    youtube_timeline: false,
+    twitter_id: "",
+    twitter_timeline: false,
+    show_credit_link: true,
     accent: "#000000",
     theme: "light"
   });
@@ -49,13 +49,12 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   const [loading, setLoading] = useState(true);
   const [ saving, setSaving ] = useState(false);
   useEffect(() => {
-    const yt = UserStore.currentUser.youtubeId;
-
+    const yt = UserStore.currentUser.youtube_id;
     const fn = async () => {
       await getWebsiteWithToken().then(res => {
         if (res) {
           setActivated(true)
-          setConfig({...config, ...res, youtubeId: yt})
+          setConfig({...config, ...res, youtube_id: res.youtube_id || yt})
           SiteStore.setPreview({...res})
         }
         setLoading(false);
@@ -83,29 +82,29 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   const submitHandler = async () => {
     setSaving(true)
     const data = {...config} 
-
-    data.subdomain = data.subdomain.trim().replace(/\W/g, "-").toLowerCase();
-    
     if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
+    data.subdomain = data.subdomain.trim().replace(/\W/g, "-").toLowerCase();
+    
+   
 
     if ( data.introduction > 1000 ) {
       return toast.error("Introduction is too long")
     }
 
-    let bannerURL = data.bannerURL || "";
+    let banner_url = data.banner_url || "";
 
     if ( pondRef.current && pondRef.current.getFiles().length > 0 ) {
-      bannerURL = await processFiles()
+      banner_url = await processFiles()
     }
 
-    if (!bannerURL) {
-      bannerURL = "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80"
+    if (!banner_url) {
+      banner_url = "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80"
     }
     const payload = {
       ...data,
-      bannerURL
+      banner_url
     }
 
     if ( data.subdomain !== SiteStore.preview.subdomain ) {
@@ -114,6 +113,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     }
 
     SiteStore.setPreview(payload)
+    SiteStore.setChanges(false)
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
     setSaving(false)
   }
@@ -129,25 +129,25 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     e.preventDefault();
     const payload = {
       ...config,
-      bannerURL: ""
+      banner_url: ""
     }
 
-    if ( !config.bannerURL.match(/unsplash/gi) ) {
-      await deleteImageFromStorage(config.bannerURL).then(console.log);
-      setConfig({...config, bannerURL: ""})
+    if ( !config.banner_url.match(/unsplash/gi) ) {
+      await deleteImageFromStorage(config.banner_url).then(console.log);
+      setConfig({...config, banner_url: ""})
     } else {
-      setConfig({...config, bannerURL: ""})
+      setConfig({...config, banner_url: ""})
     }
     await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
 
   }
 
-  const deleteSiteHandler = async (siteId) => {
+  const deleteSiteHandler = async (uuid) => {
     const toDelete = window.confirm("Are you sure you want to delete?");
     
     if (toDelete) {
       await deleteDomainAlias(config.subdomain)
-      deleteSite(siteId).then(res => toast.success("Site deleted"))
+      deleteSite(uuid).then(res => toast.success("Site deleted"))
       window.location.reload();
     }
   }
@@ -158,7 +158,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
   if ( window.innerWidth >= 1024 ) {
     return (
-      <>
+      <Dashboard>
         <div className="pb-">
           <div className="d-f ai-c mb+">
             <h1 className="mr+">Site Builder</h1>
@@ -190,7 +190,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                 submitHandler={submitHandler}
                 saving={saving}
               />
-              <section  className="mt+">
+              <section  className="mt+ site-general-wrapper">
                 {params.get('t') === "general" &&
                   <div style={{maxWidth: '600px'}}>
                     <h2>General Settings</h2>
@@ -206,11 +206,11 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                     </div>
   
                     <h2>Danger Zone</h2>
-                    <p className="mb+ mt---">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
+                    <p className="mb+ mt--- subtle">This is permanent. If you delete your site, you can create it again, but everything will be lost.</p>
                     <MainButton
                       value="Delete Site"
                       className="btn btn-tiertiary danger"
-                      onClick={() => deleteSiteHandler(config._id)}
+                      onClick={() => deleteSiteHandler(config.uuid)}
                     >
                       <i className="fas fa-trash"></i>
                       
@@ -266,7 +266,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
             </>
           }
         </div>
-      </>
+      </Dashboard>
     ) 
   } else {
     return (

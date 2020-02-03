@@ -31,4 +31,39 @@ db.version(5).stores({
   subreddits: "++id, subreddit"
 });
 
+db.version(6).stores({
+  posts: "++id, author, title, self_text, ups, url, num_comments, created, flair, post_id, subreddit",
+  authors: "++id, author",
+  subreddits: "++id, subreddit"
+}).upgrade(tx => {
+  return tx.posts.toCollection().modify(item => {
+    item.self_text = item.selftext;
+    item.post_id = item.postId;
+    delete item.postId;
+    delete item.selftext;
+  })
+});
+
+const upgradeItems = async () => {
+   db.posts.toCollection().first().then(x => {
+    if ( !x ) {
+      return
+    } else {
+      if (x.hasOwnProperty("selftext") && x.hasOwnProperty("postId")) {
+        db.posts.toCollection().modify(item => {
+          item.self_text = item.selftext;
+          item.post_id = item.postId;
+          delete item.postId;
+          delete item.selftext;
+        })
+      }
+    }
+  });  
+}
+
+if ((db.verno === 5 || db.verno === 6)) {
+  
+  upgradeItems()
+}
+
 export default db;

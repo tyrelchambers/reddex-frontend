@@ -16,7 +16,6 @@ import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
 import ReadingListStore from './stores/ReadingListStore';
 import 'react-toastify/dist/ReactToastify.css';
-import { renewRefreshToken } from './helpers/renewRefreshToken';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
 import Overview from './Pages/Dashboard/Overview/Overview';
@@ -31,8 +30,10 @@ import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConf
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
 import { checkValidTokens } from './helpers/checkValidTokens';
-import Dashboard from './Pages/Dashboard/Dashboard';
 import LogRocket from 'logrocket';
+import Page404 from './Pages/Misc/404';
+import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
+import { saveRedditProfileToProfile } from './api/post';
 
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -70,17 +71,35 @@ const stores = {
 
 const InitalLoad = () => { 
   const [ loaded, setLoaded ] = useState(false);
-  const profile = JSON.parse(window.localStorage.getItem("reddit_profile"))
   const token = window.localStorage.getItem("token");
+  const redditProfile = window.localStorage.getItem('reddit_profile')
+  
+  useEffect(() => {
+    if (localStorage.getItem('theme') === "dark") {
+      document.querySelector("body").classList.add('theme-dark')
+    } else {
+      document.querySelector("body").classList.add('theme-light')
+    }
+  }, [localStorage.getItem('theme')])
 
   useEffect(() => {
     const _ = async () => {
+      
       if ( token ) {
         await stores.UserStore.setUser()
         await checkValidTokens()
-      }
-      if (profile) {
-        await stores.UserStore.setRedditProfile(profile);
+        const user = stores.UserStore.getUser();
+        stores.UserStore.setRedditProfile(user.reddit_profile)
+
+        if ((redditProfile && !user.reddit_profile) || (!redditProfile && !user.reddit_profile)) {
+          const profile = await getCurrentAuthenticatedUser(user.access_token)
+          if (profile) {
+            await saveRedditProfileToProfile(profile).then(res => {
+              stores.UserStore.setRedditProfile(res.reddit_profile)
+              window.localStorage.removeItem('reddit_profile')
+            })
+          }
+        }
       }
       setLoaded(true);
     }
@@ -98,6 +117,8 @@ const InitalLoad = () => {
           <Router>
             <Switch>
               <Route exact path="/" component={Static}/>
+              <Route component={Page404}/>
+
             </Switch>
           </Router>
         </Provider>
@@ -120,15 +141,13 @@ const InitalLoad = () => {
               <Route exact path="/request-reset" component={ResetPasswordConfirm} />
               <Route exact path="/help" component={HelpPage} />
               {/* <Route exact path="/pricing" component={PricingPage} /> */}
-              <Dashboard>
-                
-                <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
-                <PrivateRoute exact path="/dashboard/home" component={Overview}/>
-                <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-                <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
-                <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
-                <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
-              </Dashboard>
+              <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
+              <PrivateRoute exact path="/dashboard/home" component={Overview}/>
+              <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
+              <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+              <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+              <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+              <Route component={Page404}/>
             </Switch>
           </Router>
         </Provider>

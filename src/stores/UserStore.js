@@ -1,7 +1,5 @@
 import { observable, action,decorate, toJS } from 'mobx';
 import Axios from 'axios';
-import { toast } from 'react-toastify';
-
 
 class UserStore {
   currentUser = {}
@@ -17,8 +15,16 @@ class UserStore {
       }
     })
     .then(res => res.data)
-    .catch(console.log); 
+    .catch(err => {
+      if (err.response) {
+        if(err.response.data.err === "Auth token is old. Please sign in again.") {
+          window.localStorage.clear();
+          window.location.pathname = "/login" 
+        }
+      }
+    })
       
+    
     this.currentUser = user;
   }
 

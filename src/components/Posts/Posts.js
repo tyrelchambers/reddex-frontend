@@ -2,15 +2,24 @@ import React, { useEffect, useState } from 'react'
 import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { inject, observer } from 'mobx-react';
+import { getStoriesUsedFromUser } from '../../api/get';
 
-const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPosts, UserStore, PostStore}) => {
+const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ endIndex, setEndIndex ] = useState(40);
 
   useEffect(() => {
-    const user = UserStore.getUser();
-    if (user) setUsedPosts([...user.storiesUsed]);
-  }, []);
+    const token = window.localStorage.getItem('token');
+
+    if( token ) {
+      const fn = async () => {
+        const stories = await getStoriesUsedFromUser();
+        setUsedPosts([...stories])
+      }
+      
+      fn();
+    }
+  }, [posts]);
 
   useEffect(() => {
     document.addEventListener('scroll', infiniteScroll);
@@ -39,9 +48,8 @@ const Posts = inject("UserStore", "PostStore")(observer(({posts, loading, setPos
               key={id}
               x={x}
               setPosts={setPosts}
-              onClick={(e) => selectPost(e, PostStore)}
               onClickHandler={() => selectPost(x, PostStore)}
-              used={usedPosts.includes(x.postId)}
+              used={usedPosts.includes(x.post_id)}
             />
           )
         })}

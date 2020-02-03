@@ -24,6 +24,9 @@
   color: $accent;
 }
 
+.dash-subtitle {
+  color: var(--secondary);
+}
 .stat-stats {
   position: absolute;
   z-index: 1;
@@ -33,12 +36,12 @@
 
   > h3 {
     font-size: 2.8rem;
-    color: $grey3;
+    color: var(--secondary);
   }
 
   > h5 {
     font-size: 1rem;
-    background-color: white;
+    background-color: var(--highlight);
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0px 1px 10px rgba(black, 0.1);

@@ -5,7 +5,6 @@ import './Static.scss'
 import SubmissionForm from '../../components/Forms/SubmissionForm';
 import Youtube from 'react-youtube'
 import Axios from 'axios';
-import HR from '../../components/HR/HR';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 import { submitStoryForm } from '../../api/post';
 import { toast } from 'react-toastify';
@@ -32,6 +31,15 @@ const Static = () => {
     fn()
   }, []);
 
+  useEffect(() => {
+    const getYT = async () => {
+      const ytId = config.youtube_id;
+      if ( ytId) {
+        const link = `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${ytId}&key=${process.env.REACT_APP_YOUTUBE_KEY}`
+        const vid = await Axios.get(link).then(res => res.data.items);
+        setVideoIds(vid)
+      }
+      setLoading(false)
 
 
   useEffect(() => {
@@ -52,7 +60,7 @@ const Static = () => {
     e.preventDefault();
     const payload = {
       ...subForm,
-      subdomain: config._id
+      subdomain: config.subdomain
     }
     
     await submitStoryForm(payload).then(res => toast.success("Story submitted"))
@@ -107,7 +115,7 @@ const StaticChild = ({config, submitFormHandler, videoIds, subForm, setSubForm})
             config={config}
           />
       </header>
-      {config.bannerURL && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.bannerURL})`}}>
+      {config.banner_url && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.banner_url})`}}>
       </section>}
 
       {config.introduction && 
@@ -121,7 +129,7 @@ const StaticChild = ({config, submitFormHandler, videoIds, subForm, setSubForm})
         </section>
       }
 
-      {(config.youtubeId && config.youtubeTimeline) &&
+      {(config.youtube_id && config.youtube_timeline) &&
          <>
           <h2 className="mb- ta-c mt+">Latest Youtube Videos</h2>
           <div className="static-youtube-wrapper container center">  
@@ -131,7 +139,7 @@ const StaticChild = ({config, submitFormHandler, videoIds, subForm, setSubForm})
       }
 
 
-      {config.submissionForm &&
+      {config.submission_form &&
         <section className={`static-forms ${config.theme}`}>
           <h2>Send your story</h2>
           <SubmissionForm
@@ -143,14 +151,14 @@ const StaticChild = ({config, submitFormHandler, videoIds, subForm, setSubForm})
       }
 
       <footer className="d-f fxd-c jc-c mt+ pb- static-footer">
-        {(config.twitterTimeline && config.twitterId) &&
+        {(config.twitter_timeline && config.twitter_id) &&
             <section className="static-twitter-timeline d-f fxd-c ai-c">
               <Twitter
                 config={config}
               />
             </section>
           }
-        {config.showCreditLink &&
+        {config.show_credit_link &&
           <p className="ta-c mt+">Powered by <a href="https://reddex.app">Reddex</a></p>
         }
       </footer>

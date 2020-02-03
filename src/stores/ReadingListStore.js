@@ -3,17 +3,7 @@ import { decorate, action, observable, toJS } from 'mobx';
 class ReadingListStore {
   toRead = []
   completed = []
-  dim = false
 
-  setDim(bool) {
-    const elms = document.querySelectorAll('.expanded');
-    if ( elms.length === 0 ) {
-      this.dim = false;
-    } else {
-
-      this.dim = bool;
-    }
-  }
 
   setCompleted(story) {
     this.completed = [...story];
@@ -24,7 +14,7 @@ class ReadingListStore {
   }
 
   transferStoryFromList(data, fromArray, toArray) {
-    const item = this[fromArray].find((x) => x.postId === data.postId)
+    const item = this[fromArray].find((x) => x.post_id === data.post_id)
     this[fromArray].remove(item);
     this[toArray].push(item)
   }
@@ -39,7 +29,7 @@ class ReadingListStore {
 
   removeStoryFromList(list, item) {
     this[list].filter((x, id) => {
-      if (x.postId === item) {
+      if (x.post_id === item) {
         this[list].splice(id, 1);
       }
     });
@@ -50,8 +40,6 @@ class ReadingListStore {
 decorate(ReadingListStore, {
   completed: observable,
   setCompleted: action,
-  dim: observable,
-  setDim: action,
   toRead: observable,
   addToRead: action,
   removeStoryFromList: action

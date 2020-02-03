@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
 
-const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
+const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loading, UserStore}) => {
   const [ messages, setMessages ] = useState([]);
   const [ sortVal, setSortVal ] = useState("");
   const [ loadingBtn, setLoadingBtn ] = useState(false);
@@ -23,7 +23,7 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
 
   useEffect(() => {
     if ( sortVal ) {
-      const sort = sortInbox(InboxStore.getMessages(), sortVal);
+      const sort = sortInbox(InboxStore.getMessages(), sortVal, UserStore.name);
       setMessages(sort);
     } else {
       setMessages(InboxStore.getMessages())
@@ -62,6 +62,7 @@ const UserInbox = inject("InboxStore")(observer(({InboxStore, loading}) => {
               getMoreMessages(InboxStore, setLoadingBtn)
             }}
             loadingBtn={loadingBtn}
+            UserStore={UserStore}
           />
         }
 
@@ -91,8 +92,8 @@ const getMoreMessages = async (InboxStore, setLoadingBtn) => {
   .catch(console.log);
 }
 
-const sortInbox = (data,  sortVal) => {
-  const currentUser = JSON.parse(window.localStorage.getItem('reddit_profile')).subreddit.title;
+const sortInbox = (data,  sortVal, UserStore) => {
+  const currentUser = UserStore.name;
 
   return data.filter(x => {
     const isCurrent = x.data.author === currentUser.replace(/\s/g, "") ? true : false;

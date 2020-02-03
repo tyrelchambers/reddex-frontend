@@ -12,12 +12,14 @@
 .about-title {
   font-size: 3rem;
   margin-bottom: 1em;
+  color:var(--secondary);
 }
 
 .about-subtitle {
   line-height: 1.8em;
   text-align: center;
   font-size: 1.2rem;
+  color: var(--secondary);
 }
 
 .about-block {
@@ -47,20 +49,29 @@
 }
 
 .about-block-body {
-  background: white;
+  background: var(--highlight);
   padding: 1em;
   box-shadow: 0px 2px 30px rgba(black, 0.1);
   border-radius: 15px;
   width: 75%;
   position: absolute;
   bottom: 0;
-
   > h3 {
     margin-bottom: 1em;
   }
+
+  h3,
+  p {
+    color: var(--secondary);
+
+  }
 }
 
-
+.about-cta {
+  > h1 {
+    color: var(--secondary);
+  }
+}
 
 .about-block-img {
   position: absolute;

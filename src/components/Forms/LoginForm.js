@@ -3,17 +3,9 @@ import './forms.scss';
 import { MainButton } from '../Buttons/Buttons';
 import { Link } from 'react-router-dom'
 
-export default function LoginForm({credentialHandler, submitHandler, errors, loading, setLoading}) {
+export default function LoginForm({credentialHandler, submitHandler, loading, setLoading}) {
   return (
     <form className="form p-">
-      <ul>
-        {errors.map((x, id) => (
-          <li key={id}>
-            <p className="error-text">{x}</p>
-          </li>
-        ))}
-      </ul>
-
       <div className="field-group">
         <label htmlFor="email" className="form-label">Email</label>
         <input type="email" className="form-input" placeholder="user@example.com" name="email" onChange={credentialHandler}/>

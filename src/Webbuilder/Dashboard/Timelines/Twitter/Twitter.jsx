@@ -7,13 +7,13 @@ const Twitter = ({config, setConfig}) => {
       <div className="d-f">
         <div className="mr--- mt-">
           <ToggleStatus
-            context="twitterTimeline"
+            context="twitter_timeline"
             option="Inactive"
             disabledText="Active"
             setToggledHandler={() => {
-              setConfig({...config, twitterTimeline: !config.twitterTimeline});
+              setConfig({...config, twitter_timeline: !config.twitter_timeline});
             }}
-            toggled={config.twitterTimeline ? true : false}
+            toggled={config.twitter_timeline ? true : false}
           />
         </div>
         <div className="d-f fxd-c">
@@ -24,10 +24,10 @@ const Twitter = ({config, setConfig}) => {
       
       
 
-      {config.twitterTimeline &&
+      {config.twitter_timeline &&
         <div className="w-234px mt+">
           <h4>Enter your channel ID</h4>
-          <input type="text" className="form-input w-100pr" placeholder="Twitter Account Name" value={config.twitterId} onChange={e => setConfig({...config, twitterId: e.target.value})}/>
+          <input type="text" className="form-input w-100pr" placeholder="Twitter Account Name" value={config.twitter_id} onChange={e => setConfig({...config, twitter_id: e.target.value})}/>
         </div>
       }
     </div>

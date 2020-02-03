@@ -27,25 +27,21 @@
   a {
     width: 100%;
     display: flex;
-    color: $grey2;
+    color: var(--secondary);
     text-decoration: none;
     font-weight: 400;
     padding: 0.5em;
   }
   
   i {
-    color: $orange;
+    color: var(--accent-warning);
   }
   
   li {
     &:hover {
-      background-color: $grey10;
+      background-color: var(--highlight);
     }
   }
-}
-
-.nav-link.bdts-s {
-  border-color: $grey8;
 }
 
 .extended {
@@ -77,7 +73,7 @@
   .topbar-account-widget {
     display: flex !important;
     height: auto;
-    background-color: white;
+    background-color: var(--highlight);
     padding: 1em;
     border: none;
     border-radius: 5px;
@@ -100,19 +96,9 @@
 .navbar-wrapper {
   display: flex;
   align-items: center;
-  transition: all 0.2s ease;
+   
 }
 
-
-.dashboard-topbar {
-  height: 60px;
-  background-color: white;
-  border-bottom: 1px solid $grey9;
-  width: 100%;
-  padding: 0.5em 1em;
-  align-items: center;
-  display: flex;
-}
 
 .profile-image.small {
   border-radius: 3px;
@@ -127,7 +113,6 @@
 .topbar-account-widget {
   position: relative;
   height: 100%;
-  border-left: 1px solid $grey8;
   padding-left: 1em;
   margin-left: 0.5em;
   &:hover .dashboard-dropdown  {
@@ -138,7 +123,7 @@
 .dash-nav-toggle {
   width: 30px;
   height: 40px;
-  transition: all 0.2s ease;
+   
   display: flex;
   justify-content: center;
   align-items: center;

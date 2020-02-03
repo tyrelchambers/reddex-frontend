@@ -7,22 +7,29 @@
   
   .default-message-input {
     width: 100%;
+    background-color: var(--tiertiary);
+    border:none;
   }
 
   .subject {
-    background-color: $grey10;
-    border: 1px solid $grey9;
+    background-color: var(--tiertiary);
     padding:1em;
+    color: var(--secondary);
     border-radius: 5px;
+  }
+
+  > h4 {
+    color: var(--secondary);
   }
 }
 
 .confirm-title {
-  background-color: $grey10;
+  background-color: var(--tiertiary);
   padding: 0.5em;
   border-radius: 5px;
   align-items: center;
   display: flex;
+  color: var(--secondary);
   i {
     font-size: 1rem;
   }
@@ -54,9 +61,11 @@
   .account-tab {
     margin: 0;
   }
+  .confirm-messages-wrapper {
+    button {
+      width: 100%;
+    }
 
-  button {
-    width: 100%;
   }
 }
 

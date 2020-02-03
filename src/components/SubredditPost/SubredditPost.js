@@ -9,7 +9,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
   let selectedClass = false
 
   const _ = PostStore.selectedPosts.find((el) => {
-    return el.postId == x.postId;
+    return el.post_id == x.post_id;
   });
 
   if ( _ ) {
@@ -20,7 +20,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
     <li 
       className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""}`} 
       data-id={x.id}
-      data-postid={x.postId}
+      data-postid={x.post_id}
       key={key}
     >
       <div className="d-f fxd-c w-100pr fx-1">
@@ -35,7 +35,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             </span>
           }
         </div>
-        <p className="subreddit-title mt- mb+ ml- mr-" title={x.title}>{concatTitle(x.title)}</p>
+        <p className="subreddit-title mb+" title={x.title}>{concatTitle(x.title)}</p>
         <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
         <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
         <p className="publish-tag m-- ml- sub-detail"> <i className="fas fa-history mr-"></i>{dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
@@ -45,7 +45,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
       </div>
       <div className="reading-info d-f">
         <div className="reading-time">
-          <span>{avgReadingTime(x.selftext)}</span>
+          <span>{avgReadingTime(x.self_text)}</span>
           min read
         </div>
       </div>
@@ -77,6 +77,7 @@ const Flair = ({data}) => {
 }
 
 const avgReadingTime = (text) => {
+
   const wordsPerMinute = 200; // Average case.
   let result;
   

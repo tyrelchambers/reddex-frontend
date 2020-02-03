@@ -70,7 +70,7 @@ export const ContactsPage = () => {
     
     if ( deleteItem === "OK" ) {
       contacts.filter((x, id) => {
-        if ( x._id === data ) {
+        if ( x.uuid === data ) {
          copy.splice(id, 1);
          setContacts([...copy])
        }
@@ -79,11 +79,11 @@ export const ContactsPage = () => {
   }
  
   return (
-    <>
+    <Dashboard>
       <input type="text" className="search-large w-100pr  mb+" placeholder="Search contact list..." onChange={e => setSortVal(e.target.value)}/>  
 
       <div className="d-f">
-        <h2 className="mr+">Contacts</h2>
+        <h2 className="mr+ contact-title">Contacts</h2>
         {!openForm &&
           <MinimalButton
             onClick={openFormToggle}
@@ -119,6 +119,6 @@ export const ContactsPage = () => {
             deleteHandler={deleteHandler}
           />
         </section>
-    </>
+    </Dashboard>
   )
 }

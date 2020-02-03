@@ -11,7 +11,7 @@ const YouTubeStats = ({user}) => {
 
   }, [])
 
-  const getYtChannel = (channel = user.youtubeId) => {
+  const getYtChannel = (channel = user.youtube_id) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
     return Axios.get(ytLink).then(res => {
       setStats({...res.data.items[0].statistics})
@@ -23,7 +23,7 @@ const YouTubeStats = ({user}) => {
     const token = window.localStorage.getItem('token');
 
     return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/youtube`, {
-      youtubeId: id
+      youtube_id: id
     }, {
       headers: {
         token
@@ -40,10 +40,11 @@ const YouTubeStats = ({user}) => {
   if ( isEmpty(stats) ) {
     return(
       <React.Fragment>
-        <div className="d-f ai-c">
-          <h1 className="dash-subtitle mr+ mb+">Youtube Stats</h1>
+        <div className="d-f fxd-c mt+">
+          <h1 className="dash-subtitle mr+">Youtube Stats</h1>
+          <p className="mb+">Example: https://www.youtube.com/channel/<span style={{color: '#F35627'}}>your-channel-id</span></p>
         </div>
-        <form className="w-400px d-f ai-c mb+">
+        <form className="w-400px d-f ai-c mb-">
           <input placeholder="Enter youtube ID to get stats.." id="youtubeInput" className="input mr-" value={yt} onChange={e => setYt(e.target.value)}></input>
           <button className="btn btn-secondary" onClick={e => getStatsHandler(e)}>Get Stats</button>
         </form>

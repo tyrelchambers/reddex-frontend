@@ -121,3 +121,51 @@ export const resetPassword = (data) => {
   })
   .then(res => res.data)
 }
+
+export const createNewDefaultMessage = (text) => {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/default_message`, {
+    text
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => {
+    toast.success("Message saved")
+    return res.data
+  })
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
+}
+
+export const createNewAltMessage = (text) => {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/alt_message`, {
+    text
+  }, {
+    headers: {
+      token
+    }
+  })
+  .then(res => {
+    toast.success("Message saved")
+    return res.data
+  })
+  .catch(err => {
+    toast.error("Something went wrong, try again");
+    console.log(err);
+  });
+}
+
+export const saveRedditProfileToProfile = profile => {
+  return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/reddit_profile`, {
+    profile
+  }, {
+    headers: {
+      token: window.localStorage.getItem("token")
+    }
+  })
+  .then(res => res.data)
+  .catch(console.log)
+}

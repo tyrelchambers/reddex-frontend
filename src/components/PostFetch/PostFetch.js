@@ -61,7 +61,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       </div>
       
       {posts.length > 0 &&
-        <p className="mt- w-100pr">Showing posts from <span className="highlight-text-dark"> {window.localStorage.getItem('subreddit')}</span></p>
+        <p className="mt- w-100pr current-subreddit">Showing posts from <span className="highlight-text-dark"> {window.localStorage.getItem('subreddit')}</span></p>
       }
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
@@ -120,8 +120,10 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   posts.shift();
   posts.map(x => {
     const newObj = {...x};
-    newObj.data.postId = newObj.data.id;
+    newObj.data.post_id = newObj.data.id;
+    newObj.data.self_text = newObj.data.selftext
     delete newObj.data.id;
+    delete newObj.data.selftext;
     results.push(newObj.data)
   });
 
@@ -141,13 +143,13 @@ export const saveToDatabase = async (posts) => {
     return window.db.posts.add({
       author: x.author,
       title: x.title,
-      selftext: x.selftext,
+      self_text: x.self_text,
       ups: x.ups,
       url: x.url,
       num_comments: x.num_comments,
       created: x.created_utc,
       link_flair_text: x.link_flair_text,
-      postId: x.postId,
+      post_id: x.post_id,
       subreddit: x.subreddit
     });
   });

@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import { is_url } from '../../../helpers/isURL';
 import tabs from './tabs';
 import Tabs from '../../../layouts/Tabs/Tabs';
+import Dashboard from '../Dashboard';
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ url, setURL ] = useState();
@@ -53,17 +54,16 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
     const data = {
       author: story.author,
       title: story.title,
-      selftext: story.selftext,
+      self_text: story.selftext,
       ups: story.ups,
       url: story.url,
       num_comments: story.num_comments,
       created: story.created_utc,
       link_flair_text: story.link_flair_text,
-      postId: story.id,
+      post_id: story.id,
       subreddit: story.subreddit,
       permission: true
     }
-
     
     await saveStoryToReadingList(data);
     ModalStore.setIsOpen(false);
@@ -73,7 +73,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   }
 
   return (
-    <>
+    <Dashboard>
       <div className="d-f ai-c mobile-column">
         <Tabs url="/dashboard/reading_list" data={tabs}/>
 
@@ -117,7 +117,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
           </div>
         </Modal>
       }
-    </>
+    </Dashboard>
   )
 }));
 
@@ -149,7 +149,7 @@ const removeStoryFromDb = (token, item) => {
       token
     },
     params: {
-      postId: item
+      post_id: item
     }
   })
   .then()

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus';
 
 const Forms = ({config, setConfig}) => {
@@ -10,14 +10,14 @@ const Forms = ({config, setConfig}) => {
           option="Inactive"
             disabledText="Active"
           setToggledHandler={() => {
-            setConfig({...config, submissionForm: !config.submissionForm});
+            setConfig({...config, submission_form: !config.submission_form});
           }}
-          toggled={config.submissionForm ? true : false}
+          toggled={config.submission_form ? true : false}
         />
       </div>
       <div className="d-f fxd-c">
         <h2>Submission Form</h2>
-        <p className="mb-">Activate this submission form to allow visitors to email you their own stories</p>
+        <p className="mb- subtle">Activate this submission form to allow visitors to email you their own stories</p>
       </div>
       
     </div>
