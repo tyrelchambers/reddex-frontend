@@ -42,8 +42,8 @@ const ReadingListDumb = ({list, callback}) => {
     <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
-          <h3 className="reading-list-title m- w-100pr">{x.title}</h3>
-          <h4 className="reading-list-author m-">{x.author}</h4>
+          <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
+          <h4 className="reading-list-author">{x.author}</h4>
         </div>
 
         <div className="message-tags mt-">
