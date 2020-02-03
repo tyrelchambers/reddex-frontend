@@ -7,13 +7,12 @@
 }
 
 .chat-body {
-  width: fit-content;
   min-width: 50%;
   padding: 1em;
   margin: 0.5em;
   border-radius: 10px;
   line-height: 1.8em;
-  word-wrap: normal;
+  word-wrap: break-word;
 }
 
 .chat-body-dark {
