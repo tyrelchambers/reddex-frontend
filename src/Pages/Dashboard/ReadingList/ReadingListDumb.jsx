@@ -1,43 +1,49 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './ReadingList.scss';
 import Axios from 'axios';
+import HR from '../../../components/HR/HR';
 
 const ReadingListDumb = ({list, callback}) => {
+  const [state, setState] = useState([]);
+  const [ filter, setFilter ] = useState("");
+  useEffect(() => {
+   formatStateData()
+  }, [list]);
+
   if ( !list ) return null;
 
+  const formatStateData = () => {
+    const masterList = [];
 
-  const masterList = [];
-
-  list.map(x => {
-    if ( x.subreddit ) {
-      if ( masterList[x.subreddit] ) {
-        masterList[x.subreddit].push(x)
+    list.map((x, id) => {
+      
+      if ( x.subreddit ) {
+        if ( masterList[x.subreddit] ) {
+          masterList[x.subreddit].push(x)
+        } else {
+          masterList[x.subreddit] = [];
+          masterList[x.subreddit].push(x)
+        }
       } else {
-        masterList[x.subreddit] = [];
-        masterList[x.subreddit].push(x)
+        if (masterList["Uncategorized"]) {
+          masterList["Uncategorized"].push(x)
+        } else {
+          masterList["Uncategorized"] = [];
+          masterList["Uncategorized"].push(x)
+        } 
       }
-    } else {
-      if (masterList["Uncategorized"]) {
-        masterList["Uncategorized"].push(x)
-      } else {
-        masterList["Uncategorized"] = [];
-        masterList["Uncategorized"].push(x)
-      } 
-    }
-  });
+      if (id === list.length - 1) {
+        setState(masterList)
+      }
+    });
+  }
 
   const Story = ({x}) => (
     <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
-          <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
-          <h4 className="reading-list-author">{x.author}</h4>
-            {x.subreddit &&
-              <>
-                <i className="fas fa-circle mr- ml- circle-divider"></i>
-                <h4 className="reading-list-author">{x.subreddit}</h4>
-              </>
-            }
+          <h3 className="reading-list-title m- w-100pr">{x.title}</h3>
+          <h4 className="reading-list-author m-">{x.author}</h4>
         </div>
 
         <div className="message-tags mt-">
@@ -61,19 +67,50 @@ const ReadingListDumb = ({list, callback}) => {
       </div>
     </li>
   )
+
+  const Filters = () => {
+    const headers = []
+    Object.keys(state).map(x => headers.push(x))
+
+    return(
+      <div className="reading-list-filters d-f fxd-c jc-c mt- mb-">
+        <p className="subtle font-bold">Sort your reading list by subreddits</p>      
+        <div className="header-items">
+          {filter.length > 0 &&
+            <i className="fas fa-times ml- mr-" onClick={() => setFilter("")}></i>
+          }
+          {headers.map(x => (
+            <button 
+              className={`reading-list-header ${filter === x ? "active" : ""}`} 
+              onClick={() => setFilter(x)}
+            >{x}</button>
+          ))}
+        </div>
+      
+      </div>
+    )
+  }
   
-  const renderedList = Object.keys(masterList).map((key, id) => {
+  const renderedList = Object.keys(state).filter(x => {
+    if (filter.length > 0) {
+      return x === filter;
+    }
+    return x
+  }).map((key, id) => {
     return (
       <React.Fragment key={id}>
         <h3 className="tt-c thin">{key}</h3>
-        {masterList[key].map((x, id) => <Story x={x} key={id}/>)}
+        {state[key].map((x, id) => <Story x={x} key={id}/>)}
       </React.Fragment>
     )
-  })
+  })  
 
   return (
     <div className="m+ fx-1">
-      <ul className="reading-list-list">
+      
+      <Filters />
+      <HR/>
+      <ul className="reading-list-list mt+">
         {renderedList}
       </ul>
     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const styles = {
   height: "1px",
-  backgroundColor: "hsla(207, 20%, 91%,1)",
+  backgroundColor: "var(--tiertiary)",
   width: "100%"
 }
 const HR = ({classes}) => {
