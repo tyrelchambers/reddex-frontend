@@ -9,6 +9,7 @@ import Tabs from '../../layouts/Tabs/Tabs';
 import Security from './Security/Security';
 import { getInitialGreeting, getRepeatGreeting } from '../../api/get';
 import Dashboard from '../Dashboard/Dashboard';
+import {getAxios} from '../../api/get'
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ initialGreeting, setInitialGreeting ] = useState("");
@@ -18,7 +19,9 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
 
   useEffect(() => {
     const im = async () => {
-      const data = await getInitialGreeting();
+      const data = await getAxios({
+        url: "/default_message"
+      });
       setInitialGreeting(data[0].initial_message)
     }
     const am = async () => {

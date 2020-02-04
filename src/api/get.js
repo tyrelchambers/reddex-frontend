@@ -1,7 +1,31 @@
 import Axios from "axios"
+import React from 'react';
 
 const token = window.localStorage.getItem("token")
 const BACKEND = process.env.REACT_APP_BACKEND;
+
+export const getAxios = ({
+  method = 'get',
+  data = {},
+  params = {},
+  options = {
+    withToken: true
+  },
+  url = ""
+} = {}) => {
+
+  return Axios({
+    method,
+    url: `${BACKEND}/api${url}`,
+    data,
+    headers: {
+      ...options.withToken && {token}
+    }
+  })
+  .then(res => res.data)
+  .catch(err => console.log(err))
+  
+}
 
 export const getContact = (name) => {
   return Axios.get(`${BACKEND}/api/contacts/name`, {
