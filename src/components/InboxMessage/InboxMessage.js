@@ -3,7 +3,6 @@ import './InboxMessage.scss';
 import isEmpty from '../../helpers/objIsEmpty';
 import HR from '../HR/HR';
 import InboxChat from '../InboxChat/InboxChat';
-import Axios from 'axios';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
@@ -109,29 +108,21 @@ const addToContacts = (user) => {
 }
 
 const permissionHandler = (bool, data) => {
-  const token = window.localStorage.getItem('token');
-  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/set_permission`, {
-    author: data.dest,
-    title: data.subject,
-    permission: bool
-  }, {
-    headers: {
-      token
+  getAxios({
+    url: '/profile/set_permission',
+    method: 'post',
+    data: {
+      author: data.dest,
+      title: data.subject,
+      permission: bool
     }
   })
-  .then()
-  .catch(console.log)
 }
 
 const getStory = (data, setStoryLink) => {
-  const token = window.localStorage.getItem('token');
-  Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/get_story?title=${data.subject}&author=${data.dest}`, {
-    headers: {
-      token
-    }
-  })
-  .then(res => setStoryLink(res.data.url))
-  .catch(console.log);
+  getAxios({
+    url: `/profile/get_story?title=${data.subject}&author=${data.dest}`
+  }).then(res => setStoryLink(res.url))
 }
 
 export const destIsMe = (data, currentUser) => {

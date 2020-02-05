@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { observer } from 'mobx-react-lite';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
+import { getAxios } from '../../api';
 
 const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
   
@@ -30,25 +31,21 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
       return toast.error("No email provided");
     }
     const payload = credentials;
-    
-    await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
-      ...payload
-    })
-    .then(res => {
-      UserStore.setToken(res.data.token);
-      UserStore.setCurrentUser(res.data.user)
-      if (res.data.user.reddit_profile) {
-        UserStore.setRedditProfile(res.data.user.reddit_profile)
-      }
-      return res.data;
-    })
-    .catch(err => {
-      toast.error(err.response)
-      setLoading(false)
-    });
-   
-    window.location.pathname = '/'
 
+    await getAxios({
+      url: '/auth/login',
+      method: 'post',
+      data: {
+        ...payload
+      }
+    }).then(res => {
+      UserStore.setToken(res.token);
+      UserStore.setCurrentUser(res.user)
+      if (res.user.reddit_profile) {
+        UserStore.setRedditProfile(res.user.reddit_profile)
+      }
+    })   
+    window.location.pathname = '/'
   }
   return(
     <DisplayWrapper hasHeader={true}>

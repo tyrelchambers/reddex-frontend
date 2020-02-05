@@ -16,7 +16,9 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
         const stories = await getAxios({
           url: '/profile/stories_used'
         });
-        setUsedPosts([...stories])
+        if (stories) {
+          setUsedPosts([...stories])
+        }
       }
       
       fn();

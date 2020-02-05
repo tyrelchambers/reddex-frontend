@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { toast } from 'react-toastify';
+import { getAxios } from '../api';
 
 export const renewRefreshToken = async () => {
   const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
@@ -37,28 +38,19 @@ export const getCurrentAuthenticatedUser = (token) => {
 }
 
 export const fetchTokens = async () => {
-  const token = window.localStorage.getItem("token");
-
-  const _ = await Axios.get(`${process.env.REACT_APP_BACKEND}/api/tokens/getTokens`, {
-    headers: {
-      token
-    }
+  const _ = await getAxios({
+    url: '/tokens/getTokens'
   })
-  .then(res => res.data)
-  .catch(err => toast.error(err.response.data));
-
   return _;
 }
 
-export const saveTokensToDb = async (access_token, refresh_token, token) => {
-  await Axios.post(`${process.env.REACT_APP_BACKEND}/api/tokens/saveTokens`, {
-    access_token,
-    refresh_token
-  }, {
-    headers: {
-      token
+export const saveTokensToDb = async (access_token, refresh_token) => {
+  getAxios({
+    url: '/tokens/saveTokens',
+    method: 'post',
+    data: {
+      access_token,
+      refresh_token
     }
   })
-  .then()
-  .catch(console.log);
 }

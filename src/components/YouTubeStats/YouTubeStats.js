@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './YouTubeStats.scss';
 import Axios from 'axios';
 import isEmpty from '../../helpers/objIsEmpty';
+import { getAxios } from '../../api';
 
 const YouTubeStats = ({user}) => {
   const [ yt, setYt ] = useState("");
@@ -20,15 +21,14 @@ const YouTubeStats = ({user}) => {
   }
 
   const saveYoutubeId = async (id) => {
-    const token = window.localStorage.getItem('token');
-
-    return Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/youtube`, {
-      youtube_id: id
-    }, {
-      headers: {
-        token
+    getAxios({
+      url: '/profile/youtube',
+      method: 'post',
+      data: {
+        youtube_id: id
       }
-    }).then().catch(console.log);
+    })
+
   }
 
   const getStatsHandler = e => {

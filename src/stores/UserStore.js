@@ -1,5 +1,6 @@
 import { observable, action,decorate, toJS } from 'mobx';
 import Axios from 'axios';
+import { getAxios } from '../api';
 
 class UserStore {
   currentUser = {}
@@ -9,12 +10,10 @@ class UserStore {
     const tkn = window.localStorage.getItem("token");
     if ( !tkn ) return null;
     
-    const user = await Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/auth`, {
-      headers: {
-        "token":tkn
-      }
+    const user = await getAxios({
+      url: '/profile/auth'
     })
-    .then(res => res.data)
+    .then(res => res)
     .catch(err => {
       if (err.response) {
         if(err.response.data.err === "Auth token is old. Please sign in again.") {
@@ -23,7 +22,7 @@ class UserStore {
         }
       }
     })
-      
+         
     
     this.currentUser = user;
   }

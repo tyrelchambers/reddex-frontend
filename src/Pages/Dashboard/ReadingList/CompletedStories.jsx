@@ -1,6 +1,7 @@
 import React from 'react'
 import './ReadingList.scss';
 import Axios from 'axios';
+import { getAxios } from '../../../api';
 
 const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb}) => {
   if ( !list ) return null;
@@ -80,19 +81,15 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
 }
 
 const addToReadingList = (data, bool) => {
-  const token = window.localStorage.getItem('token');
-  
-  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/stories/completed`, {
-    author: data.author,
-    title: data.title,
-    read: bool
-  }, {
-    headers: {
-      token
+  getAxios({
+    url: '/profile/stories/completed',
+    method: 'post',
+    data: {
+      author: data.author,
+      title: data.title,
+      read: bool
     }
   })
-  .then()
-  .catch(console.log)
 }
 
 export default CompletedStories;

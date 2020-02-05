@@ -123,7 +123,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             className="btn btn-primary" 
             onClick={() => {
               setLoading(true);
-              saveAuthorToDb(data.name, data.post_id);
+              saveAuthorToDb(data.author, data.post_id);
               saveStoryToUser(data);
               sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
             }} 
@@ -143,31 +143,23 @@ const CharCounter = ({charCount}) => {
   );
 }
 
-export const saveAuthorToDb = async (name, post_id)=> {
-  const token = window.localStorage.getItem("token");
-  await Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/saveAuthors`, {
-    name,
-    post_id
-  }, {
-    headers: {
-      token
+const saveAuthorToDb = async (name, post_id)=> {
+  await getAxios({
+    url: '/profile/saveAuthors',
+    method: 'post',
+    data: {
+      name,
+      post_id
     }
   })
-  .then()
-  .catch(console.log);
 }
 
-const saveStoryToUser = (data) => {
-  const token = window.localStorage.getItem('token');
-  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/save_story`, {
-    ...data
-  }, {
-    headers: {
-      token
-    }
+const saveStoryToUser = (data) => {  
+  getAxios({
+    url: '/profile/save_story',
+    method: 'post',
+    data
   })
-  .then()
-  .catch(console.log);
 }
 
 export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {

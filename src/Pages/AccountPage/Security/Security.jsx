@@ -3,7 +3,6 @@ import EditUserForm from '../../../components/Forms/EditUserForm'
 import { toast } from 'react-toastify';
 import HR from '../../../components/HR/HR';
 import { MainButton } from '../../../components/Buttons/Buttons';
-import { deleteAccount } from '../../../api/delete';
 import './Security.scss'
 import { getAxios } from '../../../api';
 
@@ -56,7 +55,14 @@ const Security = ({UserStore}) => {
      const prompt = window.confirm("Are you sure you want to delete your account?");
 
      if ( prompt ) {
-        await deleteAccount(u.uuid)
+        await getAxios({
+          url: '/profile/delete',
+          method: 'delete',
+          params: {
+            uuid: u.uuid
+          }
+        })
+        
         window.localStorage.clear();
         window.location.search = ""
         window.location.pathname = "/"

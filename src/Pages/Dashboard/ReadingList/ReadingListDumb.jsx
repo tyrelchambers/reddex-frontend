@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import './ReadingList.scss';
 import Axios from 'axios';
 import HR from '../../../components/HR/HR';
+import { getAxios } from '../../../api';
 
 const ReadingListDumb = ({list, callback}) => {
   const [state, setState] = useState([]);
@@ -134,19 +135,15 @@ const avgReadingTime = (text) => {
 
 
 const addToCompleted = (data, bool) => {
-  const token = window.localStorage.getItem('token');
-
-  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/stories/completed`, {
-    author: data.author,
-    title: data.title,
-    read: bool
-  }, {
-    headers: {
-      token
+  getAxios({
+    url: '/profile/stories/completed',
+    method: 'post',
+    data: {
+      author: data.author,
+      title: data.title,
+      read: bool
     }
   })
-  .then()
-  .catch(console.log)
 }
 
 export default ReadingListDumb
