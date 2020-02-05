@@ -14,14 +14,6 @@ export const saveContact = (data) => {
   .then(res => res.data)
 }
 
-export const getContacts = () => {
-  return Axios.get(`${BACKEND}/api/contacts/all`, {
-    headers: {
-      token
-    }
-  })
-  .then(res => res.data)
-}
 
 export const updateContact = (contact) => {
   return Axios.post(`${BACKEND}/api/contacts/update`, {

@@ -20,10 +20,13 @@ export const getAxios = ({
     data,
     headers: {
       ...options.withToken && {token}
+    },
+    params: {
+      ...params
     }
   })
   .then(res => res.data)
-  .catch(err => console.log(err))
+  .catch(err => err.response.data)
   
 }
 
@@ -37,6 +40,7 @@ export const getContact = (name) => {
     }
   })
   .then(res => res.data)
+  .catch(err => err.response.data)
 }
 
 export const getImportedStory = (url) => {
@@ -83,26 +87,6 @@ export const getStoriesUsedFromUser = () => {
 
 export const getAuthorsMessaged = () => {
   return Axios.get(`${BACKEND}/api/profile/authors_messaged`, {
-    headers: {
-      token
-    }
-  })
-  .then(res => res.data)
-  .catch(err => err.response.data)
-}
-
-export const getInitialGreeting = () => {
-  return Axios.get(`${BACKEND}/api/default_message`, {
-    headers: {
-      token
-    }
-  })
-  .then(res => res.data)
-  .catch(err => err.response.data)
-}
-
-export const getRepeatGreeting = () => {
-  return Axios.get(`${BACKEND}/api/alt_message`, {
     headers: {
       token
     }
