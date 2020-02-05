@@ -3,7 +3,6 @@ import Dashboard from '../Dashboard/Dashboard'
 import { MinimalButton } from '../../components/Buttons/Buttons'
 import { AddContactForm } from '../../components/Forms/AddContactForm';
 import { ContactsList } from '../../components/ContactsList/ContactsList';
-import { deleteContact } from '../../api/delete';
  import './ContactsPage.scss'
 import { getAxios } from '../../api';
 
@@ -78,8 +77,14 @@ export const ContactsPage = () => {
   const deleteHandler = async (data) => {
     const copy = contacts;
 
-    const deleteItem = await deleteContact(data);
-    
+    const deleteItem = await getAxios({
+      url: '/contacts/delete',
+      method: 'delete',
+      params: {
+        id: data
+      }
+    })
+        
     if ( deleteItem === "OK" ) {
       contacts.filter((x, id) => {
         if ( x.uuid === data ) {

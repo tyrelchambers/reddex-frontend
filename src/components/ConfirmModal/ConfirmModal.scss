@@ -45,7 +45,8 @@
   height: 50px;
   border-radius: 50%;
   background-color: rgba($grey6, 0.2);
-   
+  transition: all 0.2s ease;
+
   z-index: 99;
   &:hover {
     background-color: white;

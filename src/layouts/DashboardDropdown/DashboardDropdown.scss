@@ -23,6 +23,7 @@
 .dropdown-link {
   text-decoration: none;
   color: $grey5;
+  transition: all 0.2s ease;
 
   &:hover {
     text-decoration: underline;

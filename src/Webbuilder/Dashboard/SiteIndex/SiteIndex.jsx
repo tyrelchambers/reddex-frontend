@@ -147,7 +147,13 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     }
 
     if ( !config.banner_url.match(/unsplash/gi) ) {
-      await deleteImageFromStorage(config.banner_url).then(console.log);
+      await getAxios({
+        url: '/upload/revert',
+        method: 'delete',
+        params: {
+          url: config.banner_url
+        }
+      })
       setConfig({...config, banner_url: ""})
     } else {
       setConfig({...config, banner_url: ""})
@@ -166,7 +172,15 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     
     if (toDelete) {
       await deleteDomainAlias(config.subdomain)
-      deleteSite(uuid).then(res => toast.success("Site deleted"))
+      
+      getAxios({
+        url: '/site/delete',
+        method: 'delete',
+        params: {
+          uuid
+        }
+      })
+      
       window.location.reload();
     }
   }

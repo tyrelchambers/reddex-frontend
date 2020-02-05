@@ -34,7 +34,8 @@
   margin-bottom: 1.5em;
   border-radius: 5px;
   opacity: 0.5;
-   
+  transition: all 0.2s ease;
+
   &:hover {
     opacity: 1;
   }
