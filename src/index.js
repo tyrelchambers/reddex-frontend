@@ -33,7 +33,7 @@ import { checkValidTokens } from './helpers/checkValidTokens';
 import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
-import { saveRedditProfileToProfile } from './api/post';
+import { getAxios } from './api/get';
 
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -94,7 +94,11 @@ const InitalLoad = () => {
         if ((redditProfile && !user.reddit_profile) || (!redditProfile && !user.reddit_profile)) {
           const profile = await getCurrentAuthenticatedUser(user.access_token)
           if (profile) {
-            await saveRedditProfileToProfile(profile).then(res => {
+            await getAxios({
+              url: '/profile/reddit_profile',
+              method: 'post',
+              data: profile
+            }).then(res => {
               stores.UserStore.setRedditProfile(res.reddit_profile)
               window.localStorage.removeItem('reddit_profile')
             })

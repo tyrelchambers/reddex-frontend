@@ -9,8 +9,7 @@ import { Redirect } from 'react-router-dom';
 import { MinimalButton } from '../../../components/Buttons/Buttons';
 import { Modal } from '../../../components/Modal/Modal';
 import { ImportStoryForm } from '../../../components/Forms/ImportStoryForm';
-import { saveStoryToReadingList } from '../../../api/post';
-import { getImportedStory } from '../../../api/get';
+import { getImportedStory, getAxios } from '../../../api/get';
 import { toast } from 'react-toastify';
 import { is_url } from '../../../helpers/isURL';
 import tabs from './tabs';
@@ -65,7 +64,12 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       permission: true
     }
     
-    await saveStoryToReadingList(data);
+    await getAxios({
+      url: '/profile/save_story',
+      method: 'post',
+      data
+    }) 
+
     ModalStore.setIsOpen(false);
     setRefresh(true);
     setSaving(false);

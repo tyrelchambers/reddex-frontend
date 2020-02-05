@@ -4,6 +4,7 @@ import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import ResetPasswordForm from '../../components/Forms/ResetPasswordForm';
 import { resetPassword } from '../../api/post';
 import { toast } from 'react-toastify';
+import { getAxios } from '../../api/get';
 
 const ResetPassword = () => {
   const [ password, setPassword ] = useState({
@@ -27,7 +28,13 @@ const ResetPassword = () => {
     if ( payload.password.length < 8 ) return toast.error("Password must be longer than 8 characters") 
     if ( payload.password !== password.confirmNewPassword ) return toast.error("Confirmation password and new password, don't match")
 
-    await resetPassword(payload).then(res => toast.success("Password reset successful"));
+    await getAxios({
+      url: '/reset',
+      data: payload,
+      method: 'post'
+    })
+    .then(res => toast.success("Password reset successful"));
+
     window.location.search = ""
     window.location.pathname="/login"
   }

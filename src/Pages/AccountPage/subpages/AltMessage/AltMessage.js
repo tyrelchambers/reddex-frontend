@@ -1,6 +1,5 @@
 import React from 'react'
-import { createNewAltMessage } from '../../../../api/post'
-import { updateAltMessage } from '../../../../api/put'
+import { getAxios } from '../../../../api/get';
 const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
 
   const DefaultMessage = () => repeatGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{repeatGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No alternative message saved</p>
@@ -9,10 +8,22 @@ const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
   const saveMessageHandler = async (e) => {
     e.preventDefault();
     
-    if (repeatGreeting.uuid) {
-      await updateAltMessage(repeatGreeting)
+    if (repeatGreeting) {
+      await getAxios({
+        url: '/alt_message',
+        method: 'put',
+        data: {
+          text: repeatGreeting,
+        }
+      })
     } else {
-      await createNewAltMessage(repeatGreeting);
+      await getAxios({
+        url: '/alt_message',
+        method: 'post',
+        data: {
+          text: repeatGreeting
+        }
+      })
     }
 
   

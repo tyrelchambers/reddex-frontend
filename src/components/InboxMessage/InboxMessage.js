@@ -6,7 +6,6 @@ import InboxChat from '../InboxChat/InboxChat';
 import Axios from 'axios';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import { saveContact } from '../../api/post';
 import { toast } from 'react-toastify';
 import { getAxios } from '../../api/get';
 
@@ -102,7 +101,11 @@ const InboxMessage = inject("InboxStore", "UserStore")(observer(({InboxStore, Us
 }));
 
 const addToContacts = (user) => {
-  saveContact({name: user.dest})
+  getAxios({
+    url: '/contacts/save',
+    method: 'post',
+    data: {name: user.dest}
+  })
 }
 
 const permissionHandler = (bool, data) => {

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { MainButton, MinimalButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import { getContact, getAuthorsMessaged } from '../../api/get';
+import { getAxios } from '../../api/get';
 
 const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
@@ -23,8 +23,16 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
   useEffect(() => {
     messageHandler();
     const fn = async () => {
-      const c = await getContact(data.author)
-      const authors = await getAuthorsMessaged();
+      const c = await getAxios({
+        url: '/contacts/all',
+        params: {
+          name: data.author
+        }
+      });
+      
+      const authors = await getAxios({
+        url: '/profile/authors_messaged'
+      });
       setAuthorsMessaged([...authors])
       if (c ) {
         setContact({...c})

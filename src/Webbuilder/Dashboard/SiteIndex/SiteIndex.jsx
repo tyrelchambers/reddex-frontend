@@ -8,9 +8,8 @@ import { inject } from 'mobx-react'
 import { observer } from 'mobx-react-lite'
 import SiteSaveStatus from '../../../layouts/SiteSaveStatus/SiteSaveStatus'
 import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus'
-import { addDomainAlias, activateWebsite, updateWebsite } from '../../../api/post'
+import { addDomainAlias } from '../../../api/post'
 import { toast } from 'react-toastify'
-import { getWebsiteWithToken } from '../../../api/get'
 import { deleteImageFromStorage, deleteSite } from '../../../api/delete'
 import { deleteDomainAlias } from '../../../api/put'
 import Forms from '../Forms/Forms'
@@ -21,6 +20,7 @@ import { MainButton } from '../../../components/Buttons/Buttons'
 import Misc from '../Misc/Misc'
 import tabs from '../tabs';
 import Tabs from '../../../layouts/Tabs/Tabs'
+import { getAxios } from '../../../api/get'
 
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
@@ -51,14 +51,17 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   useEffect(() => {
     const yt = UserStore.currentUser.youtube_id;
     const fn = async () => {
-      await getWebsiteWithToken().then(res => {
+      await getAxios({
+        url: '/site/config'
+      })
+      .then(res => {
         if (res) {
           setActivated(true)
           setConfig({...config, ...res, youtube_id: res.youtube_id || yt})
           SiteStore.setPreview({...res})
         }
         setLoading(false);
-      });
+      })
     }
     fn();
     
@@ -74,7 +77,12 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   }
 
   const activateSiteHandler = async () => {
-    await activateWebsite().then(res => setConfig({...config, ...res}));
+    await getAxios({
+      url: '/site/activate',
+      method: 'post'
+    })
+    .then(res => setConfig({...config, ...res}));
+    
     toast.success("Site activated")
     setActivated(true)
   }
@@ -114,7 +122,14 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
     SiteStore.setPreview(payload)
     SiteStore.setChanges(false)
-    await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
+    
+    await getAxios({
+      url: '/site/update',
+      method: 'post',
+      data: payload
+    })
+    .then(res => toast.success("Changes saved"));
+
     setSaving(false)
   }
 
@@ -138,7 +153,12 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     } else {
       setConfig({...config, banner_url: ""})
     }
-    await updateWebsite(payload).then(res => toast.success("Changes saved")).catch(console.log);
+    await getAxios({
+      url: '/site/update',
+      method: 'post',
+      data: payload
+    })
+    .then(res => toast.success("Changes saved"));
 
   }
 

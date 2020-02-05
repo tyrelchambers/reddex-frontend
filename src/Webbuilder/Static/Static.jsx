@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { getWebsiteFromProfile } from '../../api/get';
+import { getAxios } from '../../api/get';
 import SocialBar from './modules/SocialBar/SocialBar';
 import './Static.scss'
 import SubmissionForm from '../../components/Forms/SubmissionForm';
 import Youtube from 'react-youtube'
 import Axios from 'axios';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
-import { submitStoryForm } from '../../api/post';
 import { toast } from 'react-toastify';
 
 const Static = () => {
@@ -23,7 +22,13 @@ const Static = () => {
   useEffect(() => {
     const subdomain = window.location.host.split('.')[0];
     const fn = async () => {
-      const siteConfig = await getWebsiteFromProfile(subdomain);
+      const siteConfig = await getAxios({
+        url: '/site/',
+        params: {
+          subdomain
+        }
+      })
+      
       setConfig(siteConfig);
     }
     fn();
@@ -54,7 +59,11 @@ const Static = () => {
       subdomain: config.subdomain
     }
     
-    await submitStoryForm(payload).then(res => toast.success("Story submitted"))
+    await getAxios({
+      url: '/submissionForm/submit',
+      data: payload
+    })
+    .then(res => toast.success("Story submitted"))
   }
 
   const videos = videoIds ? videoIds.map((x, id) => (

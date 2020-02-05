@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { inject, observer } from 'mobx-react';
-import { getStoriesUsedFromUser } from '../../api/get';
+import { getAxios } from '../../api/get';
 
 const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
@@ -13,7 +13,9 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
 
     if( token ) {
       const fn = async () => {
-        const stories = await getStoriesUsedFromUser();
+        const stories = await getAxios({
+          url: '/profile/stories_used'
+        });
         setUsedPosts([...stories])
       }
       

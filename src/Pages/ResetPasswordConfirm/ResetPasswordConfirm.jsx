@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper'
-import { requestReset } from '../../api/post';
 import { toast } from 'react-toastify';
 import { MainButton } from '../../components/Buttons/Buttons';
+import { getAxios } from '../../api/get';
 
 const ResetPasswordConfirm = () => {
   const [ email, setEmail ] = useState("");
@@ -13,8 +13,12 @@ const ResetPasswordConfirm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const reset = await requestReset(email)
-    
+    const reset = await getAxios({
+      url: '/reset/get_reset_token',
+      method: 'post',
+      data: email
+    })
+        
     if ( !reset ) return toast.error(reset)
   }
   return (

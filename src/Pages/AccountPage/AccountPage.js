@@ -24,7 +24,7 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
       setInitialGreeting(data[0].initial_message)
     }
     const am = async () => {
-      const data = await await getAxios({
+      const data = await getAxios({
         url: "/alt_message"
       });;
       setRepeatGreeting(data[0].repeat_message)

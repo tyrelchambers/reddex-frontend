@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import EditUserForm from '../../../components/Forms/EditUserForm'
-import { editUserEmail, editUserPassword } from '../../../api/put';
 import { toast } from 'react-toastify';
 import HR from '../../../components/HR/HR';
 import { MainButton } from '../../../components/Buttons/Buttons';
 import { deleteAccount } from '../../../api/delete';
 import './Security.scss'
+import { getAxios } from '../../../api/get';
 
 const Security = ({UserStore}) => {
   const [u, setU] = useState();
@@ -24,10 +24,17 @@ const Security = ({UserStore}) => {
   const changeEmailHandler = async (e) => {
     e.preventDefault();
     
-    await editUserEmail(changes.email).then(res => {
+    await getAxios({
+      url: '/profile/update/email',
+      method: 'put',
+      data: {
+        email: changes.email
+      }
+    }).then(res => {
       UserStore.setCurrentUser(res)
       toast.success("Changes saved");
     })
+
   }
   const changePasswordHandler = async (e) => { 
     e.preventDefault();
@@ -36,10 +43,11 @@ const Security = ({UserStore}) => {
     if ( changes.newPassword !== changes.confirmPassword ) return toast.error("Confirmation password and new password, don't match")
     if (!changes.currentPassword) return toast.error("Please provide your current password");
 
-    await editUserPassword(changes)
-          .then(res => {
-            toast.success("Password changed");
-          })
+    await getAxios({
+      url: '/profile/update/password',
+      method: 'put',
+      data: changes
+    })
 
     window.location.reload()
    }
