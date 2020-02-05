@@ -33,7 +33,7 @@ import { checkValidTokens } from './helpers/checkValidTokens';
 import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
-import { getAxios } from './api/get';
+import { getAxios } from './api/index';
 
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {

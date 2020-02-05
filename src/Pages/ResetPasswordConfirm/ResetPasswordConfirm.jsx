@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper'
 import { toast } from 'react-toastify';
 import { MainButton } from '../../components/Buttons/Buttons';
-import { getAxios } from '../../api/get';
+import { getAxios } from '../../api';
 
 const ResetPasswordConfirm = () => {
   const [ email, setEmail ] = useState("");

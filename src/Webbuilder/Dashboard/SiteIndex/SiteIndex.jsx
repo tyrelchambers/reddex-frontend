@@ -20,8 +20,7 @@ import { MainButton } from '../../../components/Buttons/Buttons'
 import Misc from '../Misc/Misc'
 import tabs from '../tabs';
 import Tabs from '../../../layouts/Tabs/Tabs'
-import { getAxios } from '../../../api/get'
-
+import {getAxios } from '../../../api/index'
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
   const [config, setConfig] = useState({

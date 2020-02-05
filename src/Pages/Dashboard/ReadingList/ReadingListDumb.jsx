@@ -79,9 +79,10 @@ const ReadingListDumb = ({list, callback}) => {
           {filter.length > 0 &&
             <i className="fas fa-times ml- mr-" onClick={() => setFilter("")}></i>
           }
-          {headers.map(x => (
+          {headers.map((x,id) => (
             <button 
-              className={`reading-list-header ${filter === x ? "active" : ""}`} 
+              key={id}
+              className={`reading-list-filter ${filter === x ? "active" : ""}`} 
               onClick={() => setFilter(x)}
             >{x}</button>
           ))}

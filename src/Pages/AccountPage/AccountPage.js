@@ -8,7 +8,7 @@ import tabs from './tabs'
 import Tabs from '../../layouts/Tabs/Tabs';
 import Security from './Security/Security';
 import Dashboard from '../Dashboard/Dashboard';
-import {getAxios} from '../../api/get'
+import { getAxios } from '../../api';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ initialGreeting, setInitialGreeting ] = useState("");

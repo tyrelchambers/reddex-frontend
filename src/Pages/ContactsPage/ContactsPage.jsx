@@ -5,7 +5,7 @@ import { AddContactForm } from '../../components/Forms/AddContactForm';
 import { ContactsList } from '../../components/ContactsList/ContactsList';
 import { deleteContact } from '../../api/delete';
  import './ContactsPage.scss'
-import { getAxios } from '../../api/get';
+import { getAxios } from '../../api';
 
 export const ContactsPage = () => {
   const [ contacts, setContacts ] = useState([]);

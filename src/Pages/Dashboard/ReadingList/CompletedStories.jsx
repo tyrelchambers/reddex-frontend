@@ -48,7 +48,7 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
 
               <button className="chat-action primary ai-c" onClick={() => {
                 ReadingListStore.removeStoryFromList("completed", x.post_id);
-                removeStoryFromDb(token, x.post_id)
+                removeStoryFromDb(x.post_id)
               }}>
                 <i className="fas fa-bookmark mr-"></i>
                 Remove from reading list

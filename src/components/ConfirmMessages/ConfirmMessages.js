@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { MainButton, MinimalButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import { getAxios } from '../../api/get';
+import { getAxios } from '../../api';
 
 const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");

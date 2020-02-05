@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import ResetPasswordForm from '../../components/Forms/ResetPasswordForm';
-import { resetPassword } from '../../api/post';
 import { toast } from 'react-toastify';
-import { getAxios } from '../../api/get';
+import { getAxios } from '../../api';
 
 const ResetPassword = () => {
   const [ password, setPassword ] = useState({

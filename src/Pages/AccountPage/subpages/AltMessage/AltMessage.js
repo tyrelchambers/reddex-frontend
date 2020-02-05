@@ -1,5 +1,5 @@
 import React from 'react'
-import { getAxios } from '../../../../api/get';
+import { getAxios } from '../../../../api';
 const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
 
   const DefaultMessage = () => repeatGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{repeatGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No alternative message saved</p>

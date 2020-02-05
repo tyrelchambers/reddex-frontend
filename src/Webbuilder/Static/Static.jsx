@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { getAxios } from '../../api/get';
 import SocialBar from './modules/SocialBar/SocialBar';
 import './Static.scss'
 import SubmissionForm from '../../components/Forms/SubmissionForm';
@@ -7,6 +6,7 @@ import Youtube from 'react-youtube'
 import Axios from 'axios';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 import { toast } from 'react-toastify';
+import { getAxios } from '../../api';
 
 const Static = () => {
   const [loading, setLoading] = useState(true);

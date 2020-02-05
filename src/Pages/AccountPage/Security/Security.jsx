@@ -5,7 +5,7 @@ import HR from '../../../components/HR/HR';
 import { MainButton } from '../../../components/Buttons/Buttons';
 import { deleteAccount } from '../../../api/delete';
 import './Security.scss'
-import { getAxios } from '../../../api/get';
+import { getAxios } from '../../../api';
 
 const Security = ({UserStore}) => {
   const [u, setU] = useState();

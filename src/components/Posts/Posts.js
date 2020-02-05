@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { inject, observer } from 'mobx-react';
-import { getAxios } from '../../api/get';
+import { getAxios } from '../../api';
 
 const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
