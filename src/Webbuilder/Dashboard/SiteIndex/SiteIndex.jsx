@@ -22,29 +22,6 @@ import Tabs from '../../../layouts/Tabs/Tabs'
 import {getAxios } from '../../../api/index'
 const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const pondRef = useRef()
-  const [config, setConfig] = useState({
-    uuid: "",
-    subdomain: "",
-    title: "",
-    twitter: "",
-    facebook: "",
-    instagram: "",
-    patreon: "",
-    youtube: "",
-    podcast: "",
-    introduction: "",
-    banner_url: "",
-    submission_form: false,
-    youtube_id: "",
-    youtube_timeline: false,
-    twitter_id: "",
-    twitter_timeline: false,
-    show_credit_link: true,
-    accent: "#000000",
-    theme: "light",
-    headline: "",
-    submission_title: ""
-  });
   const [activated, setActivated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [ saving, setSaving ] = useState(false);
@@ -57,8 +34,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       .then(res => {
         if (res) {
           setActivated(true)
-          setConfig({...config, ...res, youtube_id: res.youtube_id || yt})
-          SiteStore.setPreview({...res})
+          SiteStore.setConfig({...res, youtube_id: res.youtube_id || yt})
+          SiteStore.setChanges(false)
         }
         setLoading(false);
       })
@@ -68,7 +45,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   }, []);
 
   const configHandler = (e) => {
-    setConfig({...config, [e.target.name]: e.target.value});
+ 
+    SiteStore.setConfig({[e.target.name]: e.target.value})
   }
   const params = new URLSearchParams(window.location.search);
 
@@ -81,7 +59,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       url: '/site/activate',
       method: 'post'
     })
-    .then(res => setConfig({...config, ...res}));
+    .then(res => SiteStore.setConfig({...res}));
     
     toast.success("Site activated")
     setActivated(true)
@@ -89,7 +67,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
   const submitHandler = async () => {
     setSaving(true)
-    const data = {...config} 
+    const data = {...SiteStore.config} 
     if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }
@@ -115,12 +93,11 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       banner_url
     }
 
-    if ( data.subdomain !== SiteStore.preview.subdomain ) {
-      await deleteDomainAlias(SiteStore.preview.subdomain)
+    if ( data.subdomain !== SiteStore.config.subdomain ) {
+      await deleteDomainAlias(SiteStore.config.subdomain)
       await addDomainAlias(data.subdomain);
     }
 
-    SiteStore.setPreview(payload)
     SiteStore.setChanges(false)
     
     await getAxios({
@@ -143,21 +120,21 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
   const deleteImageHandler = async (e) => {
     e.preventDefault();
     const payload = {
-      ...config,
+      ...SiteStore.config,
       banner_url: ""
     }
 
-    if ( !config.banner_url.match(/unsplash/gi) ) {
+    if ( !SiteStore.config.banner_url.match(/unsplash/gi) ) {
       await getAxios({
         url: '/upload/revert',
         method: 'delete',
         params: {
-          url: config.banner_url
+          url: SiteStore.config.banner_url
         }
       })
-      setConfig({...config, banner_url: ""})
+      SiteStore.setConfig({banner_url: ""})
     } else {
-      setConfig({...config, banner_url: ""})
+      SiteStore.setConfig({banner_url: ""})
     }
     await getAxios({
       url: '/site/update',
@@ -172,7 +149,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     const toDelete = window.confirm("Are you sure you want to delete?");
     
     if (toDelete) {
-      await deleteDomainAlias(config.subdomain)
+      await deleteDomainAlias(SiteStore.config.subdomain)
       
       getAxios({
         url: '/site/delete',
@@ -196,8 +173,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
         <div className="pb-">
           <div className="d-f ai-c mb+">
             <h1 className="mr+">Site Builder</h1>
-            {config.subdomain &&
-               <a href={`https://${config.subdomain}.reddex.app`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
+            {SiteStore.config.subdomain &&
+               <a href={`https://${SiteStore.config.subdomain}.reddex.app`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
             }
           </div>
   
@@ -219,7 +196,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
 
               </div>
               <SiteSaveStatus
-                config={config}
+                config={SiteStore.config}
                 store={SiteStore}
                 submitHandler={submitHandler}
                 saving={saving}
@@ -230,7 +207,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                     <h2>General Settings</h2>
                     <SiteBuilderForm 
                       configHandler={configHandler}
-                      config={config}
+                      config={SiteStore.config}
                       pondRef={pondRef}
                       deleteImageHandler={deleteImageHandler}
                     />
@@ -244,7 +221,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                     <MainButton
                       value="Delete Site"
                       className="btn btn-tiertiary danger"
-                      onClick={() => deleteSiteHandler(config.uuid)}
+                      onClick={() => deleteSiteHandler(SiteStore.config.uuid)}
                     >
                       <i className="fas fa-trash"></i>
                       
@@ -258,7 +235,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                       <h2>Colour Theme</h2>
                       <SiteBuilderThemeForm 
                         configHandler={configHandler}
-                        config={config}
+                        config={SiteStore.config}
                       />
                     </div>
         
@@ -268,8 +245,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                 {params.get('t') === "forms" &&
                   <>
                     <Forms 
-                      config={config}
-                      setConfig={setConfig}
+                      config={SiteStore.config}
+                      setConfig={SiteStore.setConfig}
                     />
                   </>
                 }
@@ -277,13 +254,13 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                 {params.get('t') === "timelines" &&
                   <>
                     <Youtube
-                      config={config}
-                      setConfig={setConfig}
+                      config={SiteStore.config}
+                      setConfig={SiteStore.setConfig}
                       store={UserStore}
                     />
                     <Twitter
-                      config={config}
-                      setConfig={setConfig}
+                      config={SiteStore.config}
+                      setConfig={SiteStore.setConfig}
                     />
                   </>
                 }
@@ -291,8 +268,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
                 {params.get('t') === "misc" &&
                   <>
                     <Misc
-                      config={config}
-                      setConfig={setConfig}
+                      config={SiteStore.config}
+                      setConfig={SiteStore.setConfig}
                     />
                   </>
                 }
