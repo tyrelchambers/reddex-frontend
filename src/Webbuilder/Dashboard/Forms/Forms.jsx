@@ -5,6 +5,8 @@ import Quill from 'quill'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Forms.scss'
+import SubmissionForm from '../../../components/Forms/SubmissionForm';
+import FormStore from '../../../stores/FormStore';
 const Forms = inject("SiteStore")(observer(({SiteStore}) => {
   useEffect(() => {
     let quill = new Quill('#editor', {
@@ -47,6 +49,30 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
       
     </div>
   )
+
+  const Module = ({data, name}) => (
+    <div className="d-f ai-c form-module-wrapper">
+      <label className="form-label">{data.label}</label>
+      <div className="d-f ai-c">
+        <input type="checkbox" name="email" id={`${name}-required`} checked={data.required} onChange={() => FormStore.setState({
+          [name]: {
+            ...FormStore.state[name],
+            required: !data.required
+          }
+          })}/> 
+        <p className="subtle mr-">Required?</p>
+      </div>
+      <div className="d-f ai-c">
+        <input type="checkbox" name="email" id={`${name}-enabled`} checked={data.enabled} onChange={() => FormStore.setState({
+          [name]: {
+            ...FormStore.state[name],
+            enabled: !data.enabled
+          }
+          })}/> 
+        <p className="subtle">Enabled?</p>
+      </div>
+    </div>
+  )
   return (
     <div>
       <SubForm/>
@@ -75,12 +101,29 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
                 
               </div>
             </div>
+
+            <div className="modules-wrapper mt+">
+              <h3>Customize Modules</h3>
+
+              <div className="field-group">
+                <div className="d-f fxd-c">
+                  <Module data={FormStore.state.email} name="email"/>
+                  <Module data={FormStore.state.title} name="title"/>
+                  <Module data={FormStore.state.sent_to_others} name="sent_to_others"/>
+                  <Module data={FormStore.state.author} name="author"/>
+                  <Module data={FormStore.state.tags} name="tags"/>
+
+                </div>
+              </div>
+            </div>
           </form>
 
           <section className="form-preview">
             <h1 className="preview-title">{SiteStore.config.submission_title}</h1>
             <h3 className="preview-headline">{SiteStore.config.headline}</h3>
             <div dangerouslySetInnerHTML={{__html: SiteStore.config.rules}} id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
+          
+            <SubmissionForm />
           </section>
         </div>
       }

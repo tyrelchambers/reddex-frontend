@@ -35,7 +35,7 @@ import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
 import { getAxios } from './api/index';
 import StorySubmission from './Webbuilder/Static/StorySubmission/StorySubmission';
-
+import FormStore from './stores/FormStore'
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -67,7 +67,8 @@ const stores = {
   PostStore,
   InboxStore,
   ReadingListStore,
-  SiteStore
+  SiteStore,
+  FormStore
 }
 
 const InitalLoad = () => { 

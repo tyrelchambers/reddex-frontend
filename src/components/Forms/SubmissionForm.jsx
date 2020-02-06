@@ -1,49 +1,71 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { MainButton } from '../Buttons/Buttons';
+import { inject, observer } from 'mobx-react';
+import Quill from 'quill'
 
-const SubmissionForm = ({subForm, setSubForm, submitFormHandler}) => {
+const SubmissionForm = inject("FormStore")(observer(({FormStore}) => {
+  useEffect(() => {
+    let quill = new Quill('#editor_static', {
+      theme: 'snow',
+      placeholder: 'Compose your epic...'
+    });
+
+    quill.on('editor-change', function(eventName, ...args) {
+      if (eventName === 'text-change' || eventName === 'selection-change') {
+        FormStore.setConfig({body: quill.root.innerHTML})
+      }
+    });
+
+    window.quill = quill;
+    return () => {
+      quill = null;
+    };
+  }, []);
   return (
     <form className="form">
-      <div className="field-group">
-        <label className='form-label' htmlFor="senderName">Your Name or Alias</label>
-        <input type="text" className="form-input" name="senderName" placeholder="John Smith" value={subForm.senderName} onChange={e => setSubForm({...subForm, [e.target.name]: e.target.value})}/>
-      </div>
-
-      <div className="field-group">
-        <label className='form-label' htmlFor="email">Email</label>
-        <input type="text" className="form-input" name="email" placeholder="smith@email.com" value={subForm.email} onChange={e => setSubForm({...subForm, [e.target.name]: e.target.value})}/>
-      </div>
-
-      <div className="field-group">
-        <label className='form-label' htmlFor="message">Write your story</label>
-        <textarea name="message" className="textarea" value={subForm.message} onChange={e => setSubForm({...subForm, [e.target.name]: e.target.value})}></textarea>
-      </div>
-
-      <div className="field-group">
-        <label className='form-label' htmlFor="sentToOthers">Have you sent this story to anyone else?</label>
-        <div>
-          <span className="d-f ai-c">
-            <input type="radio" name="sentToOthers" value="Yes" className="mr-"  onChange={e => setSubForm({...subForm, [e.target.name]: true})}/>
-            <p>Yes</p>
-          </span>
-          <span className="d-f ai-c">
-            <input type="radio" name="sentToOthers" value="No" className="mr-"  onChange={e => setSubForm({...subForm, [e.target.name]: false})}/>
-            <p>No</p>
-          </span>
+      {FormStore.state.title.enabled &&
+        <div className="field-group">
+          <label htmlFor="title" className="form-label">Title</label>
+          <input type="text" className="form-input" placeholder="Title of your story..."/>
         </div>
+      }
+      
+      {FormStore.state.author.enabled &&
+        <div className="field-group">
+          <label htmlFor="author" className="form-label">Author</label>
+          <input type="text" className="form-input" placeholder="Your name..."/>
+        </div>
+      }
+
+      {FormStore.state.email.enabled &&
+        <div className="field-group">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input type="text" className="form-input" placeholder="Email..."/>
+        </div>
+      }
+
+      <div className="field-grou">
+        <label htmlFor="story_body" className="form-label">Compose your epic</label>
+        <div id="editor_static" name="story_body"></div>
       </div>
 
-      <div className="d-f jc-fe">
-        <MainButton
-          className="btn btn-primary"
-          value="Submit Form"
-          onClick={submitFormHandler}
-        >
-
-        </MainButton>
-      </div>
-    </form>
+      {FormStore.state.tags.enabled &&
+        <div className="field-group">
+          <label htmlFor="tags" className="form-label">Tags</label>
+          <input type="text" className="form-input" placeholder="Tags separated by commas..."/>
+        </div>
+      }
+      
+      {FormStore.state.sent_to_others.enabled &&
+        <div className="field-group">
+          <label htmlFor="sent_to_authors">Was this sent to anyone else?</label>
+          <input type="checkbox" name="sent_to_others" id="sentYes"/> Yes
+          <input type="checkbox" name="sent_to_others" id="sentNo"/> No
+        </div>
+      }
+    </form> 
   );
-}
+}));
 
 export default SubmissionForm;
+
