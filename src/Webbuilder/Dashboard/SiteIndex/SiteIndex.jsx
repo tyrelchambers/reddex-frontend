@@ -41,7 +41,9 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
     twitter_timeline: false,
     show_credit_link: true,
     accent: "#000000",
-    theme: "light"
+    theme: "light",
+    headline: "",
+    submission_title: ""
   });
   const [activated, setActivated] = useState(false);
   const [loading, setLoading] = useState(true);

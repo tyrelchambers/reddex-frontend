@@ -20,7 +20,9 @@ class SiteStore {
     twitter_timeline: false,
     show_credit_link: true,
     accent: "#000000",
-    theme: "light"
+    theme: "light",
+    headline: "",
+    submission_title: ""
   }
 
   changes = false;
