@@ -1,5 +1,7 @@
 import React from 'react';
 import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus';
+import SiteBuilderSubmissionForm from '../../../components/Forms/SiteBuilderSubmissionForm';
+import HR from '../../../components/HR/HR';
 
 const Forms = ({config, setConfig}) => {
   const SubForm = () => (
@@ -25,6 +27,14 @@ const Forms = ({config, setConfig}) => {
   return (
     <div>
       <SubForm/>
+      <HR />
+      {config.submission_form &&
+        <section className="custom-story-form mt+">
+          <h2>Customize your submission form</h2>
+          <p className="subtle mb+">This is what your visitor will see when they submit you a story. Customize it to fit it how you'd like.</p>
+          <SiteBuilderSubmissionForm />
+        </section>
+      }
     </div>
   );
 }

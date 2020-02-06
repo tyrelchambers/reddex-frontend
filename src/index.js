@@ -34,6 +34,7 @@ import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
 import { getAxios } from './api/index';
+import StorySubmission from './Webbuilder/Static/StorySubmission/StorySubmission';
 
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -121,6 +122,7 @@ const InitalLoad = () => {
           <Router>
             <Switch>
               <Route exact path="/" component={Static}/>
+              <Route exact path="/submit" component={StorySubmission}/>
               <Route component={Page404}/>
 
             </Switch>
