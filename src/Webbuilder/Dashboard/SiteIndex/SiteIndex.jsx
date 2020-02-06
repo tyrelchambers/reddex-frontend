@@ -35,6 +35,7 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
         if (res) {
           setActivated(true)
           SiteStore.setConfig({...res, youtube_id: res.youtube_id || yt})
+          SiteStore.setPreview({subdomain: res.subdomain})
           SiteStore.setChanges(false)
         }
         setLoading(false);
@@ -93,8 +94,8 @@ const SiteIndex = inject("SiteStore", "UserStore")(observer(({SiteStore, UserSto
       banner_url
     }
 
-    if ( data.subdomain !== SiteStore.config.subdomain ) {
-      await deleteDomainAlias(SiteStore.config.subdomain)
+    if ( data.subdomain !== SiteStore.preview.subdomain ) {
+      await deleteDomainAlias(SiteStore.preview.subdomain)
       await addDomainAlias(data.subdomain);
     }
 

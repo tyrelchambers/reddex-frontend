@@ -1,4 +1,4 @@
-import { decorate, observable, action, reaction } from "mobx";
+import { decorate, observable, action } from "mobx";
 
 class SiteStore {
   config = {
@@ -22,7 +22,12 @@ class SiteStore {
     accent: "#000000",
     theme: "light",
     headline: "",
-    submission_title: ""
+    submission_title: "",
+    rules: ""
+  }
+
+  preview = {
+    subdomain: ""
   }
 
   changes = false;
@@ -35,11 +40,17 @@ class SiteStore {
   setChanges(state) {
     this.changes = state;
   } 
+
+  setPreview(data) {
+    this.preview = {...this.preview, ...data}
+  }
 }
 
 decorate(SiteStore, {
   config: observable,
   setConfig: action,
+  preview: observable,
+  setPreview: action,
   changes: observable
 })
 
