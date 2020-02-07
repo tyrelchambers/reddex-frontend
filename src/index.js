@@ -120,6 +120,8 @@ const InitalLoad = () => {
     if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1)) {
       return(
         <Provider {...stores}>
+          <ToastContainer />
+
           <Router>
             <Switch>
               <Route exact path="/" component={Static}/>

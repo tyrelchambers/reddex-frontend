@@ -68,7 +68,7 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
     setSaving(true)
     
     SiteStore.submit(pondRef);
-    FormStore.submit(SiteStore.config.uuid)
+    FormStore.save(SiteStore.config.uuid)
     setSaving(false)
   }
 

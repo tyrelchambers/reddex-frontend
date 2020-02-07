@@ -108,7 +108,7 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
               <div className="field-group">
                 <div className="d-f fxd-c">
                   <Module data={FormStore.state.email} name="email"/>
-                  <Module data={FormStore.state.title} name="title"/>
+                  <Module data={FormStore.state.story_title} name="story_title"/>
                   <Module data={FormStore.state.sent_to_others} name="sent_to_others"/>
                   <Module data={FormStore.state.author} name="author"/>
                   <Module data={FormStore.state.tags} name="tags"/>
