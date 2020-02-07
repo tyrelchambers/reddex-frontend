@@ -36,8 +36,12 @@ class FormStore {
 
   changes = false;
 
+  setInitial(data) {
+    this.config = {...this.config, ...data}
+  }
+
   setState(data) {
-    this.setChanges(true);
+    this.setChanges(true)
     this.state= {...this.state, ...data}
   }
 
@@ -57,6 +61,7 @@ class FormStore {
       data: payload
     })
     
+    this.changes = false;
   }
 
 }

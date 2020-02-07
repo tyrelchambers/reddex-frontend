@@ -37,8 +37,11 @@ class SiteStore {
 
   changes = false;
 
+  setInitial(data) {
+    this.config = {...this.config, ...data}
+  }
   setConfig(data) {
-    this.setChanges(true);
+    this.setChanges(true)
     this.config = {...this.config, ...data}
   }
 

@@ -18,6 +18,7 @@ import Misc from '../Misc/Misc'
 import tabs from '../tabs';
 import Tabs from '../../../layouts/Tabs/Tabs'
 import {getAxios } from '../../../api/index'
+
 const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteStore, UserStore, FormStore}) => {
   const pondRef = useRef()
   const [activated, setActivated] = useState(false);
@@ -32,9 +33,8 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
       .then(res => {
         if (res) {
           setActivated(true)
-          SiteStore.setConfig({...res, youtube_id: res.youtube_id || yt})
+          SiteStore.setInitial({...res, youtube_id: res.youtube_id || yt})
           SiteStore.setPreview({subdomain: res.subdomain})
-          SiteStore.setChanges(false)
         }
         setLoading(false);
       })

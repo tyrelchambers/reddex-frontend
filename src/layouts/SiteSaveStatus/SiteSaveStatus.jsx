@@ -7,7 +7,6 @@ import _ from 'lodash'
 
 const SiteSaveStatus = inject("SiteStore", "FormStore")(observer(({submitHandler, SiteStore, FormStore, saving}) => {
   if ( SiteStore.changes || FormStore.changes ) {
-    console.log(FormStore.changes)
     return (
       <div className="site-save-status mt+ mb+ d-f ai-c jc-sb animated fadeIn faster">
         <p>You have unsaved changes</p>

@@ -35,7 +35,7 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
         <ToggleStatus
           context="submissionForm"
           option="Inactive"
-            disabledText="Active"
+          disabledText="Active"
           setToggledHandler={() => {
             SiteStore.setConfig({submission_form: !SiteStore.config.submission_form});
           }}
@@ -123,7 +123,11 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
             <h3 className="preview-headline">{SiteStore.config.headline}</h3>
             <div dangerouslySetInnerHTML={{__html: SiteStore.config.rules}} id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
           
-            <SubmissionForm />
+            <div className="d-f fxd-c ai-c">
+            <SubmissionForm
+              data={FormStore.state}
+            />
+            </div>
           </section>
         </div>
       }
