@@ -28,6 +28,7 @@ export default function LoginForm({credentialHandler, submitHandler, loading, se
           }} 
           value="Login"
           loading={loading}
+          disabled={loading}
         />
       </div>
     </form>
