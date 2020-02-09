@@ -88,7 +88,7 @@ class FormStore {
       url:'/submissionForm/submit',
       method: 'post',
       data: payload
-    })
+    }).then(res => toast.success(res.message))
     
   }
 

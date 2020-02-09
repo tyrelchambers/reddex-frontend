@@ -5,6 +5,24 @@
   flex-direction: column;
   align-items: center;
   margin: 3em auto;
+
+  &.dark {
+    background-color: var(--primary);
+  }
+
+  .headline {
+    color: var(--secondary);
+  }
 }
 
+.ql-toolbar.ql-snow {
+  background-color: white;
+}
 
+.ql-editor {
+  background: white;
+  * {
+    color: white;
+
+  }
+}

@@ -3,7 +3,6 @@ import { getAxios } from '../../../api';
 import './StorySubmission.scss'
 import SubmissionForm from '../../../components/Forms/SubmissionForm';
 import { MainButton } from '../../../components/Buttons/Buttons';
-import { toast } from 'react-toastify';
 import { inject, observer } from 'mobx-react';
 
 // Public facing page
@@ -30,9 +29,9 @@ const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
  
 
   return (
-    <div className="static-submit-wrapper">
+    <div className={`static-submit-wrapper ${config.theme}`}>
       <h1>{config.submission_title}</h1>
-      <h3 className="mt+">{config.headline}</h3>
+      <h3 className="mt+" className="headline">{config.headline}</h3>
       <div dangerouslySetInnerHTML={{__html: config.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
 
       <SubmissionForm

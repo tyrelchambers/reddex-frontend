@@ -10,17 +10,13 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
       placeholder: 'Compose your epic...'
     });
 
-    // quill.on('editor-change', function(eventName, ...args) {
-    //   if (eventName === 'text-change' || eventName === 'selection-change') {
-    //     FormStore.setState({body: quill.root.innerHTML})
-    //   }
-    // });
-
     window.quill = quill;
     return () => {
       quill = null;
     };
   }, []);
+
+  if (!data) return null;
   return (
     <form className="form">
       {data.story_title.enabled &&
