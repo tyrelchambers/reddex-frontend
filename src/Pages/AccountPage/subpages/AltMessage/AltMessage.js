@@ -1,5 +1,6 @@
 import React from 'react'
 import { getAxios } from '../../../../api';
+import { toast } from 'react-toastify';
 const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
 
   const DefaultMessage = () => repeatGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{repeatGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No alternative message saved</p>
@@ -8,24 +9,15 @@ const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
   const saveMessageHandler = async (e) => {
     e.preventDefault();
     
-    if (repeatGreeting) {
-      await getAxios({
-        url: '/alt_message',
-        method: 'put',
-        data: {
-          text: repeatGreeting,
-        }
-      })
-    } else {
-      await getAxios({
-        url: '/alt_message',
-        method: 'post',
-        data: {
-          text: repeatGreeting
-        }
-      })
-    }
-
+    await getAxios({
+      url: '/alt_message',
+      method: 'post',
+      data: {
+        text: repeatGreeting
+      }
+    }).then(res => {
+      if (res) return toast.success("Greeting saved")
+    })
   
   }
 

@@ -16,14 +16,14 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
 
     quill.on('editor-change', function(eventName, ...args) {
       if (eventName === 'text-change' || eventName === 'selection-change') {
-        SiteStore.setConfig({rules: quill.root.innerHTML})
+        if (SiteStore.config.rules !== quill.root.innerHTML) {
+          SiteStore.setConfig({rules: quill.root.innerHTML})
+        } 
       }
     });
 
     quill.root.innerHTML = SiteStore.config.rules;
 
-
-    window.quill = quill;
     return () => {
       quill = null;
     };
