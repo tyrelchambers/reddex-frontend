@@ -16,9 +16,7 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
         const stories = await getAxios({
           url: '/profile/stories_used'
         });
-        if (stories) {
-          setUsedPosts([...stories])
-        }
+        setUsedPosts([...stories])
       }
       
       fn();
@@ -41,6 +39,13 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
     }
   }
   
+  const isPostUsed = (post) => {
+    for (let i = 0; i < usedPosts.length; i++ ) {
+      if (usedPosts[i].post_id === post.post_id) {
+        return true;
+      }
+    }
+  }
 
   if ( posts.length > 0 && !loading ) {
     return (
@@ -53,7 +58,7 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
               x={x}
               setPosts={setPosts}
               onClickHandler={() => selectPost(x, PostStore)}
-              used={usedPosts.includes(x.post_id)}
+              used={isPostUsed(x)}
             />
           )
         })}
