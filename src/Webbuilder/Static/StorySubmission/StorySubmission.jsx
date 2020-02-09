@@ -18,11 +18,16 @@ const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
         params: {
           sid: params.get('sid')
         }
-      }).then(res => setConfig(res))
+      }).then(res => {
+        setConfig(res)
+        document.querySelector('body').className = `theme-${res.theme}`
+
+      })
     }
 
     fn()
   }, []);
+
 
   if (!config) return null;
 
@@ -30,8 +35,12 @@ const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
 
   return (
     <div className={`static-submit-wrapper ${config.theme}`}>
-      <h1>{config.submission_title}</h1>
-      <h3 className="mt+" className="headline">{config.headline}</h3>
+      {config.submission_title &&
+        <h1>{config.submission_title}</h1>
+      }
+      {config.headline &&
+        <h3 className="mt+ headline">{config.headline}</h3>
+      }
       <div dangerouslySetInnerHTML={{__html: config.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
 
       <SubmissionForm
