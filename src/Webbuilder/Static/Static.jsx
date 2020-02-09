@@ -36,11 +36,7 @@ const Static = () => {
   }, []);
 
   useEffect(() => {
-    const currentTheme = document.querySelector('body').className;
     document.querySelector('body').className = `theme-${config.theme}`
-    return () => {
-      
-    };
   }, [config]);
 
   useEffect(() => {

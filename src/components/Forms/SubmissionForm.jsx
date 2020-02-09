@@ -71,7 +71,6 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
             })}/>
         </div>
       }
-      
       {data.sent_to_others.enabled &&
         <div className="field-group">
           <label htmlFor="sent_to_authors" className="form-label">Was this sent to anyone else? {data.sent_to_others.required && <span className="required">*</span>}</label>
