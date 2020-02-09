@@ -69,8 +69,10 @@ class FormStore {
 
   submit = (website, e) => {
     e.preventDefault();
+    const editorBody = document.querySelector(".ql-editor").innerHTML;
     const payload = {
       ...this.state,
+      body: editorBody,
       website
     };
 
@@ -78,15 +80,16 @@ class FormStore {
       if (x.required && !x.value) toast.error(`${x.label} is required`)
     })
 
-    if (payload.sent_to_others.required && payload.sent_to_others.value === null) return toast.error("Sent to others is required") 
+    if (payload.sent_to_others.required && payload.sent_to_others.value === null) toast.error("Sent to others is required") 
 
-    // getAxios({
-    //   url:'/submissionForm/save',
-    //   method: 'post',
-    //   data: payload
-    // })
+    if (!payload.body) return toast.error("Please include your story")
     
-    this.changes = false;
+    getAxios({
+      url:'/submissionForm/submit',
+      method: 'post',
+      data: payload
+    })
+    
   }
 
 }

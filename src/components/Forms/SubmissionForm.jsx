@@ -10,11 +10,11 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
       placeholder: 'Compose your epic...'
     });
 
-    quill.on('editor-change', function(eventName, ...args) {
-      if (eventName === 'text-change' || eventName === 'selection-change') {
-        FormStore.setConfig({body: quill.root.innerHTML})
-      }
-    });
+    // quill.on('editor-change', function(eventName, ...args) {
+    //   if (eventName === 'text-change' || eventName === 'selection-change') {
+    //     FormStore.setState({body: quill.root.innerHTML})
+    //   }
+    // });
 
     window.quill = quill;
     return () => {
