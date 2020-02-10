@@ -38,14 +38,19 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
       data: {
         ...payload
       }
-    }).then(res => {
-      UserStore.setToken(res.token);
-      UserStore.setCurrentUser(res.user)
-      if (res.user.reddit_profile) {
-        UserStore.setRedditProfile(res.user.reddit_profile)
+    })
+    .then(res => {
+      if (res) {
+        UserStore.setToken(res.token);
+        UserStore.setCurrentUser(res.user)
+        if (res.user.reddit_profile) {
+          UserStore.setRedditProfile(res.user.reddit_profile)
+        }
+        window.location.pathname = '/'
       }
-    })   
-    window.location.pathname = '/'
+    })
+    
+    setLoading(false)
   }
   return(
     <DisplayWrapper hasHeader={true}>

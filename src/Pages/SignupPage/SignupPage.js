@@ -60,7 +60,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     if (!email || !password) return toast.error("No email or password");
     if (!checkValidEmail(email)) return toast.error("Improper email format")
     
-    const user = await getAxios({
+    await getAxios({
       url: '/auth/register',
       method: 'post',
       data: {
@@ -71,16 +71,17 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
         reddit_profile: profile
       }
     }).then(res => {
-      UserStore.setToken(res.token);
-      if (res.user.reddit_profile) {
-        UserStore.setRedditProfile(res.user.reddit_profile)
+      if (res) {
+        UserStore.setToken(res.token);
+        if (res.user.reddit_profile) {
+          UserStore.setRedditProfile(res.user.reddit_profile)
+        }
+        UserStore.setCurrentUser(res.user);  
       }
-      return res.user;
     })
     
 
-    UserStore.setRedditProfile(profile)
-    UserStore.setUser(user);   
+     
   }
 
   const askForRedditApproval = () => {

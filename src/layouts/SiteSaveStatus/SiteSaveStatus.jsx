@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './SiteSaveStatus.scss'
 import { MainButton } from '../../components/Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import _ from 'lodash'
 
-const SiteSaveStatus = inject("SiteStore")(observer(({config, submitHandler, SiteStore, saving}) => {
-  const [same, setSame] = useState(true);
-
-  useEffect(() => {
-    const preview = SiteStore.preview;
-    const configObj = config;
-
-    if ( _.isEqual(preview, configObj) && !SiteStore.changes ) {
-      setSame(true)
-    } else {
-      setSame(false)
-    }
-  }, [config, SiteStore.preview, SiteStore.changes]);
-
-  if ( !same ) {
+const SiteSaveStatus = inject("SiteStore", "FormStore")(observer(({submitHandler, SiteStore, FormStore, saving}) => {
+  if ( SiteStore.changes || FormStore.changes ) {
     return (
       <div className="site-save-status mt+ mb+ d-f ai-c jc-sb animated fadeIn faster">
         <p>You have unsaved changes</p>

@@ -13,16 +13,12 @@ class UserStore {
     const user = await getAxios({
       url: '/profile/auth'
     })
-    .then(res => res)
-    .catch(err => {
-      if (err.response) {
-        if(err.response.data.err === "Auth token is old. Please sign in again.") {
-          window.localStorage.clear();
-          window.location.pathname = "/login" 
-        }
+    .then(res => {
+      if (res) {
+        return res;
       }
     })
-         
+      
     
     this.currentUser = user;
   }

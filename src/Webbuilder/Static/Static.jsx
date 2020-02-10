@@ -7,6 +7,7 @@ import Axios from 'axios';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 import { toast } from 'react-toastify';
 import { getAxios } from '../../api';
+import { Link } from 'react-router-dom'
 
 const Static = () => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,10 @@ const Static = () => {
     }
     fn();
   }, []);
+
+  useEffect(() => {
+    document.querySelector('body').className = `theme-${config.theme}`
+  }, [config]);
 
   useEffect(() => {
     const getYT = async () => {
@@ -84,9 +89,12 @@ const Static = () => {
         <h2 style={{
           color: config.accent
         }}>{config.title}</h2>
-          <SocialBar
-            config={config}
-          />
+          <div className="d-f">
+            <Link to={`/submit?sid=${config.uuid}`} className="static-nav-link">Submit a Story</Link>
+            <SocialBar
+              config={config}
+            />
+          </div>
       </header>
       {config.banner_url && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.banner_url})`}}>
       </section>}

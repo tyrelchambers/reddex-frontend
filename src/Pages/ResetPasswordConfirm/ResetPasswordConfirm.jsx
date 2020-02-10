@@ -16,7 +16,9 @@ const ResetPasswordConfirm = () => {
     const reset = await getAxios({
       url: '/reset/get_reset_token',
       method: 'post',
-      data: email
+      data: {
+        email
+      }
     })
         
     if ( !reset ) return toast.error(reset)

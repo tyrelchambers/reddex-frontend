@@ -34,7 +34,8 @@ import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
 import { getAxios } from './api/index';
-
+import StorySubmission from './Webbuilder/Static/StorySubmission/StorySubmission';
+import FormStore from './stores/FormStore'
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -66,7 +67,8 @@ const stores = {
   PostStore,
   InboxStore,
   ReadingListStore,
-  SiteStore
+  SiteStore,
+  FormStore
 }
 
 const InitalLoad = () => { 
@@ -115,12 +117,15 @@ const InitalLoad = () => {
   if ( loaded ) {
     const subdomain = window.location.host.split('.');
 
-    if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1 && subdomain.includes("localhost:3000"))) {
+    if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1)) {
       return(
         <Provider {...stores}>
+          <ToastContainer />
+
           <Router>
             <Switch>
               <Route exact path="/" component={Static}/>
+              <Route exact path="/submit" component={StorySubmission}/>
               <Route component={Page404}/>
 
             </Switch>
