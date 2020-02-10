@@ -1,0 +1,26 @@
+.submitted-headers,
+.submitted-item-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 100px;
+}
+
+.submitted-headers {
+  margin: 1em 0;
+  padding: 1em 0.5em;
+  p {
+    font-weight: bold;
+    color: var(--secondary);
+  }
+  border-bottom: 1.5px solid var(--tiertiary);
+}
+
+.submitted-item-wrapper {
+  padding: 1em 0.5em;
+  &:nth-child(odd) {
+    background-color: var(--tiertiary);
+  }
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--tiertiary);
+  }
+  
+}
