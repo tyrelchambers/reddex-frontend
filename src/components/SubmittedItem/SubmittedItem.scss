@@ -24,3 +24,29 @@
   }
   
 }
+
+.actions {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  i {
+    color: var(--secondary);
+  }
+
+  &:hover {
+    .actions-dropdown {
+      display: flex;
+    }
+  }
+}
+
+.actions-dropdown {
+  position: absolute;
+  display: none;
+  background: var(--primary);
+  padding: 0.5em;
+  border-radius: 5px;
+  box-shadow: 0px 3px 15px rgba(black, 0.2);
+  top: 20px;
+  right: 0;
+}

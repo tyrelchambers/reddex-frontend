@@ -4,7 +4,7 @@ import './buttons.scss';
 export const MainButton = (props) => {
   if ( props.loading ) {
     return (
-      <div className={`${props.className} d-f ai-c disabled`} onClick={props.onClick}>
+      <div className={`${props.className} jc-c d-f ai-c disabled`} onClick={props.onClick}>
         <span className="dot"></span>
         <span className="dot"></span>
         <span className="dot"></span>

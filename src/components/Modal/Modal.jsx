@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
 export const Modal = inject("ModalStore")(observer(({children, ModalStore}) => {
+  if (!ModalStore.isOpen) return null;
   return (
     <div className='modal-wrapper animated fadeIn faster'>
       <div className="close-modal" onClick={() => {

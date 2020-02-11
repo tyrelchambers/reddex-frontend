@@ -3,8 +3,10 @@ import './SubmittedStories.scss'
 import Dashboard from '../Dashboard/Dashboard'
 import { getAxios } from '../../api';
 import SubmittedItem from '../../components/SubmittedItem/SubmittedItem';
+import { inject, observer } from 'mobx-react';
+import { Modal } from '../../components/Modal/Modal';
 
-export default function SubmittedStories() {
+const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
   const [state, setState] = useState([]);
 
   useEffect(() => {
@@ -37,6 +39,11 @@ export default function SubmittedStories() {
       <div className="submitted-stories">
         {stories}
       </div>
+      <Modal>
+        <div dangerouslySetInnerHTML={{__html: ModalStore.content}} id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
+      </Modal>
     </Dashboard>
   )
-}
+}));
+
+export default SubmittedStories;
