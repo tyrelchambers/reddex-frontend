@@ -1,10 +1,11 @@
 import React from 'react';
 import './SubmittedItem.scss'
 import moment from 'moment-timezone';
-import {Link} from 'react-router-dom'
+import {MinimalButton} from '../../components/Buttons/Buttons'
 
-const SubmittedItem = ({data}) => {
+const SubmittedItem = ({data, deleteHandler}) => {
   const zone =  moment.tz.guess();
+  
   return (
     <div className="submitted-item-wrapper">
       <p title={data.story_title}>{data.story_title}</p>
@@ -14,9 +15,17 @@ const SubmittedItem = ({data}) => {
       <div className="actions">
         <i className="fas fa-ellipsis-h"></i>
         <div className="actions-dropdown">
-          <Link to={`/dashboard/story/id=${data.uuid}`} className="link">View</Link>
-
-
+          <MinimalButton onClick={() =>window.location.pathname = `/dashboard/story/id=${data.uuid}`}>
+            View
+          </MinimalButton>
+          <MinimalButton 
+            classNames="danger-text"
+            onClick={() => {
+              deleteHandler(data.uuid)
+            }}
+          >
+            Delete
+          </MinimalButton>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { getAxios } from '../../api';
 import SubmittedItem from '../../components/SubmittedItem/SubmittedItem';
 import { inject, observer } from 'mobx-react';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
   const [state, setState] = useState([]);
@@ -24,6 +25,26 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
     fn()
   }, []);
 
+  const deleteHandler = (uuid) => {
+    const copy = state;
+    getAxios({
+      url: '/submitted/delete',
+      method: 'delete',
+      params: {
+        uuid
+      }
+    }).then(res => {
+      if (res) {
+        toast.success(res)
+        state.filter((x, id) => {
+          if (x.uuid === uuid) {
+            copy.splice(id, 1);
+            return setState([...copy])
+          }
+        })
+      }
+    })
+  }
   const stories = 
     state
       .filter(x => {
@@ -37,7 +58,7 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
       })
       .sort((a, b) => moment(a.created_at).valueOf() - moment(b.created_at).valueOf())
       .reverse()
-      .map((x, id) => <SubmittedItem data={x} key={id} />)
+      .map((x, id) => <SubmittedItem data={x} key={id} deleteHandler={deleteHandler}/>)
 
   return (
     <Dashboard>
