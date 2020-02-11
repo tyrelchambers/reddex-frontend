@@ -90,7 +90,9 @@ const Static = () => {
           color: config.accent
         }}>{config.title}</h2>
           <div className="d-f">
-            <Link to={`/submit?sid=${config.uuid}`} className="static-nav-link">Submit a Story</Link>
+            { config.submission_form &&           
+              <Link to={`/submit?sid=${config.uuid}`} className="static-nav-link">Submit a Story</Link>
+            }
             <SocialBar
               config={config}
             />
@@ -118,19 +120,6 @@ const Static = () => {
           </div>
          </>
       }
-
-
-      {config.submission_form &&
-        <section className={`static-forms ${config.theme}`}>
-          <h2>Send your story</h2>
-          <SubmissionForm
-            subForm={subForm}
-            setSubForm={setSubForm}
-            submitFormHandler={submitFormHandler}
-          />
-        </section>
-      }
-
       <footer className="d-f fxd-c jc-c mt+ pb- static-footer">
         {(config.twitter_timeline && config.twitter_id) &&
             <section className="static-twitter-timeline d-f fxd-c ai-c">

@@ -9,25 +9,27 @@ import SubmissionForm from '../../../components/Forms/SubmissionForm';
 import FormStore from '../../../stores/FormStore';
 const Forms = inject("SiteStore")(observer(({SiteStore}) => {
   useEffect(() => {
-    let quill = new Quill('#editor', {
-      theme: 'snow',
-      placeholder: 'Compose your rules...'
-    });
-
-    quill.on('editor-change', function(eventName, ...args) {
-      if (eventName === 'text-change' || eventName === 'selection-change') {
-        if (SiteStore.config.rules !== quill.root.innerHTML) {
-          SiteStore.setConfig({rules: quill.root.innerHTML})
-        } 
-      }
-    });
-
-    quill.root.innerHTML = SiteStore.config.rules;
-
-    return () => {
-      quill = null;
-    };
-  }, []);
+    if (SiteStore.config.submission_form) {
+      let quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Compose your rules...'
+      });
+  
+      quill.on('editor-change', function(eventName, ...args) {
+        if (eventName === 'text-change' || eventName === 'selection-change') {
+          if (SiteStore.config.rules !== quill.root.innerHTML) {
+            SiteStore.setConfig({rules: quill.root.innerHTML})
+          } 
+        }
+      });
+  
+      quill.root.innerHTML = SiteStore.config.rules;
+  
+      return () => {
+        quill = null;
+      };
+    }
+  }, [SiteStore.config.submission_form]);
 
   const SubForm = () => (
     <div className="d-f">

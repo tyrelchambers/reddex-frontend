@@ -43,6 +43,7 @@ class SiteStore {
   setConfig(data) {
     this.setChanges(true)
     this.config = {...this.config, ...data}
+
   }
 
   setChanges(state) {
@@ -54,7 +55,7 @@ class SiteStore {
   }
 
   submit = async (pondRef) => {
-    const data = {...this.config} 
+    const data = this.config
     if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
     }

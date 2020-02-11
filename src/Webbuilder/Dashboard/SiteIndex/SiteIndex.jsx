@@ -151,23 +151,15 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
   
                 {params.get('t') === "forms" &&
                   <>
-                    <Forms 
-                      config={SiteStore.config}
-                      setConfig={SiteStore.setConfig}
-                    />
+                    <Forms/>
                   </>
                 }
   
                 {params.get('t') === "timelines" &&
                   <>
                     <Youtube
-                      config={SiteStore.config}
-                      setConfig={SiteStore.setConfig}
-                      store={UserStore}
                     />
                     <Twitter
-                      config={SiteStore.config}
-                      setConfig={SiteStore.setConfig}
                     />
                   </>
                 }
@@ -175,8 +167,6 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
                 {params.get('t') === "misc" &&
                   <>
                     <Misc
-                      config={SiteStore.config}
-                      setConfig={SiteStore.setConfig}
                     />
                   </>
                 }

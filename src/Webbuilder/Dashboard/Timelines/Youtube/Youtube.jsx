@@ -1,7 +1,9 @@
 import React from 'react';
 import ToggleStatus from '../../../../components/ToggleStatus/ToggleStatus';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-const Youtube = ({config, setConfig}) => {
+const Youtube = inject("SiteStore")(observer(({SiteStore}) => {
   return (
     <div className="timeline youtube">
       <div className="d-f ">
@@ -11,9 +13,9 @@ const Youtube = ({config, setConfig}) => {
             option="Inactive"
             disabledText="Active"
             setToggledHandler={() => {
-              setConfig({...config, youtube_timeline: !config.youtube_timeline});
+              SiteStore.setConfig({youtube_timeline: !SiteStore.config.youtube_timeline});
             }}
-            toggled={config.youtube_timeline ? true : false}
+            toggled={SiteStore.config.youtube_timeline ? true : false}
           />
         </div>
         <div className="d-f fxd-c">
@@ -24,14 +26,14 @@ const Youtube = ({config, setConfig}) => {
       
       
 
-      {config.youtube_timeline &&
+      {SiteStore.config.youtube_timeline &&
         <div className="w-234px mt+">
           <h4>Enter your channel ID</h4>
-          <input type="text" className="form-input w-100pr" placeholder="Channel ID" value={config.youtube_id} onChange={e => setConfig({...config, youtube_id: e.target.value})}/>
+          <input type="text" className="form-input w-100pr" placeholder="Channel ID" value={SiteStore.config.youtube_id} onChange={e => SiteStore.setConfig({youtube_id: e.target.value})}/>
         </div>
       }
     </div>
   );
-}
+}));
 
 export default Youtube;
