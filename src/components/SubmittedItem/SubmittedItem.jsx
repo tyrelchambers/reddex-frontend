@@ -17,6 +17,7 @@ const SubmittedItem = inject("ModalStore")(observer(({ModalStore, data}) => {
         <div className="actions-dropdown">
           <MinimalButton
             onClick={() => {
+              ModalStore.setTitle(data.story_title)
               ModalStore.setContent(data.body)
               ModalStore.setIsOpen(true)
             }}

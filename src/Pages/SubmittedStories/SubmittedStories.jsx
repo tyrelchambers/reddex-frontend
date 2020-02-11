@@ -40,6 +40,7 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
         {stories}
       </div>
       <Modal>
+        <h2 className="ta-c mt- mb-">{ModalStore.title}</h2>
         <div dangerouslySetInnerHTML={{__html: ModalStore.content}} id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
       </Modal>
     </Dashboard>
