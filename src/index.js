@@ -119,7 +119,7 @@ const InitalLoad = () => {
   if ( loaded ) {
     const subdomain = window.location.host.split('.');
 
-    if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1)) {
+    if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1  && subdomain.includes("localhost:3000"))) {
       return(
         <Provider {...stores}>
           <ToastContainer />
