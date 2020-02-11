@@ -16,6 +16,12 @@
 
 .submitted-item-wrapper {
   padding: 1em 0.5em;
+
+  p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
   &:nth-child(odd) {
     background-color: var(--tiertiary);
   }

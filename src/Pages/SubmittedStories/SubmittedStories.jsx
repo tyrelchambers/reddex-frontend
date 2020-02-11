@@ -45,15 +45,18 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
 
       <p className="font-bold mt+">Sort by title, author, or tags</p>
       <input type="text" className="search-large w-100pr  mb+" placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
-      <div className="d-f submitted-headers">
-        <p>Title</p>
-        <p>Author</p>
-        <p>Tags</p>
-        <p>Submitted</p>
-        <p>Actions</p>
-      </div>
-      <div className="submitted-stories">
-        {stories}
+      
+      <div className="grid-wrapper">
+        <div className="d-f submitted-headers">
+          <p>Title</p>
+          <p>Author</p>
+          <p>Tags</p>
+          <p>Submitted</p>
+          <p>Actions</p>
+        </div>
+        <div className="submitted-stories">
+          {stories}
+        </div>
       </div>
     </Dashboard>
   )
