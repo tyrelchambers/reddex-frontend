@@ -59,7 +59,7 @@ h6 {
 p {
   line-height: 1.8em;
   margin: 0;
-  color: hsla(211, 12%, 48%,1);
+  color: var(--secondary);
 }
 
 .external-link {
@@ -144,6 +144,10 @@ ul {
 .title {
   font-weight: 900;
   letter-spacing: 2px;
+}
+
+.link-small {
+  font-size: 0.7rem;
 }
 
 .danger-text {

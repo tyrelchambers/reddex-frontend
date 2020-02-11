@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import { toast } from 'react-toastify';
 import { getAxios } from '../api';
 
 export const renewRefreshToken = async () => {

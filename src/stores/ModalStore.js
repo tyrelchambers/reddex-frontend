@@ -1,4 +1,4 @@
-import { action,decorate, observable } from 'mobx';
+import { action,decorate, observable, toJS } from 'mobx';
 
 class ModalStore {
   isOpen = false;

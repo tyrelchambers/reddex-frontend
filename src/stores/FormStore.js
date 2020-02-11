@@ -69,6 +69,8 @@ class FormStore {
 
   submit = (website, e) => {
     e.preventDefault();
+    let errors = false;
+
     const editorBody = document.querySelector(".ql-editor").innerHTML;
     const payload = {
       ...this.state,
@@ -77,13 +79,25 @@ class FormStore {
     };
 
     [payload.author, payload.story_title, payload.tags, payload.email].forEach(x => {
-      if (x.required && !x.value) toast.error(`${x.label} is required`)
+      if (x.required && !x.value) {
+        toast.error(`${x.label} is required`)
+        errors = true
+      }
     })
 
-    if (payload.sent_to_others.required && payload.sent_to_others.value === null) toast.error("Sent to others is required") 
+    if (payload.sent_to_others.required && payload.sent_to_others.value === null) {
+      toast.error("Sent to others is required")
+      errors = true;
+    } 
 
-    if (!payload.body) return toast.error("Please include your story")
+    if (!payload.body) {
+      toast.error("Please include your story")
+      errors = true;
+    }
+
     
+    if (errors) return;
+
     getAxios({
       url:'/submissionForm/submit',
       method: 'post',

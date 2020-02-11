@@ -23,7 +23,7 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
 
   useEffect(() => {
     if ( sortVal ) {
-      const sort = sortInbox(InboxStore.getMessages(), sortVal, UserStore.name);
+      const sort = sortInbox(InboxStore.getMessages(), sortVal, UserStore);
       setMessages(sort);
     } else {
       setMessages(InboxStore.getMessages())
@@ -93,7 +93,7 @@ const getMoreMessages = async (InboxStore, setLoadingBtn) => {
 }
 
 const sortInbox = (data,  sortVal, UserStore) => {
-  const currentUser = UserStore.name;
+  const currentUser = UserStore.redditProfile.name;
 
   return data.filter(x => {
     const isCurrent = x.data.author === currentUser.replace(/\s/g, "") ? true : false;

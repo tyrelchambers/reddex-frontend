@@ -4,7 +4,7 @@ import { getAxios } from '../api';
 
 class UserStore {
   currentUser = {}
-  redditProfile = {} || window.localStorage.getItem('reddit_profile')
+  redditProfile = {}
 
   setUser = async () => {
     const tkn = window.localStorage.getItem("token");
