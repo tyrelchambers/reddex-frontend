@@ -5,6 +5,7 @@ import { getAxios } from '../../api';
 import SubmittedItem from '../../components/SubmittedItem/SubmittedItem';
 import { inject, observer } from 'mobx-react';
 import { Modal } from '../../components/Modal/Modal';
+import moment from 'moment';
 
 const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
   const [state, setState] = useState([]);
@@ -23,7 +24,7 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
     fn()
   }, []);
 
-  const stories = state.map((x, id) => <SubmittedItem data={x} key={id} />)
+  const stories = state.sort((a, b) => moment(a.created_at).valueOf() - moment(b.created_at).valueOf()).reverse().map((x, id) => <SubmittedItem data={x} key={id} />)
 
   return (
     <Dashboard>
@@ -39,10 +40,6 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
       <div className="submitted-stories">
         {stories}
       </div>
-      <Modal>
-        <h2 className="ta-c mt- mb-">{ModalStore.title}</h2>
-        <div dangerouslySetInnerHTML={{__html: ModalStore.content}} id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
-      </Modal>
     </Dashboard>
   )
 }));

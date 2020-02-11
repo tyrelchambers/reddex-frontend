@@ -37,6 +37,7 @@ import { getAxios } from './api/index';
 import StorySubmission from './Webbuilder/Static/StorySubmission/StorySubmission';
 import FormStore from './stores/FormStore'
 import SubmittedStories from './Pages/SubmittedStories/SubmittedStories';
+import Story from './Pages/Story/Story';
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -158,6 +159,7 @@ const InitalLoad = () => {
               <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
               <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
               <PrivateRoute exact path="/dashboard/submitted" component={SubmittedStories} />
+              <PrivateRoute path="/dashboard/story/:id" component={Story} />
               <Route component={Page404}/>
             </Switch>
           </Router>
