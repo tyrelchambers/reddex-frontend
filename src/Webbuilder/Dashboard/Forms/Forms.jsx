@@ -6,8 +6,8 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Forms.scss'
 import SubmissionForm from '../../../components/Forms/SubmissionForm';
-import FormStore from '../../../stores/FormStore';
-const Forms = inject("SiteStore")(observer(({SiteStore}) => {
+
+const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore}) => {
   useEffect(() => {
     if (SiteStore.config.submission_form) {
       let quill = new Quill('#editor', {
@@ -22,6 +22,8 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
           } 
         }
       });
+
+      FormStore.getOptions(SiteStore.config.uuid);
   
       quill.root.innerHTML = SiteStore.config.rules;
   
@@ -30,6 +32,7 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
       };
     }
   }, [SiteStore.config.submission_form]);
+
 
   const SubForm = () => (
     <div className="d-f">
@@ -62,7 +65,7 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
             required: !data.required
           }
           })}/> 
-        <p className="subtle mr-">Required?</p>
+        <p className="subtle mr-">Required</p>
       </div>
       <div className="d-f ai-c">
         <input type="checkbox" name="email" id={`${name}-enabled`} checked={data.enabled} onChange={() => FormStore.setState({
@@ -71,7 +74,7 @@ const Forms = inject("SiteStore")(observer(({SiteStore}) => {
             enabled: !data.enabled
           }
           })}/> 
-        <p className="subtle">Enabled?</p>
+        <p className="subtle">Enabled</p>
       </div>
     </div>
   )

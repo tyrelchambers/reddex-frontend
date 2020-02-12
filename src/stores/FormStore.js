@@ -40,7 +40,7 @@ class FormStore {
   changes = false;
 
   setInitial(data) {
-    this.config = {...this.config, ...data}
+    this.state = {...this.state, ...data}
   }
 
   setState(data) {
@@ -106,11 +106,26 @@ class FormStore {
     
   }
 
+  getOptions = (uuid) => {
+    getAxios({
+      url: '/site/options',
+      params: {
+        uuid
+      }
+    }).then(res => {
+      if(res) {
+        this.setInitial(res)
+      }
+    })
+  }
+
 }
 
 decorate(FormStore, {
   setState: action,
-  state: observable
+  state: observable,
+  changes: observable,
+  setChanges: action
 })
 
 export default new FormStore();

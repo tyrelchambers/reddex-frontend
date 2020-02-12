@@ -25,8 +25,8 @@ export const getAxios = async ({
   })
   .then(res => res.data)
   .catch(err => {
-    toast.error(err.response.data)
     if (err.response) {
+      toast.error(err.response.data)
       if(err.response.data.err === "Auth token is old. Please sign in again.") {
         window.localStorage.clear();
         window.location.pathname = "/login" 
