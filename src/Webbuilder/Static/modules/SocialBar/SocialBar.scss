@@ -3,6 +3,7 @@
 .static-social-bar {
   display: flex;
 align-items: center;
+white-space: nowrap;
 }
 
 .static-social-bar.dark {
@@ -13,8 +14,9 @@ align-items: center;
   }
 }
 
-@media screen and (max-width: 511px) {
- .static-social-bar {
-   margin-top: 1em;
- }
+
+@media screen and (max-width: 426px) {
+  .static-social-bar {
+    margin-bottom: 0.3em;
+  }
 }

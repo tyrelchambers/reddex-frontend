@@ -36,7 +36,6 @@ const Static = () => {
   }, []);
 
   useEffect(() => {
-    console.log(config)
     document.querySelector('body').className = `theme-${config.theme}`
   }, [config]);
 
@@ -76,7 +75,7 @@ const Static = () => {
         <h2 style={{
           color: config.accent
         }}>{config.title}</h2>
-          <div className="d-f">
+          <div className="static-header-right">
             { config.submission_form &&           
               <Link to={`/submit?sid=${config.uuid}`} className="static-nav-link">Submit a Story</Link>
             }
