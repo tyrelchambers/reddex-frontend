@@ -78,17 +78,22 @@ class FormStore {
       website
     };
 
+
     [payload.author, payload.story_title, payload.tags, payload.email].forEach(x => {
-      if (x.required && !x.value) {
-        toast.error(`${x.label} is required`)
-        errors = true
+      if ( x.enabled ) {
+        if (x.required && !x.value) {
+          toast.error(`${x.label} is required`)
+          errors = true
+        }
       }
     })
 
-    if (payload.sent_to_others.required && payload.sent_to_others.value === null) {
-      toast.error("Sent to others is required")
-      errors = true;
-    } 
+    if (payload.sent_to_others.enabled) {
+      if (payload.sent_to_others.required && payload.sent_to_others.value === null) {
+        toast.error("Sent to others is required")
+        errors = true;
+      } 
+    }
 
     if (!payload.body) {
       toast.error("Please include your story")

@@ -8,7 +8,6 @@ import { inject, observer } from 'mobx-react';
 // Public facing page
 
 const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
-  const [config, setConfig] = useState();
   const params = new URLSearchParams(window.location.search)
 
   useEffect(() => {
@@ -19,32 +18,28 @@ const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
           sid: params.get('sid')
         }
       }).then(res => {
-        setConfig(res)
+        FormStore.setState(res)
         document.querySelector('body').className = `theme-${res.theme}`
-
       })
     }
 
     fn()
   }, []);
 
-
-  if (!config) return null;
-
  
 
   return (
-    <div className={`static-submit-wrapper ${config.theme}`}>
-      {config.submission_title &&
-        <h1>{config.submission_title}</h1>
+    <div className={`static-submit-wrapper ${FormStore.state.theme}`}>
+      {FormStore.state.submission_title &&
+        <h1>{FormStore.state.submission_title}</h1>
       }
-      {config.headline &&
-        <h3 className="mt+ headline">{config.headline}</h3>
+      {FormStore.state.headline &&
+        <h3 className="mt+ headline">{FormStore.state.headline}</h3>
       }
-      <div dangerouslySetInnerHTML={{__html: config.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
+      <div dangerouslySetInnerHTML={{__html: FormStore.state.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
 
       <SubmissionForm
-        data={config}
+        data={FormStore.state}
       />
 
       <div className="d-f jc-fe">
