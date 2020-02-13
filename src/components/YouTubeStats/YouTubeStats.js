@@ -3,6 +3,8 @@ import './YouTubeStats.scss';
 import Axios from 'axios';
 import isEmpty from '../../helpers/objIsEmpty';
 import { getAxios } from '../../api';
+import { MinimalButton } from '../Buttons/Buttons';
+import { toast } from 'react-toastify';
 
 const YouTubeStats = ({user}) => {
   const [ yt, setYt ] = useState("");
@@ -15,9 +17,13 @@ const YouTubeStats = ({user}) => {
   const getYtChannel = (channel = user.youtube_id) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
     return Axios.get(ytLink).then(res => {
-      setStats({...res.data.items[0].statistics})
-      window.localStorage.setItem('youtube',channel)
-    }).catch(console.log);
+      if (res.data.items.length > 0 ){
+        setStats({...res.data.items[0].statistics})
+        window.localStorage.setItem('youtube',channel)  
+      } else {
+        toast.error("No Channel found with that ID")
+      }
+    })
   }
 
   const saveYoutubeId = async (id) => {
@@ -77,6 +83,14 @@ const YouTubeStats = ({user}) => {
           icon={<i className="fas fa-eye"></i>}
         /> 
       </ul>
+      <MinimalButton
+        onClick={() => {
+          setYt("")
+          setStats({})
+        }}
+      >
+        Reset ID
+      </MinimalButton>
     </div>
   )
 }
