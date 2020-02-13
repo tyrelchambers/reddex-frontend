@@ -8,6 +8,7 @@ import { inject, observer } from 'mobx-react';
 // Public facing page
 
 const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
+  const [ loading, setLoading] = useState(true)
   const params = new URLSearchParams(window.location.search)
 
   useEffect(() => {
@@ -20,13 +21,14 @@ const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
       }).then(res => {
         FormStore.setState(res)
         document.querySelector('body').className = `theme-${res.theme}`
+        setLoading(false)
       })
     }
 
     fn()
   }, []);
 
- 
+  if (loading) return null;
 
   return (
     <div className={`static-submit-wrapper ${FormStore.state.theme}`}>
