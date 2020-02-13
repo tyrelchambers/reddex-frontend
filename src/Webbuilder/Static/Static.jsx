@@ -36,6 +36,7 @@ const Static = () => {
   }, []);
 
   useEffect(() => {
+    console.log(config)
     document.querySelector('body').className = `theme-${config.theme}`
   }, [config]);
 
@@ -56,20 +57,6 @@ const Static = () => {
   }, [config]);
 
   if (loading) return null;
-
-  const submitFormHandler = async (e) => {
-    e.preventDefault();
-    const payload = {
-      ...subForm,
-      subdomain: config.subdomain
-    }
-    
-    await getAxios({
-      url: '/submissionForm/submit',
-      data: payload
-    })
-    .then(res => toast.success("Story submitted"))
-  }
 
   const videos = videoIds ? videoIds.map((x, id) => (
     <Youtube 

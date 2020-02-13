@@ -43,7 +43,7 @@ class SiteStore {
   setConfig(data) {
     this.setChanges(true)
     this.config = {...this.config, ...data}
-
+    
   }
 
   setChanges(state) {
