@@ -129,6 +129,9 @@
   }
 }
 
+.static-header-right {
+  display: flex;
+}
 .static-wrapper {
   min-height: 100vh;
   height: 100%;
@@ -136,12 +139,12 @@
 
 .static-nav-link {
   width: 100%;
-  display: flex;
   color: var(--secondary);
   text-decoration: none;
   font-weight: 400;
   padding: 0.5em;
   transition: all 0.2s ease;
+  text-align: center;
   &:hover {
     background-color: var(--primary);
   }
@@ -162,6 +165,15 @@
     }
   }
 
+  .static-header {
+    flex-direction: column;
+    height: 100%;
+    
+  }
+
+  .static-header-right {
+    margin-top: 1em;
+  }
   .static-site-name {
     width: 100%;
 
@@ -171,9 +183,9 @@
   }
 }
 
-@media screen and (max-width: 511px) {
-  .static-header {
-    flex-direction: column;
-    height: 100%;
+@media screen and (max-width: 425px) {
+  .static-header-right {
+    flex-direction: column-reverse;
+    
   }
 }
