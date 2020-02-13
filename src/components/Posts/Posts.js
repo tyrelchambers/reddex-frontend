@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Posts.scss';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { inject, observer } from 'mobx-react';
-import { getStoriesUsedFromUser } from '../../api/get';
+import { getAxios } from '../../api';
 
 const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
@@ -13,7 +13,9 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
 
     if( token ) {
       const fn = async () => {
-        const stories = await getStoriesUsedFromUser();
+        const stories = await getAxios({
+          url: '/profile/stories_used'
+        });
         setUsedPosts([...stories])
       }
       
@@ -37,6 +39,13 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
     }
   }
   
+  const isPostUsed = (post) => {
+    for (let i = 0; i < usedPosts.length; i++ ) {
+      if (usedPosts[i].post_id === post.post_id) {
+        return true;
+      }
+    }
+  }
 
   if ( posts.length > 0 && !loading ) {
     return (
@@ -49,7 +58,7 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
               x={x}
               setPosts={setPosts}
               onClickHandler={() => selectPost(x, PostStore)}
-              used={usedPosts.includes(x.post_id)}
+              used={isPostUsed(x)}
             />
           )
         })}

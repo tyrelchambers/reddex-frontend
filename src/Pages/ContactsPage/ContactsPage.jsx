@@ -3,9 +3,8 @@ import Dashboard from '../Dashboard/Dashboard'
 import { MinimalButton } from '../../components/Buttons/Buttons'
 import { AddContactForm } from '../../components/Forms/AddContactForm';
 import { ContactsList } from '../../components/ContactsList/ContactsList';
-import { saveContact, getContacts, updateContact } from '../../api/post'
-import { deleteContact } from '../../api/delete';
  import './ContactsPage.scss'
+import { getAxios } from '../../api';
 
 export const ContactsPage = () => {
   const [ contacts, setContacts ] = useState([]);
@@ -19,7 +18,9 @@ export const ContactsPage = () => {
 
   useEffect(() => {
     const fn = async () => {
-      const c = await getContacts();
+      const c = await getAxios({
+        url: '/contacts/all'
+      });
       setContacts([...c])
     }
 
@@ -37,10 +38,14 @@ export const ContactsPage = () => {
 
     if (url.has("edit")) {
       if ( url.get("edit") === "true" ) {
-        const c = await updateContact(state);
+        const c = await getAxios({
+          url: '/contacts/update',
+          data: state,
+          method: 'post'
+        });;
 
        contacts.filter((x, id) => {
-         if ( x._id === c._id ) {
+         if ( x.uuid === c.uuid ) {
           const copy = contacts;
           copy.splice(id, 1, c);
           setContacts([...copy])
@@ -49,7 +54,12 @@ export const ContactsPage = () => {
       }
       window.location.search = "";
     } else {
-      const c = await saveContact(state);
+      const c = await getAxios({
+        url: '/contacts/save',
+        method: 'post',
+        data: state
+      })
+      
       setContacts([...contacts, {...c}])
     }
     
@@ -67,8 +77,14 @@ export const ContactsPage = () => {
   const deleteHandler = async (data) => {
     const copy = contacts;
 
-    const deleteItem = await deleteContact(data);
-    
+    const deleteItem = await getAxios({
+      url: '/contacts/delete',
+      method: 'delete',
+      params: {
+        id: data
+      }
+    })
+        
     if ( deleteItem === "OK" ) {
       contacts.filter((x, id) => {
         if ( x.uuid === data ) {

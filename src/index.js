@@ -33,8 +33,11 @@ import { checkValidTokens } from './helpers/checkValidTokens';
 import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
-import { saveRedditProfileToProfile } from './api/post';
-
+import { getAxios } from './api/index';
+import StorySubmission from './Webbuilder/Static/StorySubmission/StorySubmission';
+import FormStore from './stores/FormStore'
+import SubmittedStories from './Pages/SubmittedStories/SubmittedStories';
+import Story from './Pages/Story/Story';
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -66,7 +69,8 @@ const stores = {
   PostStore,
   InboxStore,
   ReadingListStore,
-  SiteStore
+  SiteStore,
+  FormStore
 }
 
 const InitalLoad = () => { 
@@ -94,7 +98,11 @@ const InitalLoad = () => {
         if ((redditProfile && !user.reddit_profile) || (!redditProfile && !user.reddit_profile)) {
           const profile = await getCurrentAuthenticatedUser(user.access_token)
           if (profile) {
-            await saveRedditProfileToProfile(profile).then(res => {
+            await getAxios({
+              url: '/profile/reddit_profile',
+              method: 'post',
+              data: profile
+            }).then(res => {
               stores.UserStore.setRedditProfile(res.reddit_profile)
               window.localStorage.removeItem('reddit_profile')
             })
@@ -111,12 +119,15 @@ const InitalLoad = () => {
   if ( loaded ) {
     const subdomain = window.location.host.split('.');
 
-    if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1 && subdomain.includes("localhost:3000"))) {
+    if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1  && subdomain.includes("localhost:3000"))) {
       return(
         <Provider {...stores}>
+          <ToastContainer />
+
           <Router>
             <Switch>
               <Route exact path="/" component={Static}/>
+              <Route exact path="/submit" component={StorySubmission}/>
               <Route component={Page404}/>
 
             </Switch>
@@ -147,6 +158,8 @@ const InitalLoad = () => {
               <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
               <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
               <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+              <PrivateRoute exact path="/dashboard/submitted" component={SubmittedStories} />
+              <PrivateRoute path="/dashboard/story/:id" component={Story} />
               <Route component={Page404}/>
             </Switch>
           </Router>

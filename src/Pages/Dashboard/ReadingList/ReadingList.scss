@@ -42,7 +42,8 @@
 }
 .reading-list-item.opaque {
   opacity: 0.7;
-   
+  transition: all 0.2s ease;
+
 
   &:hover {
     opacity: 1;
@@ -68,15 +69,15 @@
     }
 }
 
-.reading-list-header {
+.reading-list-filter {
   text-transform: capitalize;
-  padding: 0.4em 0.9em;
   color: var(--secondary);
   border: none;
-  background-color: var(--tiertiary);
-  margin: 0.5em;
+  background-color: var(--highlight);
   border-radius: 20px;
   outline: none;
+  padding: 0.4em 0.9em;
+  margin: 0.5em;
   &.active {
     background-color: var(--success);
     color: var(--primary);

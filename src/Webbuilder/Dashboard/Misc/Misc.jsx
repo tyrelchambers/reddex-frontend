@@ -1,7 +1,9 @@
 import React from 'react';
 import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-const Misc = ({config, setConfig}) => {
+const Misc = inject("SiteStore")(observer(({SiteStore}) => {
   return (
     <div>
       <div className="d-f">
@@ -11,9 +13,9 @@ const Misc = ({config, setConfig}) => {
             option="Hidden"
             disabledText="Visible"
             setToggledHandler={() => {
-              setConfig({...config, show_credit_link: !config.show_credit_link});
+              SiteStore.setConfig({show_credit_link: !SiteStore.config.show_credit_link});
             }}
-            toggled={config.show_credit_link ? true : false}
+            toggled={SiteStore.config.show_credit_link ? true : false}
           />
         </div>
         <div className="d-f fxd-c">
@@ -23,6 +25,6 @@ const Misc = ({config, setConfig}) => {
       </div>
     </div>
   );
-}
+}))
 
 export default Misc;

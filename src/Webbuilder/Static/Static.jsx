@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { getWebsiteFromProfile } from '../../api/get';
 import SocialBar from './modules/SocialBar/SocialBar';
 import './Static.scss'
 import SubmissionForm from '../../components/Forms/SubmissionForm';
 import Youtube from 'react-youtube'
 import Axios from 'axios';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
-import { submitStoryForm } from '../../api/post';
 import { toast } from 'react-toastify';
+import { getAxios } from '../../api';
+import { Link } from 'react-router-dom'
 
 const Static = () => {
   const [loading, setLoading] = useState(true);
@@ -23,11 +23,22 @@ const Static = () => {
   useEffect(() => {
     const subdomain = window.location.host.split('.')[0];
     const fn = async () => {
-      const siteConfig = await getWebsiteFromProfile(subdomain);
+      const siteConfig = await getAxios({
+        url: '/site/',
+        params: {
+          subdomain
+        }
+      })
+      
       setConfig(siteConfig);
     }
     fn();
   }, []);
+
+  useEffect(() => {
+    console.log(config)
+    document.querySelector('body').className = `theme-${config.theme}`
+  }, [config]);
 
   useEffect(() => {
     const getYT = async () => {
@@ -47,16 +58,6 @@ const Static = () => {
 
   if (loading) return null;
 
-  const submitFormHandler = async (e) => {
-    e.preventDefault();
-    const payload = {
-      ...subForm,
-      subdomain: config.subdomain
-    }
-    
-    await submitStoryForm(payload).then(res => toast.success("Story submitted"))
-  }
-
   const videos = videoIds ? videoIds.map((x, id) => (
     <Youtube 
       key={id}
@@ -75,9 +76,14 @@ const Static = () => {
         <h2 style={{
           color: config.accent
         }}>{config.title}</h2>
-          <SocialBar
-            config={config}
-          />
+          <div className="d-f">
+            { config.submission_form &&           
+              <Link to={`/submit?sid=${config.uuid}`} className="static-nav-link">Submit a Story</Link>
+            }
+            <SocialBar
+              config={config}
+            />
+          </div>
       </header>
       {config.banner_url && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.banner_url})`}}>
       </section>}
@@ -101,19 +107,6 @@ const Static = () => {
           </div>
          </>
       }
-
-
-      {config.submission_form &&
-        <section className={`static-forms ${config.theme}`}>
-          <h2>Send your story</h2>
-          <SubmissionForm
-            subForm={subForm}
-            setSubForm={setSubForm}
-            submitFormHandler={submitFormHandler}
-          />
-        </section>
-      }
-
       <footer className="d-f fxd-c jc-c mt+ pb- static-footer">
         {(config.twitter_timeline && config.twitter_id) &&
             <section className="static-twitter-timeline d-f fxd-c ai-c">

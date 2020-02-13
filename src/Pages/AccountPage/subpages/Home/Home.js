@@ -1,20 +1,22 @@
 import React from 'react'
-import { createNewDefaultMessage } from '../../../../api/post';
-import { updateDefaultMessage } from '../../../../api/put';
+import { getAxios } from '../../../../api';
+import { toast } from 'react-toastify';
 
 const Home = ({UserStore, setInitialGreeting, initialGreeting}) => {
   const DefaultMessage = () => initialGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{initialGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No default message saved</p>
   const Username = () => UserStore.getRedditProfile() ? <p>From: <span className="highlight-text">{UserStore.getRedditProfile().name}</span></p> : null;
 
-
   const saveMessageHandler = async (e) => {
     e.preventDefault();
-    
-    if (initialGreeting.uuid) {
-      await updateDefaultMessage(initialGreeting)
-    } else {
-      await createNewDefaultMessage(initialGreeting);
-    }
+    await getAxios({
+      url: '/default_message',
+      method: 'post',
+      data: {
+        text: initialGreeting
+      }
+    }).then(res => {
+      if (res) return toast.success("Greeting saved")
+    })
 
   }
 

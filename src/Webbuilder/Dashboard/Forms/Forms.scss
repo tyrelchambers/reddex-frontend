@@ -1,0 +1,45 @@
+.form-preview {
+  margin: 3em;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  
+  #preview-body {
+    color: var(--secondary);
+    text-align: left;
+    margin-top: 2em;
+    ul {
+      list-style: disc !important;
+      padding-left: 1em;
+    }
+  }
+}
+
+#editor_static {
+  background: var(--highlight);
+}
+
+.preview-headline {
+  margin-top: 3em;
+}
+
+
+.form-module-wrapper {
+  background-color: var(--tiertiary);
+  padding: 1em;
+  border-radius: 8px;
+  margin: 0.5em 0;
+
+  label {
+    margin-bottom: 0;
+    margin-right: 2em;
+  }
+
+  p {
+    font-size: 0.9rem;
+    margin-left: 5px;
+    margin-top: 3px;
+  }
+}

@@ -9,13 +9,13 @@ import { Redirect } from 'react-router-dom';
 import { MinimalButton } from '../../../components/Buttons/Buttons';
 import { Modal } from '../../../components/Modal/Modal';
 import { ImportStoryForm } from '../../../components/Forms/ImportStoryForm';
-import { saveStoryToReadingList } from '../../../api/post';
 import { getImportedStory } from '../../../api/get';
 import { toast } from 'react-toastify';
 import { is_url } from '../../../helpers/isURL';
 import tabs from './tabs';
 import Tabs from '../../../layouts/Tabs/Tabs';
 import Dashboard from '../Dashboard';
+import { getAxios } from '../../../api';
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ url, setURL ] = useState();
@@ -23,15 +23,28 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   const [ saving, setSaving ] = useState(false);
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
+    getAxios({
+      url: '/profile/reading_list?permission=true'
+    }).then(res => ReadingListStore.addToRead(res))
 
-    getCompletedFromDb(token, ReadingListStore)
-    getCompletedStoriesFromDb(token, ReadingListStore);
+    getAxios({
+      url: '/profile/stories/completed'
+    }).then(res => ReadingListStore.setCompleted(res))
 
     return () => {
       setRefresh(false)
     }
   }, [refresh]);
+
+  const removeStoryFromDb = (item) => {
+    getAxios({
+      url: '/profile/stories/remove',
+      method:'delete',
+      params: {
+        post_id: item
+      }
+    })
+  }
 
   const params = new URLSearchParams(window.location.search);
 
@@ -65,12 +78,18 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       permission: true
     }
     
-    await saveStoryToReadingList(data);
+    await getAxios({
+      url: '/profile/save_story',
+      method: 'post',
+      data
+    }) 
+
     ModalStore.setIsOpen(false);
     setRefresh(true);
     setSaving(false);
     toast.success("Story added to list")
   }
+  
 
   return (
     <Dashboard>
@@ -120,40 +139,5 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
     </Dashboard>
   )
 }));
-
-
-
-const getCompletedFromDb = (token, store) => {
-  Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/reading_list?permission=true`, {
-    headers: {
-      token
-    }
-  })
-  .then(res => store.addToRead(res.data))
-  .catch(console.log)
-}
-
-const getCompletedStoriesFromDb = (token, ReadingListStore) => {
-  Axios.get(`${process.env.REACT_APP_BACKEND}/api/profile/stories/completed`, {
-    headers: {
-      token
-    }
-  })
-  .then(res => ReadingListStore.setCompleted(res.data))
-  .catch(console.log);
-}
-
-const removeStoryFromDb = (token, item) => {
-  Axios.delete(`${process.env.REACT_APP_BACKEND}/api/profile/stories/remove`, {
-    headers: {
-      token
-    },
-    params: {
-      post_id: item
-    }
-  })
-  .then()
-  .catch(console.log)
-}
 
 export default ReadingList

@@ -7,8 +7,8 @@ import AltMessage from './subpages/AltMessage/AltMessage';
 import tabs from './tabs'
 import Tabs from '../../layouts/Tabs/Tabs';
 import Security from './Security/Security';
-import { getInitialGreeting, getRepeatGreeting } from '../../api/get';
 import Dashboard from '../Dashboard/Dashboard';
+import { getAxios } from '../../api';
 
 const AccountPage = inject("UserStore")(observer(({UserStore}) => {
   const [ initialGreeting, setInitialGreeting ] = useState("");
@@ -18,11 +18,15 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
 
   useEffect(() => {
     const im = async () => {
-      const data = await getInitialGreeting();
+      const data = await getAxios({
+        url: "/default_message"
+      });
       setInitialGreeting(data[0].initial_message)
     }
     const am = async () => {
-      const data = await getRepeatGreeting();
+      const data = await getAxios({
+        url: "/alt_message"
+      });;
       setRepeatGreeting(data[0].repeat_message)
     }
 

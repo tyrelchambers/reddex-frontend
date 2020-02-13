@@ -10,6 +10,7 @@ import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
 import {checkValidEmail} from '../../helpers/checkValidEmail'
+import { getAxios } from '../../api';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -59,24 +60,28 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     if (!email || !password) return toast.error("No email or password");
     if (!checkValidEmail(email)) return toast.error("Improper email format")
     
-    const user = await Axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/register`, {
-      email,
-      password,
-      access_token,
-      refresh_token,
-      reddit_profile: profile
-    })
-    .then(res => {
-      UserStore.setToken(res.data.token);
-      if (res.data.user.reddit_profile) {
-        UserStore.setRedditProfile(res.data.user.reddit_profile)
+    await getAxios({
+      url: '/auth/register',
+      method: 'post',
+      data: {
+        email,
+        password,
+        access_token,
+        refresh_token,
+        reddit_profile: profile
       }
-      return res.data.user;
+    }).then(res => {
+      if (res) {
+        UserStore.setToken(res.token);
+        if (res.user.reddit_profile) {
+          UserStore.setRedditProfile(res.user.reddit_profile)
+        }
+        UserStore.setCurrentUser(res.user);  
+      }
     })
-    .catch(err => toast.error(err.response.data));
+    
 
-    UserStore.setRedditProfile(profile)
-    UserStore.setUser(user);   
+     
   }
 
   const askForRedditApproval = () => {

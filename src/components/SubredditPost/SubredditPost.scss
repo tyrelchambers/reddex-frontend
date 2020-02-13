@@ -19,7 +19,8 @@
     width: 45px;
     height: 45px;
     border-radius: 50%;
-     
+    transition: all 0.2s ease;
+
     font-size: 1rem;
     &:hover {
       background-color: $grey7;

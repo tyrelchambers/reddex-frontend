@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { MainButton, MinimalButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import { getContact, getAuthorsMessaged } from '../../api/get';
+import { getAxios } from '../../api';
 
 const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
@@ -23,8 +23,16 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
   useEffect(() => {
     messageHandler();
     const fn = async () => {
-      const c = await getContact(data.author)
-      const authors = await getAuthorsMessaged();
+      const c = await getAxios({
+        url: '/contacts/all',
+        params: {
+          name: data.author
+        }
+      });
+      
+      const authors = await getAxios({
+        url: '/profile/authors_messaged'
+      });
       setAuthorsMessaged([...authors])
       if (c ) {
         setContact({...c})
@@ -115,9 +123,9 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             className="btn btn-primary" 
             onClick={() => {
               setLoading(true);
-              saveAuthorToDb(data.name, data.post_id);
+              saveAuthorToDb(data.author, data.post_id);
               saveStoryToUser(data);
-              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
+              //sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
             }} 
             value="Message Author"
             loading={loading}
@@ -135,60 +143,52 @@ const CharCounter = ({charCount}) => {
   );
 }
 
-export const saveAuthorToDb = async (name, post_id)=> {
-  const token = window.localStorage.getItem("token");
-  await Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/saveAuthors`, {
-    name,
-    post_id
-  }, {
-    headers: {
-      token
+const saveAuthorToDb = async (name, post_id)=> {
+  await getAxios({
+    url: '/profile/saveAuthors',
+    method: 'post',
+    data: {
+      name,
+      post_id
     }
   })
-  .then()
-  .catch(console.log);
 }
 
-const saveStoryToUser = (data) => {
-  const token = window.localStorage.getItem('token');
-  Axios.post(`${process.env.REACT_APP_BACKEND}/api/profile/save_story`, {
-    ...data
-  }, {
-    headers: {
-      token
-    }
+const saveStoryToUser = (data) => {  
+  getAxios({
+    url: '/profile/save_story',
+    method: 'post',
+    data
   })
-  .then()
-  .catch(console.log);
 }
 
-export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {
-  const tokens = await fetchTokens().catch(err => false);
-  const fmtSubject = subject;
-  const link = `https://oauth.reddit.com/api/compose`;
+// export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {
+//   const tokens = await fetchTokens().catch(err => false);
+//   const fmtSubject = subject;
+//   const link = `https://oauth.reddit.com/api/compose`;
 
-  if (!tokens || !author) return toast.error("Something went wrong");
-  if (!message ) return toast.error("A messaged is needed to send");
-  if ( !fmtSubject ) return toast.error("A subject is needed");
-  if ( fmtSubject.length > 80 ) return toast.error("Subject line is too long");
-  const body = new FormData();
-  body.set('to', `/u/${author}`);
-  body.set("subject", fmtSubject);
-  body.set("text", message);
+//   if (!tokens || !author) return toast.error("Something went wrong");
+//   if (!message ) return toast.error("A messaged is needed to send");
+//   if ( !fmtSubject ) return toast.error("A subject is needed");
+//   if ( fmtSubject.length > 80 ) return toast.error("Subject line is too long");
+//   const body = new FormData();
+//   body.set('to', `/u/${author}`);
+//   body.set("subject", fmtSubject);
+//   body.set("text", message);
   
-  await Axios.post(link, body, {
-    headers: {
-      "Authorization": `bearer ${tokens.access_token}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  })
-  .then(res => {
-    removeMessagedAuthor();
-    setLoading(false)
-  })
-  .catch(console.log);
+//   await Axios.post(link, body, {
+//     headers: {
+//       "Authorization": `bearer ${tokens.access_token}`,
+//       "Content-Type": "application/x-www-form-urlencoded"
+//     }
+//   })
+//   .then(res => {
+//     removeMessagedAuthor();
+//     setLoading(false)
+//   })
+//   .catch(console.log);
 
 
-}
+// }
 
 export default ConfirmMessages;

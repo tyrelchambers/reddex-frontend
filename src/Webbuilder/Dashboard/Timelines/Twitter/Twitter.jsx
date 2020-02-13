@@ -1,7 +1,9 @@
 import React from 'react';
 import ToggleStatus from '../../../../components/ToggleStatus/ToggleStatus';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-const Twitter = ({config, setConfig}) => {
+const Twitter = inject("SiteStore")(observer(({SiteStore}) => {
   return (
     <div className="timeline twitter mt+">
       <div className="d-f">
@@ -11,9 +13,9 @@ const Twitter = ({config, setConfig}) => {
             option="Inactive"
             disabledText="Active"
             setToggledHandler={() => {
-              setConfig({...config, twitter_timeline: !config.twitter_timeline});
+              SiteStore.setConfig({twitter_timeline: !SiteStore.config.twitter_timeline});
             }}
-            toggled={config.twitter_timeline ? true : false}
+            toggled={SiteStore.config.twitter_timeline ? true : false}
           />
         </div>
         <div className="d-f fxd-c">
@@ -24,14 +26,14 @@ const Twitter = ({config, setConfig}) => {
       
       
 
-      {config.twitter_timeline &&
+      {SiteStore.config.twitter_timeline &&
         <div className="w-234px mt+">
           <h4>Enter your channel ID</h4>
-          <input type="text" className="form-input w-100pr" placeholder="Twitter Account Name" value={config.twitter_id} onChange={e => setConfig({...config, twitter_id: e.target.value})}/>
+          <input type="text" className="form-input w-100pr" placeholder="Twitter Account Name" value={SiteStore.config.twitter_id} onChange={e => SiteStore.setConfig({twitter_id: e.target.value})}/>
         </div>
       }
     </div>
   );
-}
+}))
 
 export default Twitter;
