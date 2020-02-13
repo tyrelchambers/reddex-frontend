@@ -29,7 +29,8 @@ const Youtube = inject("SiteStore")(observer(({SiteStore}) => {
       {SiteStore.config.youtube_timeline &&
         <div className="w-234px mt+">
           <h4>Enter your channel ID</h4>
-          <input type="text" className="form-input w-100pr" placeholder="Channel ID" value={SiteStore.config.youtube_id} onChange={e => SiteStore.setConfig({youtube_id: e.target.value})}/>
+          <input type="text" className="form-input w-100pr mt- mb-" placeholder="Channel ID" value={SiteStore.config.youtube_id} onChange={e => SiteStore.setConfig({youtube_id: e.target.value})}/>
+          <p>https://www.youtube.com/channel/<span style={{color: '#F35627'}}>your-channel-id</span></p>
         </div>
       }
     </div>
