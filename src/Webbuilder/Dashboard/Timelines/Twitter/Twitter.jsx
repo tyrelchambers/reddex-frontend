@@ -29,7 +29,7 @@ const Twitter = inject("SiteStore")(observer(({SiteStore}) => {
       {SiteStore.config.twitter_timeline &&
         <div className="w-234px mt+">
           <h4>Enter your channel ID</h4>
-          <input type="text" className="form-input w-100pr" placeholder="Twitter Account Name" value={SiteStore.config.twitter_id} onChange={e => SiteStore.setConfig({twitter_id: e.target.value})}/>
+          <input type="text" className="form-input w-100pr mt-" placeholder="Twitter Account Name" value={SiteStore.config.twitter_id} onChange={e => SiteStore.setConfig({twitter_id: e.target.value})}/>
         </div>
       }
     </div>

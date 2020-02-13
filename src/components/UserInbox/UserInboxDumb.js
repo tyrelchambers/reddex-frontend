@@ -55,7 +55,7 @@ const UserInboxDumb = ({data, key, onClick, getMoreMessages, loadingBtn, UserSto
 
   return (
     <div key={key} className="inbox-left-wrapper ">
-      <div className="h-48px w-100pr">
+      <div className="h-48px w-100pr get-more-button">
         <MainButton
           loading={loadingBtn}
           className="btn btn-primary w-100pr"

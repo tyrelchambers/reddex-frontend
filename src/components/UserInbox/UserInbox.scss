@@ -64,6 +64,12 @@
 
 }
 
+.get-more-button {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 @media screen and (max-width: 1024px) {
 
   .inbox-message-wrapper {
