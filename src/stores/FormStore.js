@@ -104,6 +104,9 @@ class FormStore {
       data: payload
     }).then(res => toast.success(res.message))
     
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
   getOptions = (uuid) => {
