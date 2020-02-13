@@ -1,7 +1,7 @@
 export const deleteDomainAlias = async (alias) => {
-  const domainAlias = `${alias}.reddex.app`;
+  const domainAlias = `${alias}.${process.env.REACT_APP_SUBDOMAIN_HOST}`;
 
-  const getSite = await fetch(`https://api.netlify.com/api/v1/sites/6f408e3a-aac3-4ef1-8fd0-bd0934530cb1`, {
+  const getSite = await fetch(`https://api.netlify.com/api/v1/sites/${process.env.REACT_APP_NETLIFY_SITE}`, {
     headers: {
         'User-Agent': `Tyrel Chambers (tychambers3@gmail.com)`,
         Authorization: `Bearer ${process.env.REACT_APP_NETLIFY_ACCESS_TOKEN}`,
@@ -21,7 +21,7 @@ export const deleteDomainAlias = async (alias) => {
     })
  
       // Update the Netlify Site to include the domain alias we want to add
-    await fetch(`https://api.netlify.com/api/v1/sites/6f408e3a-aac3-4ef1-8fd0-bd0934530cb1`, {
+    await fetch(`https://api.netlify.com/api/v1/sites/${process.env.REACT_APP_NETLIFY_SITE}`, {
         method: 'PUT',
         headers: {
             'User-Agent': `Tyrel Chambers (tychambers3@gmail.com)`,

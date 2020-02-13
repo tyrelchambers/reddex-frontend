@@ -11,10 +11,10 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         <div className="d-f ai-c multi-input">
           <span className="preffix">https://</span>
           <input type="text" className="form-input fx-1" name="subdomain" value={config.subdomain} onChange={e => configHandler(e)}/>
-          <span className="suffix">.reddex.app</span>
+          <span className="suffix">.{process.env.REACT_APP_SUBDOMAIN_HOST}</span>
         </div>
         {config.subdomain &&
-          <p className="subtle mt-">https://{config.subdomain.trim().replace(/\W/g, "-").toLowerCase()}.reddex.app</p>
+          <p className="subtle mt-">https://{config.subdomain.trim().replace(/\W/g, "-").toLowerCase()}.{process.env.REACT_APP_SUBDOMAIN_HOST}</p>
         }
       </div>
 

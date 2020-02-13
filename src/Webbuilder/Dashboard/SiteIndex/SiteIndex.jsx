@@ -81,7 +81,7 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
           <div className="d-f ai-c mb+">
             <h1 className="mr+">Site Builder</h1>
             {SiteStore.config.subdomain &&
-               <a href={`https://${SiteStore.config.subdomain}.reddex.app`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
+               <a href={`https://${SiteStore.config.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
             }
           </div>
   
