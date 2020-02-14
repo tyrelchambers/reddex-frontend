@@ -38,8 +38,13 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
         }
         setLoading(false);
       })
+
+      window.twttr.widgets.load(
+        document.querySelector(".share-wrapper")
+      );
     }
     fn();
+    
     
   }, []);
 
