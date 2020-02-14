@@ -125,7 +125,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
               setLoading(true);
               saveAuthorToDb(data.author, data.post_id);
               saveStoryToUser(data);
-              //sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
+              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
             }} 
             value="Message Author"
             loading={loading}
@@ -162,33 +162,33 @@ const saveStoryToUser = (data) => {
   })
 }
 
-// export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {
-//   const tokens = await fetchTokens().catch(err => false);
-//   const fmtSubject = subject;
-//   const link = `https://oauth.reddit.com/api/compose`;
+ export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {
+   const tokens = await fetchTokens().catch(err => false);
+   const fmtSubject = subject;
+   const link = `https://oauth.reddit.com/api/compose`;
 
-//   if (!tokens || !author) return toast.error("Something went wrong");
-//   if (!message ) return toast.error("A messaged is needed to send");
-//   if ( !fmtSubject ) return toast.error("A subject is needed");
-//   if ( fmtSubject.length > 80 ) return toast.error("Subject line is too long");
-//   const body = new FormData();
-//   body.set('to', `/u/${author}`);
-//   body.set("subject", fmtSubject);
-//   body.set("text", message);
+   if (!tokens || !author) return toast.error("Something went wrong");
+   if (!message ) return toast.error("A messaged is needed to send");
+   if ( !fmtSubject ) return toast.error("A subject is needed");
+   if ( fmtSubject.length > 80 ) return toast.error("Subject line is too long");
+   const body = new FormData();
+   body.set('to', `/u/${author}`);
+   body.set("subject", fmtSubject);
+   body.set("text", message);
   
-//   await Axios.post(link, body, {
-//     headers: {
-//       "Authorization": `bearer ${tokens.access_token}`,
-//       "Content-Type": "application/x-www-form-urlencoded"
-//     }
-//   })
-//   .then(res => {
-//     removeMessagedAuthor();
-//     setLoading(false)
-//   })
-//   .catch(console.log);
+   await Axios.post(link, body, {
+     headers: {
+       "Authorization": `bearer ${tokens.access_token}`,
+       "Content-Type": "application/x-www-form-urlencoded"
+     }
+   })
+   .then(res => {
+     removeMessagedAuthor();
+     setLoading(false)
+   })
+   .catch(console.log);
 
 
-// }
+ }
 
 export default ConfirmMessages;
