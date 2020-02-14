@@ -6,7 +6,7 @@ import {MinimalButton} from '../Buttons/Buttons'
 const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) => {
   return (
     <form className="form ">
-      <div className="field-group">
+      <div className="field-group subdomain-wrapper">
         <label htmlFor="subdomain" className="form-label">Subdomain</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">https://</span>

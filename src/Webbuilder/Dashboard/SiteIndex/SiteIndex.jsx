@@ -74,19 +74,19 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
 
   if (loading) return null;
 
-  if ( window.innerWidth >= 1024 ) {
+  
     return (
       <Dashboard>
         <div className="pb-">
           <div className="mb+">
-            <div className="d-f ai-c mb-">
+            <div className="d-f ai-c mb- site-index-header">
               <h1 className="mr+">Site Builder</h1>
               {SiteStore.config.subdomain &&
-                <a href={`https://${SiteStore.config.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site (refresh to see changes)</a>
+                <a href={`https://${SiteStore.config.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site</a>
               }
             </div>
             {(SiteStore.isSiteSaved && SiteStore.config.subdomain) &&
-              <div className="d-f ai-c">
+              <div className="d-f ai-c share-wrapper">
                 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" className="twitter-share-button" data-text={`Check out my new webpage!`} data-via="ReddexApp" data-hashtags="newSite" data-show-count="false">Tweet</a>
                 <p className="subtle ml-">Share your site!</p>
               </div>
@@ -183,14 +183,7 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
         </div>
       </Dashboard>
     ) 
-  } else {
-    return (
-      <>
-        <h1>Screen size too small</h1>
-        <p>Please use your desktop to edit your site.</p>
-      </>
-    )
-  }
+  
 }));
 
 export default SiteIndex;
