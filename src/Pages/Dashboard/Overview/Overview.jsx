@@ -29,6 +29,7 @@ const Overview = inject("UserStore")(observer(({UserStore}) => {
         user={UserStore.getUser()}
       />
 
+         
     </Dashboard>
   )
 }));
