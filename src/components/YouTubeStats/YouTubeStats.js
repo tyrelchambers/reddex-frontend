@@ -16,7 +16,7 @@ const YouTubeStats = ({user}) => {
 
   const getYtChannel = (channel = user.youtube_id) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
-    if (!user.youtube_id) {
+    if (user.youtube_id) {
       return Axios.get(ytLink).then(res => {
         if (res.data.items.length > 0 ){
           setStats({...res.data.items[0].statistics})
