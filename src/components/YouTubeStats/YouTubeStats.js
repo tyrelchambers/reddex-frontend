@@ -16,14 +16,16 @@ const YouTubeStats = ({user}) => {
 
   const getYtChannel = (channel = user.youtube_id) => {
     const ytLink = `https://www.googleapis.com/youtube/v3/channels?id=${channel}&part=snippet,statistics&key=${process.env.REACT_APP_YOUTUBE_KEY}`;
-    return Axios.get(ytLink).then(res => {
-      if (res.data.items.length > 0 ){
-        setStats({...res.data.items[0].statistics})
-        window.localStorage.setItem('youtube',channel)  
-      } else {
-        toast.error("No Channel found with that ID")
-      }
-    })
+    if (!user.youtube_id) {
+      return Axios.get(ytLink).then(res => {
+        if (res.data.items.length > 0 ){
+          setStats({...res.data.items[0].statistics})
+          window.localStorage.setItem('youtube',channel)  
+        } else {
+          toast.error("No Channel found with that ID")
+        }
+      })
+    }
   }
 
   const saveYoutubeId = async (id) => {

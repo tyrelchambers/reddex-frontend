@@ -83,7 +83,7 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
       <SubForm/>
       <HR />
       {SiteStore.config.submission_form &&
-        <div className="d-f">
+        <div className="d-f submission-form-wrapper">
           <form className="form custom-story-form mt+">
             <h2>Customize your submission form</h2>
             <p className="subtle mb+">This is what your visitor will see when they submit you a story. Customize it to fit it how you'd like.</p>
@@ -124,8 +124,12 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
           </form>
 
           <section className="form-preview">
-            <h1 className="preview-title">{SiteStore.config.submission_title}</h1>
-            <h3 className="preview-headline">{SiteStore.config.headline}</h3>
+            {SiteStore.config.submission_title &&
+              <h1 className="preview-title">{SiteStore.config.submission_title}</h1>
+            }
+            {SiteStore.config.headline &&
+              <h3 className="preview-headline">{SiteStore.config.headline}</h3>
+            }
             <div dangerouslySetInnerHTML={{__html: SiteStore.config.rules}} id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
           
             <div className="d-f fxd-c ai-c">

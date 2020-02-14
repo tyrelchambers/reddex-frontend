@@ -31,6 +31,8 @@ class SiteStore {
     rules: ""
   }
 
+  isSiteSaved = false;
+
   preview = {
     subdomain: ""
   }
@@ -39,11 +41,18 @@ class SiteStore {
 
   setInitial(data) {
     this.config = {...this.config, ...data}
+    if (data.subdomain) {
+      this.setIsSaved(true);
+    }
   }
   setConfig(data) {
     this.setChanges(true)
     this.config = {...this.config, ...data}
     
+  }
+
+  setIsSaved(bool) {
+    this.isSiteSaved = bool;
   }
 
   setChanges(state) {
@@ -106,7 +115,7 @@ class SiteStore {
     const toDelete = window.confirm("Are you sure you want to delete?");
     
     if (toDelete) {
-      await deleteDomainAlias(SiteStore.config.subdomain)
+      await deleteDomainAlias(this.config.subdomain)
       
       getAxios({
         url: '/site/delete',
@@ -155,7 +164,9 @@ decorate(SiteStore, {
   setConfig: action,
   preview: observable,
   setPreview: action,
-  changes: observable
+  changes: observable,
+  isSiteSaved: observable,
+
 })
 
 export default new SiteStore();
