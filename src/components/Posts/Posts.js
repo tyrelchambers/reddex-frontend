@@ -7,16 +7,19 @@ import { getAxios } from '../../api';
 const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ endIndex, setEndIndex ] = useState(40);
+  const token = window.localStorage.getItem('token');
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
 
     if( token ) {
       const fn = async () => {
-        const stories = await getAxios({
+        await getAxios({
           url: '/profile/stories_used'
+        }).then(res => {
+          if ( res ) {
+            setUsedPosts([...res])
+          }
         });
-        setUsedPosts([...stories])
       }
       
       fn();

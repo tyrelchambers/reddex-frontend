@@ -5,7 +5,6 @@ import SignupForm from '../../components/Forms/SignupForm';
 import { Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
-import Axios from 'axios';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
@@ -21,8 +20,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     refresh_token: ""
   });
   const [ errors, setErrors ] = useState([]);
-  const [ approved, setApproved ] = useState(false);
-  const [ flow, setFlow ] = useState(0);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -48,8 +45,6 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       UserStore.getAccessToken(approvalStatus).then(res => {
         setCredentials({...credentials, access_token: res.access_token, refresh_token: res.refresh_token})
       }).catch(console.log);
-      setFlow(1);
-      setApproved(true);
     } 
   }
 
@@ -80,20 +75,14 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
       }
     })
     
+    window.location.pathname="/"
 
      
   }
 
-  const askForRedditApproval = () => {
-    const link = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.REACT_APP_REDDIT_APP_NAME}&response_type=code&state=storiesaftermidnightreddex&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup&duration=permanent&scope=privatemessages identity`;
-    window.location.href = link;
-  }
-
   const credentialHandler = (e) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
-  }
-
-  
+  }  
 
   if ( UserStore.getUser() ) {
     return (
@@ -107,15 +96,11 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
             <h1 className="mb+ ta-c">Signup With Reddex</h1>
             <p className="subtle mt+ mb+">In order to signup for a Reddex profile, you'll have to agree to let Reddex access your Reddit profile, but don't worry! Reddex will <em>not</em> use your profile for evil or malicious purposes. This is so you can have access to your inbox, and the ability to send messages to authors.</p>            
             
-            <Flow 
-              approved={approved}
-              askForRedditApproval={askForRedditApproval}
+            <SignupForm 
               credentialHandler={credentialHandler}
               credentials={credentials}
               errors={errors}
               submitHandler={submitHandler}
-              flow={flow}
-              setFlow={setFlow}
             />
           </div>
         </div> 
@@ -125,26 +110,5 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   
 }));
 
-const Flow = ({approved, askForRedditApproval, credentialHandler, credentials, errors, submitHandler, flow, setFlow}) => {
-  if (!approved && flow === 0) {
-    return(
-      <button className="btn btn-primary" onClick={() => {
-        setFlow(flow++)
-        askForRedditApproval();
-      }}>Authenticate With Reddit</button>
-    )
-  }
-
-  if (flow===1) {
-    return (
-      <SignupForm 
-        credentialHandler={credentialHandler}
-        credentials={credentials}
-        errors={errors}
-        submitHandler={submitHandler}
-      />
-    )
-  }
-}
 
 export default SignupPage;
