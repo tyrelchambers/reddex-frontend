@@ -1,10 +1,8 @@
-import React, { useEffect, useState, Suspense } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Posts.scss';
 import { inject, observer } from 'mobx-react';
 import { getAxios } from '../../api';
-import Loading from '../Loading/Loading'
-
-const SubredditPost = React.lazy(() => import('../SubredditPost/SubredditPost'))
+import SubredditPost from '../SubredditPost/SubredditPost'
 
 const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
@@ -58,14 +56,13 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
 
         {posts.slice(0, endIndex).map((x, id) => {
           return(
-            <Suspense key={id} fallback={<div className="lazy-gradient"></div>}>
-              <SubredditPost
-                x={x}
-                setPosts={setPosts}
-                onClickHandler={() => selectPost(x, PostStore)}
-                used={isPostUsed(x)}
-              />
-            </Suspense>
+            <SubredditPost
+            key={id}
+              x={x}
+              setPosts={setPosts}
+              onClickHandler={() => selectPost(x, PostStore)}
+              used={isPostUsed(x)}
+            />
           )
         })}
       </ul>

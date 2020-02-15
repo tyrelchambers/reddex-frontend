@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 import { getAxios } from '../../api';
 
-const InboxMessage = inject("InboxStore", "UserStore")(observer(({InboxStore, UserStore}) => {
+const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(observer(({InboxStore, UserStore, ReadingListStore}) => {
   const [ storyLink, setStoryLink ] = useState("");
   const [ data, setData ] = useState();
   const [ contacts, setContacts ] = useState([]);
@@ -46,6 +46,24 @@ const InboxMessage = inject("InboxStore", "UserStore")(observer(({InboxStore, Us
     return(
       <div className="d-f ai-c">
         <a href={storyLink} target="_blank" className="message-story-tag">Link to story</a>
+        <IsInReadingList />
+      </div>
+    )
+  }
+
+  const IsInReadingList = () => {
+    const regex = new RegExp(data.subject)
+    const isListed = ReadingListStore.toRead.filter((x, id) => x.title.match(regex))
+    
+    if (isListed.length > 0) {
+      return (
+        <button className="chat-action ai-c no-action" disabled>
+          <i className="fas fa-bookmark mr-"></i>
+          In reading list
+        </button>
+      )
+    } else {
+      return (
         <button className="chat-action primary ai-c" onClick={() => {
           permissionHandler(true, data)
           toast.success("Added to reading list")
@@ -53,8 +71,8 @@ const InboxMessage = inject("InboxStore", "UserStore")(observer(({InboxStore, Us
           <i className="fas fa-bookmark mr-"></i>
           Add to reading List
         </button>
-      </div>
-    )
+      )
+    }    
   }
 
   const IsInContacts = () => {

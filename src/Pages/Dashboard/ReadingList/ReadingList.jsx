@@ -23,13 +23,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   const [ saving, setSaving ] = useState(false);
 
   useEffect(() => {
-    getAxios({
-      url: '/profile/reading_list?permission=true'
-    }).then(res => ReadingListStore.addToRead(res))
-
-    getAxios({
-      url: '/profile/stories/completed'
-    }).then(res => ReadingListStore.setCompleted(res))
+    
 
     return () => {
       setRefresh(false)
@@ -82,12 +76,16 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       url: '/profile/save_story',
       method: 'post',
       data
-    }) 
+    }).then(res => {
+      if(res) {
+        ReadingListStore.addToRead(res)
+        toast.success("Story added to list")
+      }
+    })
 
     ModalStore.setIsOpen(false);
     setRefresh(true);
     setSaving(false);
-    toast.success("Story added to list")
   }
   
 
