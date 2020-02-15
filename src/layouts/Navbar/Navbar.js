@@ -29,7 +29,7 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
             {!UserStore.getUser() && 
               <React.Fragment>
                 <li className="d-f ai-c nav-link ">
-                  <Link to="/signup" >Sign Up</Link>
+                  <Link to="/authorize" >Sign Up</Link>
                 </li>
                 <li className="d-f ai-c nav-link">
                   <Link to="/login" >Login</Link>

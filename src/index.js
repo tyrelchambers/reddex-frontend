@@ -38,6 +38,7 @@ import StorySubmission from './Webbuilder/Static/StorySubmission/StorySubmission
 import FormStore from './stores/FormStore'
 import SubmittedStories from './Pages/SubmittedStories/SubmittedStories';
 import Story from './Pages/Story/Story';
+import Authorize from './Pages/Authorize/Authorize';
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -151,6 +152,7 @@ const InitalLoad = () => {
               <Route exact path="/reset" component={ResetPassword} />
               <Route exact path="/request-reset" component={ResetPasswordConfirm} />
               <Route exact path="/help" component={HelpPage} />
+              <Route exact path="/authorize" component={Authorize} />
               {/* <Route exact path="/pricing" component={PricingPage} /> */}
               <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
               <PrivateRoute exact path="/dashboard/home" component={Overview}/>

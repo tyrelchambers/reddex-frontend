@@ -12,9 +12,7 @@ const DisplayWrapper = (props) => {
         title={props.announcementTitle}
         body={props.announcementBody}
       />
-      <div className={props.className}>        
-        {props.children}
-      </div>
+      {props.children}
     </div>
   )
 }
