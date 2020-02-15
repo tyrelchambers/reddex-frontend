@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './ConfirmMessages.scss';
-import Axios from 'axios';
-import { fetchTokens } from '../../helpers/renewRefreshToken';
-import { toast } from 'react-toastify';
 import { MainButton, MinimalButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
@@ -24,7 +21,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
     messageHandler();
     const fn = async () => {
       const c = await getAxios({
-        url: '/contacts/all',
+        url: '/contacts/name',
         params: {
           name: data.author
         }
@@ -34,8 +31,8 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
         url: '/profile/authors_messaged'
       });
       setAuthorsMessaged([...authors])
-      if (c ) {
-        setContact({...c})
+      if (c.length > 0) {
+        setContact({...c[0]})
       } else {
         setContact()
       }
@@ -68,6 +65,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
   return (
     <div className="confirm-messages-wrapper">
+      {console.log(contact)}
       <h1 className="confirm-title" id="author" data-author={data.author} onClick={() => toggleContact()}>
         To: {data.author}
         {contact &&
