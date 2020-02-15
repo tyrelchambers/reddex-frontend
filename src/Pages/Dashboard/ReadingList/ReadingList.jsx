@@ -35,7 +35,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       url: '/profile/stories/remove',
       method:'delete',
       params: {
-        post_id: item
+        uuid: item
       }
     })
   }
@@ -78,7 +78,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
       data
     }).then(res => {
       if(res) {
-        ReadingListStore.addToRead(res)
+        ReadingListStore.addToRead([...ReadingListStore.toRead, ...res])
         toast.success("Story added to list")
       }
     })
