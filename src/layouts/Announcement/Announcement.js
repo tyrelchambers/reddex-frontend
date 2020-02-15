@@ -12,7 +12,7 @@ const Announcement = () => {
   const {
     title,
     body
-  } = announcements["productHunt"]
+  } = announcements["basic"]
   
   return (
     <div className="d-f jc-c w-100pr announcement">
