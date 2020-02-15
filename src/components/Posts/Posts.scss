@@ -8,6 +8,33 @@
   justify-content: space-between;
 }
 
+.lazy-gradient {
+  height: 90px;
+  width: 100%;
+  background: linear-gradient(218deg, #747474, #ffffff);
+  background-size: 400% 400%;
+  
+  -webkit-animation: AnimationName 2s ease infinite;
+  -moz-animation: AnimationName 2s ease infinite;
+  animation: AnimationName 2s ease infinite;
+
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:91% 0%}
+  50%{background-position:10% 100%}
+  100%{background-position:91% 0%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:91% 0%}
+  50%{background-position:10% 100%}
+  100%{background-position:91% 0%}
+}
+@keyframes AnimationName {
+  0%{background-position:91% 0%}
+  50%{background-position:10% 100%}
+  100%{background-position:91% 0%}
+}
 @media screen and (max-width: 702px) {
   .post-list {
     justify-content: center !important;
