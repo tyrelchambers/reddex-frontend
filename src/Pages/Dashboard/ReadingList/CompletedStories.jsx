@@ -85,8 +85,7 @@ const addToReadingList = (data, bool) => {
     url: '/profile/stories/completed',
     method: 'post',
     data: {
-      author: data.author,
-      title: data.title,
+      uuid: data.uuid,
       read: bool
     }
   })

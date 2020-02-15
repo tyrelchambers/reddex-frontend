@@ -20,7 +20,7 @@ class ReadingListStore {
   }
 
   addToRead(story) {
-    this.toRead = [...story];
+    this.toRead = [...this.toRead, ...story];
   }
 
   getToRead() {
