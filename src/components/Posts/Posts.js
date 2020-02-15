@@ -58,9 +58,8 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
 
         {posts.slice(0, endIndex).map((x, id) => {
           return(
-            <Suspense fallback={<div className="lazy-gradient"></div>}>
+            <Suspense key={id} fallback={<div className="lazy-gradient"></div>}>
               <SubredditPost
-                key={id}
                 x={x}
                 setPosts={setPosts}
                 onClickHandler={() => selectPost(x, PostStore)}
