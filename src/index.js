@@ -39,7 +39,9 @@ import FormStore from './stores/FormStore'
 import SubmittedStories from './Pages/SubmittedStories/SubmittedStories';
 import Story from './Pages/Story/Story';
 import Authorize from './Pages/Authorize/Authorize';
+
 if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
   return (
@@ -81,14 +83,6 @@ const InitialSubLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('theme') === "dark") {
-      document.querySelector("body").classList.add('theme-dark')
-    } else {
-      document.querySelector("body").classList.add('theme-light')
-    }
-  }, [localStorage.getItem('theme')])
-
-  useEffect(() => {
     const subdomain = window.location.host.split('.')[0];
     const fn = async () => {
       await getAxios({
@@ -99,6 +93,8 @@ const InitialSubLoad = () => {
       }).then(res => {
         if (res) {
           stores.SiteStore.setConfig(res);
+          document.querySelector('body').className = `theme-${res.theme}`
+
           setLoaded(true)
         }
       })

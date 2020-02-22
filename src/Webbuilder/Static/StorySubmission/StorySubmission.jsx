@@ -20,7 +20,6 @@ const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, S
         }
       }).then(res => {
         FormStore.setState(res)
-        document.querySelector('body').className = `theme-${res.theme}`
         setLoading(false)
       })
     }
@@ -31,7 +30,7 @@ const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, S
   if (loading) return null;
 
   return (
-    <div className={`static-submit-wrapper ${FormStore.state.theme}`}>
+    <div className={`static-submit-wrapper ${SiteStore.config.theme}`}>
       {FormStore.state.submission_title &&
         <h1>{FormStore.state.submission_title}</h1>
       }

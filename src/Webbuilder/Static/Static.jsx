@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import SocialBar from './modules/SocialBar/SocialBar';
 import './Static.scss'
-import SubmissionForm from '../../components/Forms/SubmissionForm';
 import Youtube from 'react-youtube'
 import Axios from 'axios';
 import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
-import { toast } from 'react-toastify';
-import { getAxios } from '../../api';
 import { Link } from 'react-router-dom'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
@@ -26,9 +23,7 @@ const Static = inject("SiteStore")(observer(({SiteStore}) => {
     setConfig(SiteStore.config)
   }, []);
 
-  useEffect(() => {
-    document.querySelector('body').className = `theme-${config.theme}`
-  }, [config]);
+ 
 
   useEffect(() => {
     const getYT = async () => {
