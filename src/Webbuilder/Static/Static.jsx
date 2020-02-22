@@ -8,8 +8,10 @@ import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 import { toast } from 'react-toastify';
 import { getAxios } from '../../api';
 import { Link } from 'react-router-dom'
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-const Static = () => {
+const Static = inject("SiteStore")(observer(({SiteStore}) => {
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState({});
   const [videoIds, setVideoIds] = useState();
@@ -21,18 +23,7 @@ const Static = () => {
   });
 
   useEffect(() => {
-    const subdomain = window.location.host.split('.')[0];
-    const fn = async () => {
-      const siteConfig = await getAxios({
-        url: '/site/',
-        params: {
-          subdomain
-        }
-      })
-      
-      setConfig(siteConfig);
-    }
-    fn();
+    setConfig(SiteStore.config)
   }, []);
 
   useEffect(() => {
@@ -77,7 +68,7 @@ const Static = () => {
         }}>{config.title}</h2>
           <div className="static-header-right">
             { config.submission_form &&           
-              <Link to={`/submit?sid=${config.uuid}`} className="static-nav-link">Submit a Story</Link>
+              <Link to={`/submit`} className="static-nav-link">Submit a Story</Link>
             }
             <SocialBar
               config={config}
@@ -120,6 +111,6 @@ const Static = () => {
       </footer>
     </div>
   );
-};
+}));
 
 export default Static;

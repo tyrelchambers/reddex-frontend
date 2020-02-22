@@ -74,7 +74,60 @@ const stores = {
   FormStore
 }
 
-const InitalLoad = () => { 
+
+const subdomain = window.location.host.split('.');
+
+const InitialSubLoad = () => {
+  const [ loaded, setLoaded ] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === "dark") {
+      document.querySelector("body").classList.add('theme-dark')
+    } else {
+      document.querySelector("body").classList.add('theme-light')
+    }
+  }, [localStorage.getItem('theme')])
+
+  useEffect(() => {
+    const subdomain = window.location.host.split('.')[0];
+    const fn = async () => {
+      await getAxios({
+        url: '/site/',
+        params: {
+          subdomain
+        }
+      }).then(res => {
+        if (res) {
+          stores.SiteStore.setConfig(res);
+          setLoaded(true)
+        }
+      })
+      
+    }
+    fn();
+  }, []);
+
+  if (loaded) {
+    return(
+      <Provider {...stores}>
+        <ToastContainer />
+  
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Static}/>
+            <Route exact path="/submit" component={StorySubmission}/>
+            <Route component={Page404}/>
+  
+          </Switch>
+        </Router>
+      </Provider>
+    )
+  } else {
+    return null; 
+  }
+}
+
+const InitialLoad = () => { 
   const [ loaded, setLoaded ] = useState(false);
   const token = window.localStorage.getItem("token");
   const redditProfile = window.localStorage.getItem('reddit_profile')
@@ -118,63 +171,53 @@ const InitalLoad = () => {
   }, [])
 
   if ( loaded ) {
-    const subdomain = window.location.host.split('.');
 
-    if ( (subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1  && subdomain.includes("localhost:3000"))) {
-      return(
-        <Provider {...stores}>
+    return(
+      <Provider {...stores}>
+        <Router>  
           <ToastContainer />
-
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Static}/>
-              <Route exact path="/submit" component={StorySubmission}/>
-              <Route component={Page404}/>
-
-            </Switch>
-          </Router>
-        </Provider>
-      )
-    } else {
-      return(
-        <Provider {...stores}>
-          <Router>  
-            <ToastContainer />
-            <Switch>
-              <Route exact path="/" component={App}/>
-              <Route exact path="/about" component={About} />
-              <Route exact path="/signup" component={SignupPage} />
-              <Route exact path="/signout" render={() => {
-                UserStore.signOut();
-                window.location.pathname = "/"
-              }} />
-              <Route exact path="/login" component={LoginPage} />
-              <Route exact path="/reset" component={ResetPassword} />
-              <Route exact path="/request-reset" component={ResetPasswordConfirm} />
-              <Route exact path="/help" component={HelpPage} />
-              <Route exact path="/authorize" component={Authorize} />
-              {/* <Route exact path="/pricing" component={PricingPage} /> */}
-              <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
-              <PrivateRoute exact path="/dashboard/home" component={Overview}/>
-              <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-              <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
-              <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
-              <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
-              <PrivateRoute exact path="/dashboard/submitted" component={SubmittedStories} />
-              <PrivateRoute path="/dashboard/story/:id" component={Story} />
-              <Route component={Page404}/>
-            </Switch>
-          </Router>
-        </Provider>
-      );
-    }
+          <Switch>
+            <Route exact path="/" component={App}/>
+            <Route exact path="/about" component={About} />
+            <Route exact path="/signup" component={SignupPage} />
+            <Route exact path="/signout" render={() => {
+              UserStore.signOut();
+              window.location.pathname = "/"
+            }} />
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/reset" component={ResetPassword} />
+            <Route exact path="/request-reset" component={ResetPasswordConfirm} />
+            <Route exact path="/help" component={HelpPage} />
+            <Route exact path="/authorize" component={Authorize} />
+            {/* <Route exact path="/pricing" component={PricingPage} /> */}
+            <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
+            <PrivateRoute exact path="/dashboard/home" component={Overview}/>
+            <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
+            <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+            <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+            <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+            <PrivateRoute exact path="/dashboard/submitted" component={SubmittedStories} />
+            <PrivateRoute path="/dashboard/story/:id" component={Story} />
+            <Route component={Page404}/>
+          </Switch>
+        </Router>
+      </Provider>
+    );
+    
   } else {
     return null
   }
 }
 
+const Index = () => {
+  if ((subdomain.length > 2 && subdomain[0] !== "development") || (subdomain.length > 1  && subdomain.includes("localhost:3000"))) {
+    return <InitialSubLoad />
+  } else {
+    return <InitialLoad />
+  }
+}
 ReactDOM.render(
-  <InitalLoad />
+  <Index />
   , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
