@@ -7,7 +7,7 @@ import { inject, observer } from 'mobx-react';
 
 // Public facing page
 
-const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
+const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, SiteStore}) => {
   const [ loading, setLoading] = useState(true)
   const params = new URLSearchParams(window.location.search)
 
@@ -16,11 +16,10 @@ const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
       await getAxios({
         url: '/submissionForm/',
         params: {
-          sid: params.get('sid')
+          sid: SiteStore.config.uuid
         }
       }).then(res => {
         FormStore.setState(res)
-        document.querySelector('body').className = `theme-${res.theme}`
         setLoading(false)
       })
     }
@@ -31,7 +30,7 @@ const StorySubmission = inject("FormStore")(observer(({FormStore}) => {
   if (loading) return null;
 
   return (
-    <div className={`static-submit-wrapper ${FormStore.state.theme}`}>
+    <div className={`static-submit-wrapper ${SiteStore.config.theme}`}>
       {FormStore.state.submission_title &&
         <h1>{FormStore.state.submission_title}</h1>
       }
