@@ -3,6 +3,7 @@ import './ReadingList.scss';
 import Axios from 'axios';
 import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
+import { MinimalButton } from '../../../components/Buttons/Buttons';
 
 const ReadingListDumb = ({list, callback}) => {
   const [state, setState] = useState([]);
@@ -65,6 +66,22 @@ const ReadingListDumb = ({list, callback}) => {
             </div>
           </div>
         </div>
+        <div className="selftext-wrapper">
+          <p id="selfText" style={{
+            whiteSpace: "pre-wrap",
+            height: '100px',
+            overflow: 'hidden',
+            marginTop: '2em'
+          }}>{x.self_text}</p>
+        </div>
+        <MinimalButton
+          onClick={(e) => {
+            const parent = e.target.closest(".reading-list-item");
+            parent.querySelector(".selftext-wrapper").classList.toggle("selftext-expand")
+          }}
+        >
+            Read Story
+        </MinimalButton>
       </div>
     </li>
   )
