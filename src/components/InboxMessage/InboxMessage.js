@@ -31,8 +31,6 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
     fn();
   }, [data])
 
-  useEffect(()=> {}, [ReadingListStore.inReadingList])
-
   if ( isEmpty(data) ) return null;
 
   const msgArr = [];
@@ -47,7 +45,7 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
 
   const IsInReadingList = () => {
     if (!storyLink) return null;
-    
+
     const regex = new RegExp(data.subject)
     let isListed = ReadingListStore.toRead.filter((x, id) => x.title.match(regex))
 
