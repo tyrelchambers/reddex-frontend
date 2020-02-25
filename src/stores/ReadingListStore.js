@@ -4,7 +4,6 @@ class ReadingListStore {
   toRead = []
   completed = []
 
-
   setCompleted(story) {
     this.completed = [...story];
   }

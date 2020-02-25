@@ -15,11 +15,19 @@
 }
 
 .inbox-message-header {
-  h2, p {
+  h2, 
+  p,
+  a {
     color: var(--secondary);
   }
 }
 
+.message-subtitle {
+  a {
+    color: var(--secondary);
+  margin-top: 0.5em;
+  }
+}
 @media screen and (max-width: 623px) {
   .message-tags {
     flex-direction: column;
