@@ -12,6 +12,8 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   const [ storyLink, setStoryLink ] = useState("");
   const [ data, setData ] = useState();
   const [ contacts, setContacts ] = useState([]);
+  const [ isContact, setIsContact ] = useState(false)
+  const [ isToRead, setIsToRead ] = useState(false)
 
   useEffect(() => {
     getStory(InboxStore.getSelectedMessage(), setStoryLink);
@@ -29,33 +31,27 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
     fn();
   }, [data])
 
+  useEffect(()=> {}, [ReadingListStore.inReadingList])
+
   if ( isEmpty(data) ) return null;
 
   const msgArr = [];
 
   if ( !isEmpty(data.replies) ) {
-    data.replies.data.children.map(x => {
+    data.replies.data.children.forEach(x => {
       msgArr.push(x.data);
     });
   }
 
   msgArr.push(data);
 
-  const MessageTags = () => {
-    if (!storyLink) return null;
-    return(
-      <div className="d-f ai-c">
-        <a href={storyLink} target="_blank" className="message-story-tag">Link to story</a>
-        <IsInReadingList />
-      </div>
-    )
-  }
-
   const IsInReadingList = () => {
-    const regex = new RegExp(data.subject)
-    const isListed = ReadingListStore.toRead.filter((x, id) => x.title.match(regex))
+    if (!storyLink) return null;
     
-    if (isListed.length > 0) {
+    const regex = new RegExp(data.subject)
+    let isListed = ReadingListStore.toRead.filter((x, id) => x.title.match(regex))
+
+    if (isListed.length > 0 || isToRead) {
       return (
         <button className="chat-action ai-c no-action" disabled>
           <i className="fas fa-bookmark mr-"></i>
@@ -66,6 +62,7 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
       return (
         <button className="chat-action primary ai-c" onClick={() => {
           permissionHandler(true, data)
+          setIsToRead(true)
           toast.success("Added to reading list")
         }}>
           <i className="fas fa-bookmark mr-"></i>
@@ -76,9 +73,9 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   }
 
   const IsInContacts = () => {
-    const isContact = contacts.filter((x, id) => (x.name === data.dest))
+    const contact = contacts.filter((x, id) => (x.name === data.dest))
 
-    if ( isContact.length === 1 ) {
+    if ( contact.length === 1 || isContact) {
       return (
         <button className="chat-action ai-c no-action" disabled>
           <i className="fas fa-address-book mr-"></i>
@@ -87,7 +84,11 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
       )
     } else {
       return (
-        <button className="chat-action primary ai-c" onClick={() => addToContacts(data)}>
+        <button className="chat-action primary ai-c" onClick={() => {
+          addToContacts(data)
+          setIsContact(true)
+          toast.success("Contact saved")
+        }}>
           <i className="fas fa-address-book mr-"></i>
           Add to contacts
         </button>
@@ -99,11 +100,13 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
     <div className="inbox-message-wrapper fx-1 ml+">
       <main>
         <div className="d-f fxd-c inbox-message-header">
-          <h2>{data.subject}</h2>
-          <p className="mb- message-subtitle">From: {destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</p>
+          <h2>
+            <a href={storyLink} target="_blank" rel="noopener noreferrer">{data.subject}</a>
+          </h2>
+          <p className="mb- message-subtitle">From: <a href={`https://reddit.com/u/${destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}`} target="_blank" rel="noopener noreferrer"  >{destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</a> </p>
           <div className="message-tags mb-">
-            <MessageTags />
-            <IsInContacts />
+            <IsInReadingList/>
+            <IsInContacts/>
           </div>
 
           <HR/>
