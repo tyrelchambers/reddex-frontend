@@ -30,7 +30,6 @@ import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConf
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
 import { checkValidTokens } from './helpers/checkValidTokens';
-import LogRocket from 'logrocket';
 import Page404 from './Pages/Misc/404';
 import { getCurrentAuthenticatedUser } from './helpers/renewRefreshToken';
 import { getAxios } from './api/index';
@@ -39,8 +38,6 @@ import FormStore from './stores/FormStore'
 import SubmittedStories from './Pages/SubmittedStories/SubmittedStories';
 import Story from './Pages/Story/Story';
 import Authorize from './Pages/Authorize/Authorize';
-
-if ( process.env.NODE_ENV !== 'development' ) LogRocket.init('kstoxh/reddex');
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');

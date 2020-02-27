@@ -43,8 +43,16 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     
     if ( approvalStatus !== false ) {
       UserStore.getAccessToken(approvalStatus).then(res => {
-        setCredentials({...credentials, access_token: res.access_token, refresh_token: res.refresh_token})
-      }).catch(console.log);
+        if(!res) {
+          toast.error("Something went wrong with authentication. Please try again. Redirecting...")
+          setTimeout(() => {
+            return window.location.pathname="/authorize"
+          }, 5000);
+        }
+        if (res) {
+          setCredentials({...credentials, access_token: res.access_token, refresh_token: res.refresh_token})
+        }
+      })
     } 
   }
 
