@@ -38,7 +38,7 @@ const App = observer(() => {
 
   return (
     <DisplayWrapper
-      hasHeader={true}
+      
     > 
       <div className="d-f fxd-c ai-c mt+ mobile-column-1024">
         <Preferences />
