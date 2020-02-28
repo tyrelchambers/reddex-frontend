@@ -59,7 +59,7 @@ const PricingPage = () => {
   }
 
   return (
-    <DisplayWrapper hasHeader={true}>
+    <DisplayWrapper >
       <section className="pricing-wrapper d-f fxd-c ai-c jc-c">
         <h2 className="mb+ ta-c">Our pricing will help make your job easier, without breaking the bank.</h2>
         <div className="highlight tag d-f ai-c">

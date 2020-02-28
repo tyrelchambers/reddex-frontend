@@ -38,7 +38,7 @@ const ResetPassword = () => {
     window.location.pathname="/login"
   }
   return (
-    <DisplayWrapper hasHeader={true}>
+    <DisplayWrapper >
       <div className="d-f fxd-c ai-c mt+">
         <h1>Choose your new password</h1>
         <ResetPasswordForm

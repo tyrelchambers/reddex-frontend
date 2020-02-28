@@ -112,7 +112,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     )
   } else {
     return (
-      <DisplayWrapper hasHeader={true}>
+      <DisplayWrapper >
         <div className="d-f jc-c ai-c signup-wrapper ml-a mr-a h-100v fxd-c p-">
           <div className="wrapper d-f fxd-c ai-c">
             <h1 className="mb+ ta-c">Signup With Reddex</h1>
