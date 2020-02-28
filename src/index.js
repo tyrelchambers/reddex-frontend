@@ -155,7 +155,11 @@ const InitialLoad = () => {
             })
           }
         }
+
+      
       }
+
+      
       setLoaded(true);
     }
 
