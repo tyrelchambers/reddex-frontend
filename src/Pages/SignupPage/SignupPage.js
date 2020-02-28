@@ -10,6 +10,7 @@ import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
 import {checkValidEmail} from '../../helpers/checkValidEmail'
 import { getAxios } from '../../api';
+import {saveTokensToDb} from '../../helpers/renewRefreshToken';
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -20,6 +21,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     refresh_token: ""
   });
   const [ errors, setErrors ] = useState([]);
+  const reauth = window.sessionStorage.getItem("reauth")
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -40,11 +42,31 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const getParams = () => {
     const params = (new URL(window.location)).searchParams;
     const approvalStatus = params.get("code") ? params.get("code") : false;
-    
+
+    // If firefox strict tracking is enabled. User cannot interact with Reddit therefore they won't have required tokens.
+    // This allows a user to reauth with reddit
+
     if ( approvalStatus !== false ) {
       UserStore.getAccessToken(approvalStatus).then(res => {
-        setCredentials({...credentials, access_token: res.access_token, refresh_token: res.refresh_token})
-      }).catch(console.log);
+        if(!res) {
+          toast.error("Something went wrong with authentication. Please try again. Redirecting...")
+          setTimeout(() => {
+            window.location.search=""
+            return window.location.pathname="/authorize"
+          }, 5000);
+        }
+        if(!reauth) {
+          setCredentials({...credentials, access_token: res.access_token, refresh_token: res.refresh_token})
+        } else {
+          saveTokensToDb(res.access_token,res.refresh_token).then(res => {
+            if( res ) {
+              window.sessionStorage.removeItem('reauth')
+              window.location.pathname="/"
+            }
+          })
+        }
+
+      })
     } 
   }
 
@@ -84,7 +106,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
     return setCredentials({...credentials, [e.target.name]: e.target.value});
   }  
 
-  if ( UserStore.getUser() ) {
+  if ( UserStore.getUser() && !reauth) {
     return (
       <Redirect to="/"/>
     )

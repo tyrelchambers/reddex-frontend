@@ -1,13 +1,12 @@
 import React, {useState } from 'react'
 import LoginForm from '../../components/Forms/LoginForm';
 import { toast } from 'react-toastify';
-import Axios from 'axios';
 import { observer } from 'mobx-react-lite';
 import { inject } from 'mobx-react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { getAxios } from '../../api';
 
-const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
+const LoginPage = inject("UserStore")(observer(({UserStore}) => {
   
   const [ credentials, setCredentials ] = useState({
     email: "",
@@ -45,6 +44,14 @@ const LoginPage = inject("UserStore")(observer(({UserStore, history}) => {
         UserStore.setCurrentUser(res.user)
         if (res.user.reddit_profile) {
           UserStore.setRedditProfile(res.user.reddit_profile)
+        }
+
+        if (!res.user.access_token) {
+          toast.error("Missing important credentials. Please reauthenicate with Reddit :( Redirecting...")
+          window.sessionStorage.setItem("reauth", true)
+          return setTimeout(() => {
+            window.location.pathname="/authorize"
+          }, 5000);   
         }
         window.location.pathname = '/'
       }

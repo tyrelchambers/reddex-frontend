@@ -4,7 +4,6 @@ import { getAxios } from '../api';
 export const renewRefreshToken = async () => {
   const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
   const token = await fetchTokens();
-  const jwt = window.localStorage.getItem('token');
 
   if ( !token || !token.access_token ) return null;
 
@@ -17,7 +16,7 @@ export const renewRefreshToken = async () => {
     }
   })
   .then(res => {
-    saveTokensToDb(res.data.access_token, token.refresh_token, jwt);
+    saveTokensToDb(res.data.access_token, token.refresh_token);
     return res.data
   })
   .catch(console.log);
@@ -44,7 +43,7 @@ export const fetchTokens = async () => {
 }
 
 export const saveTokensToDb = async (access_token, refresh_token) => {
-  getAxios({
+  return getAxios({
     url: '/tokens/saveTokens',
     method: 'post',
     data: {
