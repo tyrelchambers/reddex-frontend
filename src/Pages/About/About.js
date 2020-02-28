@@ -12,7 +12,7 @@ const pic7 = require('../../assets/7.svg')
 
 const About = () => {
   return(
-    <DisplayWrapper hasHeader={true}>
+    <DisplayWrapper >
       <div className="about-wrapper ml-a mr-a d-f fxd-c ai-c mt+ animated fadeIn">
         <h1 className="about-title ta-c">What is Reddex?</h1>
         <p className="about-subtitle mb+">Reddex is a toolkit for Youtube narrators. The goal is simple: provide an application to help narrators be productive creators.</p>  

@@ -31,6 +31,10 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
               <Link to="/help" >Help</Link>
             </li>
 
+            <li className="d-f ai-c nav-link">
+              <Link to="/explore" >Explore</Link>
+            </li>
+
             {UserStore.getUser() &&
               <Username/>
             }

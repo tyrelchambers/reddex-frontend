@@ -4,7 +4,7 @@ import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper'
 
 const HelpPage = () => {
   return (
-    <DisplayWrapper hasHeader={true}>
+    <DisplayWrapper >
       <div className="container d-f fxd-c center mt+ mb+ help-wrapper">
         <h1 className="title ta-c mb-">Help</h1>
         <p className="ta-c">Need some help using Reddex? Check out the topics below.</p>

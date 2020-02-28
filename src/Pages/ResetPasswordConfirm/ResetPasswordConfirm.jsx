@@ -25,7 +25,7 @@ const ResetPasswordConfirm = () => {
   }
   return (
     <DisplayWrapper 
-      hasHeader={true}
+      
     >
       <div className="mt+ d-f ai-c fxd-c">
         <h1>Reset Password</h1>
