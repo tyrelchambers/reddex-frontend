@@ -37,7 +37,7 @@ const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, S
       {SiteStore.config.headline &&
         <h3 className="mt+ headline">{SiteStore.config.headline}</h3>
       }
-      <div dangerouslySetInnerHTML={{__html: FormStore.state.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
+      <div dangerouslySetInnerHTML={{__html: SiteStore.config.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
 
       <SubmissionForm
         data={FormStore.state}
