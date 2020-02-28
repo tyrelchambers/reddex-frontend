@@ -31,11 +31,11 @@ const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, S
 
   return (
     <div className={`static-submit-wrapper ${SiteStore.config.theme}`}>
-      {FormStore.state.submission_title &&
-        <h1>{FormStore.state.submission_title}</h1>
+      {SiteStore.config.submission_title &&
+        <h1>{SiteStore.config.submission_title}</h1>
       }
-      {FormStore.state.headline &&
-        <h3 className="mt+ headline">{FormStore.state.headline}</h3>
+      {SiteStore.config.headline &&
+        <h3 className="mt+ headline">{SiteStore.config.headline}</h3>
       }
       <div dangerouslySetInnerHTML={{__html: FormStore.state.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
 
