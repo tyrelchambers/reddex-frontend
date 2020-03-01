@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './Preferences.scss'
 
-const fOff = require('../../assets/flashlight-pff.svg');
-const fOn = require('../../assets/flashlight-on.svg')
-
 const Preferences = () => {
   const [theme, setTheme] = useState("" || localStorage.getItem('theme'));
   
@@ -26,23 +23,20 @@ const Preferences = () => {
     <button className="pref dark-mode-switch d-f ai-c" onClick={() => {
       toggleTheme('light')
     }}>
-      <img src={fOn} alt="Dark mode on" />
-      <p className="dark-mode-on">LIGHT MODE</p>
+      <i className="fas fa-adjust"></i>
+      <p className="dark-mode-on">Light mode</p>
     </button>
   ) : (
     <button className="pref dark-mode-switch d-f ai-c" onClick={() => {
       toggleTheme('dark')
-
     }}>
-      <img src={fOff} alt="Dark mode off" />
-      <p>DARK MODE</p>
+      <i className="fas fa-adjust flipped"></i>
+      <p>Dark mode</p>
     </button>
   )
   return (
-    <div className="d-f preferences-wrapper mb- mt-">
-      <div className="d-f ai-c pref-wrapper">
-        {switcher}
-      </div>
+    <div className="d-f">
+      {switcher}
     </div>
   );
 }

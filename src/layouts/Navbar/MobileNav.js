@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Navbar.scss';
 import NavWidget from '../NavWidget/NavWidget';
+import Preferences from '../Preferences/Preferences';
 const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, extended = "", setExtended}) => {
   const Username = () => {
     if ( !redditProfile ) {
@@ -33,6 +34,46 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
 
             <li className="d-f ai-c nav-link">
               <Link to="/explore" >Explore</Link>
+            </li>
+
+            <li className="d-f ai-c nav-link nav-dropdown p-">
+              <div className="d-f nav-dropdown-label">
+                <p>Options</p>
+                <i className="fas fa-ellipsis-h"></i>
+              </div>
+
+              <div className="nav-item-dropdown">
+                <Preferences/>
+                <div>
+                  TEDT
+                </div>
+                <div>
+                  TEDT
+                </div><div>
+                  TEDT
+                </div><div>
+                  TEDT
+                </div>
+                <div>
+                  TEDT
+                </div>
+                <div>
+                  TEDT
+                </div><div>
+                  TEDT
+                </div><div>
+                  TEDT
+                </div><div>
+                  TEDT
+                </div>
+                <div>
+                  TEDT
+                </div><div>
+                  TEDT
+                </div><div>
+                  TEDT
+                </div>
+              </div>
             </li>
 
             {UserStore.getUser() &&

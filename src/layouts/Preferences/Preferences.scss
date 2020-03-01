@@ -2,37 +2,21 @@
   border: none;
   background: transparent;
   position: relative;
-  width: fit-content;
   outline: none;
-  > img {
-    height: 30px;
-    position: absolute;
-    z-index: 0;
-    left: 0;
-  }
 
   > p {
     margin-top: -1px;
-    font-weight: 700;
     z-index: 1;
-    margin-left: 2em;
-    
+    margin-left: 1em;
+    color: var(--secondary);
+  }
 
-    &.dark-mode-on {
-      -webkit-text-fill-color: transparent;
-      background: rgb(255,255,255);
-      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(50,50,50,0) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
+  i {
+    transition: all 0.2s ease;
 
-    }
   }
 }
 
-.preferences-wrapper {
-  width: 100%;
-  max-width: 1300px;
-  justify-content: flex-start;
-  padding-left: 36px;
-  padding-right: 36px;
+.fas.flipped {
+  transform: rotateZ(180deg);
 }

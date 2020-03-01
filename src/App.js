@@ -41,7 +41,6 @@ const App = observer(() => {
       
     > 
       <div className="d-f fxd-c ai-c mt+ mobile-column-1024">
-        <Preferences />
         <main className="App fx-1 pl+ pr+ ">  
           <PostFetch />
           {(newVisitor === "null" || newVisitor === null) &&
