@@ -27,8 +27,11 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
               <Link to="/help" >Help</Link>
             </li>
 
-            <li className="d-f ai-c nav-link nav-dropdown p-">
-              <i class="fas fa-ellipsis-h"></i>
+            <li className="d-f ai-c desktop nav-link nav-dropdown p-">
+              <div className="d-f nav-dropdown-label">
+                <p>Options</p>
+                <i className="fas fa-ellipsis-h"></i>
+              </div>
 
               <div className="nav-item-dropdown">
                 <Preferences/>

@@ -44,35 +44,6 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
 
               <div className="nav-item-dropdown">
                 <Preferences/>
-                <div>
-                  TEDT
-                </div>
-                <div>
-                  TEDT
-                </div><div>
-                  TEDT
-                </div><div>
-                  TEDT
-                </div>
-                <div>
-                  TEDT
-                </div>
-                <div>
-                  TEDT
-                </div><div>
-                  TEDT
-                </div><div>
-                  TEDT
-                </div><div>
-                  TEDT
-                </div>
-                <div>
-                  TEDT
-                </div><div>
-                  TEDT
-                </div><div>
-                  TEDT
-                </div>
               </div>
             </li>
 
