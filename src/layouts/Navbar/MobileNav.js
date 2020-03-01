@@ -5,6 +5,8 @@ import { observer } from 'mobx-react-lite';
 import './Navbar.scss';
 import NavWidget from '../NavWidget/NavWidget';
 import Preferences from '../Preferences/Preferences';
+import HR from '../../components/HR/HR'
+
 const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, extended = "", setExtended}) => {
   const Username = () => {
     if ( !redditProfile ) {
@@ -53,6 +55,9 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
            
             {!UserStore.getUser() && 
               <React.Fragment>
+                <div className="mb-">
+                <HR />
+                </div>
                 <li className="d-f ai-c nav-link ">
                   <Link onClick={setExtended} to="/authorize" >Sign Up</Link>
                 </li>
