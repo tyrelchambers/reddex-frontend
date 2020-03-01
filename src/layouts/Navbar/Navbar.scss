@@ -49,7 +49,6 @@
 .extended {
   display: flex !important;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   position: fixed;
   top: 0;
@@ -57,13 +56,13 @@
   left: 0;
   bottom: 0;
   background-color: rgba($grey1, 0.9);
-  
+  overflow: auto;
+  padding: 5em 0;
   .nav-link {
    font-size: 2rem;
    margin-bottom: 1em; 
 
    a {
-    color: white;
     text-decoration: none;
    }
   }
@@ -116,7 +115,6 @@
   position: relative;
   height: 100%;
   padding-left: 1em;
-  margin-left: 0.5em;
   transition: all 0.2s ease;
 
   &:hover .dashboard-dropdown  {
@@ -146,8 +144,6 @@
 .nav-main-btn {
   background-color: $blue7;
   border-radius: 5px;
-  margin-left: 1em;
-  margin-right: 1em;
   display: flex;
   justify-content: center;
   transition: all 0.2s ease;
@@ -166,6 +162,90 @@
   display: none;
 }
 
+.mobile-navbar {
+  width: 90%;
+  .nav-link {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: var(--tiertiary);
+    border-radius: 5px;
+    a { 
+      color: var(--secondary);
+      width: 100%;
+      padding: 0.5em;
+    }
+  }
+
+  .nav-dropdown {
+    &:hover {
+      justify-content: space-between;
+      width: 100% !important;
+    }
+
+    .nav-item-dropdown {
+      width: 100%;
+    }
+  }
+}
+
+.nav-dropdown {
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  i {
+    color: var(--secondary);
+  }
+
+ .nav-dropdown-label {
+  color: var(--secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+   p {
+    display: none;
+
+   }
+ }
+
+  .nav-item-dropdown {
+    display: none;
+    flex-direction: column;
+    background-color: var(--highlight);
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 15px rgba(black, 0.3);
+    padding: 0.5em;
+    margin-top: 0.5em;
+  }
+  
+
+}
+
+.extend.nav-dropdown {
+  position: relative;
+  width: 100%;
+
+
+  .nav-item-dropdown {
+    display: flex;
+  }
+
+  .nav-dropdown-label {
+    justify-content: space-between;
+    p {
+      display: block;
+    }
+  }
+}
 @media screen and (min-width: 841px) {
   .nav-toggle {
     display: none;

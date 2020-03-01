@@ -52,15 +52,6 @@
   }
 }
 
-@media screen and (max-width: 320px) {
-  .header {
-    flex-direction: column;
-
-    button {
-      margin-top: 1em;
-    }
-  }
-}
 @media screen and (max-width: 603px) {
   .post-fetch-header {
     flex-direction: column;

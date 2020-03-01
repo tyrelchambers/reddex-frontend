@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import { inject, observer } from 'mobx-react';
 import NavWidget from '../NavWidget/NavWidget';
+import Preferences from '../Preferences/Preferences';
 
 const Navbar = inject("UserStore")(observer(({UserStore}) => {
   return(
@@ -24,6 +25,17 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
 
             <li className="d-f ai-c nav-link">
               <Link to="/help" >Help</Link>
+            </li>
+
+            <li className="d-f ai-c desktop nav-link nav-dropdown p-">
+              <div className="d-f nav-dropdown-label">
+                <p>Options</p>
+                <i className="fas fa-ellipsis-h"></i>
+              </div>
+
+              <div className="nav-item-dropdown">
+                <Preferences/>
+              </div>
             </li>
 
             {/* <li className="d-f ai-c nav-link">
