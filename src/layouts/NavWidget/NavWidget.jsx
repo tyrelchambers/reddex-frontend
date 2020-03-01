@@ -15,9 +15,11 @@ const NavWidget = inject("UserStore")(observer(({UserStore}) => {
   }
   return (
     <div className="topbar-account-widget">
-      <div className="d-f ai-c">
+      <div className="d-f ai-c" onClick={(e) => {
+        e.target.closest('.topbar-account-widget').classList.toggle('extend')
+      }}>
         <img src={profileImg} className="profile-image small mr-" alt="Reddit User's profile"/>
-        <h5 className='reddit-name'>{redditProfile.name}</h5>
+        <h5 className='reddit-name fx-1'>{redditProfile.name}</h5>
         <i className="fas fa-chevron-down ml+ topbar-dropdown-toggle"></i>
       </div>
       

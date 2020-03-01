@@ -8,14 +8,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  &:hover .dropdown-wrapper  {
-    display: flex;
-  }
-
-  .reddit-name {
-    width: 100%;
-    color: var(--secondary);
-  }
+  
 }
 
 .dashboard-topbar {
@@ -88,15 +81,31 @@
   }
 }
 
+.topbar-account-widget.extend {
+  .dropdown-wrapper  {
+    display: flex;
+  }
+
+  .reddit-name {
+    width: 100%;
+    color: var(--secondary);
+  }
+}
+
 @media screen and (min-width: 769px) {
   .topbar-account-widget {
     .dropdown-wrapper {
       position: absolute;
       top: 0;
-  
+    }   
+    &:hover .dropdown-wrapper  {
+      display: flex;
     }
   
-    
+    .reddit-name {
+      width: 100%;
+      color: var(--secondary);
+    }
   }
 }
 
@@ -115,8 +124,10 @@
 @media screen and (max-width: 841px) {
   .topbar-account-widget {
     display: none !important;
+
+    
   }
   .dropdown-wrapper {
-    padding-top: 0;
+    padding-top: 1em;
   }
 }

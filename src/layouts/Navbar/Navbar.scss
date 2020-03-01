@@ -227,28 +227,23 @@
     margin-top: 0.5em;
   }
   
-  &:hover {
-    width: 200px;
-    .nav-item-dropdown {
-      display: flex;
-    }
 
-    .nav-dropdown-label {
-      justify-content: space-between;
-      p {
-        display: block;
-      }
-    }
-  }
 }
 
-.desktop.nav-dropdown {
+.extend.nav-dropdown {
   position: relative;
+  width: 100%;
+
 
   .nav-item-dropdown {
-    position: absolute;
-    right: 0;
-    top: 40px;
+    display: flex;
+  }
+
+  .nav-dropdown-label {
+    justify-content: space-between;
+    p {
+      display: block;
+    }
   }
 }
 @media screen and (min-width: 841px) {

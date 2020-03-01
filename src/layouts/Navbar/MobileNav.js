@@ -8,15 +8,6 @@ import Preferences from '../Preferences/Preferences';
 import HR from '../../components/HR/HR'
 
 const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, extended = "", setExtended}) => {
-  const Username = () => {
-    if ( !redditProfile ) {
-      return null;
-    }
-
-    return (
-      <NavWidget />
-    )
-  }
 
   return (
     <div className={`mobile-navbar-wrapper ${extended}`}>
@@ -38,8 +29,10 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
               <Link to="/explore" >Explore</Link>
             </li>
 
-            <li className="d-f ai-c nav-link nav-dropdown p-">
-              <div className="d-f nav-dropdown-label">
+            <li className="d-f ai-c nav-link nav-dropdown p-" >
+              <div className="d-f nav-dropdown-label" onClick={(e) => {
+                e.target.closest('.nav-dropdown').classList.toggle('extend')
+              }}>
                 <p>Options</p>
                 <i className="fas fa-ellipsis-h"></i>
               </div>
@@ -49,8 +42,8 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
               </div>
             </li>
 
-            {UserStore.getUser() &&
-              <Username/>
+            {(UserStore.getUser() && redditProfile) &&
+              <NavWidget />
             }
            
             {!UserStore.getUser() && 
