@@ -119,6 +119,10 @@
     position: relative;
     z-index: 4;
   }
+
+  .topbar-account-widget {
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: 841px) {
