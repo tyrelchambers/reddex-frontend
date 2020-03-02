@@ -180,16 +180,7 @@
     }
   }
 
-  .nav-dropdown {
-    &:hover {
-      justify-content: space-between;
-      width: 100% !important;
-    }
-
-    .nav-item-dropdown {
-      width: 100%;
-    }
-  }
+  
 }
 
 .nav-dropdown {
@@ -234,10 +225,12 @@
 .extend.nav-dropdown {
   position: relative;
   width: 100%;
-
+  width: 100% !important;
+  justify-content: space-between;
 
   .nav-item-dropdown {
     display: flex;
+    width: 100%;
   }
 
   .nav-dropdown-label {
@@ -257,6 +250,9 @@
   }
 }
 
+.nav-dropdown.desktop.extend {
+  width: 200px !important;
+}
 .nav-dropdown.extend {
   width: 200px;
   background-color: var(--primary);
