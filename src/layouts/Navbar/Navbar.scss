@@ -246,6 +246,21 @@
     }
   }
 }
+
+.nav-dropdown.desktop {
+  position: relative;
+  .nav-item-dropdown {
+    position: absolute;
+    right: 0;
+    top: 30px;
+  }
+}
+
+.nav-dropdown.extend {
+  width: 200px;
+  background-color: var(--primary);
+
+}
 @media screen and (min-width: 841px) {
   .nav-toggle {
     display: none;
