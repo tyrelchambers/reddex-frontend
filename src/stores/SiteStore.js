@@ -85,7 +85,6 @@ class SiteStore {
       const files = await this.processFiles(pondRef).then(res => JSON.parse(res))
       banner_url = files.original;
       thumbnail = files.thumbnail;
-      console.log(files)
     }
 
     if (!banner_url) {
@@ -145,7 +144,7 @@ class SiteStore {
       banner_url: "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80",
       thumbnail: "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80"
     }
-    if ( !this.config.banner_url.match(/unsplash/gi) ) {
+    if ( !this.config.banner_url.match(/unsplash.com/gi) ) {
       await getAxios({
         url: '/upload/revert',
         method: 'delete',
