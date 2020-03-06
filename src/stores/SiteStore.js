@@ -30,6 +30,7 @@ class SiteStore {
     submission_title: "",
     rules: ""
   }
+  saving = false
 
   isSiteSaved = false;
 
@@ -48,7 +49,10 @@ class SiteStore {
   setConfig(data) {
     this.setChanges(true)
     this.config = {...this.config, ...data}
-    
+  }
+
+  setSaving(bool) {
+    this.saving = bool;
   }
 
   setIsSaved(bool) {
@@ -75,9 +79,13 @@ class SiteStore {
     }
 
     let banner_url = data.banner_url || "";
+    let thumbnail;
 
     if ( pondRef.current && pondRef.current.getFiles().length > 0 ) {
-      banner_url = await this.processFiles(pondRef)
+      const files = await this.processFiles(pondRef).then(res => JSON.parse(res))
+      banner_url = files.original;
+      thumbnail = files.thumbnail;
+      console.log(files)
     }
 
     if (!banner_url) {
@@ -86,7 +94,8 @@ class SiteStore {
 
     const payload = {
       ...data,
-      banner_url
+      banner_url,
+      thumbnail
     }
 
     if ( data.subdomain !== this.preview.subdomain ) {
@@ -133,7 +142,8 @@ class SiteStore {
     e.preventDefault();
     const payload = {
       ...this.config,
-      banner_url: ""
+      banner_url: "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80",
+      thumbnail: "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80"
     }
     if ( !this.config.banner_url.match(/unsplash/gi) ) {
       await getAxios({
@@ -143,10 +153,13 @@ class SiteStore {
           url: this.config.banner_url
         }
       })
-      this.setConfig({banner_url: ""})
-    } else {
-      this.setConfig({banner_url: ""})
     }
+
+    this.setConfig({
+      banner_url: "",
+      thumbnail: ""
+    })
+
     await getAxios({
       url: '/site/update',
       method: 'post',
@@ -166,7 +179,8 @@ decorate(SiteStore, {
   setPreview: action,
   changes: observable,
   isSiteSaved: observable,
-
+  saving: observable,
+  setSaving: action
 })
 
 export default new SiteStore();

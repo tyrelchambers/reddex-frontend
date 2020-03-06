@@ -7,6 +7,8 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import './Uploader.scss'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+registerPlugin(FilePondPluginFileValidateSize);
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const Uploader = inject("SiteStore")(observer(({pondRef, SiteStore}) => {
@@ -19,7 +21,7 @@ const Uploader = inject("SiteStore")(observer(({pondRef, SiteStore}) => {
           ref={ref => (pondRef.current = ref)}
           allowMultiple={false}
           maxFiles={1}
-          data-max-file-size="2MB"
+          maxFileSize="3MB"       
           instantUpload={false}
           allowRevert={false}
           server={{

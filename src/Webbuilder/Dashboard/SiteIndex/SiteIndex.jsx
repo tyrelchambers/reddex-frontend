@@ -23,7 +23,6 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
   const pondRef = useRef()
   const [activated, setActivated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [ saving, setSaving ] = useState(false);
   useEffect(() => {
     const yt = UserStore.currentUser.youtube_id;
     const fn = async () => {
@@ -70,11 +69,11 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
   }
 
   const submitHandler = async () => {
-    setSaving(true)
-    
-    SiteStore.submit(pondRef);
-    FormStore.save(SiteStore.config.uuid)
-    setSaving(false)
+    SiteStore.setSaving(true)
+    await SiteStore.submit(pondRef);
+    await FormStore.save(SiteStore.config.uuid)
+    SiteStore.setSaving(false)
+
   }
 
   if (loading) return null;
@@ -118,7 +117,7 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
                 config={SiteStore.config}
                 store={SiteStore}
                 submitHandler={submitHandler}
-                saving={saving}
+                saving={SiteStore.saving}
               />
               <section  className="mt+ site-general-wrapper">
                 {params.get('t') === "general" &&

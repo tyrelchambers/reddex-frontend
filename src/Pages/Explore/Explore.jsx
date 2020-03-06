@@ -24,7 +24,7 @@ const Explore = () => {
       rel="noreferrer noopener" 
       key={id}
       style={{
-        background: `url(${x.banner_url}) center no-repeat`,
+        background: `url(${x.thumbnail ? x.thumbnail : x.banner_url}) center no-repeat`,
         backgroundSize: 'cover'
       }}
     >
