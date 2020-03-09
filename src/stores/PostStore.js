@@ -3,6 +3,11 @@ import { observable, decorate, action, toJS } from 'mobx';
 class PostStore {
   selectedPosts = [];
   collectionCount = 0;
+  subreddit = ""
+
+  setSubreddit(data) {
+    this.subreddit = data;
+  }
 
   setSelectedPosts(post) {
     const dupe = this.selectedPosts.find((el) => {
@@ -32,6 +37,8 @@ decorate(PostStore, {
   setSelectedPosts: action,
   clearSelectedPosts: action,
   collectionCount: observable,
-  setCollectionCount: action
+  setCollectionCount: action,
+  subreddit: observable,
+  setSubreddit: action
 });
 export default new PostStore();
