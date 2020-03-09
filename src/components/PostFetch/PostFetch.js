@@ -12,7 +12,6 @@ import RecentlySearched from '../../layouts/RecenlySearched/RecentlySearched';
 import {getAxios} from '../../api/index'
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
-  const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
@@ -23,7 +22,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
   useEffect(() => {
     getPostsFromDatabase(setPosts);
-    getSubredditsFromDatabase(setSubreddits);
   }, []);
 
   useEffect(() => {
@@ -68,7 +66,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           categoryOptions={categoryOptions}
           setCategoryOptions={setCategoryOptions}
           fetchPosts={fetchPosts}
-          subreddits={subreddits}
           executeFetch={executeFetch}
         />
         {((PostStore.collectionCount || posts.length) > 0 && !loading) &&
@@ -188,11 +185,6 @@ export const deletePostsCollection = () => {
   db.posts.clear().then().catch();
 }
 
-const getSubredditsFromDatabase = async (setSubreddits) => {
-  const db = window.db;
-  const subreddits = await db.subreddits.toArray();
-  return setSubreddits([...subreddits]);
-}
 
 
 

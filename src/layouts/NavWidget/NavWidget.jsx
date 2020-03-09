@@ -10,9 +10,7 @@ const NavWidget = inject("UserStore")(observer(({UserStore}) => {
   if ( !redditProfile ) return null;
 
   const profileImg = redditProfile.icon_img.replace(/amp;/gi, "");
-  const resetVisitorStatus = () =>{
-    window.localStorage.setItem("new_visitor", null);
-  }
+
   return (
     <div className="topbar-account-widget">
       <div className="d-f ai-c" onClick={(e) => {
@@ -29,14 +27,6 @@ const NavWidget = inject("UserStore")(observer(({UserStore}) => {
             <Link to="/dashboard/home"
               className="dropdown-link"
             >Dashboard</Link>
-          </li>
-          
-          <li className="d-f ai-c ">
-            <Link onClick={() => {
-              resetVisitorStatus()
-            }} 
-            to="#"
-            className="dropdown-link">Download Subreddits</Link>
           </li>
 
           <li>

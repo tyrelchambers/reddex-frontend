@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
 import './PostFetchComp.scss';
-import AutoComplete from '../AutoComplete/AutoComplete';
 import { MainButton } from '../Buttons/Buttons';
 import SelectField from '../SelectField/SelectField';
 import optionsJSON from './categoryOptions';
@@ -8,22 +7,16 @@ import timeframeJSON from './timeframeOptions';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
- const PostFetchComp = ({setCategoryOptions, categoryOptions, subreddits, loading, PostStore, executeFetch}) => {
+ const PostFetchComp = ({setCategoryOptions, categoryOptions, loading, PostStore, executeFetch}) => {
     const inputRef = useRef();
     const subreddit = PostStore.subreddit;
     return (
     <section className="w-100pr d-f post-fetch-header">
       <div className=" w-100pr post-fetch-search">  
         <label className="form-label dark">Enter Subreddit</label>
-        <div className="d-f ai-c h-48px mobile-fetch-inputs">
+        <div className="d-f ai-c h-48px mobile-fetch-inputs mt--">
           <div className="w-100pr mr- pos-r search-autocomplete-wrapper">
             <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => PostStore.setSubreddit(e.target.value)} ref={inputRef}/>
-            <AutoComplete 
-              subreddits={subreddits}
-              subreddit={subreddit}
-              setSubreddit={PostStore.setSubreddit}
-              inputRef={inputRef}
-            />
           </div>
           <SelectField
             data={optionsJSON}
