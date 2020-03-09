@@ -44,6 +44,11 @@ db.version(6).stores({
   })
 });
 
+db.version(7).stores({
+  posts: "++id, author, title, self_text, ups, url, num_comments, created, flair, post_id, subreddit",
+  authors: "++id, author"
+})
+
 const upgradeItems = async () => {
    db.posts.toCollection().first().then(x => {
     if ( !x ) {
