@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 const RecentlySearched = ({PostStore, executeFetch}) => {
   const [data, setData] = useState([])
-
+  
   useEffect(() => {
     getAxios({
       url: "/recently_searched"

@@ -2,6 +2,7 @@ import Axios from "axios"
 import { toast } from "react-toastify";
 const token = window.localStorage.getItem("token")
 const BACKEND = process.env.REACT_APP_BACKEND;
+
 export const getAxios = async ({
   method = 'get',
   data = {},
@@ -11,7 +12,9 @@ export const getAxios = async ({
   },
   url = ""
 } = {}) => {
-
+  if (options.withToken && !token) {
+    return;
+  }
   return await Axios({
     method,
     url: `${BACKEND}/api${url}`,
