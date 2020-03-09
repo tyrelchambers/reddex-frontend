@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './ReadingList.scss';
-import Axios from 'axios';
 import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
-import { MinimalButton } from '../../../components/Buttons/Buttons';
 
 const ReadingListDumb = ({list, callback}) => {
   const [state, setState] = useState([]);

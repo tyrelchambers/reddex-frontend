@@ -1,25 +1,27 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import './PostFetchComp.scss';
 import AutoComplete from '../AutoComplete/AutoComplete';
 import { MainButton } from '../Buttons/Buttons';
 import SelectField from '../SelectField/SelectField';
 import optionsJSON from './categoryOptions';
 import timeframeJSON from './timeframeOptions';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
- export default function PostFetchComp({setSubreddit, setCategoryOptions, categoryOptions, setLoading, fetchPosts, clearSelectedPosts, subreddit, setPosts, subreddits, loading}) {
-   const inputRef = useRef();
-
-   return (
+ const PostFetchComp = ({setCategoryOptions, categoryOptions, subreddits, loading, PostStore, executeFetch}) => {
+    const inputRef = useRef();
+    const subreddit = PostStore.subreddit;
+    return (
     <section className="w-100pr d-f post-fetch-header">
       <div className=" w-100pr post-fetch-search">  
         <label className="form-label dark">Enter Subreddit</label>
         <div className="d-f ai-c h-48px mobile-fetch-inputs">
           <div className="w-100pr mr- pos-r search-autocomplete-wrapper">
-            <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => setSubreddit(e.target.value)} ref={inputRef}/>
+            <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => PostStore.setSubreddit(e.target.value)} ref={inputRef}/>
             <AutoComplete 
               subreddits={subreddits}
               subreddit={subreddit}
-              setSubreddit={setSubreddit}
+              setSubreddit={PostStore.setSubreddit}
               inputRef={inputRef}
             />
           </div>
@@ -43,9 +45,7 @@ import timeframeJSON from './timeframeOptions';
           <MainButton 
             className={`btn btn-primary ${subreddit.length === 0 ? "disabled" : ""}`}
             onClick={() => {
-              setLoading(true);
-              fetchPosts(subreddit, setLoading, setPosts, categoryOptions);
-              clearSelectedPosts();
+              executeFetch()
             }}
             disabled={subreddit.length === 0 ? true : false}
             loading={loading}
@@ -56,8 +56,11 @@ import timeframeJSON from './timeframeOptions';
         </div>
       </div>
     </section>
-   )
- }
+    )
+  }
+
+
+  export default inject("PostStore")(observer(PostFetchComp));
 
  
 

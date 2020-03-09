@@ -8,9 +8,10 @@ import PostFetchComp from '../PostFetchComp/PostFetchComp';
 import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import RecentlySearched from '../../layouts/RecenlySearched/RecentlySearched';
+import {getAxios} from '../../api/index'
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
-  const [subreddit, setSubreddit] = useState("");
   const [ subreddits, setSubreddits ] = useState([])
   const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -38,21 +39,37 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     return PostStore.setCollectionCount(_);
   }
 
+  const executeFetch = () => {
+    if (!PostStore.subreddit) return;
+    setLoading(true);
+    recentlySearched(PostStore.subreddit)
+    fetchPosts(PostStore.subreddit, setLoading, setPosts, categoryOptions);
+    PostStore.clearSelectedPosts()
+  }
+
+  const recentlySearched = (subreddit) => {
+    getAxios({
+      url: '/recently_searched',
+      method: 'post',
+      data: {
+        subreddit
+      }
+    })
+  }
+  
+
   return (
     <React.Fragment>
       <div className="fetch-inputs w-100pr">
         <PostFetchComp 
-          subreddit={subreddit}
           posts={posts}
           setPosts={setPosts}
           setLoading={setLoading}
           categoryOptions={categoryOptions}
           setCategoryOptions={setCategoryOptions}
-          setSubreddit={setSubreddit}
           fetchPosts={fetchPosts}
           subreddits={subreddits}
-          clearSelectedPosts={() => PostStore.clearSelectedPosts()}
-          loading={loading}
+          executeFetch={executeFetch}
         />
         {((PostStore.collectionCount || posts.length) > 0 && !loading) &&
           <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/>
@@ -60,6 +77,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 
       </div>
       
+        <RecentlySearched
+          executeFetch={executeFetch}
+        />
       {posts.length > 0 &&
         <p className="mt- w-100pr current-subreddit">Showing posts from <span className="highlight-text-dark"> {window.localStorage.getItem('subreddit')}</span></p>
       }
@@ -84,6 +104,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   );
   
 }));
+
 
 
 export const saveSubredditToLocalStorage = data => {
