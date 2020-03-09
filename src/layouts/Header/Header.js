@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Header.scss';
 import Navbar from '../Navbar/Navbar';
-import reddexLogo from '../../assets/reddex-logo.svg';
+import reddexLogo from '../../assets/watermark-green.svg';
 import {inject, observer } from 'mobx-react';
 import MobileNav from '../Navbar/MobileNav';
 import headwayConfig from '../../helpers/headwayConfig';
