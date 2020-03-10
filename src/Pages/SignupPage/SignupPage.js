@@ -86,6 +86,9 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
         access_token,
         refresh_token,
         reddit_profile: profile
+      },
+      options: {
+        withToken: false
       }
     }).then(res => {
       if (res) {

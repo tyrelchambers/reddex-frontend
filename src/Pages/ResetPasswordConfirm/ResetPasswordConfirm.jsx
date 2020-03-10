@@ -18,6 +18,9 @@ const ResetPasswordConfirm = () => {
       method: 'post',
       data: {
         email
+      },
+      options: {
+        withToken: false
       }
     })
         

@@ -8,7 +8,10 @@ const Explore = () => {
 
   useEffect(() => {
     getAxios({
-      url: '/channels/'
+      url: '/channels/',
+      options: {
+        withToken: false
+      }
     }).then(res => {
       if ( res ) {
         setChannels([...res])
