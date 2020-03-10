@@ -106,7 +106,10 @@ class FormStore {
     getAxios({
       url:'/submissionForm/submit',
       method: 'post',
-      data: payload
+      data: payload,
+      options: {
+        withToken: false
+      }
     }).then(res => toast.success(res.message))
     
     setTimeout(() => {

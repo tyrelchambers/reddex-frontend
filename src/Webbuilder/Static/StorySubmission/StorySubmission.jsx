@@ -17,6 +17,9 @@ const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, S
         url: '/submissionForm/',
         params: {
           sid: SiteStore.config.uuid
+        },
+        options: {
+          withToken: false
         }
       }).then(res => {
         FormStore.setState(res)

@@ -30,7 +30,10 @@ const ResetPassword = () => {
     await getAxios({
       url: '/reset',
       data: payload,
-      method: 'post'
+      method: 'post',
+      options: {
+        withToken: false
+      }
     })
     .then(res => toast.success("Password reset successful"));
 
