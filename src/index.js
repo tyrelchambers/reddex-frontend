@@ -87,6 +87,9 @@ const InitialSubLoad = () => {
         url: '/site/',
         params: {
           subdomain
+        },
+        options: {
+          withToken: false
         }
       }).then(res => {
         if (res) {
