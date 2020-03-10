@@ -36,6 +36,9 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
       method: 'post',
       data: {
         ...payload
+      },
+      options: {
+        withToken: false
       }
     })
     .then(res => {
@@ -56,7 +59,7 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
         window.location.pathname = '/'
       }
     })
-    
+
     setLoading(false)
   }
   return(
