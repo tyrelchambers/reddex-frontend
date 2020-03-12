@@ -17,7 +17,7 @@
   font-size: 0.8rem;
   letter-spacing: 2px;
   font-weight: 700;
-  color: var(--secondary);
+  color: var(--textDark);
 }
 
 .form-input {
@@ -25,10 +25,10 @@
   padding: 1em 1.2em;
   font-size: 0.8rem;
   border-radius: 3px;
-  background-color: var(--tiertiary);
+  background-color: var(--white-40);
   line-height: 1.8em;
   &::placeholder {
-    color: var(--secondary);
+    color: var(--text);
   }
 }
 
@@ -38,7 +38,7 @@
   position: sticky;
   bottom: 10px;
   width: 100%;
-  background-color: white;
+  background-color: var(--highlight);
   padding: 1em;
   border-radius: 5px;
   box-shadow: 0px 2px 10px rgba(black, 0.1);
@@ -50,7 +50,7 @@
   font-size: 1rem;
   outline: none;
   resize: none;
-  color: $grey4;
+  color: var(--text);
 }
 
 .textarea {
@@ -60,27 +60,31 @@
   height: 300px;
   border-radius: 5px;
   padding: 0.5em;
-  color: var(--secondary);
+  color: var(--text);
   resize: vertical;
   line-height: 1.8em;
   font-size: 0.8rem;
-  background-color: var(--tiertiary);
+  background-color: var(--highlight);
   border: none;
   &::placeholder {
-    color: $grey7;
+    color: var(--textLight);
   }
 }
 
 .search-large {
-  border: 2px solid var(--tiertiary);
+  border: 2px solid var(--inputBg);
   border-radius: 3px;
-  background-color: var(--tiertiary);
+  background-color: var(--inputBg);
   font-size: 0.8rem;
   padding:1em;
-  color: var(--secondary);
+  color: var(--text);
 
   &::placeholder {
-    color: var(--secondary);
+    color: var(--text);
+  }
+
+  &:focus {
+    background-color: var(--bg);
   }
 }
 
@@ -91,8 +95,10 @@
 }
 
 #editor {
-  background-color: var(--highlight);
+  .ql-editor {
+    background-color: var(--bgLight);
+  }
 }
 .required {
-  color: var(--accent-alert);
+  color: var(--error);
 }
