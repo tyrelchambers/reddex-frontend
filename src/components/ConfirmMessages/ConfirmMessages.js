@@ -67,7 +67,6 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
   return (
     <div className="confirm-messages-wrapper">
-      {console.log(contact)}
       <h1 className="confirm-title" id="author" data-author={data.author} onClick={() => toggleContact()}>
         To: {data.author}
         {contact &&
@@ -123,9 +122,8 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             className="btn btn-primary" 
             onClick={() => {
               setLoading(true);
-              saveAuthorToDb(data.author, data.post_id);
-              saveStoryToUser(data);
-              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading);
+              
+              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data);
             }} 
             value="Message Author"
             loading={loading}
@@ -162,7 +160,7 @@ const saveStoryToUser = (data) => {
   })
 }
 
- export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading) => {
+ export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data) => {
    const tokens = await fetchTokens().catch(err => false);
    const fmtSubject = subject;
    const link = `https://oauth.reddit.com/api/compose`;
@@ -175,7 +173,6 @@ const saveStoryToUser = (data) => {
    body.set('to', `/u/${author}`);
    body.set("subject", fmtSubject);
    body.set("text", message);
-  
    await Axios.post(link, body, {
      headers: {
        "Authorization": `bearer ${tokens.access_token}`,
@@ -183,8 +180,10 @@ const saveStoryToUser = (data) => {
      }
    })
    .then(res => {
-     removeMessagedAuthor();
-     setLoading(false)
+      removeMessagedAuthor();
+      saveAuthorToDb(author, post_id);
+      saveStoryToUser(data);
+      setLoading(false)
    })
    .catch(console.log);
 

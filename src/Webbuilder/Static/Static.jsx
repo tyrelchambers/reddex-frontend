@@ -12,12 +12,6 @@ const Static = inject("SiteStore")(observer(({SiteStore}) => {
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState({});
   const [videoIds, setVideoIds] = useState();
-  const [subForm, setSubForm] = useState({
-    email: "",
-    senderName: "",
-    message: "",
-    sentToOthers: false
-  });
 
   useEffect(() => {
     setConfig(SiteStore.config)
