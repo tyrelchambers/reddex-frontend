@@ -3,8 +3,38 @@
 @import './assets/styles/animate.css';
 @import './assets/normalize.css';
 
+:root {
+  --black: #1F2933;
+  --black-20: #323F4B;
+  --black-40: #52606D;
+  --black-60: #616E7C;
+  --white: #fff;
+  --white-60: #CBD2D9;
+  --white-40: #E4E7EB;
+  --white-20: #F5F7FA;
+  --blue: #01337D;
+  --blue-20: #0552B5;
+  --blue-40: #47A3F3;
+  --accent-secondary: #0FB5BA;
+  --red: #DE3A11;
+  --accent-warning: #F35627;
+  --yellow: #FADB5F;
+  --green: #3EBD93;
+
+  --bg: var(--white-20);
+  --textDark: var(--black);
+  --text: var(--black-20);
+  --success: var(--green);
+  --inputBg: var(--white-60);
+  --link: var(--blue-40);
+  --error:var(--red);
+  --redBg: var(--red);
+}
+
 .theme-dark {
-  --primary: #1F2933;
+  --bg: var(--black);
+  --textDark: var(--white);
+  --text: var(--white-20);
   --secondary: white;
   --tiertiary: #616E7C;
   --accent-primary: #7CC4FA;
@@ -13,11 +43,10 @@
   --accent-alert: #DE3A11;
   --accent-warning: #F35627;
   --diff-primary: #FADB5F;
-  --success: #3EBD93;
 }
 
 .theme-light {
-  --primary:  #F5F7FA;
+  --bg: var(--white-20);
   --secondary: #323F4B;
   --tiertiary:#E4E7EB;
   --highlight: white;
@@ -26,13 +55,12 @@
   --accent-alert: #DE3A11;
   --accent-warning: #F35627;
   --diff-primary: #FADB5F;
-  --success: #3EBD93;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--primary);
+  background-color: var(--bg);
   font-family: 'Muli', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -53,13 +81,13 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: var(--secondary);
+  color: var(--textDark);
 }
 
 p {
   line-height: 1.8em;
   margin: 0;
-  color: var(--secondary);
+  color: var(--text);
 }
 
 .external-link {
@@ -92,10 +120,10 @@ ul {
 
   outline: none;
   border: none;
-  background-color: $grey8;
+  background-color: var(--inputBg);
    
   &:focus {
-    background-color: white;
+    background-color: var(--white);
   }
 }
 
@@ -106,24 +134,24 @@ ul {
 
 .link {
   text-transform: uppercase;
-  color: hsla(211, 12%, 48%,1);
+  color: var(--link);
   font-weight: bold;
   text-decoration: none;
   font-size: 0.8rem;
   transition: all 0.2s ease;
 
   &:hover {
-    color: $blue7;
+    color: var(--blue-20)
   }
 }
 
 .highlight-text {
-  color:$blue7;
+  color:var(--link);
   font-weight: bold;
 }
 
 .highlight-text-dark {
-  color:var(--accent-primary);
+  color:var(--blue-20);
   font-weight: bold;
 }
 
@@ -131,7 +159,7 @@ ul {
   display: none;
 }
 .error-text {
-  color: $accent;
+  color: var(--error);
 }
 
 .font-thin {
@@ -151,7 +179,7 @@ ul {
 }
 
 .danger-text {
-  color: $accent !important;
+  color: var(--error) !important;
 }
 
 .wrapper {
@@ -160,13 +188,13 @@ ul {
 }
 
 .current-subreddit {
-  color: var(--secondary);
+  color: var(--text);
 }
 
 .subtle {
   width: 100%;
   max-width: 600px;
-  color: var(--secondary);
+  color: var(--text);
 }
 
 
@@ -183,16 +211,6 @@ ul {
   padding: 0;
 }
 
-
-.simple-list {
-  li {
-    list-style-type: disc;
-    color: $grey5;
-    margin: 0.5em 0;
-    font-size: 1.2rem;
-  }
-}
-
 .message-tags {
   display: flex;
   align-items: center;
@@ -202,7 +220,7 @@ ul {
   padding: 0.5em 1em;
   white-space: nowrap;
   font-size: 0.7rem;
-  color: $blue6;
+  color: var(--link);
   text-decoration: underline;
   border-radius: 20px;
   text-transform: uppercase;

@@ -67,15 +67,15 @@
 
 
 .active-post-select {
-  box-shadow: 0px 2px 20px rgba($accent, 0.4);
+  box-shadow: 0px 2px 20px rgba(var(--redBg), 0.4);
 
   .upvotes {
-    background:$accent !important;
+    background:var(--redBg) !important;
   }
 
   .btn-select {
     color: white;
-    background-color: $accent;
+    background-color: var(--redBg);
   }
 }
 
