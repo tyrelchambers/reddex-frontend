@@ -74,9 +74,11 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 
       </div>
       
+      {UserStore.getUser() &&
         <RecentlySearched
           executeFetch={executeFetch}
         />
+      }
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
         <MessageAuthors data={PostStore.selectedPosts} posts={posts} />
