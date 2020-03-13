@@ -1,7 +1,6 @@
-@import '../../colours.scss';
-
+ 
 .contact-title {
-  color: var(--secondary);
+  color: var(--text);
 }
 @media screen and (max-width: 1024px) {
   .contact-main-wrapper {

@@ -1,4 +1,4 @@
-.dark-mode-switch {
+.mode-switch {
   border: none;
   background: transparent;
   position: relative;
@@ -8,10 +8,11 @@
     margin-top: -1px;
     z-index: 1;
     margin-left: 1em;
-    color: var(--secondary);
+    color: var(--text);
   }
 
   i {
+    color: var(--text);
     transition: all 0.2s ease;
 
   }

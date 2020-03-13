@@ -7,11 +7,11 @@
   margin: 3em auto;
   padding: 0.5em;
   &.dark {
-    background-color: var(--primary);
+    background-color: var(--bg);
   }
 
   .headline {
-    color: var(--secondary);
+    color: var(--text);
   }
 
   
@@ -21,17 +21,11 @@
   background-color: white;
 }
 
-.ql-editor {
-  background: white;
-  * {
-    color: #2E2E2E;
 
-  }
-}
 
 #preview-body {
   * {
-    color: var(--secondary);
+    color: var(--text);
   }
 
   ul {

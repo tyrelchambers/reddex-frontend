@@ -1,42 +1,31 @@
 import React, { useState } from 'react';
 import './Preferences.scss'
+import themes from './themes'
 
 const Preferences = () => {
-  const [theme, setTheme] = useState("" || localStorage.getItem('theme'));
+  const [customTheme, setCustomTheme] = useState("" || localStorage.getItem('theme'));
   
   const setThemeHandler = (theme) => {
-    setTheme(theme)
+    setCustomTheme(theme)
     window.localStorage.setItem('theme', theme)
     document.querySelector("body").className = `theme-${theme}`
 
   }
 
-  const toggleTheme = () => {
-    if (theme === "dark") {
-      setThemeHandler('light')
-    }  else {
-      setThemeHandler('dark')
-    }
+  const Render = ({theme = customTheme}) => {
+    return (
+      <button className="pref mode-switch d-f ai-c" onClick={() => {
+        setThemeHandler(theme)
+      }}>
+        {themes[theme].icon}
+        <p>{themes[theme].label}</p>
+      </button>
+    )
   }
 
-  const switcher = theme === 'dark' ? (
-    <button className="pref dark-mode-switch d-f ai-c" onClick={() => {
-      toggleTheme('light')
-    }}>
-      <i className="fas fa-adjust"></i>
-      <p className="dark-mode-on">Light mode</p>
-    </button>
-  ) : (
-    <button className="pref dark-mode-switch d-f ai-c" onClick={() => {
-      toggleTheme('dark')
-    }}>
-      <i className="fas fa-adjust flipped"></i>
-      <p>Dark mode</p>
-    </button>
-  )
   return (
-    <div className="d-f">
-      {switcher}
+    <div className="d-f fxd-c">
+      {Object.keys(themes).map((x, id) => <Render theme={x} key={id}/>)}
     </div>
   );
 }

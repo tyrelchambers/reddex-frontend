@@ -1,16 +1,11 @@
-@import '../../colours.scss';
-
+ 
 .inbox-message-wrapper {
   width: 100%;
   max-width: 900px;
 }
 
-.chat-action.primary:focus {
-  background-color: darken($grey9, 10%);
-}
-
 .chat-action.no-action {
-  background-color: $green;
+  background-color: var(--green);
   color: white;
 }
 
@@ -18,13 +13,13 @@
   h2, 
   p,
   a {
-    color: var(--secondary);
+    color: var(--text);
   }
 }
 
 .message-subtitle {
   a {
-    color: var(--secondary);
+    color: var(--text);
   margin-top: 0.5em;
   }
 }

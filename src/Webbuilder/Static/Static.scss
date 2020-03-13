@@ -1,5 +1,4 @@
-@import '../../colours.scss';
-
+ 
 .static-hero {
   height: 500px;
   width: 100%;
@@ -9,11 +8,11 @@
 }
 
 .static-hero.light {
-  background-color: $grey2;
+  background-color: var(--bgLight);
 }
 
 .static-hero.dark {
-  background-color: white;
+  background-color: var(--bgLight);
 }
 
 .static-header {
@@ -25,48 +24,11 @@
 }
 
 .static-header.light {
-  background-color: white;
+  background-color: var(--bgLight);
 }
 
 .static-header.dark {
-  background-color: $grey1;
-}
-
-.static-site-name {
-  display: flex;
-}
-
-.static-site-name.light {
-  background-color: white;
-
-  h2 {
-    color: $grey3;
-  }
-}
-
-.static-site-name.dark {
-  background-color: $grey1;
-
-  h2 {
-    color: white;
-  }
-}
-
-.static-forms {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1em 0.5em;
-}
-
-.static-forms.dark {
-  background-color: darken($grey1, 3%);
-}
-
-.static-forms.light {
-  background-color: darken(white, 3%);
-
+  background-color: var(--bg);
 }
 
 .static-intro {
@@ -82,11 +44,11 @@
 }
 
 .static-intro-wrapper.dark {
-  background-color: darken($grey1, 3%);
+  background-color: var(--bgLight);
 }
 
 .static-intro-wrapper.light {
-  background-color: darken(white, 3%);
+  background-color: var(--bgLight);
 }
 
 .static-youtube-wrapper {
@@ -107,25 +69,25 @@
 }
 
 .static-wrapper.dark {
-  background-color: $grey1;
+  background-color: var(--bg);
 
   h2 {
-    color: white;
+    color: var(--text);
   }
 
   p {
-    color: white;
+    color: var(--text);
   }
 
   label {
-    color: white;
+    color: var(--text);
   }
 }
 
 .static-footer {
   p,
   a {
-    color: $grey8;
+    color: var(--text);
   }
 }
 
@@ -139,14 +101,14 @@
 
 .static-nav-link {
   width: 100%;
-  color: var(--secondary);
+  color: var(--text);
   text-decoration: none;
   font-weight: 400;
   padding: 0.5em;
   transition: all 0.2s ease;
   text-align: center;
   &:hover {
-    background-color: var(--primary);
+    background-color: var(--bg);
   }
 }
 

@@ -9,9 +9,9 @@
   padding: 1em 0.5em;
   p {
     font-weight: bold;
-    color: var(--secondary);
+    color: var(--text);
   }
-  border-bottom: 1.5px solid var(--tiertiary);
+  border-bottom: 1.5px solid var(--bgLight);
 }
 
 .submitted-item-wrapper {
@@ -23,11 +23,9 @@
     overflow: hidden;
   }
   &:nth-child(odd) {
-    background-color: var(--tiertiary);
+    background-color: var(--bgLight);
   }
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--tiertiary);
-  }
+
   
 }
 
@@ -36,7 +34,7 @@
   justify-content: center;
   position: relative;
   i {
-    color: var(--secondary);
+    color: var(--text);
   }
 
   &:hover {
@@ -49,7 +47,7 @@
 .actions-dropdown {
   position: absolute;
   display: none;
-  background: var(--primary);
+  background: var(--bgLight);
   padding: 0.5em;
   border-radius: 5px;
   box-shadow: 0px 3px 15px rgba(black, 0.2);

@@ -1,5 +1,4 @@
-@import '../../colours.scss';
-
+ 
 .about-wrapper {
   width: 100%;
   max-width: 900px;
@@ -12,14 +11,14 @@
 .about-title {
   font-size: 3rem;
   margin-bottom: 1em;
-  color:var(--secondary);
+  color:var(--text);
 }
 
 .about-subtitle {
   line-height: 1.8em;
   text-align: center;
   font-size: 1.2rem;
-  color: var(--secondary);
+  color: var(--text);
 }
 
 .about-block {
@@ -49,7 +48,7 @@
 }
 
 .about-block-body {
-  background: var(--highlight);
+  background: var(--bgLight);
   padding: 1em;
   box-shadow: 0px 2px 30px rgba(black, 0.1);
   border-radius: 15px;
@@ -62,14 +61,14 @@
 
   h3,
   p {
-    color: var(--secondary);
+    color: var(--text);
 
   }
 }
 
 .about-cta {
   > h1 {
-    color: var(--secondary);
+    color: var(--text);
   }
 }
 

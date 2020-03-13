@@ -1,5 +1,4 @@
-@import '../../../colours.scss';
-
+ 
 .reading-list {
   &-author {
     font-weight: 400;
@@ -9,7 +8,7 @@
     display: none;
     
     p {
-      color: $grey2;
+      color: var(--text);
       font-size: 0.9rem;
       white-space: pre-wrap;
       line-height: 1.6em;
@@ -18,7 +17,7 @@
 
   &-item {
     margin: 1em 0;
-    background-color: var(--highlight);
+    background-color: var(--bgLight);
     padding: 1em;
     box-shadow:0px 2px 40px rgba(black, 0.05);
     border-radius: 5px;
@@ -36,10 +35,6 @@
   }
 }
 
-.circle-divider {
-  color: $grey8;
-  font-size: 0.5rem;
-}
 .reading-list-item.opaque {
   opacity: 0.7;
   transition: all 0.2s ease;
@@ -53,27 +48,27 @@
 .reading-list-item-header-subheader {
   h3,
   h4 {
-    color: var(--secondary);
+    color: var(--text);
   }
 }
 
 .reading-time {
   padding: 0.5em;
-  color: var(--secondary);
+  color: var(--text);
     font-size: 0.8rem;
     margin: 0 0.5em;
     white-space: nowrap;
     span {
-      color: var(--accent-primary);
+      color: var(--accent);
       font-weight: bold;
     }
 }
 
 .reading-list-filter {
   text-transform: capitalize;
-  color: var(--secondary);
+  color: var(--text);
   border: none;
-  background-color: var(--highlight);
+  background-color: var(--bgLight);
   border-radius: 20px;
   outline: none;
   padding: 0.4em 0.9em;
@@ -100,41 +95,12 @@
     align-items: center;
     min-width: 30px;
     min-height: 30px;
-    color: var(--secondary);
-    background-color: var(--highlight);
+    color: var(--text);
+    background-color: var(--bgLight);
     border-radius: 50%;
   }
 }
 
-.selftext-wrapper {
-  position: relative;
-  p {
-    white-space: pre-wrap;
-    height: 100px;
-    overflow: hidden;
-    margin-top: 2em;
-  }
-
-  &::after {
-    background: rgb(255,255,255);
-background: linear-gradient(0deg, var(--highlight) 0%, rgba(50,50,50,0) 100%);
-    position: absolute;
-    content: '';
-    display: flex;
-    height: 100%;
-    width: 100%;
-    bottom: 0;
-  }
-}
-
-.selftext-expand {
-  #selfText {
-    height: 100% !important;
-  }
-  &::after {
-    display: none;
-  }
-}
 
 @media screen and (max-width: 768px) {
   .mobile-column {

@@ -6,7 +6,7 @@
   text-align: center;
   width: 100%;
   #preview-body {
-    color: var(--secondary);
+    color: var(--text);
     text-align: left;
     margin-top: 2em;
     ul {
@@ -17,7 +17,7 @@
 }
 
 #editor_static {
-  background: var(--highlight);
+  background: var(--bg);
 }
 
 .preview-headline {
@@ -26,7 +26,7 @@
 
 
 .form-module-wrapper {
-  background-color: var(--tiertiary);
+  background-color: var(--bgLight);
   padding: 1em;
   border-radius: 8px;
   margin: 0.5em 0;

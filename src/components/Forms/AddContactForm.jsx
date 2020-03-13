@@ -11,7 +11,7 @@ export const AddContactForm = ({saveContact, stateHandler, state}) => {
       </div>
 
       <div className="field-group">
-        <label htmlFor="" className="form-label">Notes</label>
+        <label htmlFor="notes" className="form-label">Notes</label>
         <textarea type="text" className="textarea" placeholder="Add your notes..." name="notes" value={state.notes} onChange={e => stateHandler(e)}/>
       </div>
 

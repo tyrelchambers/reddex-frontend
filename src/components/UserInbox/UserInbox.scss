@@ -1,5 +1,4 @@
-@import '../../colours.scss';
-
+ 
 .inbox-wrapper {
   width: 100%;
 }
@@ -29,7 +28,7 @@
 }
 
 .inbox-item {
-  background-color: var(--highlight);
+  background-color: var(--bgLight);
   padding: 1.5em;
   margin-bottom: 1.5em;
   border-radius: 5px;
@@ -41,14 +40,9 @@
   }
 }
 
-.inbox-item-img {
-  color: var(--accent-primary);
-  font-size: 1.1rem;
-}
-
 .inbox-item-body {
   display: block;
-  color: $grey7;
+  color: var(--black-60);
   margin-top: 0.5em;
   word-break: break-word;
   white-space: nowrap;

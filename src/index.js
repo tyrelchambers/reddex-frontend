@@ -130,12 +130,9 @@ const InitialLoad = () => {
   const redditProfile = window.localStorage.getItem('reddit_profile')
   
   useEffect(() => {
-    if (localStorage.getItem('theme') === "dark") {
-      document.querySelector("body").classList.add('theme-dark')
-    } else {
-      document.querySelector("body").classList.add('theme-light')
-    }
-  }, [localStorage.getItem('theme')])
+    const theme = localStorage.getItem('theme');
+    document.querySelector("body").classList.add(`theme-${theme}`)
+  }, [])
 
   useEffect(() => {
     const _ = async () => {

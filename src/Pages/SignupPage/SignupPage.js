@@ -11,6 +11,7 @@ import { getCurrentAuthenticatedUser } from '../../helpers/renewRefreshToken';
 import {checkValidEmail} from '../../helpers/checkValidEmail'
 import { getAxios } from '../../api';
 import {saveTokensToDb} from '../../helpers/renewRefreshToken';
+import { useHistory } from 'react-router-dom'
 
 const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   const [ credentials, setCredentials ] = useState({
@@ -22,6 +23,7 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
   });
   const [ errors, setErrors ] = useState([]);
   const reauth = window.sessionStorage.getItem("reauth")
+  const history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -67,7 +69,10 @@ const SignupPage = inject("UserStore")(observer(({UserStore}) => {
         }
 
       })
-    } 
+    } else {
+      toast.error("In order to progress, please 'Allow' Reddex to connect to your account. Redirecting...")
+      history.push('/authorize');
+    }
   }
 
   const createAccount = async () => {

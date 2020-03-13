@@ -1,22 +1,15 @@
-@import '../../colours.scss';
-
+ 
 .post-fetch-header {
   width: 100%;
 }
 
 .fetch-inputs {
-  background-color: var(--highlight);
-  border-radius: 5px;
-  box-shadow: 0px 2px 10px rgba(black, 0.10);
   margin-bottom: 1em;
 }
 
 .post-fetch-search {
   padding: 0.5em 1em;
   
-  .form-label.dark {
-    color: var(--secondary)
-  }
 }
 
 .select__arrow {
@@ -33,7 +26,7 @@
 }
 
 .form-label.light {
-  color: $grey10;
+  color: var(--text);
   margin-bottom: 1em;
 }
 

@@ -1,11 +1,10 @@
-@import '../../colours.scss';
-
+ 
 .scroll-to-top {
   position: fixed;
   right: 1em;
   bottom: 1em;
   font-size: 2rem;
-  color: $grey3;
+  color: var(--text);
 }
 
 @media screen and (min-width: 769px) {

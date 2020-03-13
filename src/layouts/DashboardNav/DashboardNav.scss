@@ -1,11 +1,11 @@
-@import '../../colours';
+ 
 
 
 
 .nav-dot {
   width: 10px;
   height: 10px;
-  background: $grey3;
+  background: var(--bgLight);
   border-radius: 50%;
 }
 
@@ -16,11 +16,11 @@
   justify-content: center;
   height: 100%;
   min-height: 100vh;
-  background-color: var(--highlight);
+  background-color: var(--bgLight);
   position: relative;
   bottom: 0;
    
-  border-right: 2px solid var(--tiertiary);
+  border-right: 2px solid var(--bg);
 
 }
 
@@ -44,12 +44,13 @@
   opacity: 0.7;
   p {
     white-space: nowrap;
-    color: var(--secondary);
+    color: var(--text);
 
   }
 
   i {
     margin-right: 1em;
+    color: var(--text);
   }
 
   &:hover {
@@ -58,9 +59,8 @@
 }
 
 .dash-nav-item-active  {
-  background: rgb(21,100,135);
-  background: linear-gradient(45deg, rgba(21,100,135,1) 0%, rgba(60,108,237,1) 100%);
-  box-shadow: 0px 2px 10px rgba($blue3, 0.5);
+  background: var(--primeGradient);
+  box-shadow: 0px 2px 10px rgba(63,146,240, 0.5);
   opacity: 1;
   p, 
   i {
