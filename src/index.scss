@@ -50,7 +50,7 @@
 
 .theme-dark {
   --bg: var(--black);
-  --textDark: var(--white-60);
+  --textLight: var(--white-60);
   --text: var(--white-20);
   --bgLight: var(--black-20);
   --accent: var(--blue-40);
@@ -210,7 +210,7 @@ ul {
 .subtle {
   width: 100%;
   max-width: 600px;
-  color: var(--text);
+  color: var(--textLight);
 }
 
 

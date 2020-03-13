@@ -25,7 +25,7 @@
   padding: 1em 1.2em;
   font-size: 0.8rem;
   border-radius: 3px;
-  background-color: var(--inputBg);
+  background-color: var(--bgLight);
   line-height: 1.8em;
   color: var(--text);
   &::placeholder {
@@ -96,9 +96,11 @@
   height: 40px;
 }
 
-#editor {
-  .ql-editor {
-    background-color: var(--bgLight);
+.ql-editor {
+  background: white;
+  * {
+    color: #2E2E2E;
+
   }
 }
 .required {
