@@ -23,37 +23,46 @@
   --blueGradient: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
   --greenGradient: linear-gradient(31deg, rgba(62,189,147,1) 0%, rgba(31,214,154,1) 100%);
 
-  --bg: var(--white-20);
-  --bgLight: var(--white);
-  --highlight: var(--white);
-  --textDark: var(--black);
+  // backgrounds
+  --bg: var(--white);
+  --bg-20: var(--white-20);
+  --bg-40: var(--white-40);
+
+
+  // fonts
   --textLight: var(--black-60);
   --text: var(--black);
-  --success: var(--green);
-  --inputBg: var(--white-60);
   --link: var(--blue-40);
+
+  // gradients
+  --primeGradient: var(--blueGradient);
+  --secondaryGradient: var(--greenGradient);
+
+  // inputs
+  --inputBg: var(--white-60);
+
+  // accents
+  --success: var(--green);
   --error:var(--red);
   --redBg: var(--red);
   --accent: var(--blue-20);
-  
-
-  --primeGradient: var(--blueGradient);
-  --secondaryGradient: var(--greenGradient);
 }
 
 .theme-dark {
   --bg: var(--black);
-  --textDark: var(--white);
+  --textDark: var(--white-60);
   --text: var(--white-20);
   --bgLight: var(--black-20);
   --accent: var(--blue-40);
-  --inputBg: var(--black-60);
+  --inputBg: var(--black-20);
   --bgLighter: var(--black-60);
 }
 
 .theme-light {
   --bg: var(--white-20);
+  --bgLight: var(--white);
   --highlight: var(--black-60);
+  --text: var(--black-20);
 }
 
 body {

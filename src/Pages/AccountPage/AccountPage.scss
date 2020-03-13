@@ -6,7 +6,7 @@
   margin-bottom: 3em;
 
   > h1 {
-    color: var(--secondary);
+    color: var(--text);
   }
 }
 .default-message {
@@ -20,20 +20,20 @@
   height: 300px;
   border-radius: 5px;
   padding: 0.5em;
-  color: var(--secondary);
+  color: var(--text);
   resize: vertical;
 
   &::placeholder {
-    color: $grey7;
+    color: var(--text);
   }
 }
 
 .default-message-holder {
   white-space: pre-wrap;
-  background-color: var(--tiertiary);
+  background-color: var(--bgLight);
   padding: 0.5em;
   border-radius: 0.5em;
-  color: var(--secondary);
+  color: var(--text);
 }
 
 

@@ -36,7 +36,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-      background-color: var(--primary);
+      background-color: var(--bg);
     }
   }
 }
@@ -102,10 +102,6 @@
   height: 30px;
 }
 
-.topbar-dropdown-toggle {
-  color: $grey6;
-}
-
 .topbar-account-widget {
   position: relative;
   height: 100%;
@@ -130,20 +126,16 @@
 }
 
 .nav-main-btn {
-  background-color: $blue7;
+  background-color: var(--primeGradient);
   border-radius: 5px;
   display: flex;
   justify-content: center;
   transition: all 0.2s ease;
 
   a {
-    color: white;
+    color: var(--text);
     text-decoration: none;
   }  
-
-  &:hover {
-    background-color: darken($blue7, 5%);
-  }
 }
 
 .mobile-navbar-wrapper {
@@ -159,10 +151,10 @@
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
-    background-color: var(--tiertiary);
+    background-color: var(--highlight);
     border-radius: 5px;
     a { 
-      color: var(--secondary);
+      color: var(--text);
       width: 100%;
       padding: 0.5em;
     }
@@ -179,11 +171,11 @@
   align-items: center;
 
   i {
-    color: var(--secondary);
+    color: var(--text);
   }
 
  .nav-dropdown-label {
-  color: var(--secondary);
+  color: var(--text);
   font-size: 0.8rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -227,7 +219,7 @@
       display: block;
     }
     i {
-      color: var(--highlight);
+      color: var(--text);
     }
   }
 }

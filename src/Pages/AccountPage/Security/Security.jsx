@@ -83,7 +83,7 @@ const Security = ({UserStore}) => {
         classes="mt+"
       />
       <h2 className="mt">Danger Zone</h2>
-      <p>This action is permanent. This will delete your account forever.</p>
+      <p style={{color: 'var(--textDark)'}}>This action is permanent. This will delete your account forever.</p>
       <MainButton
         value="Delete Account"
         className="btn-tiertiary danger mt-"
