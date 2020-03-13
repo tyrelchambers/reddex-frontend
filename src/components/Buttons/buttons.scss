@@ -1,8 +1,7 @@
 @import '../../colours.scss';
 
 .btn-primary {
-  background: rgb(5,82,181);
-background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
+ background: var(--primeGradient);
   color: white;
   padding: 1em;
   font-size: 0.8rem;
@@ -19,7 +18,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 
 .btn {
   border: none;
-  color: white;
+  color: var(--white);
   border-radius:5px;
   font-weight: bold;
   text-transform: uppercase;
@@ -35,7 +34,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 }
 
 .btn-secondary {
-  background-color: var(--highlight);
+  background-color: var(--bgLight);
   border: 2px solid hsla(201, 87%, 54%,1);
   padding: 1em;
   font-size: 0.7rem;
@@ -50,7 +49,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 }
 
 .btn-tiertiary {
-  color: var(--secondary);
+  color: var(--text);
   font-size: 0.7rem;
   font-weight: 700;
   box-shadow: none;
@@ -58,7 +57,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   margin-left: 0.5em;
   transition: all 0.2s ease;
 
-  background-color: var(--highlight);
+  background-color: var(--bg);
   border-radius:5px;
   border:1.5px solid transparent;
 
@@ -77,7 +76,6 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 .btn-tiertiary.danger {
   border: 2px solid var(--redBg);
   color: var(--redBg);
-  background-color: var(--highlight);
   transition: all 0.2s ease;
 
   &:hover {
@@ -93,11 +91,11 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
   align-items: center;
   width: 40px;
   height: 40px;
-  color: $grey8;
+  color: var(--text);
   border-radius:50%;
   font-size: 1rem;
   box-shadow: none;
-  background-color: white;
+  background-color: var(--bg);
    
   transition: all 0.2s ease;
 
@@ -111,8 +109,7 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 }
 
 .btn-green {
-  background: rgb(62,189,147);
-  background: linear-gradient(31deg, rgba(62,189,147,1) 0%, rgba(31,214,154,1) 100%);
+  background: var(--secondaryGradient);
   color: white;
   transition: all 0.2s ease;
 
@@ -130,10 +127,9 @@ background: linear-gradient(31deg, #0967D2 0%, rgba(33,134,235,1) 100%);
 .btn-increment {
   border: none;
   padding: 0.5em;
-  border: 1px solid $grey9;
   border-radius:5px;
   width: 70px;
-  background-color: $grey10;
+  background-color: var(--bgLight);
 }
 
 .btn-primary.disabled{

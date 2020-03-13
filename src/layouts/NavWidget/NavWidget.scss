@@ -13,12 +13,12 @@
 
 .dashboard-topbar {
   height: 60px;
-  background-color: var(--highlight);
+  background-color: var(--bgLight);
   width: 100%;
   padding: 0.5em 1em;
   align-items: center;
   display: flex;
-  border-bottom: 2px solid var(--tiertiary);
+  border-bottom: 2px solid var(--bgLight);
 }
 
 .profile-image.small {
@@ -28,7 +28,7 @@
 }
 
 .topbar-dropdown-toggle {
-  color: $grey6;
+  color: var(--highlight);
 }
 
 
@@ -61,7 +61,7 @@
 
 .dashboard-dropdown {
   width: 100%;
-  background-color: white;
+  background-color: var(--bgLight);
   box-shadow: 0px 3px 30px rgba(black, 0.2);
   padding: 1em;
   border-radius: 5px;
@@ -73,7 +73,7 @@
 
 .dropdown-link {
   text-decoration: none;
-  color: $grey5;
+  color: var(--text);
   transition: all 0.2s ease;
 
   &:hover {
@@ -88,7 +88,7 @@
 
   .reddit-name {
     width: 100%;
-    color: var(--secondary);
+    color: var(--text);
   }
 }
 
@@ -104,7 +104,6 @@
   
     .reddit-name {
       width: 100%;
-      color: var(--secondary);
     }
   }
 }

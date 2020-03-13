@@ -7,29 +7,29 @@
   
   .default-message-input {
     width: 100%;
-    background-color: var(--tiertiary);
+    background-color: var(--bgLight);
     border:none;
   }
 
   .subject {
-    background-color: var(--tiertiary);
+    background-color: var(--bgLight);
     padding:1em;
-    color: var(--secondary);
+    color: var(--text);
     border-radius: 5px;
   }
 
   > h4 {
-    color: var(--secondary);
+    color: var(--text);
   }
 }
 
 .confirm-title {
-  background-color: var(--tiertiary);
+  background-color: var(--bgLight);
   padding: 0.5em;
   border-radius: 5px;
   align-items: center;
   display: flex;
-  color: var(--secondary);
+  color: var(--text);
   i {
     font-size: 1rem;
   }
@@ -37,8 +37,8 @@
 
 .modal-contact-details-wrapper {
   white-space: pre-wrap;
-  background-color: $grey10;
-  border: 1px solid $grey9;
+  background-color: var(--bgLight);
+  border: 1px solid var(--bgLight);
   padding:1em;
   border-radius: 5px;
 }
@@ -47,7 +47,7 @@
   display: flex;
   align-items: center;
   font-size: 0.7rem;
-  background-color: $grey7;
+  background-color: var(--bgLight);
   color: white;
   padding: 5px 10px;
   border-radius: 3px;
