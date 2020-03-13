@@ -8,9 +8,9 @@
   --black-40: #52606D;
   --black-60: #616E7C;
   --white: #fff;
-  --white-60: #CBD2D9;
-  --white-40: #E4E7EB;
   --white-20: #F5F7FA;
+  --white-40: #E4E7EB;
+  --white-60: #CBD2D9;
   --blue: #01337D;
   --blue-20: #0552B5;
   --blue-40: #47A3F3;
@@ -21,10 +21,11 @@
   --green: #3EBD93;
   --blueGradient: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
   --greenGradient: linear-gradient(31deg, rgba(62,189,147,1) 0%, rgba(31,214,154,1) 100%);
-
+  --forest: #0C6B58;
+  --forest-20: #199473;
   // backgrounds
   --bg: var(--white);
-  --bg-20: var(--white-20);
+  --bgLighter: var(--white-20);
   --bg-40: var(--white-40);
   --accentBg: var(--black-20);
 
@@ -55,6 +56,8 @@
   --accent: var(--blue-40);
   --inputBg: var(--black-20);
   --bgLighter: var(--black-60);
+  --accentBg: var(--blue-40);
+
 }
 
 .theme-light {
@@ -62,8 +65,15 @@
   --bgLight: var(--white);
   --highlight: var(--black-60);
   --text: var(--black-20);
-  --bgLighter: var(--white-60);
+  --bgLighter: var(--white-40);
   --accentBg: var(--blue-40);
+}
+
+.theme-forest {
+  --bg: var(--forest);
+  --bgLight: var(--white-20);
+  --bgLighter: var(--white-40);
+  --accentBg: var(--forest-20);
 }
 
 body {
