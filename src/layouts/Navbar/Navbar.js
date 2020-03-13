@@ -28,8 +28,8 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
             </li>
 
             <li className="d-f ai-c nav-link desktop nav-dropdown p-" onClick={(e) => {
-                e.target.closest('.nav-dropdown').classList.toggle('extend')
-              }}>
+              e.target.closest('.nav-dropdown').classList.toggle('extend')
+            }}>
               <div className="d-f nav-dropdown-label" >
                 <p>Options</p>
                 <i className="fas fa-ellipsis-h"></i>
