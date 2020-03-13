@@ -27,7 +27,7 @@
   --bg: var(--white);
   --bg-20: var(--white-20);
   --bg-40: var(--white-40);
-
+  --accentBg: var(--black-20);
 
   // fonts
   --textLight: var(--black-60);
@@ -63,6 +63,8 @@
   --bgLight: var(--white);
   --highlight: var(--black-60);
   --text: var(--black-20);
+  --bgLighter: var(--white-60);
+
 }
 
 body {

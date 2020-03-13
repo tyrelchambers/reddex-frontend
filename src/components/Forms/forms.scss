@@ -25,11 +25,14 @@
   padding: 1em 1.2em;
   font-size: 0.8rem;
   border-radius: 3px;
-  background-color: var(--bgLight);
+  background-color: var(--inputBg);
   line-height: 1.8em;
   color: var(--text);
   &::placeholder {
     color: var(--text);
+  }
+  &:focus {
+    background-color: var(--bg);
   }
 }
 

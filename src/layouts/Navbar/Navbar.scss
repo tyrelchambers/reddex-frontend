@@ -69,7 +69,7 @@
   .topbar-account-widget {
     display: flex !important;
     height: auto;
-    background-color: var(--highlight);
+    background-color: var(--bg);
     padding: 1em;
     border: none;
     border-radius: 5px;
@@ -151,7 +151,7 @@
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
-    background-color: var(--highlight);
+    background-color: var(--bg);
     border-radius: 5px;
     a { 
       color: var(--text);
