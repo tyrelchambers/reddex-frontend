@@ -1,5 +1,4 @@
-@import '../../colours.scss';
-
+ 
 .contact-list {
   list-style-type: none;
   width: 100%;
@@ -42,7 +41,7 @@
 
 .contact-list-name {
   font-weight: bold;
-  color: $grey3;
+  color: var(--text);
   font-size: 0.9rem;
 }
 

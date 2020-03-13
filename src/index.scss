@@ -1,4 +1,3 @@
-@import './colours.scss';
 @import './atomic/main.scss';
 @import './assets/styles/animate.css';
 @import './assets/normalize.css';
@@ -64,7 +63,7 @@
   --highlight: var(--black-60);
   --text: var(--black-20);
   --bgLighter: var(--white-60);
-
+  --accentBg: var(--blue-40);
 }
 
 body {
@@ -101,7 +100,7 @@ p {
 }
 
 .external-link {
-  color: $blue6;
+  color: var(--link);
 }
 
 .center {
@@ -136,7 +135,6 @@ ul {
     background-color: var(--white);
   }
 }
-
 
 .pt-large {
   padding-top: 75px;

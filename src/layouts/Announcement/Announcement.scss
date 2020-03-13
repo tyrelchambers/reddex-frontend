@@ -1,7 +1,6 @@
-@import '../../colours.scss';
-
+ 
 .announcement {
-  background-color: $grey2;
+  background-color: var(--bgLight);
   display: flex;
   padding: 1.5em;
   &-title {

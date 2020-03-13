@@ -1,5 +1,4 @@
-@import '../../colours.scss';
-
+ 
 .subreddit-title {
   text-overflow: ellipsis;
   height: 90px;
@@ -14,8 +13,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1.5px solid $grey7;
-    color: $grey7;
+    border: 1.5px solid var(--white-60);
+    color: var(--text);
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -23,8 +22,8 @@
 
     font-size: 1rem;
     &:hover {
-      background-color: $grey7;
-      color: white;
+      background-color: var(--white-60);
+      color: var(--text);
     }
   }
 }
@@ -96,14 +95,13 @@
 
 .has-been-used {
   .upvotes {
-    background: $green !important;
+    background: var(--green) !important;
   }
 }
 
 .has-been-used-text {
   font-size: 0.8rem;
   font-weight: 700;
-  background: darken($green, 5%);
   padding: 0 0.5em;
   border-radius: 5px;
   height: 100%;
@@ -123,7 +121,7 @@
     margin: 0 0.5em;
 
     span {
-      color: $blue6;
+      color: var(--accent);
       font-weight: bold;
     }
   }

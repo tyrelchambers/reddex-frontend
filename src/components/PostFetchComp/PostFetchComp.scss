@@ -1,5 +1,4 @@
-@import '../../colours.scss';
-
+ 
 .post-fetch-header {
   width: 100%;
 }
@@ -27,7 +26,7 @@
 }
 
 .form-label.light {
-  color: $grey10;
+  color: var(--text);
   margin-bottom: 1em;
 }
 

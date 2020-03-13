@@ -1,4 +1,4 @@
-@import '../../colours';
+ 
 
 .help-item {
   background: url('../../assets/Asset\ 110.png') center no-repeat;
@@ -16,7 +16,7 @@
   }
 
   a {
-    color: $blue8;
+    color: var(--link);
   }
 
   i {
@@ -33,11 +33,11 @@
 .help-wrapper {
   h1,
   p {
-    color: var(--secondary);
+    color: var(--text);
   }
 
   a {
-    color: var(--accent-primary);
+    color: var(--link);
   }
 }
 

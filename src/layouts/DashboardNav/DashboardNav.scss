@@ -1,11 +1,11 @@
-@import '../../colours';
+ 
 
 
 
 .nav-dot {
   width: 10px;
   height: 10px;
-  background: $grey3;
+  background: var(--bgLight);
   border-radius: 50%;
 }
 

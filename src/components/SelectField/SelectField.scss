@@ -1,15 +1,14 @@
-@import '../../colours.scss';
-
+ 
 .select {
   position: relative;
   display: flex;
   width: 200px;
   height: 100%;
-  background-color: #CBD2D9;
+  background-color: var(--bgLight);
   margin-right: 1em;
   padding: 5px 10px;
   border-radius: 3px;
-  color: $grey3;
+  color: var(--text);
   font-size: 0.9rem;
 }
 
@@ -29,7 +28,7 @@
 
 .select-label {
    p {
-     color: $grey3;
+     color: var(--text);
    }
 
 }
@@ -41,7 +40,7 @@
 
 
   &:hover {
-    background-color: $grey10;
+    background-color: var(--bgLight);
   }
 }
 
@@ -52,16 +51,16 @@
 }
 
 .expanded-title {
-  background-color: $grey3;
+  background-color: var(--bg);
   
   .select-label {
     p {
-      color: white;
+      color: var(--text);
     }
   }
 
   i {
-    color: white;
+    color: var(--text);
     transform: rotateZ(180deg);
   }
 }

@@ -1,5 +1,4 @@
-@import '../../colours.scss';
-
+ 
 .chat {
   margin: 2em 0;
 
@@ -16,7 +15,7 @@
 }
 
 .chat-body-dark {
-  background-color: $blue7;
+  background-color: var(--accentBg);
   color: white;
   border-bottom-left-radius: 0px;
 }
@@ -31,7 +30,7 @@
 }
 
 .chat-author {
-  color: $grey7;
+  color: var(--text);
 }
 
 .chat-date {
@@ -56,12 +55,6 @@
     white-space: pre-wrap;
     word-break: break-word;
   }
-}
-
-.chat-action.primary:hover {
-  background-color: $grey4;
-  color: white;
-   
 }
 
 .chat-action-expanded {
