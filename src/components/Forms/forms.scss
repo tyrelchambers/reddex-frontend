@@ -28,7 +28,8 @@
   line-height: 1.8em;
   color: var(--text);
   &::placeholder {
-    color: var(--text);
+    color: var(--textLight);
+    font-style: italic;
   }
   &:focus {
     background-color: var(--bg);
@@ -71,7 +72,8 @@
   background-color: var(--inputBg);
   border: none;
   &::placeholder {
-    color: var(--text);
+    color: var(--textLight);
+    font-style: italic;
   }
 }
 
@@ -84,7 +86,8 @@
   color: var(--text);
 
   &::placeholder {
-    color: var(--text);
+    color: var(--textLight);
+    font-style: italic;
   }
 
   &:focus {
