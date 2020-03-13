@@ -35,6 +35,7 @@
   --error:var(--red);
   --redBg: var(--red);
   --accent: var(--blue-20);
+  
 
   --primeGradient: var(--blueGradient);
   --secondaryGradient: var(--greenGradient);
@@ -45,16 +46,14 @@
   --textDark: var(--white);
   --text: var(--white-20);
   --bgLight: var(--black-20);
-  --text: var(--white-20);
   --accent: var(--blue-40);
+  --inputBg: var(--black-60);
+  --bgLighter: var(--black-60);
 }
 
 .theme-light {
   --bg: var(--white-20);
-  --secondary: #323F4B;
-  --tiertiary:#E4E7EB;
   --highlight: var(--black-60);
-
 }
 
 body {

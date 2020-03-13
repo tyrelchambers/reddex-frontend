@@ -25,7 +25,7 @@
   padding: 1em 1.2em;
   font-size: 0.8rem;
   border-radius: 3px;
-  background-color: var(--bgLight);
+  background-color: var(--inputBg);
   line-height: 1.8em;
   color: var(--text);
   &::placeholder {
@@ -65,7 +65,7 @@
   resize: vertical;
   line-height: 1.8em;
   font-size: 0.8rem;
-  background-color: var(--highlight);
+  background-color: var(--inputBg);
   border: none;
   &::placeholder {
     color: var(--textLight);

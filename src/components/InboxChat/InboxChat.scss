@@ -22,7 +22,7 @@
 }
 
 .chat-body-light {
-  background-color: darken($grey10, 2%);
+  background-color: var(--bgLight);
   border-bottom-right-radius: 0px;
 }
 

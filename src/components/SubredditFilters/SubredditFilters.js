@@ -35,8 +35,8 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
               prop="operator"
             />
             
-            <input type="number" className="input ml-" placeholder="Upvote Count (default: 0)" onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
-            <input type="text" className="input ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
+            <input type="number" className="form-input fx-1 ml-" placeholder="Upvote Count (default: 0)" onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
+            <input type="text" className="form-input fx-1 ml-" placeholder="keywords separated by commas" onChange={(e) => setKeywords(e.target.value)}/>
 
           </div>
 

@@ -39,7 +39,6 @@ const UserInboxDumb = ({data, key, onClick, getMoreMessages, loadingBtn, UserSto
         e.target.closest('.inbox-item').classList.add('selected-inbox-message');
         onClick(x.data);
       }}>
-        <i className="fas fa-user inbox-item-img mr+"></i>
         <div className="d-f fxd-c fx-1 ">
           <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">
             <h4 className="font-thin mb--">{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</h4>
