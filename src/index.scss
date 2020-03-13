@@ -34,6 +34,7 @@
   --link: var(--blue-40);
   --error:var(--red);
   --redBg: var(--red);
+  --accent: var(--blue-20);
 
   --primeGradient: var(--blueGradient);
   --secondaryGradient: var(--greenGradient);
@@ -45,6 +46,7 @@
   --text: var(--white-20);
   --bgLight: var(--black-20);
   --text: var(--white-20);
+  --accent: var(--blue-40);
 }
 
 .theme-light {
@@ -158,6 +160,14 @@ ul {
 }
 .error-text {
   color: var(--error);
+}
+
+.toggle-line {
+  width: 100%;
+  height: 3px;
+  box-shadow: 0px 0px 3px rgba(black, 0.2);
+    margin: 3px 0;
+  background-color: var(--text);
 }
 
 .font-thin {

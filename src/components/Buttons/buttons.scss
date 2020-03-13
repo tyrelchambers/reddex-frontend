@@ -159,7 +159,7 @@ background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%
   border-radius:5px;
   text-transform: uppercase;
   font-weight: bold;
-  color: $grey4; 
+  color: var(--text); 
    
   outline: none;
   font-size: 0.6rem;
@@ -172,8 +172,8 @@ background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%
 }
 
 .chat-action.primary {
-  background-color: var(--tiertiary);
-  color: var(--secondary);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .chat-action.danger {
@@ -193,7 +193,7 @@ background: linear-gradient(31deg, rgba(62,76,89,1) 0%, rgba(154,165,177,1) 100%
   border: none;
   text-transform: uppercase;
   font-weight: bold;
-  color: var(--accent-primary);
+  color: var(--link);
   font-size: 0.7rem;
 
   i {
