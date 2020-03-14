@@ -10,6 +10,7 @@ import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import RecentlySearched from '../../layouts/RecenlySearched/RecentlySearched';
 import {getAxios} from '../../api/index'
+import HR from '../HR/HR';
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [ posts, setPosts ] = useState([]);
@@ -79,6 +80,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           executeFetch={executeFetch}
         />
       }
+        <HR />
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
         <MessageAuthors data={PostStore.selectedPosts} posts={posts} />

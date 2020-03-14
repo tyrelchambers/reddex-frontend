@@ -2,7 +2,7 @@ import React from 'react'
 
 const styles = {
   height: "1px",
-  backgroundColor: "var(--bgLight)",
+  backgroundColor: "var(--highlight)",
   width: "100%"
 }
 const HR = ({classes}) => {

@@ -21,6 +21,7 @@
 
 .form-input {
   border: none;
+  width: 100%;
   padding: 1em 1.2em;
   font-size: 0.8rem;
   border-radius: 3px;
@@ -74,6 +75,9 @@
   &::placeholder {
     color: var(--textLight);
     font-style: italic;
+  }
+  &:focus {
+    background-color: var(--bgLight);
   }
 }
 
