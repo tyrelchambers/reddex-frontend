@@ -24,7 +24,7 @@ const NavWidget = inject("UserStore")(observer(({UserStore}) => {
       <div className="dropdown-wrapper">
         <ul className="dashboard-dropdown d-f fxd-c">
           <li className="d-f ai-c ">
-            <Link to="/dashboard/home"
+            <Link to="/dashboard/reading_list?t=open"
               className="dropdown-link"
             >Dashboard</Link>
           </li>
