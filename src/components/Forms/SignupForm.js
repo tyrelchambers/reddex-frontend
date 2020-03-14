@@ -32,7 +32,7 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
         <MainButton
           value="Create Account"
           onClick={submitHandler}
-          className="btn btn-primary"
+          className="btn btn-primary mt- w-100pr"
         />
       </div>
     </form>

@@ -57,13 +57,13 @@
   --inputBg: var(--black-20);
   --bgLighter: var(--black-60);
   --accentBg: var(--blue-40);
-
+  --highlight: var(--black-60);
 }
 
 .theme-light {
   --bg: var(--white-20);
   --bgLight: var(--white);
-  --highlight: var(--black-60);
+  --highlight: var(--white-60);
   --text: var(--black-20);
   --bgLighter: var(--white-40);
   --accentBg: var(--blue-40);

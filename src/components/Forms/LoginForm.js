@@ -21,7 +21,7 @@ export default function LoginForm({credentialHandler, submitHandler, loading, se
 
       <div className="d-f jc-c">
         <MainButton 
-          className="btn btn-primary" 
+          className="btn btn-primary w-100pr mt-" 
           onClick={(e) => {
             setLoading(true);
             submitHandler(e);
