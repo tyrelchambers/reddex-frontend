@@ -49,7 +49,7 @@ const YouTubeStats = ({user}) => {
     return(
       <React.Fragment>
         <div className="d-f fxd-c mt+">
-          <h1 className="dash-subtitle mr+">Youtube Stats</h1>
+          <h3 className="dash-subtitle mr+">Youtube Stats</h3>
           <p className="mb+">Example: https://www.youtube.com/channel/<span style={{color: '#F35627'}}>your-channel-id</span></p>
         </div>
         <form className="w-400px d-f ai-c mb-">
@@ -61,7 +61,7 @@ const YouTubeStats = ({user}) => {
   }
 
   return (
-    <div className="mt+ mb+">
+    <div className="mt+ mb+ module-wrapper">
       <div className="d-f ai-c">
         <h1 className="dash-subtitle mr+">Youtube Stats</h1>
       </div>

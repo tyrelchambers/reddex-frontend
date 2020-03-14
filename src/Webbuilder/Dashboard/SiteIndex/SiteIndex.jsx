@@ -19,38 +19,26 @@ import tabs from '../tabs';
 import Tabs from '../../../layouts/Tabs/Tabs'
 import {getAxios } from '../../../api/index'
 
-const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteStore, UserStore, FormStore}) => {
+const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore}) => {
   const pondRef = useRef()
   const [activated, setActivated] = useState(false);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const yt = UserStore.currentUser.youtube_id;
-    const fn = async () => {
-      await getAxios({
-        url: '/site/config'
-      })
-      .then(res => {
-        if (res) {
-          setActivated(true)
-          SiteStore.setInitial({...res, youtube_id: res.youtube_id || yt})
-          SiteStore.setPreview({subdomain: res.subdomain})
-        }
-        setLoading(false);
-      })
 
-      window.twttr.widgets.load(
-        document.querySelector(".share-wrapper")
-      );
-    }
-    fn();
-    
-    
+  useEffect(() => {
+    window.twttr.widgets.load(
+      document.querySelector(".share-wrapper")
+    );
   }, []);
 
+  useEffect(() => {
+    if ( SiteStore.preview.subdomain ) {
+      setActivated(true)
+    }
+  }, [SiteStore.preview.subdomain]);
+
   const configHandler = (e) => {
- 
     SiteStore.setConfig({[e.target.name]: e.target.value})
   }
+
   const params = new URLSearchParams(window.location.search);
 
   if ( !params.get('t') ) {
@@ -75,9 +63,6 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
     SiteStore.setSaving(false)
 
   }
-
-  if (loading) return null;
-
   
     return (
       <Dashboard>
@@ -85,8 +70,8 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
           <div className="mb+">
             <div className="d-f ai-c mb- site-index-header">
               <h1 className="mr+">Site Builder</h1>
-              {SiteStore.config.subdomain &&
-                <a href={`https://${SiteStore.config.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site</a>
+              {SiteStore.preview.subdomain &&
+                <a href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site</a>
               }
             </div>
             {(SiteStore.isSiteSaved && SiteStore.config.subdomain) &&
@@ -96,7 +81,7 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
               </div>
             }
           </div>
-          {!activated &&
+          {(!SiteStore.preview.subdomain || !activated) &&
             <div className="mt- d-f ai-c">
               <p className="mr-">Activate website</p>
               <ToggleStatus
@@ -107,7 +92,7 @@ const SiteIndex = inject("SiteStore", "UserStore", "FormStore")(observer(({SiteS
               />
             </div>
           }
-          {activated &&
+          {(SiteStore.preview.subdomain || activated) &&
             <>
               <div className="d-f">
                 <Tabs url="/dashboard/site" data={tabs}/>

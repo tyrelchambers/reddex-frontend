@@ -15,10 +15,10 @@ import SubredditStore from './stores/SubredditStore';
 import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
 import ReadingListStore from './stores/ReadingListStore';
+import OverviewStore from './stores/OverviewStore';
 import 'react-toastify/dist/ReactToastify.css';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
-import Overview from './Pages/Dashboard/Overview/Overview';
 import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 import Inbox from './Pages/Dashboard/Inbox/Inbox';
 import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
@@ -71,7 +71,8 @@ const stores = {
   InboxStore,
   ReadingListStore,
   SiteStore,
-  FormStore
+  FormStore,
+  OverviewStore
 }
 
 
@@ -190,7 +191,6 @@ const InitialLoad = () => {
             <Route exact path="/explore" component={Explore} />
             {/* <Route exact path="/pricing" component={PricingPage} /> */}
             <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
-            <PrivateRoute exact path="/dashboard/home" component={Overview}/>
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
             <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
             <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />

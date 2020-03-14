@@ -7,24 +7,39 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { getAxios } from '../../api';
 
-const Dashboard = inject("ReadingListStore")(observer(({loading, children, ReadingListStore}) => {
+const Dashboard = inject("ReadingListStore", "UserStore", "SiteStore")(observer(({loading, children, ReadingListStore, UserStore, SiteStore}) => {
   useEffect(() => {
-    getAxios({
-      url: '/profile/reading_list?permission=true'
-    }).then(res => {
-      if (res) {
-        ReadingListStore.addToRead(res)
-      }
-    })
+    const yt = UserStore.currentUser.youtube_id;
 
-    getAxios({
-      url: '/profile/stories/completed'
-    }).then(res => {
-      if (res) {
-        ReadingListStore.setCompleted(res)
-      }
-    })
+    const fn = async () => {
+      await getAxios({
+        url: '/profile/reading_list?permission=true'
+      }).then(res => {
+        if (res) {
+          ReadingListStore.addToRead(res)
+        }
+      })
+  
+      await getAxios({
+        url: '/profile/stories/completed'
+      }).then(res => {
+        if (res) {
+          ReadingListStore.setCompleted(res)
+        }
+      })
+  
+      await getAxios({
+        url: '/site/config'
+      })
+      .then(res => {
+        if (res) {
+          SiteStore.setInitial({...res, youtube_id: res.youtube_id || yt})
+          SiteStore.setPreview({subdomain: res.subdomain})
+        }
+      })
+    }
 
+    fn();
   }, [])
 
   return (

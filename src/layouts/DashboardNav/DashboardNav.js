@@ -13,13 +13,6 @@ const DashboardNav = () => {
     <nav className={`dash-nav ${bodyWidth <= 768 ? "collapsed" : ""}`} id="dashNav">
       <ul >
         <li>
-          <NavLink onClick={e => parent(e)} to="/dashboard/home" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
-            <div className="nav-indicator"></div>
-            <i className="fas fa-home"></i>
-            <p>Home</p>
-          </NavLink>
-        </li>
-        <li>
           <NavLink onClick={e => parent(e)} to="/dashboard/reading_list?t=open" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
             <i className="fas fa-list"></i>

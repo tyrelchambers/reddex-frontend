@@ -20,7 +20,7 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
 
       <div className="field-group">
         <label htmlFor="password" className="form-label">Password</label>
-        <input type="password" className="form-input" placeholder="anything but password123" name="password" value={credentials.pasword} onChange={credentialHandler}/>
+        <input type="password" className="form-input" placeholder="anything but password123" name="password" value={credentials.password} onChange={credentialHandler}/>
       </div>
 
       <div className="field-group">

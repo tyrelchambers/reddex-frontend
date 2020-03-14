@@ -98,6 +98,7 @@ class SiteStore {
     }
 
     if ( data.subdomain !== this.preview.subdomain ) {
+      console.log(this.preview.subdomain, data.subdomain)
       await deleteDomainAlias(this.preview.subdomain)
       await addDomainAlias(data.subdomain);
     }
