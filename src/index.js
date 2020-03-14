@@ -15,6 +15,7 @@ import SubredditStore from './stores/SubredditStore';
 import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
 import ReadingListStore from './stores/ReadingListStore';
+import OverviewStore from './stores/OverviewStore';
 import 'react-toastify/dist/ReactToastify.css';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
@@ -71,7 +72,8 @@ const stores = {
   InboxStore,
   ReadingListStore,
   SiteStore,
-  FormStore
+  FormStore,
+  OverviewStore
 }
 
 

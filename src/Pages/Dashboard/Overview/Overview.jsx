@@ -3,8 +3,9 @@ import YouTubeStats from '../../../components/YouTubeStats/YouTubeStats';
 import { inject, observer } from 'mobx-react';
 import './Overview.scss';
 import Dashboard from '../Dashboard';
+import OverviewOptions from '../../../layouts/OverviewOptions/OverviewOptions';
 
-const Overview = inject("UserStore")(observer(({UserStore}) => {
+const Overview = inject("UserStore", "OverviewStore")(observer(({UserStore, OverviewStore}) => {
   const [profile, setProfile] = useState();
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const Overview = inject("UserStore")(observer(({UserStore}) => {
 
   return (
     <Dashboard>
+      <OverviewOptions/>
       {/* <div className="quick-actions">
         <h3 className="mb-">Quick Actions</h3>
         
@@ -25,9 +27,11 @@ const Overview = inject("UserStore")(observer(({UserStore}) => {
           }
         </div>
       </div> */}
-      <YouTubeStats
-        user={UserStore.getUser()}
-      />
+      {OverviewStore.youtube.enabled &&
+        <YouTubeStats
+          user={UserStore.getUser()}
+        />
+      }
 
          
     </Dashboard>
