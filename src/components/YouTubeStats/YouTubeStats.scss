@@ -25,6 +25,7 @@
 
 .dash-subtitle {
   color: var(--text);
+  font-size: 1.5rem;
 }
 .stat-stats {
   position: absolute;
@@ -40,7 +41,7 @@
 
   > h5 {
     font-size: 1rem;
-    background-color: var(--bgLight);
+    background-color: var(--bg);
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0px 1px 10px rgba(black, 0.1);
