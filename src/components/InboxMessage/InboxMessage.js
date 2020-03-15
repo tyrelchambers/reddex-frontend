@@ -14,10 +14,10 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   const [ contacts, setContacts ] = useState([]);
   const [ isContact, setIsContact ] = useState(false)
   const [ isToRead, setIsToRead ] = useState(false)
-
   useEffect(() => {
     getStory(InboxStore.getSelectedMessage(), setStoryLink);
     setData(InboxStore.getSelectedMessage());
+    setIsToRead(false)
   }, [InboxStore.selectedMessage]);
 
   useEffect(() => {
