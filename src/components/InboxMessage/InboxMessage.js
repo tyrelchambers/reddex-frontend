@@ -13,11 +13,10 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   const [ data, setData ] = useState();
   const [ contacts, setContacts ] = useState([]);
   const [ isContact, setIsContact ] = useState(false)
-  const [ isToRead, setIsToRead ] = useState(false)
+
   useEffect(() => {
     getStory(InboxStore.getSelectedMessage(), setStoryLink);
     setData(InboxStore.getSelectedMessage());
-    setIsToRead(false)
   }, [InboxStore.selectedMessage]);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
     const regex = new RegExp(data.subject)
     let isListed = ReadingListStore.toRead.filter((x, id) => x.title.match(regex))
 
-    if (isListed.length > 0 || isToRead) {
+    if (isListed.length > 0) {
       return (
         <button className="chat-action ai-c no-action" disabled>
           <i className="fas fa-bookmark mr-"></i>
@@ -60,7 +59,6 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
       return (
         <button className="chat-action primary ai-c" onClick={() => {
           permissionHandler(true, data)
-          setIsToRead(true)
           toast.success("Added to reading list")
         }}>
           <i className="fas fa-bookmark mr-"></i>
