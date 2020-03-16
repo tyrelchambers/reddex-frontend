@@ -45,8 +45,7 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   const IsInReadingList = () => {
     if (!storyLink) return null;
 
-    const regex = new RegExp(`${data.subject.replace(/\(([^)]+)\)/, "")}`)
-    let isListed = ReadingListStore.toRead.filter((x, id) => regex.test(x.title))
+    let isListed = ReadingListStore.toRead.filter((x, id) => data.subject === x.title)
 
     if (isListed.length > 0) {
       return (
