@@ -125,14 +125,14 @@
 }
 
 .nav-main-btn {
-  background-color: var(--primeGradient);
+  background: var(--primeGradient);
   border-radius: 5px;
   display: flex;
   justify-content: center;
   transition: all 0.2s ease;
 
   a {
-    color: var(--text);
+    color: var(--white);
     text-decoration: none;
   }  
 }
@@ -237,7 +237,7 @@
 }
 .nav-dropdown.extend {
   width: 200px;
-  background-color: var(--primary);
+  background-color: var(--bg);
 
 }
 @media screen and (min-width: 841px) {
