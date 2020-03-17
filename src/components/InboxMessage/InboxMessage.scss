@@ -23,6 +23,15 @@
   margin-top: 0.5em;
   }
 }
+
+
+.message-tags {
+  display: flex;
+  align-items: center;
+  background: var(--bgLight);
+  padding: 0.5em 0em;
+  border-radius: 5px;
+}
 @media screen and (max-width: 623px) {
   .message-tags {
     flex-direction: column;
