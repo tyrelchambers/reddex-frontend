@@ -70,7 +70,7 @@ const Channel = ({x}) => {
         {tier &&
           tier.patreon_tier === "pro" &&
             <PatreonBadge />
-          }
+          
         }
       </div>
     </a>
