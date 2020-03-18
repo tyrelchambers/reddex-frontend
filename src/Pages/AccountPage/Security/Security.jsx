@@ -26,7 +26,7 @@ const Security = ({UserStore}) => {
 
       if ( approvalStatus !== false) {
         
-        const accessToken = await getAxios({
+        await getAxios({
           url:'/patreon/getTokens',
           method: "post",
           data: {
@@ -34,23 +34,23 @@ const Security = ({UserStore}) => {
           }
         }).then(res => {
           if (res) {
+            window.location.search = "t=security"
             return res
           }
         })
-        
-        getAxios({
-          url:"/patreon/identity",
-          params: {
-            access_token: accessToken
-          }
-        }).then(res => {
-          UserStore.setPatron(res)
-          window.location.search = "t=security"
-        })
+  
       }
+      getAxios({
+        url:"/patreon/identity"
+      }).then(res => {
+        UserStore.setPatron(res)
+      })
+  
     }
+    
     fn()
 
+  
   }, []);
 
   if (!u) return null;
