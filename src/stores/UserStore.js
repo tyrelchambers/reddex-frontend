@@ -5,6 +5,7 @@ import { getAxios } from '../api';
 class UserStore {
   currentUser = {}
   redditProfile = {}
+  patron = {}
 
   setUser = async () => {
     const tkn = window.localStorage.getItem("token");
@@ -25,6 +26,10 @@ class UserStore {
 
   setCurrentUser(data) {
     this.currentUser = data;
+  }
+
+  setPatron(data) {
+    this.patron = data;
   }
 
   getUser = () => {
@@ -89,7 +94,9 @@ decorate(UserStore, {
   setUser: action,
   redditProfile: observable,
   setRedditProfile: action,
-  setCurrentUser: action
+  setCurrentUser: action,
+  patron: observable,
+  setPatron: action
 });
 
 export default new UserStore();

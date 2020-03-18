@@ -2,7 +2,7 @@ import React from 'react';
 import './forms.scss'
 import HR from '../../components/HR/HR'
 import { MainButton } from '../Buttons/Buttons';
-const EditUserForm = ({stateHandler, changeEmailHandler, changePasswordHandler}) => {
+const EditUserForm = ({stateHandler, changeEmailHandler, changePasswordHandler, state}) => {
   return (
     <form className="form" >
       <div className="field-group">
@@ -14,6 +14,7 @@ const EditUserForm = ({stateHandler, changeEmailHandler, changePasswordHandler})
           value="Change Email"
           className="btn btn-green p-"
           onClick={changeEmailHandler}
+          disabled={!state.email ? true : false}
         />
       </div>
       <HR />
@@ -38,6 +39,7 @@ const EditUserForm = ({stateHandler, changeEmailHandler, changePasswordHandler})
           value="Change Password"
           className="btn btn-green p-"
           onClick={changePasswordHandler}
+          disabled={!state.currentPassword ? true : false}
         />
       </div>
     </form>
