@@ -10,7 +10,12 @@ import { observer } from 'mobx-react-lite';
 
 const Security = ({UserStore}) => {
   const [u, setU] = useState();
-  const [ changes, setChanges ] = useState({});
+  const [ changes, setChanges ] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: '',
+    email: ""
+  });
 
   useEffect(() => {
     setU({...UserStore.currentUser})
@@ -128,6 +133,7 @@ const Security = ({UserStore}) => {
         stateHandler={stateHandler}
         changeEmailHandler={changeEmailHandler}
         changePasswordHandler={changePasswordHandler}
+        state={changes}
       />
 
       <HR
@@ -137,7 +143,7 @@ const Security = ({UserStore}) => {
       <section className="mt+">
         <h3 className="mt-"><i className="fab fa-patreon mr-"></i> Connect your Patreon</h3>
         <p>Link to your Patreon account in order to receive any benefits supplied by your pledge tier.</p>
-        {UserStore.patron.patreon_tier &&
+        {UserStore.patron.patreon_connected &&
           <MainButton
             value="Diconnect Patreon"
             className="btn-tiertiary danger mt-"
@@ -145,7 +151,7 @@ const Security = ({UserStore}) => {
           />
         }
         
-        {!UserStore.patron.patreon_tier &&
+        {!UserStore.patron.patreon_connected &&
           <MainButton
             value="Link to your Patreon"
             className="btn btn-green p- mt-"

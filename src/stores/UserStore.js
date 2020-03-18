@@ -29,7 +29,6 @@ class UserStore {
   }
 
   setPatron(data) {
-    console.log(data)
     this.patron = data;
   }
 
