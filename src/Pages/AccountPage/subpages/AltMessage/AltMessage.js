@@ -1,6 +1,7 @@
 import React from 'react'
 import { getAxios } from '../../../../api';
 import { toast } from 'react-toastify';
+import { MainButton } from '../../../../components/Buttons/Buttons';
 const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
 
   const DefaultMessage = () => repeatGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{repeatGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No alternative message saved</p>
@@ -37,9 +38,11 @@ const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
         <div className="d-f jc-sb ai-c w-100pr account-footer">
           <Username/>
 
-          <button className="btn btn-green p-" onClick={(e) => {
-            saveMessageHandler(e);
-          }}>Save Message</button>
+          <MainButton
+            className="btn btn-green p-"
+            onClick={(e) => saveMessageHandler(e)}
+            value="Save Message"
+          />
         </div>
       </form>
     </section>

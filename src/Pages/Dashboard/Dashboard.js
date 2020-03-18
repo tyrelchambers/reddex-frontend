@@ -37,7 +37,17 @@ const Dashboard = inject("ReadingListStore", "UserStore", "SiteStore")(observer(
           SiteStore.setPreview({subdomain: res.subdomain})
         }
       })
+
+      await getAxios({
+        url: '/patreon/getUserIdentity'
+      }).then(res => {
+        if (res) {
+          UserStore.setPatron(res[0])
+
+        }
+      })
     }
+
 
     fn();
   }, [])

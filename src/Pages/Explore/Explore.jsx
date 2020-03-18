@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import './Explore.scss'
 import { getAxios } from '../../api';
+import PatreonBadge from '../../layouts/PatreonBadge/PatreonBadge'
 
 const Explore = () => {
   const [ channels, setChannels ] = useState([])
@@ -19,23 +20,9 @@ const Explore = () => {
     })
   }, []);
 
-  const channelsList = channels.map((x, id) => (
-    <a 
-      className="channel-item" 
-      href={`https://${x.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} 
-      target="_blank" 
-      rel="noreferrer noopener" 
-      key={id}
-      style={{
-        background: `url(${x.thumbnail ? x.thumbnail : x.banner_url}) center no-repeat`,
-        backgroundSize: 'cover'
-      }}
-    >
-      <div className="channel-item-body">
-        <h2>{x.title}</h2>
-      </div>
-    </a>
-  ))
+  
+
+  const channelsList = channels.map((x, id) => <Channel x={x} key={id} />)
 
   return (
     <DisplayWrapper>
@@ -49,6 +36,45 @@ const Explore = () => {
       </div>
     </DisplayWrapper>
   );
+}
+
+const Channel = ({x}) => {
+  const [tier, setTier] = useState()
+
+  useEffect(() => {
+    getAxios({
+      url: '/profile/patreon_tier',
+      params: {
+        user_id: x.user_id
+      }
+    }).then(res => {
+      if (res) {
+        setTier(res)
+      }
+    })
+  }, []);
+
+  return (
+    <a 
+      className="channel-item" 
+      href={`https://${x.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} 
+      target="_blank" 
+      rel="noreferrer noopener" 
+      style={{
+        background: `url(${x.thumbnail ? x.thumbnail : x.banner_url}) center no-repeat`,
+        backgroundSize: 'cover'
+      }}
+    >
+      <div className="channel-item-body d-f ai-c">
+        <h2 className="mr-">{x.title}</h2>
+        {tier &&
+          tier.patreon_tier === "pro" &&
+            <PatreonBadge />
+          
+        }
+      </div>
+    </a>
+  )
 }
 
 export default Explore;
