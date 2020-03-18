@@ -5,6 +5,8 @@ import HR from '../../../components/HR/HR';
 import { MainButton } from '../../../components/Buttons/Buttons';
 import './Security.scss'
 import { getAxios } from '../../../api';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 const Security = ({UserStore}) => {
   const [u, setU] = useState();
@@ -12,6 +14,38 @@ const Security = ({UserStore}) => {
 
   useEffect(() => {
     setU({...UserStore.currentUser})
+    
+    const fn = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const approvalStatus = params.get("code") ? params.get("code") : false;
+
+      if ( approvalStatus !== false) {
+        
+        const accessToken = await getAxios({
+          url:'/patreon/getTokens',
+          method: "post",
+          data: {
+            code: approvalStatus
+          }
+        }).then(res => {
+          if (res) {
+            return res
+          }
+        })
+        
+        getAxios({
+          url:"/patreon/identity",
+          params: {
+            access_token: accessToken
+          }
+        }).then(res => {
+          UserStore.setPatron(res)
+          window.location.search = "t=security"
+        })
+      }
+    }
+    fn()
+
   }, []);
 
   if (!u) return null;
@@ -19,6 +53,7 @@ const Security = ({UserStore}) => {
   const stateHandler = (e) => {
     setChanges({...changes, [e.target.name]: e.target.value})
   }
+
 
   const changeEmailHandler = async (e) => {
     e.preventDefault();
@@ -69,15 +104,55 @@ const Security = ({UserStore}) => {
      }
    }
 
+  const linkPatreonAccount = () => {
+    window.location.href = `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_PATREON_ID}&redirect_uri=http://localhost:3000/dashboard/account?t=security&scope=identity identity.memberships`
+  }
+
+  const disconnectPatreonAccount = () => {
+    getAxios({
+      url: '/patreon/disconnect',
+      method: 'delete'
+    }).then(res => {
+      if (res) {
+        UserStore.setPatron({})
+        toast.success("Patreon successfully disconnected")
+      }
+    })
+  }
+
   return (
     <div className="account-security-wrapper">
-      <h4 className="mt+">Your registered email: {u.email}</h4>
+      <p className="mt+">Your registered email: {u.email}</p>
 
       <EditUserForm
         stateHandler={stateHandler}
         changeEmailHandler={changeEmailHandler}
         changePasswordHandler={changePasswordHandler}
       />
+
+      <HR
+        classes="mt+"
+      />
+
+      <section className="mt+">
+        <h3 className="mt-"><i className="fab fa-patreon mr-"></i> Connect your Patreon</h3>
+        <p>Link to your Patreon account in order to receive any benefits supplied by your pledge tier.</p>
+        {UserStore.patron.patreon_tier &&
+          <MainButton
+            value="Diconnect Patreon"
+            className="btn-tiertiary danger mt-"
+            onClick={disconnectPatreonAccount}
+          />
+        }
+        
+        {!UserStore.patron.patreon_tier &&
+          <MainButton
+            value="Link to your Patreon"
+            className="btn btn-green p- mt-"
+            onClick={linkPatreonAccount}
+          />
+        }
+      </section>
 
       <HR
         classes="mt+"
@@ -93,4 +168,4 @@ const Security = ({UserStore}) => {
   );
 }
 
-export default Security;
+export default inject("UserStore")(observer(Security));
