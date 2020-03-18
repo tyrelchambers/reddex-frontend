@@ -84,13 +84,6 @@
   }
 }
 
-.static-footer {
-  p,
-  a {
-    color: var(--text);
-  }
-}
-
 .static-header-right {
   display: flex;
 }
@@ -111,6 +104,14 @@
     background-color: var(--bg);
   }
 }
+
+.static-footer {
+   p,
+  a {
+    color: var(--textLight);
+  }
+}
+
 
 @media screen and (max-width: 768px) {
   .static-intro-wrapper {
