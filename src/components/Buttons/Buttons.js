@@ -2,7 +2,6 @@ import React from 'react'
 import './buttons.scss';
 
 export const MainButton = (props) => {
-  console.log(props.disabled)
   if ( props.loading ) {
     return (
       <div className={`${props.className} jc-c d-f ai-c disabled`} onClick={props.onClick}>
