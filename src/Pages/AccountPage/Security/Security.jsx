@@ -110,7 +110,7 @@ const Security = ({UserStore}) => {
    }
 
   const linkPatreonAccount = () => {
-    window.location.href = `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_PATREON_ID}&redirect_uri=http://localhost:3000/dashboard/account?t=security&scope=identity identity.memberships`
+    window.location.href = `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_PATREON_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}/dashboard/account?t=security&scope=identity identity.memberships`
   }
 
   const disconnectPatreonAccount = () => {
