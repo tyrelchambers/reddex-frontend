@@ -46,7 +46,7 @@ const ReadingListDumb = ({list, callback}) => {
           <h4 className="reading-list-author">{x.author}</h4>
         </div>
 
-        <div className="message-tags mt-">
+        <div className="message-tags">
           <a className="message-story-tag" target="_blank" rel="noopener noreferrer" href={x.url}>Link to story</a>
           <div className="chat-actions d-f">
             <div className="chat-action-btn-wrapper d-f ai-c">
