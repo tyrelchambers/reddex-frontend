@@ -94,8 +94,9 @@ const InitialSubLoad = () => {
         }
       }).then(res => {
         if (res) {
-          stores.SiteStore.setConfig(res);
-          document.querySelector('body').className = `theme-${res.theme}`
+          stores.SiteStore.setConfig(res.website);
+          stores.UserStore.setPatron(res.patreon_tier)
+          document.querySelector('body').className = `theme-${res.website.theme}`
 
           setLoaded(true)
         }

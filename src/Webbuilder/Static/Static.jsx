@@ -7,8 +7,9 @@ import Twitter from '../Static/modules/Timelines/Twitter/Twitter';
 import { Link } from 'react-router-dom'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import PatreonBadge from '../../layouts/PatreonBadge/PatreonBadge';
 
-const Static = inject("SiteStore")(observer(({SiteStore}) => {
+const Static = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState({});
   const [videoIds, setVideoIds] = useState();
@@ -52,17 +53,21 @@ const Static = inject("SiteStore")(observer(({SiteStore}) => {
         borderTopColor: config.accent,
         borderTopStyle:  'solid'
       }}>
-        <h2 style={{
-          color: config.accent
-        }}>{config.title}</h2>
-          <div className="static-header-right">
-            { config.submission_form &&           
-              <Link to={`/submit`} className="static-nav-link">Submit a Story</Link>
-            }
-            <SocialBar
-              config={config}
-            />
-          </div>
+        <div className="d-f">
+          <h2 style={{
+            color: config.accent
+          }}>{config.title}</h2>
+          <PatreonBadge theme={config.accent}/>
+        </div>
+
+        <div className="static-header-right">
+          { config.submission_form &&           
+            <Link to={`/submit`} className="static-nav-link">Submit a Story</Link>
+          }
+          <SocialBar
+            config={config}
+          />
+        </div>
       </header>
       {config.banner_url && <section className={`static-hero ${config.theme}`} style={{backgroundImage: `url(${config.banner_url})`}}>
       </section>}
@@ -95,7 +100,14 @@ const Static = inject("SiteStore")(observer(({SiteStore}) => {
             </section>
           }
         {config.show_credit_link &&
-          <p className="ta-c mt+">Powered by <a href="https://reddex.app">Reddex</a></p>
+          <p className="ta-c mt+ credit-link">Powered by <a href="https://reddex.app">Reddex</a></p>
+        }
+
+        {UserStore.patron.patreon_tier === "pro" &&
+          <div className="d-f patreon-footer jc-c mt- ai-c">
+            <PatreonBadge />
+            <p>supporter of Reddex on <a href="https://www.patreon.com/reddex/" target="_blank" rel="noopener noreferrer">Patreon</a></p>
+          </div>
         }
       </footer>
     </div>

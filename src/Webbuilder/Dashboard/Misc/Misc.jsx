@@ -4,7 +4,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import HR from '../../../components/HR/HR';
 
-const Misc = inject("SiteStore")(observer(({SiteStore}) => {
+const Misc = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   return (
     <div>
       <div className="d-f mt-">
@@ -27,12 +27,23 @@ const Misc = inject("SiteStore")(observer(({SiteStore}) => {
 
       <HR classes="mt+"/>
 
-      <div className="d-f mt+">
-        <div className="d-f fxd-c">
-          <h2>Reddex Pro Supporter</h2>
-          <p className="mt-- subtle">A badge has been added to your website to show everyone how awesome you are.</p>
+      {UserStore.patron.patreon_tier === "basic" &&
+        <div className="d-f mt+">
+          <div className="d-f fxd-c">
+            <h2>Reddex Supporter</h2>
+            <p className="mt-- subtle">Thank you so much for supporting Reddex.</p>
+          </div>
         </div>
-      </div>
+      }
+
+      {UserStore.patron.patreon_tier === "pro" &&
+        <div className="d-f mt+">
+          <div className="d-f fxd-c">
+            <h2>Reddex Pro Supporter</h2>
+            <p className="mt-- subtle">A badge has been added to your website to show everyone how awesome you are.</p>
+          </div>
+        </div>
+      }
     </div>
   );
 }))
