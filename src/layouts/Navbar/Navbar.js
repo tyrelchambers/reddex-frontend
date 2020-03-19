@@ -16,7 +16,11 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
             </li>
 
             <li className="d-f ai-c nav-link">
-              <Link to="/explore" >Explore</Link>
+              <Link to="/patreon">Patreon</Link>
+            </li>
+
+            <li className="d-f ai-c nav-link">
+              <Link to="/explore">Explore</Link>
             </li>
 
             <li className="d-f ai-c nav-link">
