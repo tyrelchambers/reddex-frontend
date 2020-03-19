@@ -1,0 +1,20 @@
+.patron-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.patron {
+  margin: 0.3em;
+  font-size: 1.3rem;
+  background-color: var(--bgLight);
+  padding: 0.3em 0.5em;
+  border-radius: 5px;
+  color: var(--textLight);
+  box-shadow: 0px 3px 5px rgba(black, 0.1);
+  font-weight: bold;
+}
+
+.patreon-wrapper {
+  padding: 0.3em;
+}

@@ -39,6 +39,7 @@ import SubmittedStories from './Pages/SubmittedStories/SubmittedStories';
 import Story from './Pages/Story/Story';
 import Authorize from './Pages/Authorize/Authorize';
 import Explore from './Pages/Explore/Explore';
+import Patreon from './Pages/Patreon/Patreon';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -190,6 +191,7 @@ const InitialLoad = () => {
             <Route exact path="/help" component={HelpPage} />
             <Route exact path="/authorize" component={Authorize} />
             <Route exact path="/explore" component={Explore} />
+            <Route exact path="/patreon" component={Patreon} />
             {/* <Route exact path="/pricing" component={PricingPage} /> */}
             <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
