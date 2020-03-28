@@ -20,7 +20,6 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
   }, [data.title]);
 
   useEffect(() => {
-    messageHandler();
     const fn = async () => {
       const c = await getAxios({
         url: '/contacts/name',
@@ -32,6 +31,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
       const authors = await getAxios({
         url: '/profile/authors_messaged'
       });
+
       setAuthorsMessaged([...authors])
       if (c.length > 0) {
         setContact({...c[0]})
@@ -42,19 +42,22 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
     fn();
 
+
     return () => {
       setExpandContact(false);
     }
   }, [data]);
 
+  useEffect(() => {
+    messageHandler();
+  }, [authorsMessaged])
+
   const Username = () => UserStore.getRedditProfile() ? <h4 className="mt- mb-">From: {UserStore.redditProfile.name}</h4> : null;
 
-  const messageHandler = () => {
-    let authorExists = false;
-    
-    authorsMessaged.map(x => x === data.name ? authorExists = true : null);
+  const messageHandler = () => {    
+    const authorExists = authorsMessaged.filter(x => x.name === data.author);
 
-    if ( authorExists ) {
+    if ( authorExists.length > 0 ) {
       setDefaultMessage(userProfile.repeat_message);
     } else {
       setDefaultMessage(userProfile.initial_message);
@@ -122,7 +125,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             className="btn btn-primary" 
             onClick={() => {
               setLoading(true);
-              
+
               sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data);
             }} 
             value="Message Author"
