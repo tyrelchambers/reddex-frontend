@@ -133,7 +133,7 @@ const InitialLoad = () => {
   const redditProfile = window.localStorage.getItem('reddit_profile')
   
   useEffect(() => {
-    const theme = localStorage.getItem('theme');
+    const theme = localStorage.getItem('theme') || "light";
     document.querySelector("body").classList.add(`theme-${theme}`)
   }, [])
 
