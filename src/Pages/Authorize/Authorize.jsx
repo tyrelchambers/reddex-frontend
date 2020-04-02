@@ -4,7 +4,7 @@ import './Authorize.scss'
 
 const Authorize = () => {
   const askForRedditApproval = () => {
-    const link = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.REACT_APP_REDDIT_APP_NAME}&response_type=code&state=storiesaftermidnightreddex&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup&duration=permanent&scope=privatemessages identity`;
+    const link = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.REACT_APP_REDDIT_APP_NAME}&response_type=code&state=storiesaftermidnightreddex&redirect_uri=${process.env.REACT_APP_REDIRECT}/signup&duration=permanent&scope=privatemessages identity`;
     window.location.href = link;
   }
   return (
