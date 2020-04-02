@@ -62,7 +62,7 @@ class UserStore {
     if (!token) return null;
     const encode = window.btoa(`${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`);
     const redditTokens = await Axios.post('https://www.reddit.com/api/v1/access_token', 
-      `grant_type=authorization_code&code=${token}&redirect_uri=${process.env.REACT_APP_REDDIT_REDIRECT}/signup`
+      `grant_type=authorization_code&code=${token}&redirect_uri=${process.env.REACT_APP_REDIRECT}/signup`
 
     ,
     {
