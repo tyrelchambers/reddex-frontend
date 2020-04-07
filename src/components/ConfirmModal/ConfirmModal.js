@@ -5,18 +5,18 @@ import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
 import { inject } from 'mobx-react';
 import { Modal } from '../Modal/Modal';
 
-const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
+const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({ModalStore, PostStore, UserStore}) => {
   const [ index, setIndex ] = useState(0);
-  const [ user, setUser ] = useState({});
   const [ postData, setPostData ] = useState([]);
 
   useEffect(() => {
     const selectedPosts = PostStore.getSelectedPosts();
 
     setIndex(0);
-    setUser({...UserStore.currentUser});
     setPostData([...selectedPosts]);
-  }, []);
+    UserStore.setUser();
+
+  }, [ModalStore.isOpen]);
 
   if ( ModalStore.isOpen ) {
     return (
@@ -36,8 +36,6 @@ const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({U
                     data={postData[index]}
                     setIndex={setIndex}
                     index={index}
-                    userProfile={user}
-                    setUserProfile={(e) => setUser({...user, defaultMessage: e.target.value})}
                     removeMessagedAuthor={() => {
                       removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
                       setIndex(0);

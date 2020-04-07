@@ -7,7 +7,7 @@ import { getAxios } from '../../api';
 import Axios from 'axios';
 import { toast } from 'react-toastify';
 import {fetchTokens} from '../../helpers/renewRefreshToken'
-const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
+const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ contact, setContact ] = useState();
@@ -37,7 +37,6 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
     fn();
 
-
     return () => {
       setExpandContact(false);
     }
@@ -45,17 +44,16 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
   useEffect(() => {
     messageHandler();
-  }, [authorsMessaged])
+  }, [data, authorsMessaged])
 
   const formattedSubject = data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title;
 
   const messageHandler = () => {    
     const authorExists = authorsMessaged.filter(x => x.name === data.author);
-
     if ( authorExists.length > 0 ) {
-      setDefaultMessage(userProfile.repeat_message);
+      setDefaultMessage(UserStore.currentUser.repeat_message);
     } else {
-      setDefaultMessage(userProfile.initial_message);
+      setDefaultMessage(UserStore.currentUser.initial_message);
     }
   }
 

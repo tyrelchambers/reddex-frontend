@@ -15,7 +15,6 @@ import SubredditStore from './stores/SubredditStore';
 import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
 import ReadingListStore from './stores/ReadingListStore';
-import OverviewStore from './stores/OverviewStore';
 import 'react-toastify/dist/ReactToastify.css';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
@@ -25,7 +24,6 @@ import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 import Static from './Webbuilder/Static/Static'
 import SiteIndex from './Webbuilder/Dashboard/SiteIndex/SiteIndex';
 import SiteStore from './stores/SiteStore';
-import PricingPage from './Pages/PricingPage/PricingPage';
 import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
@@ -73,8 +71,7 @@ const stores = {
   InboxStore,
   ReadingListStore,
   SiteStore,
-  FormStore,
-  OverviewStore
+  FormStore
 }
 
 
