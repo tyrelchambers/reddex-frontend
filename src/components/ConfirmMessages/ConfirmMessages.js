@@ -7,17 +7,12 @@ import { getAxios } from '../../api';
 import Axios from 'axios';
 import { toast } from 'react-toastify';
 import {fetchTokens} from '../../helpers/renewRefreshToken'
-const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, removeMessagedAuthor, UserStore}) => {
+const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
-  const [ subject, setSubject ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ contact, setContact ] = useState();
   const [ expandContact, setExpandContact ] = useState(false);
   const [authorsMessaged, setAuthorsMessaged] = useState([]);
-
-  useEffect(() => {
-    setSubject(data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title);
-  }, [data.title]);
 
   useEffect(() => {
     const fn = async () => {
@@ -42,7 +37,6 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
     fn();
 
-
     return () => {
       setExpandContact(false);
     }
@@ -50,27 +44,22 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
 
   useEffect(() => {
     messageHandler();
-  }, [authorsMessaged])
+  }, [data, authorsMessaged])
 
-  const Username = () => UserStore.getRedditProfile() ? <h4 className="mt- mb-">From: {UserStore.redditProfile.name}</h4> : null;
+  const formattedSubject = data.title.length > 80 ? data.title.slice(0, 77) + '...' : data.title;
 
   const messageHandler = () => {    
     const authorExists = authorsMessaged.filter(x => x.name === data.author);
-
     if ( authorExists.length > 0 ) {
-      setDefaultMessage(userProfile.repeat_message);
+      setDefaultMessage(UserStore.currentUser.repeat_message);
     } else {
-      setDefaultMessage(userProfile.initial_message);
+      setDefaultMessage(UserStore.currentUser.initial_message);
     }
-  }
-
-  const toggleContact = () => {
-    setExpandContact(!expandContact)
   }
 
   return (
     <div className="confirm-messages-wrapper">
-      <h1 className="confirm-title" id="author" data-author={data.author} onClick={() => toggleContact()}>
+      <h1 className="confirm-title" id="author" data-author={data.author} onClick={() => setExpandContact(!expandContact)}>
         To: {data.author}
         {contact &&
           <span className="modal-contact-toggle ml-">
@@ -84,17 +73,13 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
           <p>{contact.notes}</p>
         </div>
       }
-
-      <Username/>
+      <p>From: {UserStore.redditProfile.name}</p>
       <div className="d-f fxd-c">
         <div className="field-group">
           <div className="d-f jc-sb">
             <label htmlFor="subject" className="form-label" >Subject</label> 
-            <CharCounter 
-              charCount={subject.length}
-            />
           </div>
-          <p className="subject">{subject}</p>
+          <p className="subject">{formattedSubject}</p>
         </div>
 
         <div className="account-tab mt- mb-">
@@ -126,7 +111,7 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
             onClick={() => {
               setLoading(true);
 
-              sendMessageToAuthors(data.author, subject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data);
+              sendMessageToAuthors(data.author, formattedSubject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data);
             }} 
             value="Message Author"
             loading={loading}
@@ -137,12 +122,6 @@ const ConfirmMessages = inject("UserStore")(observer(({data, userProfile, remove
     </div>
   )
 }));
-
-const CharCounter = ({charCount}) => {
-  return (
-    <p className="char-counter"><span className="highlight-text">{charCount}</span> / 80</p>
-  );
-}
 
 const saveAuthorToDb = async (name, post_id)=> {
   await getAxios({
@@ -183,14 +162,13 @@ const saveStoryToUser = (data) => {
      }
    })
    .then(res => {
-      removeMessagedAuthor();
-      saveAuthorToDb(author, post_id);
-      saveStoryToUser(data);
-      setLoading(false)
+    removeMessagedAuthor();
+    saveAuthorToDb(author, post_id);
+    saveStoryToUser(data);
+    setLoading(false)
    })
    .catch(console.log);
-
-
+   
  }
 
 export default ConfirmMessages;

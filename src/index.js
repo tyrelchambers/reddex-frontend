@@ -15,7 +15,6 @@ import SubredditStore from './stores/SubredditStore';
 import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
 import ReadingListStore from './stores/ReadingListStore';
-import OverviewStore from './stores/OverviewStore';
 import 'react-toastify/dist/ReactToastify.css';
 import db from './Database/Database';
 import { Provider } from 'mobx-react';
@@ -25,7 +24,6 @@ import { ContactsPage } from './Pages/ContactsPage/ContactsPage';
 import Static from './Webbuilder/Static/Static'
 import SiteIndex from './Webbuilder/Dashboard/SiteIndex/SiteIndex';
 import SiteStore from './stores/SiteStore';
-import PricingPage from './Pages/PricingPage/PricingPage';
 import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
 import HelpPage from './Pages/HelpPage/HelpPage';
@@ -40,6 +38,7 @@ import Story from './Pages/Story/Story';
 import Authorize from './Pages/Authorize/Authorize';
 import Explore from './Pages/Explore/Explore';
 import Patreon from './Pages/Patreon/Patreon';
+import { Modal } from './components/Modal/Modal';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -72,8 +71,7 @@ const stores = {
   InboxStore,
   ReadingListStore,
   SiteStore,
-  FormStore,
-  OverviewStore
+  FormStore
 }
 
 
@@ -177,6 +175,7 @@ const InitialLoad = () => {
       <Provider {...stores}>
         <Router>  
           <ToastContainer />
+          <Modal/>
           <Switch>
             <Route exact path="/" component={App}/>
             <Route exact path="/about" component={About} />

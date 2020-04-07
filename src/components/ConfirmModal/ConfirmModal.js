@@ -3,38 +3,25 @@ import './ConfirmModal.scss';
 import { observer } from 'mobx-react-lite';
 import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
 import { inject } from 'mobx-react';
+import { Modal } from '../Modal/Modal';
 
-const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
+const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({ModalStore, PostStore, UserStore}) => {
   const [ index, setIndex ] = useState(0);
-  const [ user, setUser ] = useState({});
   const [ postData, setPostData ] = useState([]);
 
   useEffect(() => {
     const selectedPosts = PostStore.getSelectedPosts();
 
     setIndex(0);
-    setUser({...UserStore.currentUser});
     setPostData([...selectedPosts]);
-  }, []);
+    UserStore.setUser();
+
+  }, [ModalStore.isOpen]);
 
   if ( ModalStore.isOpen ) {
-    document.body.style.height = "100%";
-    document.body.style.minHeight = "100vh";
-    document.body.style.overflow = "hidden";
     return (
-      <div className="modal-wrapper animated fadeIn faster">
-        <div className="close-modal" onClick={() => {
-          document.body.style.height = null;
-          document.body.style.overflow = null;
-          ModalStore.setIsOpen(false);
-          if (index === postData.length) {
-            PostStore.clearSelectedPosts()
-          }
-        }}>
-          <i className="fas fa-times"></i>
-        </div>
-        <div className="modal-body">
-          {index < postData.length && 
+      <Modal>
+        {index < postData.length && 
             <React.Fragment>
               <h3 className="ta-c">Confirm Messages</h3>
 
@@ -49,8 +36,6 @@ const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({U
                     data={postData[index]}
                     setIndex={setIndex}
                     index={index}
-                    userProfile={user}
-                    setUserProfile={(e) => setUser({...user, defaultMessage: e.target.value})}
                     removeMessagedAuthor={() => {
                       removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
                       setIndex(0);
@@ -82,8 +67,7 @@ const ConfirmModal = inject("UserStore", "ModalStore", "PostStore")(observer(({U
           {index === postData.length && 
             <EndOfList />
           }
-        </div>
-      </div>
+      </Modal>
     )
   }
 }));
