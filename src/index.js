@@ -40,6 +40,7 @@ import Story from './Pages/Story/Story';
 import Authorize from './Pages/Authorize/Authorize';
 import Explore from './Pages/Explore/Explore';
 import Patreon from './Pages/Patreon/Patreon';
+import { Modal } from './components/Modal/Modal';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -177,6 +178,7 @@ const InitialLoad = () => {
       <Provider {...stores}>
         <Router>  
           <ToastContainer />
+          <Modal/>
           <Switch>
             <Route exact path="/" component={App}/>
             <Route exact path="/about" component={About} />
