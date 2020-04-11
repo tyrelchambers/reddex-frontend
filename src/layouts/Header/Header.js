@@ -36,7 +36,6 @@ const Header = inject("UserStore")(observer(({UserStore}) => {
       <div className="wrapper d-f jc-sb ai-c">
         <div className="brand d-f">
           <img src={reddexLogo} alt="Reddex"/>
-          <h3 className="ml-">Beta</h3>
           <div id="headway"></div>
         </div>
         <Navbar 

@@ -2,9 +2,14 @@ import { action,decorate, observable, toJS } from 'mobx';
 
 class ModalStore {
   isOpen = false;
+  render = '';
 
   setIsOpen(status) {
     this.isOpen = status;
+  }
+
+  setRender(comp) {
+    this.render = comp;
   }
 
   getIsOpen() {
@@ -14,7 +19,9 @@ class ModalStore {
 
 decorate(ModalStore, {
   isOpen: observable,
-  setIsOpen: action
+  setIsOpen: action,
+  render: observable,
+  setRender: action
 });
 
 export default new ModalStore();

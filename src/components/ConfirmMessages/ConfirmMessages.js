@@ -60,8 +60,8 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
   }
 
   const addTagHandler = (e) => {
-    if (e && e.key === "Enter" && e.target.value) {
-      setTags([...tags, e.target.value])
+    if (e && e.which === 188 && e.target.value && e.target.value !== ",") {
+      setTags([...tags, e.target.value.substring(0, e.target.value.length - 1)])
       e.target.value = ""
     }
   }
@@ -115,7 +115,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
 
         <div className="field-group m0 mb-">
           <label htmlFor="" className="form-label">Tags</label>
-          <input type="text" className="form-input" placeholder="press enter to save tag" id="tag" onKeyUp={e => addTagHandler(e)}/>
+          <input type="text" className="form-input" placeholder="press enter to save tag" onKeyUp={e => addTagHandler(e)}/>
         </div>
         <div className="d-f fxw-w">
           {tags.map((x, id) => (

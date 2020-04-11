@@ -14,7 +14,7 @@ export const Modal = inject("ModalStore")(observer(({children, ModalStore}) => {
       </div>
       
       <div className="modal-body">
-        {children}
+        {ModalStore.render}
       </div>
     </div>
   )
