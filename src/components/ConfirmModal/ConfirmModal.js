@@ -3,7 +3,6 @@ import './ConfirmModal.scss';
 import { observer } from 'mobx-react-lite';
 import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
 import { inject } from 'mobx-react';
-import { Modal } from '../Modal/Modal';
 
 const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({ModalStore, PostStore, UserStore}) => {
   const [ index, setIndex ] = useState(0);
@@ -20,7 +19,7 @@ const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({M
 
   if ( ModalStore.isOpen ) {
     return (
-      <Modal>
+      <>
         {index < postData.length && 
             <React.Fragment>
               <h3 className="ta-c">Confirm Messages</h3>
@@ -32,15 +31,22 @@ const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({M
                     setIndex={setIndex}
                   />
 
-                  <ConfirmMessages 
-                    data={postData[index]}
-                    setIndex={setIndex}
-                    index={index}
-                    removeMessagedAuthor={() => {
-                      removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
-                      setIndex(0);
-                    }}
-                  />
+                  {postData.map((x,id) => {
+                    if (id === index) {
+                      return (
+                        <ConfirmMessages 
+                        data={x}
+                        key={id}
+                        setIndex={setIndex}
+                        index={index}
+                        removeMessagedAuthor={() => {
+                          removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
+                          setIndex(0);
+                        }}
+                      />
+                      )
+                    }
+                  })}
                   
                   <Increment 
                     index={index}
@@ -67,7 +73,7 @@ const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({M
           {index === postData.length && 
             <EndOfList />
           }
-      </Modal>
+      </>
     )
   }
 }));

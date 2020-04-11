@@ -39,6 +39,7 @@ import Authorize from './Pages/Authorize/Authorize';
 import Explore from './Pages/Explore/Explore';
 import Patreon from './Pages/Patreon/Patreon';
 import { Modal } from './components/Modal/Modal';
+import TagsManager from './Pages/TagsManager/TagsManager';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -198,6 +199,7 @@ const InitialLoad = () => {
             <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
             <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
             <PrivateRoute exact path="/dashboard/submitted" component={SubmittedStories} />
+            <PrivateRoute exact path="/dashboard/tags" component={TagsManager} />
             <PrivateRoute path="/dashboard/story/:id" component={Story} />
             <Route component={Page404}/>
           </Switch>

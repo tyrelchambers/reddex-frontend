@@ -2,13 +2,26 @@ import React, {useState, useEffect} from 'react'
 import './ReadingList.scss';
 import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
+import isEmpty from '../../../helpers/objIsEmpty'
 
 const ReadingListDumb = ({list, callback}) => {
   const [state, setState] = useState([]);
   const [ filter, setFilter ] = useState("");
+  const [ tags, setTags ] = useState([])
+  const [tag, setTag] = useState({})
   useEffect(() => {
    formatStateData()
   }, [list]);
+
+  useEffect(() => {
+    getAxios({
+      url: '/tags/'
+    }).then(res => {
+      if (res) {
+        setTags([...res])
+      }
+    })
+  }, [])
 
   if ( !list ) return null;
 
@@ -38,6 +51,7 @@ const ReadingListDumb = ({list, callback}) => {
     });
   }
 
+
   const Story = ({x}) => (
     <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
@@ -50,7 +64,7 @@ const ReadingListDumb = ({list, callback}) => {
           <a className="message-story-tag" target="_blank" rel="noopener noreferrer" href={x.url}>Link to story</a>
           <div className="chat-actions d-f">
             <div className="chat-action-btn-wrapper d-f ai-c">
-              <button className="chat-action primary ai-c" onClick={() => {
+              <button className="chat-action primary ai-c whs-nw" onClick={() => {
                 addToCompleted(x, true);
                 callback(x);
               }}>
@@ -61,6 +75,7 @@ const ReadingListDumb = ({list, callback}) => {
                 <span>{avgReadingTime(x.self_text)}</span>
                 min read
               </div>
+              <p className="subtle">{x.subreddit}</p>
             </div>
           </div>
         </div>
@@ -106,13 +121,41 @@ const ReadingListDumb = ({list, callback}) => {
     )
   })  
 
+  const sortedByTags = list.map((x, id) => {
+    if (tag.story_id === x.uuid) {
+      return <Story key={id} x={x}/>
+    }
+
+    return null;
+  })
+
   return (
     <div className="m+ fx-1">
       
       <Filters />
+      <div className="reading-list-filters d-f fxd-c jc-c mt- mb-">
+
+        <p className="subtle font-bold">Sort by tags</p>      
+        <div className="header-items">
+          {!isEmpty(tag) &&
+            <i className="fas fa-times ml- mr-" onClick={() => setTag("")}></i>
+          }
+          {tags.map((x, id) => (
+            <button 
+              key={id}
+              className={`reading-list-filter ${tag.tag === x.tag ? "active" : ""}`} 
+              onClick={() => setTag(x)}
+            >{x.tag}</button>
+          ))}
+        </div>
+      </div>
+      <p className="subtle mb-">
+        <strong>Note: </strong>
+        sorting by tag takes priority if both a subreddit and a tag are specified.
+      </p>
       <HR/>
       <ul className="reading-list-list mt+">
-        {renderedList}
+        {!isEmpty(tag) ? sortedByTags : renderedList}
       </ul>
     </div>
   )
