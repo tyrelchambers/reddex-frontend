@@ -56,6 +56,22 @@
   }
 }
 
+.tag {
+  background-color: var(--bgLighter);
+  margin: 0.5em;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  color: var(--text);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--red);
+    color: white;
+  }
+}
+
 @media screen and (max-width: 618px) {
   .account-tab {
     margin: 0;

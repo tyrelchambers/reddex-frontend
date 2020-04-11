@@ -13,6 +13,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
   const [ contact, setContact ] = useState();
   const [ expandContact, setExpandContact ] = useState(false);
   const [authorsMessaged, setAuthorsMessaged] = useState([]);
+  const [tags, setTags] = useState([])
 
   useEffect(() => {
     const fn = async () => {
@@ -36,6 +37,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
     }
 
     fn();
+    addTagHandler()
 
     return () => {
       setExpandContact(false);
@@ -57,6 +59,19 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
     }
   }
 
+  const addTagHandler = (e) => {
+    if (e && e.key === "Enter" && e.target.value) {
+      setTags([...tags, e.target.value])
+      e.target.value = ""
+    }
+  }
+
+  const removeTag = (id) => {
+    const clone = [...tags]
+    clone.splice(id, 1)
+    
+    setTags([...clone])
+  }
   return (
     <div className="confirm-messages-wrapper">
       <h1 className="confirm-title" id="author" data-author={data.author} onClick={() => setExpandContact(!expandContact)}>
@@ -73,8 +88,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
           <p>{contact.notes}</p>
         </div>
       }
-      <p>From: {UserStore.redditProfile.name}</p>
-      <div className="d-f fxd-c">
+      <div className="d-f fxd-c mt-">
         <div className="field-group">
           <div className="d-f jc-sb">
             <label htmlFor="subject" className="form-label" >Subject</label> 
@@ -99,7 +113,17 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
         </div>
 
-        <div className="d-f jc-sb ai-c confirm-actions">
+        <div className="field-group m0 mb-">
+          <label htmlFor="" className="form-label">Tags</label>
+          <input type="text" className="form-input" placeholder="press enter to save tag" id="tag" onKeyUp={e => addTagHandler(e)}/>
+        </div>
+        <div className="d-f fxw-w">
+          {tags.map((x, id) => (
+            <p className="tag" key={id} onClick={() => removeTag(id)}>{x}</p>
+          ))}
+        </div>
+
+        <div className="d-f jc-sb ai-c confirm-actions mt+">
           <MinimalButton
             onClick={() => removeMessagedAuthor()}
             classNames="danger-text"
@@ -111,7 +135,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
             onClick={() => {
               setLoading(true);
 
-              sendMessageToAuthors(data.author, formattedSubject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data);
+              sendMessageToAuthors(data.author, formattedSubject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data, tags);
             }} 
             value="Message Author"
             loading={loading}
@@ -134,15 +158,26 @@ const saveAuthorToDb = async (name, post_id)=> {
   })
 }
 
-const saveStoryToUser = (data) => {  
-  getAxios({
+const saveStoryToUser = async (data) => {  
+  return await getAxios({
     url: '/profile/save_story',
     method: 'post',
     data
   })
 }
 
- export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data) => {
+const saveTags = (story_id, tags) => {
+  getAxios({
+    url: '/tags/save',
+    method: 'post',
+    data: {
+      story_id,
+      tags
+    }
+  })
+}
+
+ export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data, tags) => {
    const tokens = await fetchTokens().catch(err => false);
    const fmtSubject = subject;
    const link = `https://oauth.reddit.com/api/compose`;
@@ -155,20 +190,21 @@ const saveStoryToUser = (data) => {
    body.set('to', `/u/${author}`);
    body.set("subject", fmtSubject);
    body.set("text", message);
-   await Axios.post(link, body, {
-     headers: {
-       "Authorization": `bearer ${tokens.access_token}`,
-       "Content-Type": "application/x-www-form-urlencoded"
-     }
-   })
-   .then(res => {
-    removeMessagedAuthor();
-    saveAuthorToDb(author, post_id);
-    saveStoryToUser(data);
-    setLoading(false)
-   })
-   .catch(console.log);
-   
+  //  await Axios.post(link, body, {
+  //    headers: {
+  //      "Authorization": `bearer ${tokens.access_token}`,
+  //      "Content-Type": "application/x-www-form-urlencoded"
+  //    }
+  //  })
+  //  .catch(console.log);
+
+  //   removeMessagedAuthor();
+  //   saveAuthorToDb(author, post_id);
+  const story = await saveStoryToUser(data);
+  saveTags(story.uuid, tags)
+  //   setLoading(false)
+
+
  }
 
 export default ConfirmMessages;
