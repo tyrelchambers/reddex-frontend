@@ -76,6 +76,7 @@ const ReadingListDumb = ({list, callback}) => {
                 min read
               </div>
               <p className="subtle">{x.subreddit}</p>
+            {/* <p className="subtle"><strong>Tags:</strong> {tags.map((x, id) => x.tag)}</p> */}
             </div>
           </div>
         </div>

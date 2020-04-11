@@ -196,6 +196,7 @@ const saveTags = (story_id, tags) => {
        "Content-Type": "application/x-www-form-urlencoded"
      }
    })
+   .then()
    .catch(console.log);
 
     removeMessagedAuthor();
