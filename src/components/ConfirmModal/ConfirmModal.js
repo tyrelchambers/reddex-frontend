@@ -32,15 +32,22 @@ const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({M
                     setIndex={setIndex}
                   />
 
-                  <ConfirmMessages 
-                    data={postData[index]}
-                    setIndex={setIndex}
-                    index={index}
-                    removeMessagedAuthor={() => {
-                      removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
-                      setIndex(0);
-                    }}
-                  />
+                  {postData.map((x,id) => {
+                    if (id === index) {
+                      return (
+                        <ConfirmMessages 
+                        data={x}
+                        key={id}
+                        setIndex={setIndex}
+                        index={index}
+                        removeMessagedAuthor={() => {
+                          removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
+                          setIndex(0);
+                        }}
+                      />
+                      )
+                    }
+                  })}
                   
                   <Increment 
                     index={index}
