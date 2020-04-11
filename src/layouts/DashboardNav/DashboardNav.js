@@ -29,6 +29,14 @@ const DashboardNav = () => {
         </li>
 
         <li>
+          <NavLink onClick={e => parent(e)} to="/dashboard/tags" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
+            <div className="nav-indicator"></div>
+            <i className="fas fa-tag"></i>
+            <p>Tag Manager</p>
+          </NavLink>
+        </li>
+
+        <li>
           <NavLink onClick={e => parent(e)} to="/dashboard/contacts" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">
             <div className="nav-indicator"></div>
             <i className="fas fa-user-astronaut"></i>
