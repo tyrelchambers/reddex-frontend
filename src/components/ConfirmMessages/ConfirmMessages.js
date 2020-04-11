@@ -190,19 +190,19 @@ const saveTags = (story_id, tags) => {
    body.set('to', `/u/${author}`);
    body.set("subject", fmtSubject);
    body.set("text", message);
-  //  await Axios.post(link, body, {
-  //    headers: {
-  //      "Authorization": `bearer ${tokens.access_token}`,
-  //      "Content-Type": "application/x-www-form-urlencoded"
-  //    }
-  //  })
-  //  .catch(console.log);
+   await Axios.post(link, body, {
+     headers: {
+       "Authorization": `bearer ${tokens.access_token}`,
+       "Content-Type": "application/x-www-form-urlencoded"
+     }
+   })
+   .catch(console.log);
 
-  //   removeMessagedAuthor();
-  //   saveAuthorToDb(author, post_id);
-  const story = await saveStoryToUser(data);
-  saveTags(story.uuid, tags)
-  //   setLoading(false)
+    removeMessagedAuthor();
+    saveAuthorToDb(author, post_id);
+    const story = await saveStoryToUser(data);
+    saveTags(story.uuid, tags)
+    setLoading(false)
 
 
  }
