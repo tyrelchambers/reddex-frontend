@@ -115,7 +115,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
 
         <div className="field-group m0 mb-">
           <label htmlFor="" className="form-label">Tags</label>
-          <input type="text" className="form-input" placeholder="press enter to save tag" onKeyUp={e => addTagHandler(e)}/>
+          <input type="text" className="form-input" placeholder="press comma to save tag" onKeyUp={e => addTagHandler(e)}/>
         </div>
         <div className="d-f fxw-w">
           {tags.map((x, id) => (
