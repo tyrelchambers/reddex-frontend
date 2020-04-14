@@ -70,6 +70,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
           <ReadingListDumb 
             list={ReadingListStore.getToRead()}
             callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
+            ModalStore={ModalStore}
           />
         }
 

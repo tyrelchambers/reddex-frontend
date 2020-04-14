@@ -96,7 +96,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
           <p className="subject">{formattedSubject}</p>
         </div>
 
-        <div className="account-tab mt- mb-">
+        <div className="d-f mt- mb-">
           <button 
             className=" btn btn-green p- m--"
             onClick={() => setDefaultMessage(UserStore.getUser().initial_message)}
@@ -166,16 +166,6 @@ const saveStoryToUser = async (data) => {
   })
 }
 
-const saveTags = (story_id, tags) => {
-  getAxios({
-    url: '/tags/save',
-    method: 'post',
-    data: {
-      story_id,
-      tags
-    }
-  })
-}
 
  export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data, tags) => {
    const tokens = await fetchTokens().catch(err => false);
@@ -201,8 +191,7 @@ const saveTags = (story_id, tags) => {
 
     removeMessagedAuthor();
     saveAuthorToDb(author, post_id);
-    const story = await saveStoryToUser(data);
-    saveTags(story.uuid, tags)
+    saveStoryToUser(data);
     setLoading(false)
 
 

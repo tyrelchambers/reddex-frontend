@@ -3,17 +3,30 @@ import './ReadingList.scss';
 import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
 import isEmpty from '../../../helpers/objIsEmpty'
+import { MinimalButton } from '../../../components/Buttons/Buttons';
+import AddTagForm from '../../../components/Forms/AddTagForm';
 
-const ReadingListDumb = ({list, callback}) => {
+const ReadingListDumb = ({list, callback, ModalStore}) => {
   const [state, setState] = useState([]);
   const [ filter, setFilter ] = useState("");
   const [ tags, setTags ] = useState([])
+  const [relationships, setRelationships] = useState([])
   const [tag, setTag] = useState({})
+  
+
   useEffect(() => {
    formatStateData()
   }, [list]);
 
   useEffect(() => {
+    getAxios({
+      url: '/tag_story/'
+    }).then(res => {
+      if (res) {
+        setRelationships([...res])
+      }
+    })
+
     getAxios({
       url: '/tags/'
     }).then(res => {
@@ -21,6 +34,7 @@ const ReadingListDumb = ({list, callback}) => {
         setTags([...res])
       }
     })
+
   }, [])
 
   if ( !list ) return null;
@@ -75,11 +89,32 @@ const ReadingListDumb = ({list, callback}) => {
                 <span>{avgReadingTime(x.self_text)}</span>
                 min read
               </div>
-              <p className="subtle">{x.subreddit}</p>
-            {/* <p className="subtle"><strong>Tags:</strong> {tags.map((x, id) => x.tag)}</p> */}
             </div>
           </div>
         </div>
+      </div>
+      <div className="d-f ai-c reading-list-tags">
+
+        {relationships.map((t, id) => {
+          if (t.story_uuid === x.uuid) {
+            return <p className="subtle d-f tag-small" key={id}>{t.tag}</p>
+          }
+        })}
+        <MinimalButton
+          classNames="whs-nw ml-"
+          onClick={() => {
+            ModalStore.setIsOpen(true)
+            ModalStore.setRender(
+              <div className="d-f fxd-c ai-c">
+                <h3 className="mb+">Add a tag to the story</h3>
+                <AddTagForm story_id={x.uuid} />
+              </div>
+            )
+          }}
+        >
+          <i className="fas fa-plus mr---"></i> 
+          Add Tags
+        </MinimalButton>
       </div>
     </li>
   )
