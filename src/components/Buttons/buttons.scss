@@ -5,7 +5,8 @@
   padding: 1em;
   font-size: 0.8rem;
   transition: all 0.2s ease;
-
+  display: flex;
+  justify-content: center;
   i { 
     margin-right: 10px;
   }

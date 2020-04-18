@@ -48,10 +48,11 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
   const stories = 
     state
       .filter(x => {
+        console.log(x)
         if (
-          x.story_title.toLowerCase().includes(sortVal.toLowerCase())
-          || x.author.toLowerCase().includes(sortVal.toLowerCase())
-          || x.tags.toLowerCase().includes(sortVal.toLowerCase())
+          (x.story_title && x.story_title.toLowerCase().includes(sortVal.toLowerCase()))
+          || (x.author && x.author.toLowerCase().includes(sortVal.toLowerCase()))
+          || (x.tags && x.tags.toLowerCase().includes(sortVal.toLowerCase()))
           ) {
             return x;
           }
