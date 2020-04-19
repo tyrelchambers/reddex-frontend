@@ -42,11 +42,12 @@
   right: 0;
 
   button {
-    background: var(--bgLight);
+    background: var(--green);
     padding: 1em;
     border-radius: 20px;
     box-shadow: 0px 5px 8px rgba(black, 0.3);
     transition: all 0.2s ease;
+    color: white;
     &:hover {
       background: var(--accentBg);
       color: white;

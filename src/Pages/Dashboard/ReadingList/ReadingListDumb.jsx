@@ -10,7 +10,6 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
   const [state, setState] = useState([]);
   const [ filter, setFilter ] = useState("");
   const [ tags, setTags ] = useState([])
-  const [relationships, setRelationships] = useState([])
   const [tag, setTag] = useState({})
   
 
@@ -19,14 +18,6 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
   }, [list]);
 
   useEffect(() => {
-    getAxios({
-      url: '/tag_story/'
-    }).then(res => {
-      if (res) {
-        setRelationships([...res])
-      }
-    })
-
     getAxios({
       url: '/tags/'
     }).then(res => {
@@ -66,7 +57,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
   }
 
 
-  const Story = ({x}) => (
+  const Story = ({x, storyId}) => (
     <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
@@ -95,10 +86,8 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
       </div>
       <div className="d-f ai-c reading-list-tags">
 
-        {relationships.map((t, id) => {
-          if (t.story_uuid === x.uuid) {
-            return <p className="subtle d-f tag-small" key={id}>{t.tag}</p>
-          }
+        {x.Tags.map((t, id) => {
+          return <p className="subtle d-f tag-small" key={id} >{t.tag}</p>
         })}
         <MinimalButton
           classNames="whs-nw ml-"
@@ -107,13 +96,14 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
             ModalStore.setRender(
               <div className="d-f fxd-c ai-c">
                 <h3 className="mb+">Add a tag to the story</h3>
-                <AddTagForm story_id={x.uuid} />
+                <AddTagForm story_id={x.uuid} story_tags={x.Tags}/>
               </div>
             )
           }}
+          
         >
           <i className="fas fa-plus mr---"></i> 
-          Add Tags
+          Manage Tags
         </MinimalButton>
       </div>
     </li>
@@ -152,7 +142,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
     return (
       <React.Fragment key={id}>
         <h3 className="tt-c thin">{key}</h3>
-        {state[key].map((x, id) => <Story x={x} key={id}/>)}
+        {state[key].map((x, id) => <Story x={x} storyId={id} key={id}/>)}
       </React.Fragment>
     )
   })  

@@ -46,6 +46,8 @@
   margin-right: 0.5em;
   padding-bottom: 3px;
   font-weight: bold;
+  transition: all 0.2s ease;
+  position: relative;  
 }
 
 .tag-item.exists {
