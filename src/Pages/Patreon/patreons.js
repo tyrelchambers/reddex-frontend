@@ -1,4 +1,5 @@
 const pro = [
+  "Emily Wion"
 ]
 
 const basic = [
