@@ -4,14 +4,13 @@ import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
 import isEmpty from '../../../helpers/objIsEmpty'
 import { MinimalButton } from '../../../components/Buttons/Buttons';
-import AddTagForm from '../../../components/Forms/AddTagForm';
+import AddTagForm from '../../../components/Forms/AddTagForm'
 
 const ReadingListDumb = ({list, callback, ModalStore}) => {
   const [state, setState] = useState([]);
   const [ filter, setFilter ] = useState("");
   const [ tags, setTags ] = useState([])
   const [tag, setTag] = useState({})
-  
 
   useEffect(() => {
    formatStateData()
@@ -56,7 +55,19 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
     });
   }
 
-
+  const removeTagFromStory = (t) => {
+    getAxios({
+      url:"/tag_story/remove",
+      method: "delete",
+      data: {
+        tag: t
+      }
+    }).then(res => {
+      if (res) {
+        window.location.reload()
+      }
+    })
+  }
   const Story = ({x, storyId}) => (
     <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
@@ -87,7 +98,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
       <div className="d-f ai-c reading-list-tags">
 
         {x.Tags.map((t, id) => {
-          return <p className="subtle d-f tag-small" key={id} >{t.tag}</p>
+          return <p className="subtle d-f tag-small" key={id} onClick={() => removeTagFromStory(t)}>{t.tag}</p>
         })}
         <MinimalButton
           classNames="whs-nw ml-"
@@ -95,15 +106,18 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
             ModalStore.setIsOpen(true)
             ModalStore.setRender(
               <div className="d-f fxd-c ai-c">
-                <h3 className="mb+">Add a tag to the story</h3>
-                <AddTagForm story_id={x.uuid} story_tags={x.Tags}/>
+                <h3>Add a tag to story</h3>
+                <AddTagForm
+                  story_id={storyId}
+                  story_uuid={x.uuid}
+                />
               </div>
             )
           }}
           
         >
           <i className="fas fa-plus mr---"></i> 
-          Manage Tags
+          Add Tags
         </MinimalButton>
       </div>
     </li>
@@ -149,7 +163,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
 
   const sortedByTags = list.map((x, id) => {
     if (tag.story_id === x.uuid) {
-      return <Story key={id} x={x}/>
+      return <Story key={id} x={x} storyId={x.uuid}/>
     }
 
     return null;

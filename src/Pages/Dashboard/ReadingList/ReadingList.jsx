@@ -3,11 +3,9 @@ import './ReadingList.scss';
 import ReadingListDumb from './ReadingListDumb';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import Axios from 'axios';
 import CompletedStories from './CompletedStories';
 import { Redirect } from 'react-router-dom';
 import { MinimalButton } from '../../../components/Buttons/Buttons';
-import { Modal } from '../../../components/Modal/Modal';
 import ImportStoryForm from '../../../components/Forms/ImportStoryForm';
 import tabs from './tabs';
 import Tabs from '../../../layouts/Tabs/Tabs';
@@ -83,12 +81,6 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
           />
         }
       </div>
-
-      {ModalStore.isOpen &&
-        <Modal>
-          
-        </Modal>
-      }
     </Dashboard>
   )
 }));

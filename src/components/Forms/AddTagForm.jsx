@@ -1,51 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAxios } from '../../api';
 import { MainButton } from '../Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
-const AddTagForm = ({story_id, ModalStore, story_tags}) => {
+const AddTagForm = ({ModalStore, story_uuid}) => {
   const [tag, setTag] = React.useState("");
-  const [tagList, setTagList] = React.useState([])
-  const [selectedTags, setSelectedTags] = React.useState([])
+  const [availableTags, setAvailableTags] = useState([])
+  const [toAdd, setToAdd] = useState([])
 
   useEffect(() => {
     getAxios({
-      url: '/tags/tag/',
-      params: {
-        tag
-      }
+      url: `/tags/${story_uuid}/available`
     }).then(res => {
       if (res) {
-        setTagList([...res])
+        setAvailableTags([...res])
       }
     })
-  }, [tag]);
-
-  useEffect(() => {
-    const toDelete = story_tags.filter(x => !selectedTags.includes(x))
-    console.log(toDelete)
-  }, [selectedTags]);
-
-  useEffect(() => {
-    setSelectedTags([...story_tags])
+    
   }, [])
     
   const saveTags = (e) => {
     e.preventDefault();
 
-    // getAxios({
-    //   url: '/tag_story/save',
-    //   method: 'post',
-    //   data: {
-    //     story_id,
-    //     tags: selectedTags
-    //   }
-    // }).then(res => {
-    //   if (res) {
-    //     ModalStore.setIsOpen(false)
-    //   }
-    // })
+    getAxios({
+      url: '/tag_story/save',
+      method: 'post',
+      data: {
+        story_uuid,
+        tags: toAdd
+      }
+    }).then(res => {
+      if (res) {
+        ModalStore.setIsOpen(false)
+        window.location.reload()
+      }
+    })
   }
 
   return (
@@ -53,17 +43,6 @@ const AddTagForm = ({story_id, ModalStore, story_tags}) => {
       <div className="field-group">
         <label htmlFor="tag" className="form-label">Search for tag</label>
         <input type="text" className="form-input" name="tag" placeholder="Search for tag..." onChange={e => setTag(e.target.value)} autoFocus={true}/>
-      </div>
-      <div className="tags-list">
-        {tagList.map((x, id) => (
-          <Tag 
-            x={x}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-            key={id}
-            id={x.uuid}
-          />
-        ))}
       </div>
       <div className="d-f ai-c jc-fe">
         <MainButton
@@ -75,39 +54,46 @@ const AddTagForm = ({story_id, ModalStore, story_tags}) => {
           <i className="fas fa-check mr-"></i>
         </MainButton>
       </div>
+
+      <h3>Available tags</h3>
+      <div className="d-f fxw-w">
+        {availableTags.filter(x => x.tag.includes(tag)).map((x, id) => (
+          <Tag
+            key={id}
+            x={x}
+            id={id}
+            toAdd={toAdd}
+            setToAdd={setToAdd}
+          />
+        ))}
+      </div>
     </form>
   );
 }
 
-const Tag = ({x, selectedTags, setSelectedTags, id}) => {
-  const [exists, setExists] = React.useState(false)
 
-  useEffect(() => {
-    for (let i = 0; i < selectedTags.length; i++) {
-      if (selectedTags[i].uuid === x.uuid) {
-        setExists(true)
-      }
-    }
-  
-  }, [])
+const Tag = ({x, id, toAdd, setToAdd}) => {
+  const [isAdded, setIsAdd] = useState(false)
 
   return(
-    <div className={`d-f ai-c tag-item mt- ${exists ? "exists" : ""}`} onClick={() => {
-       if (exists) {
-         const clone = [...selectedTags];
+    <div className={`d-f ai-c tag-item mt- ${isAdded ? "to-add" : ""}`} onClick={() => {
+       if (isAdded) {
+         const clone = [...toAdd];
          clone.splice(clone.indexOf(id), 1)
-         setSelectedTags([...clone])
-         setExists(false)
+         setToAdd([...clone])
+         setIsAdd(false)
        } else {
-        setSelectedTags([...selectedTags, {...x}])
-        setExists(true)
+        setToAdd([...toAdd, {...x}])
+        setIsAdd(true)
+
        }
 
     }}>
-      {exists ? <i className="fas fa-check-circle"></i> : <i className="fas fa-circle"></i>}
+      {isAdded ? <i className="fas fa-check-circle"></i> : <i className="fas fa-circle"></i>}
       
       <p>{x.tag}</p>
     </div>
   )
 }
+
 export default inject("ModalStore")(observer(AddTagForm));
