@@ -37,6 +37,8 @@ class FormStore {
     }
   }
 
+  options_id = ""
+
   changes = false;
 
   setInitial(data) {
@@ -52,15 +54,16 @@ class FormStore {
     this.changes = state;
   } 
 
-  save(website) {
+  save(website, options) {
     const payload = {
       ...this.state,
-      website
+      website,
+      options_id: options
     };
 
     getAxios({
       url:'/submissionForm/save',
-      method: 'post',
+      method: 'put',
       data: payload
     })
     
@@ -117,26 +120,43 @@ class FormStore {
     }, 2000);
   }
 
-  getOptions = (uuid) => {
-    getAxios({
-      url: '/site/options',
-      params: {
-        uuid
-      }
-    }).then(res => {
-      if(res) {
-        this.setInitial(res)
-      }
-    })
+  setOptionsId(id) {
+    this.options_id = id; 
   }
 
+  setAuthor(data) {
+    this.state.author = {...data}
+  }
+
+  setEmail(data) {
+    this.state.email = {...data}
+  }
+
+  setSentToOthers(data) {
+    this.state.sent_to_others = {...data}
+  }
+
+  setTags(data) {
+    this.state.tags = {...data}
+  }
+
+  setStoryTitle(data) {
+    this.state.story_title = {...data}
+  }
 }
 
 decorate(FormStore, {
   setState: action,
   state: observable,
   changes: observable,
-  setChanges: action
+  setChanges: action,
+  options_id: observable,
+  setOptionsId: action,
+  setAuthor: action,
+  setEmail: action,
+  setSentToOthers: action,
+  setTags:action,
+  setStoryTitle: action
 })
 
 export default new FormStore();

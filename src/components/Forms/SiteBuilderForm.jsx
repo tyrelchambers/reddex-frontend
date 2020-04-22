@@ -79,7 +79,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
       />
 
       <h2 className="mb-">Social Media</h2>
-      <p className="subtle">The links below will appear as social icons on your site. These are not required, and the icons will not appear on your site if you leave them blank.</p>
+      <p className="subtle mb-">The links below will appear as social icons on your site. These are not required, and the icons will not appear on your site if you leave them blank.</p>
 
       <div className="field-group">
         <label htmlFor="twitter" className="form-label">Twitter</label>

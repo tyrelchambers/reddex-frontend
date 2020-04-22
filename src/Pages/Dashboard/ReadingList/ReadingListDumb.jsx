@@ -18,7 +18,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
 
   useEffect(() => {
     getAxios({
-      url: '/tags/'
+      url: '/tag_story/'
     }).then(res => {
       if (res) {
         setTags([...res])
@@ -92,6 +92,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
                 min read
               </div>
             </div>
+            <p className="subtle">{x.subreddit}</p>
           </div>
         </div>
       </div>
@@ -162,7 +163,9 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
   })  
 
   const sortedByTags = list.map((x, id) => {
-    if (tag.story_id === x.uuid) {
+    const tagged = x.Tags.find(z => z.tag === tag.tag)
+
+    if (tagged) {
       return <Story key={id} x={x} storyId={x.uuid}/>
     }
 

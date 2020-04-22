@@ -16,7 +16,27 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   const [ refresh, setRefresh ] = useState(false);
 
   useEffect(() => {
+    const fn = async () => {
+      await getAxios({
+        url: '/profile/reading_list?permission=true'
+      }).then(res => {
+        if (res) {
+          ReadingListStore.addToRead(res)
+        }
+      })
+
+      await getAxios({
+        url: '/profile/stories/completed'
+      }).then(res => {
+        if (res) {
+          ReadingListStore.setCompleted(res)
+        }
+      })
+  
+    }
+
     
+    fn();
     return () => {
       setRefresh(false)
     }

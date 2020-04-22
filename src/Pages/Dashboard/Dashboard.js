@@ -12,22 +12,9 @@ const Dashboard = inject("ReadingListStore", "UserStore", "SiteStore")(observer(
     const yt = UserStore.currentUser.youtube_id;
 
     const fn = async () => {
-      await getAxios({
-        url: '/profile/reading_list?permission=true'
-      }).then(res => {
-        if (res) {
-          ReadingListStore.addToRead(res)
-        }
-      })
+     
   
-      await getAxios({
-        url: '/profile/stories/completed'
-      }).then(res => {
-        if (res) {
-          ReadingListStore.setCompleted(res)
-        }
-      })
-  
+     
       await getAxios({
         url: '/site/config'
       })
@@ -35,6 +22,7 @@ const Dashboard = inject("ReadingListStore", "UserStore", "SiteStore")(observer(
         if (res) {
           SiteStore.setInitial({...res, youtube_id: res.youtube_id || yt})
           SiteStore.setPreview({subdomain: res.subdomain})
+          SiteStore.setActivated(true)
         }
       })
 
@@ -42,7 +30,7 @@ const Dashboard = inject("ReadingListStore", "UserStore", "SiteStore")(observer(
         url: '/patreon/getUserIdentity'
       }).then(res => {
         if (res) {
-          UserStore.setPatron(res[0])
+          UserStore.setPatron(res)
 
         }
       })

@@ -6,6 +6,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Forms.scss'
 import SubmissionForm from '../../../components/Forms/SubmissionForm';
+import { getAxios } from '../../../api';
 
 const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore}) => {
   useEffect(() => {
@@ -22,8 +23,6 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
           } 
         }
       });
-
-      FormStore.getOptions(SiteStore.config.uuid);
   
       quill.root.innerHTML = SiteStore.config.rules;
   
@@ -33,6 +32,25 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
     }
   }, [SiteStore.config.submission_form]);
 
+   useEffect(() => {
+
+    getAxios({
+      url:'/submissionForm/',
+      params: {
+        sid: SiteStore.config.uuid
+      }
+    }).then(res => {
+      if (res) {
+        FormStore.setAuthor(res.OptionsAuthor)
+        FormStore.setEmail(res.OptionsEmail)
+        FormStore.setSentToOthers(res.OptionsSentToOther)
+        FormStore.setTags(res.OptionsTag)
+        FormStore.setStoryTitle(res.OptionsStoryTitle)
+        FormStore.setOptionsId(res.uuid)
+      }
+    })
+
+  }, [])
 
   const SubForm = () => (
     <div className="d-f">
@@ -59,12 +77,14 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
     <div className="d-f ai-c form-module-wrapper">
       <label className="form-label">{data.label}</label>
       <div className="d-f ai-c">
-        <input type="checkbox" name="email" id={`${name}-required`} checked={data.required} onChange={() => FormStore.setState({
-          [name]: {
-            ...FormStore.state[name],
-            required: !data.required
-          }
-          })}/> 
+        <input type="checkbox" name="email" id={`${name}-required`} checked={data.required} onChange={() => {
+          FormStore.setState({
+            [name]: {
+              ...FormStore.state[name],
+              required: !data.required
+            }
+            })
+        }}/> 
         <p className="subtle mr-">Required</p>
       </div>
       <div className="d-f ai-c">
@@ -87,7 +107,7 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
           <form className="form custom-story-form mt+">
             <h2>Customize your submission form</h2>
             <p className="subtle mb+">This is what your visitor will see when they submit you a story. Customize it to fit it how you'd like.</p>
-            <h3>Basics</h3>
+            <h3 className="mb-">Basics</h3>
             <div className="field-group">
               <label htmlFor="title" className="form-label">Page title</label>
               <input type="text" className="form-input" name="submission_title" placeholder="Eg: Submit your story" value={SiteStore.config.submission_title} onChange={e => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
@@ -95,7 +115,7 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
 
             <div className="rules-wrapper">
-              <h3>Rules</h3>
+              <h3 className="mb-">Rules</h3>
               <div className="field-group">
                 <label htmlFor="headline" className="form-label">Headline</label>
                 <input type="text" name="headline" className="form-input" placeholder="Describe how you want to introduce the rules" value={SiteStore.config.headline} onChange={(e) => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
