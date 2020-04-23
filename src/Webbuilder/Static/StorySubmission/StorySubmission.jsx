@@ -41,7 +41,6 @@ const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, S
         <h3 className="mt+ headline">{SiteStore.config.headline}</h3>
       }
       <div dangerouslySetInnerHTML={{__html: SiteStore.config.rules}} className="mt+" id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
-
       <SubmissionForm
         data={FormStore.state}
       />
@@ -49,7 +48,7 @@ const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, S
       <div className="d-f jc-fe">
         <MainButton
           className="btn btn-primary"
-          onClick={(e) => FormStore.submit(params.get('sid'), e)}
+          onClick={(e) => FormStore.submit(SiteStore.config.uuid, e)}
         >
           Submit story
         </MainButton>

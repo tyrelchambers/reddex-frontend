@@ -132,11 +132,11 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
               <div className="field-group">
                 <div className="d-f fxd-c">
-                  <Module data={FormStore.state.email} name="email"/>
-                  <Module data={FormStore.state.story_title} name="story_title"/>
-                  <Module data={FormStore.state.sent_to_others} name="sent_to_others"/>
-                  <Module data={FormStore.state.author} name="author"/>
-                  <Module data={FormStore.state.tags} name="tags"/>
+                  <Module data={FormStore.state.OptionsEmail} name="OptionsEmail"/>
+                  <Module data={FormStore.state.OptionsStoryTitle} name="OptionsStoryTitle"/>
+                  <Module data={FormStore.state.OptionsSentToOther} name="OptionsSentToOther"/>
+                  <Module data={FormStore.state.OptionsAuthor} name="OptionsAuthor"/>
+                  <Module data={FormStore.state.OptionsTag} name="OptionsTag"/>
 
                 </div>
               </div>

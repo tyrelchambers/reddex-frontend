@@ -4,32 +4,32 @@ import { toast } from "react-toastify";
 
 class FormStore {
   state = {
-    author: {
+    OptionsAuthor: {
       value: "",
       label: "Author",
       required: true,
       enabled: true
     },
-    story_title: {
+    OptionsStoryTitle: {
       value: "",
       label: "Title",
       required: true,
       enabled: true
     },
     body: "",
-    tags: {
+    OptionsTag: {
       value: "",
       required: true,
       enabled: true,
       label: "Tags"
     },
-    sent_to_others: {
+    OptionsSentToOther: {
       value: null,
       required: true,
       enabled: true,
       label: "Sent To Others"
     },
-    email: {
+    OptionsEmail: {
       value: "",
       required: true,
       enabled: true,
@@ -81,8 +81,7 @@ class FormStore {
       website
     };
 
-
-    [payload.author, payload.story_title, payload.tags, payload.email].forEach(x => {
+    [payload.OptionsAuthor, payload.OptionsStoryTitle, payload.OptionsTag, payload.OptionsEmail].forEach(x => {
       if ( x.enabled ) {
         if (x.required && !x.value) {
           toast.error(`${x.label} is required`)
@@ -91,8 +90,8 @@ class FormStore {
       }
     })
 
-    if (payload.sent_to_others.enabled) {
-      if (payload.sent_to_others.required && payload.sent_to_others.value === null) {
+    if (payload.OptionsSentToOther.enabled) {
+      if (payload.OptionsSentToOther.required && payload.OptionsSentToOther.value === null) {
         toast.error("Sent to others is required")
         errors = true;
       } 

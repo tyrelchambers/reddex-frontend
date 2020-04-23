@@ -19,10 +19,10 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
   if (!data) return null;
   return (
     <form className="form">
-      {data.story_title.enabled &&
+      {data.OptionsStoryTitle.enabled &&
         <div className="field-group">
-          <label htmlFor="title" className="form-label">Title {data.story_title.required && <span className="required">*</span>}</label>
-          <input type="text" className="form-input" name="story_title" placeholder="Title of your story..." required={data.story_title.required} onChange={(e) => FormStore.setState({
+          <label htmlFor="OptionsStoryTitle" className="form-label">Title {data.OptionsStoryTitle.required && <span className="required">*</span>}</label>
+          <input type="text" className="form-input" name="OptionsStoryTitle" placeholder="Title of your story..." required={data.OptionsStoryTitle.required} onChange={(e) => FormStore.setState({
           [e.target.name]: {
             ...FormStore.state[e.target.name],
             value: e.target.value
@@ -31,22 +31,24 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
         </div>
       }
       
-      {data.author.enabled &&
+      {data.OptionsAuthor.enabled &&
         <div className="field-group">
-          <label htmlFor="author" className="form-label">Author {data.author.required && <span className="required">*</span>}</label>
-          <input type="text" className="form-input" placeholder="Your name..." name="author" required={data.author.required} onChange={(e) => FormStore.setState({
-          [e.target.name]: {
-            ...FormStore.state[e.target.name],
-            value: e.target.value
-          }
-          })}/>
+          <label htmlFor="OptionsAuthor" className="form-label">Author {data.OptionsAuthor.required && <span className="required">*</span>}</label>
+          <input type="text" className="form-input" placeholder="Your name..." name="OptionsAuthor" required={data.OptionsAuthor.required} onChange={(e) => {
+            FormStore.setState({
+              [e.target.name]: {
+                ...FormStore.state[e.target.name],
+                value: e.target.value
+              }
+              })
+          }}/>
         </div>
       }
 
-      {data.email.enabled &&
+      {data.OptionsEmail.enabled &&
         <div className="field-group">
-          <label htmlFor="email" className="form-label">Email {data.email.required && <span className="required">*</span>}</label>
-          <input type="text" className="form-input" placeholder="Email..." name="email" required={data.email.required} onChange={(e) => FormStore.setState({
+          <label htmlFor="OptionsEmail" className="form-label">Email {data.OptionsEmail.required && <span className="required">*</span>}</label>
+          <input type="text" className="form-input" placeholder="Email..." name="OptionsEmail" required={data.OptionsEmail.required} onChange={(e) => FormStore.setState({
           [e.target.name]: {
             ...FormStore.state[e.target.name],
             value: e.target.value
@@ -60,10 +62,10 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
         <div id="editor_static" name="story_body"></div>
       </div>
 
-      {data.tags.enabled &&
+      {data.OptionsTag.enabled &&
         <div className="field-group">
-          <label htmlFor="tags" className="form-label">Tags {data.tags.required && <span className="required">*</span>}</label>
-          <input type="text" className="form-input" name="tags" placeholder="Tags separated by commas..."  required={data.tags.required} onChange={(e) => FormStore.setState({
+          <label htmlFor="OptionsTag" className="form-label">Tags {data.OptionsTag.required && <span className="required">*</span>}</label>
+          <input type="text" className="form-input" name="OptionsTag" placeholder="Tags separated by commas..."  required={data.OptionsTag.required} onChange={(e) => FormStore.setState({
             [e.target.name]: {
               ...FormStore.state[e.target.name],
               value: e.target.value
@@ -71,12 +73,12 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
             })}/>
         </div>
       }
-      {data.sent_to_others.enabled &&
+      {data.OptionsSentToOther.enabled &&
         <div className="field-group">
-          <label htmlFor="sent_to_authors" className="form-label">Was this sent to anyone else? {data.sent_to_others.required && <span className="required">*</span>}</label>
+          <label htmlFor="OptionsSentToOther" className="form-label">Was this sent to anyone else? {data.OptionsSentToOther.required && <span className="required">*</span>}</label>
           <div className="d-f ta-l fxd-c">
              <div className="d-f ai-c">
-              <input type="radio" name="sent_to_others" id="sentYes" onChange={(e) => FormStore.setState({
+              <input type="radio" name="OptionsSentToOther" id="sentYes" onChange={(e) => FormStore.setState({
                 [e.target.name]: {
                   ...FormStore.state[e.target.name],
                   value: true
@@ -85,7 +87,7 @@ const SubmissionForm = inject("FormStore")(observer(({FormStore, data}) => {
               <p className="subtle ml-">Yes</p>
              </div>
             <div className="d-f ai-c">
-              <input type="radio" name="sent_to_others" id="sentNo" onChange={(e) => FormStore.setState({
+              <input type="radio" name="OptionsSentToOther" id="sentNo" onChange={(e) => FormStore.setState({
                 [e.target.name]: {
                   ...FormStore.state[e.target.name],
                   value: false

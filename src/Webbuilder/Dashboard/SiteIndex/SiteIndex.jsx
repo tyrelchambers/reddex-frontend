@@ -133,7 +133,7 @@ const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormSto
                 {params.get("t") === "theme" &&
                   <>
                     <div style={{maxWidth: '600px'}}>
-                      <h2>Colour Theme</h2>
+                      <h2 className="mb+">Colour Theme</h2>
                       <SiteBuilderThemeForm 
                         configHandler={configHandler}
                         config={SiteStore.config}
