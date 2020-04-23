@@ -19,7 +19,6 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
   return(
     <li 
       className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""}`} 
-      data-id={x.id}
       data-postid={x.post_id}
       key={key}
     >
