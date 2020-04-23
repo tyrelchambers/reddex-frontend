@@ -52,27 +52,6 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
   }, [])
 
-  const SubForm = () => (
-    <div className="d-f">
-      <div className="mt--- mr-">
-        <ToggleStatus
-          context="submissionForm"
-          option="Inactive"
-          disabledText="Active"
-          setToggledHandler={() => {
-            SiteStore.setConfig({submission_form: !SiteStore.config.submission_form});
-          }}
-          toggled={SiteStore.config.submission_form ? true : false}
-        />
-      </div>
-      <div className="d-f fxd-c">
-        <h2>Submission Form</h2>
-        <p className="mb- subtle">Activate this submission form to allow visitors to email you their own stories</p>
-      </div>
-      
-    </div>
-  )
-
   const Module = ({data, name}) => (
     <div className="d-f ai-c form-module-wrapper">
       <label className="form-label">{data.label}</label>
@@ -100,7 +79,24 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
   )
   return (
     <div>
-      <SubForm/>
+      <div className="d-f">
+        <div className="mt--- mr-">
+          <ToggleStatus
+            context="submissionForm"
+            option="Inactive"
+            disabledText="Active"
+            setToggledHandler={() => {
+              SiteStore.setConfig({submission_form: !SiteStore.config.submission_form});
+            }}
+            toggled={SiteStore.config.submission_form ? true : false}
+          />
+        </div>
+        <div className="d-f fxd-c">
+          <h2>Submission Form</h2>
+          <p className="mb- subtle">Activate this submission form to allow visitors to email you their own stories</p>
+        </div>
+        
+      </div>
       <HR />
       {SiteStore.config.submission_form &&
         <div className="d-f submission-form-wrapper">
