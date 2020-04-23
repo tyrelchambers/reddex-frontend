@@ -7,7 +7,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { getAxios } from '../../api';
 
-const Dashboard = inject("ReadingListStore", "UserStore", "SiteStore")(observer(({loading, children, ReadingListStore, UserStore, SiteStore}) => {
+const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loading, children, UserStore, SiteStore, FormStore}) => {
   useEffect(() => {
     const yt = UserStore.currentUser.youtube_id;
 
@@ -22,6 +22,7 @@ const Dashboard = inject("ReadingListStore", "UserStore", "SiteStore")(observer(
         if (res) {
           SiteStore.setInitial({...res, youtube_id: res.youtube_id || yt})
           SiteStore.setPreview({subdomain: res.subdomain})
+          FormStore.setOptionsId(res.SubmissionFormOption.uuid)
           SiteStore.setActivated(true)
         }
       })

@@ -9,7 +9,6 @@ import { inject, observer } from 'mobx-react';
 
 const StorySubmission = inject("FormStore", "SiteStore")(observer(({FormStore, SiteStore}) => {
   const [ loading, setLoading] = useState(true)
-  const params = new URLSearchParams(window.location.search)
 
   useEffect(() => {
     const fn = async () => {
