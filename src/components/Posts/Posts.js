@@ -54,7 +54,9 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
     return (
       <ul className="post-list mt+">
 
-        {posts.slice(0, endIndex).map((x, id) => {
+        {posts.slice(0, endIndex).sort((a, b) => {
+          return b.created - a.created
+        }).map((x, id) => {
           return(
             <SubredditPost
             key={id}

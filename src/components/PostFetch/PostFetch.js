@@ -138,16 +138,24 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
 
   posts.shift();
   posts.map(x => {
-    const newObj = {...x};
-    newObj.data.post_id = newObj.data.id;
-    newObj.data.self_text = newObj.data.selftext
-    delete newObj.data.id;
-    delete newObj.data.selftext;
-    results.push(newObj.data)
+    const newObj = {
+      author: x.data.author,
+      title: x.data.title,
+      self_text: x.data.selftext,
+      ups: x.data.ups,
+      url: x.data.url,
+      num_comments: x.data.num_comments,
+      created: x.data.created_utc,
+      link_flair_text: x.data.link_flair_text,
+      post_id: x.data.id,
+      subreddit: x.data.subreddit
+    };
+
+    results.push(newObj)
   });
 
   deletePostsCollection();
-  saveToDatabase(posts);
+  saveToDatabase([...results]);
   saveSubredditToLocalStorage(subreddit);
   setPosts([...results]);
   return setLoading(false);  
@@ -155,10 +163,7 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
 }
 
 export const saveToDatabase = async (posts) => {
-  const newPosts = []; 
-  posts.map(x => newPosts.push(x.data));
-  
-  await newPosts.map(x => {
+  await posts.map(x => {
     return window.db.posts.add({
       author: x.author,
       title: x.title,
@@ -166,7 +171,7 @@ export const saveToDatabase = async (posts) => {
       ups: x.ups,
       url: x.url,
       num_comments: x.num_comments,
-      created: x.created_utc,
+      created: x.created,
       link_flair_text: x.link_flair_text,
       post_id: x.post_id,
       subreddit: x.subreddit

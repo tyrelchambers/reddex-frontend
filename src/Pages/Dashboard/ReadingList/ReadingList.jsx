@@ -3,11 +3,9 @@ import './ReadingList.scss';
 import ReadingListDumb from './ReadingListDumb';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import Axios from 'axios';
 import CompletedStories from './CompletedStories';
 import { Redirect } from 'react-router-dom';
 import { MinimalButton } from '../../../components/Buttons/Buttons';
-import { Modal } from '../../../components/Modal/Modal';
 import ImportStoryForm from '../../../components/Forms/ImportStoryForm';
 import tabs from './tabs';
 import Tabs from '../../../layouts/Tabs/Tabs';
@@ -18,7 +16,27 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
   const [ refresh, setRefresh ] = useState(false);
 
   useEffect(() => {
+    const fn = async () => {
+      await getAxios({
+        url: '/profile/reading_list?permission=true'
+      }).then(res => {
+        if (res) {
+          ReadingListStore.addToRead(res)
+        }
+      })
+
+      await getAxios({
+        url: '/profile/stories/completed'
+      }).then(res => {
+        if (res) {
+          ReadingListStore.setCompleted(res)
+        }
+      })
+  
+    }
+
     
+    fn();
     return () => {
       setRefresh(false)
     }
@@ -70,6 +88,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
           <ReadingListDumb 
             list={ReadingListStore.getToRead()}
             callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
+            ModalStore={ModalStore}
           />
         }
 
@@ -82,12 +101,6 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observ
           />
         }
       </div>
-
-      {ModalStore.isOpen &&
-        <Modal>
-          
-        </Modal>
-      }
     </Dashboard>
   )
 }));

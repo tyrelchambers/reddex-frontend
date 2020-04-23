@@ -25,3 +25,10 @@ export const MinimalButton = ({...props}) => (
     {props.children}
   </button>
 )
+
+export const ThirdButton = ({...props}) => (
+  <button 
+    className={`btn btn-green ${props.classNames ? props.classNames : ""}`}
+    onClick={props.onClick}
+  > {props.text} </button>
+)

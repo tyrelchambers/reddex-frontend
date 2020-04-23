@@ -127,17 +127,13 @@ const Security = ({UserStore}) => {
 
   return (
     <div className="account-security-wrapper">
-      <p className="mt+">Your registered email: {u.email}</p>
+      <p className="mb+ mt+">Your registered email: {u.email}</p>
 
       <EditUserForm
         stateHandler={stateHandler}
         changeEmailHandler={changeEmailHandler}
         changePasswordHandler={changePasswordHandler}
         state={changes}
-      />
-
-      <HR
-        classes="mt+"
       />
 
       <section className="mt+">

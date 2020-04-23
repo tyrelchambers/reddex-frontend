@@ -3,24 +3,28 @@ import './ReadingList.scss';
 import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
 import isEmpty from '../../../helpers/objIsEmpty'
+import { MinimalButton } from '../../../components/Buttons/Buttons';
+import AddTagForm from '../../../components/Forms/AddTagForm'
 
-const ReadingListDumb = ({list, callback}) => {
+const ReadingListDumb = ({list, callback, ModalStore}) => {
   const [state, setState] = useState([]);
   const [ filter, setFilter ] = useState("");
   const [ tags, setTags ] = useState([])
   const [tag, setTag] = useState({})
+
   useEffect(() => {
    formatStateData()
   }, [list]);
 
   useEffect(() => {
     getAxios({
-      url: '/tags/'
+      url: '/tag_story/'
     }).then(res => {
       if (res) {
         setTags([...res])
       }
     })
+
   }, [])
 
   if ( !list ) return null;
@@ -51,8 +55,20 @@ const ReadingListDumb = ({list, callback}) => {
     });
   }
 
-
-  const Story = ({x}) => (
+  const removeTagFromStory = (t) => {
+    getAxios({
+      url:"/tag_story/remove",
+      method: "delete",
+      data: {
+        tag: t
+      }
+    }).then(res => {
+      if (res) {
+        window.location.reload()
+      }
+    })
+  }
+  const Story = ({x, storyId}) => (
     <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
@@ -75,11 +91,35 @@ const ReadingListDumb = ({list, callback}) => {
                 <span>{avgReadingTime(x.self_text)}</span>
                 min read
               </div>
-              <p className="subtle">{x.subreddit}</p>
-            {/* <p className="subtle"><strong>Tags:</strong> {tags.map((x, id) => x.tag)}</p> */}
             </div>
+            <p className="subtle">{x.subreddit}</p>
           </div>
         </div>
+      </div>
+      <div className="d-f ai-c reading-list-tags">
+
+        {x.Tags.map((t, id) => {
+          return <p className="subtle d-f tag-small" key={id} onClick={() => removeTagFromStory(t)}>{t.tag}</p>
+        })}
+        <MinimalButton
+          classNames="whs-nw ml-"
+          onClick={() => {
+            ModalStore.setIsOpen(true)
+            ModalStore.setRender(
+              <div className="d-f fxd-c ai-c">
+                <h3>Add a tag to story</h3>
+                <AddTagForm
+                  story_id={storyId}
+                  story_uuid={x.uuid}
+                />
+              </div>
+            )
+          }}
+          
+        >
+          <i className="fas fa-plus mr---"></i> 
+          Add Tags
+        </MinimalButton>
       </div>
     </li>
   )
@@ -117,14 +157,16 @@ const ReadingListDumb = ({list, callback}) => {
     return (
       <React.Fragment key={id}>
         <h3 className="tt-c thin">{key}</h3>
-        {state[key].map((x, id) => <Story x={x} key={id}/>)}
+        {state[key].map((x, id) => <Story x={x} storyId={id} key={id}/>)}
       </React.Fragment>
     )
   })  
 
   const sortedByTags = list.map((x, id) => {
-    if (tag.story_id === x.uuid) {
-      return <Story key={id} x={x}/>
+    const tagged = x.Tags.find(z => z.tag === tag.tag)
+
+    if (tagged) {
+      return <Story key={id} x={x} storyId={x.uuid}/>
     }
 
     return null;

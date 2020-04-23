@@ -30,6 +30,7 @@ class SiteStore {
     submission_title: "",
     rules: ""
   }
+  activated = false
   saving = false
 
   isSiteSaved = false;
@@ -168,7 +169,9 @@ class SiteStore {
 
   }
 
-
+  setActivated(bool) {
+    this.activated = bool
+  }
 }
 
 decorate(SiteStore, {
@@ -179,7 +182,9 @@ decorate(SiteStore, {
   changes: observable,
   isSiteSaved: observable,
   saving: observable,
-  setSaving: action
+  setSaving: action,
+  activated: observable,
+  setActivated: action
 })
 
 export default new SiteStore();

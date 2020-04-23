@@ -21,13 +21,13 @@ const AccountPage = inject("UserStore")(observer(({UserStore}) => {
       const data = await getAxios({
         url: "/default_message"
       });
-      setInitialGreeting(data[0].initial_message)
+      setInitialGreeting(data.initial_message)
     }
     const am = async () => {
       const data = await getAxios({
         url: "/alt_message"
-      });;
-      setRepeatGreeting(data[0].repeat_message)
+      });
+      setRepeatGreeting(data.repeat_message)
     }
 
     am()

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './SiteIndex.scss'
 import Dashboard from '../../../Pages/Dashboard/Dashboard'
 import SiteBuilderForm from '../../../components/Forms/SiteBuilderForm'
@@ -21,19 +21,12 @@ import {getAxios } from '../../../api/index'
 
 const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore}) => {
   const pondRef = useRef()
-  const [activated, setActivated] = useState(false);
 
   useEffect(() => {
     window.twttr.widgets.load(
       document.querySelector(".share-wrapper")
     );
   }, []);
-
-  useEffect(() => {
-    if ( SiteStore.preview.subdomain ) {
-      setActivated(true)
-    }
-  }, [SiteStore.preview.subdomain]);
 
   const configHandler = (e) => {
     SiteStore.setConfig({[e.target.name]: e.target.value})
@@ -50,16 +43,21 @@ const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormSto
       url: '/site/activate',
       method: 'post'
     })
-    .then(res => SiteStore.setConfig({...res}));
+    .then(res => {
+      if (res) {
+        SiteStore.setInitial(res.website)
+        FormStore.setOptionsId(res.options.uuid)
+        SiteStore.setActivated(true)
+      }
+    });
     
     toast.success("Site activated")
-    setActivated(true)
   }
 
   const submitHandler = async () => {
     SiteStore.setSaving(true)
     await SiteStore.submit(pondRef);
-    await FormStore.save(SiteStore.config.uuid)
+    await FormStore.save(SiteStore.config.uuid, FormStore.options_id)
     SiteStore.setSaving(false)
 
   }
@@ -81,18 +79,18 @@ const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormSto
               </div>
             }
           </div>
-          {(!SiteStore.preview.subdomain || !activated) &&
+          {!SiteStore.activated &&
             <div className="mt- d-f ai-c">
               <p className="mr-">Activate website</p>
               <ToggleStatus
                 context="activate-site"
                 option="Activate"
                 setToggledHandler={activateSiteHandler}
-                toggled={activated ? true : false}
+                toggled={SiteStore.activated ? true : false}
               />
             </div>
           }
-          {(SiteStore.preview.subdomain || activated) &&
+          {SiteStore.activated &&
             <>
               <div className="d-f">
                 <Tabs url="/dashboard/site" data={tabs}/>
@@ -107,7 +105,7 @@ const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormSto
               <section  className="mt+ site-general-wrapper">
                 {params.get('t') === "general" &&
                   <div style={{maxWidth: '600px'}}>
-                    <h2>General Settings</h2>
+                    <h2 className="mb-">General Settings</h2>
                     <SiteBuilderForm 
                       configHandler={configHandler}
                       config={SiteStore.config}
@@ -135,7 +133,7 @@ const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormSto
                 {params.get("t") === "theme" &&
                   <>
                     <div style={{maxWidth: '600px'}}>
-                      <h2>Colour Theme</h2>
+                      <h2 className="mb+">Colour Theme</h2>
                       <SiteBuilderThemeForm 
                         configHandler={configHandler}
                         config={SiteStore.config}
