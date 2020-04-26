@@ -124,23 +124,23 @@ class FormStore {
   }
 
   setAuthor(data) {
-    this.state.author = {...data}
+    this.state.OptionsAuthor = {...data}
   }
 
   setEmail(data) {
-    this.state.email = {...data}
+    this.state.OptionsEmail = {...data}
   }
 
   setSentToOthers(data) {
-    this.state.sent_to_others = {...data}
+    this.state.OptionsSentToOther = {...data}
   }
 
   setTags(data) {
-    this.state.tags = {...data}
+    this.state.OptionsTag = {...data}
   }
 
   setStoryTitle(data) {
-    this.state.story_title = {...data}
+    this.state.OptionsStoryTitle = {...data}
   }
 }
 
