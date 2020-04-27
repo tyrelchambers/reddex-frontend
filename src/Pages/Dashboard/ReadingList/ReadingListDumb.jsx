@@ -98,9 +98,9 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
       </div>
       <div className="d-f ai-c reading-list-tags">
 
-        {x.Tags.map((t, id) => {
+        {x.Tags ? x.Tags.map((t, id) => {
           return <p className="subtle d-f tag-small" key={id} onClick={() => removeTagFromStory(t)}>{t.tag}</p>
-        })}
+        }) : null}
         <MinimalButton
           classNames="whs-nw ml-"
           onClick={() => {
@@ -163,7 +163,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
   })  
 
   const sortedByTags = list.map((x, id) => {
-    const tagged = x.Tags.find(z => z.tag === tag.tag)
+    const tagged = x.Tags ? x.Tags.find(z => z.tag === tag.tag) : null
 
     if (tagged) {
       return <Story key={id} x={x} storyId={x.uuid}/>

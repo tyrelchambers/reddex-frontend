@@ -60,7 +60,7 @@ const saveTag = () => {
         <p className="subtle mb">Tags must be unique. This means you can't have two of the same tags.</p>
 
         <div className="d-f ai-c w-372px">
-          <input type="text" className="input" placeholder="enter tag name" onChange={e => setTag(e.target.value)}/>
+          <input type="text" className="form-input" placeholder="enter tag name" onChange={e => setTag(e.target.value)}/>
           <ThirdButton
             text="Add Tag"
             classNames="ml-"

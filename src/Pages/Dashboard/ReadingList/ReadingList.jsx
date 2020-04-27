@@ -12,7 +12,7 @@ import Tabs from '../../../layouts/Tabs/Tabs';
 import Dashboard from '../Dashboard';
 import { getAxios } from '../../../api';
 
-const ReadingList = inject("ReadingListStore", "ModalStore", "UserStore")(observer(({ReadingListStore, ModalStore}) => {  
+const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ refresh, setRefresh ] = useState(false);
 
   useEffect(() => {
