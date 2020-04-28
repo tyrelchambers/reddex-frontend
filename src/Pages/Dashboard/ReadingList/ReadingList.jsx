@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './ReadingList.scss';
-import ReadingListDumb from './ReadingListDumb';
+import Approved from './Approved';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import CompletedStories from './CompletedStories';
@@ -14,6 +14,7 @@ import { getAxios } from '../../../api';
 
 const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ refresh, setRefresh ] = useState(false);
+  const [ headers, setHeaders] = useState([])
 
   useEffect(() => {
     const fn = async () => {
@@ -21,7 +22,8 @@ const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingL
         url: '/profile/reading_list?permission=true'
       }).then(res => {
         if (res) {
-          ReadingListStore.addToRead(res)
+          ReadingListStore.addToRead(res.stories)
+          setHeaders([...res.headers])
         }
       })
 
@@ -85,10 +87,11 @@ const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingL
       </div>
       <div className="d-f mobile-column">
         {params.get('t') === "open" &&
-          <ReadingListDumb 
+          <Approved 
             list={ReadingListStore.getToRead()}
             callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
             ModalStore={ModalStore}
+            headers={headers}
           />
         }
 

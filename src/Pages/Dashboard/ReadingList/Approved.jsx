@@ -5,16 +5,13 @@ import { getAxios } from '../../../api';
 import isEmpty from '../../../helpers/objIsEmpty'
 import { MinimalButton } from '../../../components/Buttons/Buttons';
 import AddTagForm from '../../../components/Forms/AddTagForm'
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-const ReadingListDumb = ({list, callback, ModalStore}) => {
-  const [state, setState] = useState([]);
-  const [ filter, setFilter ] = useState("");
+const Approved = ({list, callback, ModalStore, headers, ReadingListStore}) => {
+  const [ subredditFilter, setSubredditFilter ] = useState("");
   const [ tags, setTags ] = useState([])
   const [tag, setTag] = useState({})
-
-  useEffect(() => {
-   formatStateData()
-  }, [list]);
 
   useEffect(() => {
     getAxios({
@@ -27,33 +24,21 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
 
   }, [])
 
+  useEffect(() => {
+    getAxios({
+      url: '/profile/reading_list/sort',
+      params: {
+        subreddit: subredditFilter,
+        tag: isEmpty(tag) ? null : tag.tag
+      }
+    }).then(res => {
+      if (res) {
+        ReadingListStore.addToRead([...res.stories])
+      }
+    })
+  }, [subredditFilter, tag])
+
   if ( !list ) return null;
-
-  const formatStateData = () => {
-    const masterList = [];
-
-    list.map((x, id) => {
-      
-      if ( x.subreddit ) {
-        if ( masterList[x.subreddit] ) {
-          masterList[x.subreddit].push(x)
-        } else {
-          masterList[x.subreddit] = [];
-          masterList[x.subreddit].push(x)
-        }
-      } else {
-        if (masterList["Uncategorized"]) {
-          masterList["Uncategorized"].push(x)
-        } else {
-          masterList["Uncategorized"] = [];
-          masterList["Uncategorized"].push(x)
-        } 
-      }
-      if (id === list.length - 1) {
-        setState(masterList)
-      }
-    });
-  }
 
   const removeTagFromStory = (t) => {
     getAxios({
@@ -124,40 +109,18 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
     </li>
   )
 
-  const Filters = () => {
-    const headers = []
-    Object.keys(state).map(x => headers.push(x))
-
-    return(
-      <div className="reading-list-filters d-f fxd-c jc-c mt- mb-">
-        <p className="subtle font-bold">Sort your reading list by subreddits</p>      
-        <div className="header-items">
-          {filter.length > 0 &&
-            <i className="fas fa-times ml- mr-" onClick={() => setFilter("")}></i>
-          }
-          {headers.map((x,id) => (
-            <button 
-              key={id}
-              className={`reading-list-filter ${filter === x ? "active" : ""}`} 
-              onClick={() => setFilter(x)}
-            >{x}</button>
-          ))}
-        </div>
-      
-      </div>
-    )
-  }
   
-  const renderedList = Object.keys(state).filter(x => {
-    if (filter.length > 0) {
-      return x === filter;
-    }
-    return x
-  }).map((key, id) => {
+  const renderedList = headers.map((x, id) => {
     return (
       <React.Fragment key={id}>
-        <h3 className="tt-c thin">{key}</h3>
-        {state[key].map((x, id) => <Story x={x} storyId={id} key={id}/>)}
+        <h3>{x}</h3>
+        {list.map((y, id) => {
+          if (x === y.subreddit) {
+            return (
+              <Story key={`${y.post_id}_${id}`} x={y} story_id={id}/>
+            )
+          }
+        })}
       </React.Fragment>
     )
   })  
@@ -175,9 +138,20 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
   return (
     <div className="m+ fx-1">
       
-      <Filters />
       <div className="reading-list-filters d-f fxd-c jc-c mt- mb-">
-
+        <p className="subtle font-bold">Sort by subreddit</p>
+        <div className="header-items">
+          {subredditFilter &&
+            <i className="fas fa-times ml- mr-" onClick={() => setSubredditFilter("")}></i>
+          }
+          {headers.map((x, id) => (
+            <button 
+              key={id}
+              className={`reading-list-filter ${subredditFilter === x ? "active" : ""}`} 
+              onClick={() => setSubredditFilter(x)}
+            >{x}</button>
+          ))}
+        </div>
         <p className="subtle font-bold">Sort by tags</p>      
         <div className="header-items">
           {!isEmpty(tag) &&
@@ -198,7 +172,7 @@ const ReadingListDumb = ({list, callback, ModalStore}) => {
       </p>
       <HR/>
       <ul className="reading-list-list mt+">
-        {!isEmpty(tag) ? sortedByTags : renderedList}
+        {renderedList}
       </ul>
     </div>
   )
@@ -230,4 +204,4 @@ const addToCompleted = (data, bool) => {
   })
 }
 
-export default ReadingListDumb
+export default inject("ReadingListStore")(observer(Approved))
