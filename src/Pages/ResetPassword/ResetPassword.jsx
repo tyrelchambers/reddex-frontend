@@ -35,7 +35,11 @@ const ResetPassword = () => {
         withToken: false
       }
     })
-    .then(res => toast.success("Password reset successful"));
+    .then(res => {
+      if (res) {
+        toast.success("Password reset successful")
+      }
+    });
 
     window.location.search = ""
     window.location.pathname="/login"

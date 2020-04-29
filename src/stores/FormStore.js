@@ -4,38 +4,40 @@ import { toast } from "react-toastify";
 
 class FormStore {
   state = {
-    author: {
+    OptionsAuthor: {
       value: "",
       label: "Author",
       required: true,
       enabled: true
     },
-    story_title: {
+    OptionsStoryTitle: {
       value: "",
       label: "Title",
       required: true,
       enabled: true
     },
     body: "",
-    tags: {
+    OptionsTag: {
       value: "",
       required: true,
       enabled: true,
       label: "Tags"
     },
-    sent_to_others: {
+    OptionsSentToOther: {
       value: null,
       required: true,
       enabled: true,
       label: "Sent To Others"
     },
-    email: {
+    OptionsEmail: {
       value: "",
       required: true,
       enabled: true,
       label: "Email"
     }
   }
+
+  options_id = ""
 
   changes = false;
 
@@ -52,15 +54,16 @@ class FormStore {
     this.changes = state;
   } 
 
-  save(website) {
+  save(website, options) {
     const payload = {
       ...this.state,
-      website
+      website,
+      options_id: options
     };
 
     getAxios({
       url:'/submissionForm/save',
-      method: 'post',
+      method: 'put',
       data: payload
     })
     
@@ -78,8 +81,7 @@ class FormStore {
       website
     };
 
-
-    [payload.author, payload.story_title, payload.tags, payload.email].forEach(x => {
+    [payload.OptionsAuthor, payload.OptionsStoryTitle, payload.OptionsTag, payload.OptionsEmail].forEach(x => {
       if ( x.enabled ) {
         if (x.required && !x.value) {
           toast.error(`${x.label} is required`)
@@ -88,8 +90,8 @@ class FormStore {
       }
     })
 
-    if (payload.sent_to_others.enabled) {
-      if (payload.sent_to_others.required && payload.sent_to_others.value === null) {
+    if (payload.OptionsSentToOther.enabled) {
+      if (payload.OptionsSentToOther.required && payload.OptionsSentToOther.value === null) {
         toast.error("Sent to others is required")
         errors = true;
       } 
@@ -117,26 +119,43 @@ class FormStore {
     }, 2000);
   }
 
-  getOptions = (uuid) => {
-    getAxios({
-      url: '/site/options',
-      params: {
-        uuid
-      }
-    }).then(res => {
-      if(res) {
-        this.setInitial(res)
-      }
-    })
+  setOptionsId(id) {
+    this.options_id = id; 
   }
 
+  setAuthor(data) {
+    this.state.OptionsAuthor = {...data}
+  }
+
+  setEmail(data) {
+    this.state.OptionsEmail = {...data}
+  }
+
+  setSentToOthers(data) {
+    this.state.OptionsSentToOther = {...data}
+  }
+
+  setTags(data) {
+    this.state.OptionsTag = {...data}
+  }
+
+  setStoryTitle(data) {
+    this.state.OptionsStoryTitle = {...data}
+  }
 }
 
 decorate(FormStore, {
   setState: action,
   state: observable,
   changes: observable,
-  setChanges: action
+  setChanges: action,
+  options_id: observable,
+  setOptionsId: action,
+  setAuthor: action,
+  setEmail: action,
+  setSentToOthers: action,
+  setTags:action,
+  setStoryTitle: action
 })
 
 export default new FormStore();

@@ -6,6 +6,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Forms.scss'
 import SubmissionForm from '../../../components/Forms/SubmissionForm';
+import { getAxios } from '../../../api';
 
 const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore}) => {
   useEffect(() => {
@@ -22,8 +23,6 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
           } 
         }
       });
-
-      FormStore.getOptions(SiteStore.config.uuid);
   
       quill.root.innerHTML = SiteStore.config.rules;
   
@@ -33,38 +32,40 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
     }
   }, [SiteStore.config.submission_form]);
 
+   useEffect(() => {
 
-  const SubForm = () => (
-    <div className="d-f">
-      <div className="mt--- mr-">
-        <ToggleStatus
-          context="submissionForm"
-          option="Inactive"
-          disabledText="Active"
-          setToggledHandler={() => {
-            SiteStore.setConfig({submission_form: !SiteStore.config.submission_form});
-          }}
-          toggled={SiteStore.config.submission_form ? true : false}
-        />
-      </div>
-      <div className="d-f fxd-c">
-        <h2>Submission Form</h2>
-        <p className="mb- subtle">Activate this submission form to allow visitors to email you their own stories</p>
-      </div>
-      
-    </div>
-  )
+    getAxios({
+      url:'/submissionForm/',
+      params: {
+        sid: SiteStore.config.uuid
+      }
+    }).then(res => {
+      if (res) {
+        console.log(res)
+        FormStore.setAuthor(res.OptionsAuthor)
+        FormStore.setEmail(res.OptionsEmail)
+        FormStore.setSentToOthers(res.OptionsSentToOther)
+        FormStore.setTags(res.OptionsTag)
+        FormStore.setStoryTitle(res.OptionsStoryTitle)
+        FormStore.setOptionsId(res.uuid)
+      }
+    })
+
+  }, [])
 
   const Module = ({data, name}) => (
     <div className="d-f ai-c form-module-wrapper">
+      {console.log(data)}
       <label className="form-label">{data.label}</label>
       <div className="d-f ai-c">
-        <input type="checkbox" name="email" id={`${name}-required`} checked={data.required} onChange={() => FormStore.setState({
-          [name]: {
-            ...FormStore.state[name],
-            required: !data.required
-          }
-          })}/> 
+        <input type="checkbox" name="email" id={`${name}-required`} checked={data.required} onChange={() => {
+          FormStore.setState({
+            [name]: {
+              ...FormStore.state[name],
+              required: !data.required
+            }
+            })
+        }}/> 
         <p className="subtle mr-">Required</p>
       </div>
       <div className="d-f ai-c">
@@ -80,14 +81,31 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
   )
   return (
     <div>
-      <SubForm/>
+      <div className="d-f">
+        <div className="mt--- mr-">
+          <ToggleStatus
+            context="submissionForm"
+            option="Inactive"
+            disabledText="Active"
+            setToggledHandler={() => {
+              SiteStore.setConfig({submission_form: !SiteStore.config.submission_form});
+            }}
+            toggled={SiteStore.config.submission_form ? true : false}
+          />
+        </div>
+        <div className="d-f fxd-c">
+          <h2>Submission Form</h2>
+          <p className="mb- subtle">Activate this submission form to allow visitors to email you their own stories</p>
+        </div>
+        
+      </div>
       <HR />
       {SiteStore.config.submission_form &&
         <div className="d-f submission-form-wrapper">
           <form className="form custom-story-form mt+">
             <h2>Customize your submission form</h2>
             <p className="subtle mb+">This is what your visitor will see when they submit you a story. Customize it to fit it how you'd like.</p>
-            <h3>Basics</h3>
+            <h3 className="mb-">Basics</h3>
             <div className="field-group">
               <label htmlFor="title" className="form-label">Page title</label>
               <input type="text" className="form-input" name="submission_title" placeholder="Eg: Submit your story" value={SiteStore.config.submission_title} onChange={e => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
@@ -95,7 +113,7 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
 
             <div className="rules-wrapper">
-              <h3>Rules</h3>
+              <h3 className="mb-">Rules</h3>
               <div className="field-group">
                 <label htmlFor="headline" className="form-label">Headline</label>
                 <input type="text" name="headline" className="form-input" placeholder="Describe how you want to introduce the rules" value={SiteStore.config.headline} onChange={(e) => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
@@ -112,11 +130,11 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
               <div className="field-group">
                 <div className="d-f fxd-c">
-                  <Module data={FormStore.state.email} name="email"/>
-                  <Module data={FormStore.state.story_title} name="story_title"/>
-                  <Module data={FormStore.state.sent_to_others} name="sent_to_others"/>
-                  <Module data={FormStore.state.author} name="author"/>
-                  <Module data={FormStore.state.tags} name="tags"/>
+                  <Module data={FormStore.state.OptionsEmail} name="OptionsEmail"/>
+                  <Module data={FormStore.state.OptionsStoryTitle} name="OptionsStoryTitle"/>
+                  <Module data={FormStore.state.OptionsSentToOther} name="OptionsSentToOther"/>
+                  <Module data={FormStore.state.OptionsAuthor} name="OptionsAuthor"/>
+                  <Module data={FormStore.state.OptionsTag} name="OptionsTag"/>
 
                 </div>
               </div>

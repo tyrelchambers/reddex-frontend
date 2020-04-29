@@ -41,6 +41,7 @@ decorate(ReadingListStore, {
   setCompleted: action,
   toRead: observable,
   addToRead: action,
-  removeStoryFromList: action
+  removeStoryFromList: action,
+  transferStoryFromList: action
 });
 export default new ReadingListStore();

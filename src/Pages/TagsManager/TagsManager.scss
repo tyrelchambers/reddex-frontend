@@ -1,11 +1,94 @@
 .tag-item {
+  background: var(--bgLight);
+  width: fit-content;
+  padding: 0.3em 0.8em;
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(black, 0.2);
+  margin-right: 0.5em;
+  border: 2px solid var(--text);
+  transition: all 0.2s ease;
   i {
-    color: var(--red);
+    color: var(--text);
+    margin-right: 1em;
+    transition: all 0.2s ease;
   }
   p {
-    margin-left: 1em;
     font-size: 1.3rem;
     color: var(--text);
     font-weight: bold;
+  }
+
+  
+}
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-item.can-delete {
+  &:hover {
+    background: rgba(red, 0.2);
+    border: 2px solid rgba(red, 1);
+    cursor: pointer;
+    i {
+      color: var(--red);
+    }
+  }
+}
+
+.tag-small {
+  background: var(--bgLighter);
+  padding: 0 0.5em;
+  color: var(--text);
+  border-radius: 20px;
+  width: fit-content;
+  box-shadow: 0px 5px 8px rgba(black, 0.3);
+  margin-right: 0.5em;
+  padding-bottom: 3px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    &:after {
+      opacity: 1;
+    }
+  }
+  
+  &:after {
+    content: "x";
+    display: flex;
+    justify-content: center;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 0 0.5em;
+    opacity: 0;
+    transition: all 0.2s ease;
+    border-radius: 20px;
+
+  }
+}
+
+.tag-item.exists {
+  border: 2px solid var(--accentBg);
+  background:rgba(#0552B5, 0.3);
+
+  i, p {
+    color: var(--accentBg);
+
+  }
+}
+
+.tag-item.to-add {
+  background: var(--green);
+  border: 2px solid var(--white);
+  i, p {
+    color: var(--white);
+
   }
 }
