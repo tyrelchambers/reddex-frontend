@@ -13,6 +13,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const [ tags, setTags ] = useState([])
   const [tag, setTag] = useState({})
   const [ headers, setHeaders] = useState([])
+  const [ initialHeaders, setInitialHeaders] = useState([])
 
   useEffect(() => {
     getAxios({
@@ -24,18 +25,6 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
     })
 
     getAxios({
-      url: '/profile/reading_list?permission=true'
-    }).then(res => {
-      if (res) {
-        ReadingListStore.addToRead(res.stories)
-        setHeaders([...res.headers])
-      }
-    })
-
-  }, [])
-
-  useEffect(() => {
-    getAxios({
       url: '/profile/reading_list?permission=true',
       params: {
         subreddit: subredditFilter ? subredditFilter : null,
@@ -43,9 +32,14 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
       }
     }).then(res => {
       if (res) {
-        ReadingListStore.addToRead([...res.stories])
+        ReadingListStore.addToRead(res.stories)
+        if (initialHeaders.length === 0) {
+          setInitialHeaders(res.headers)
+        }
+        setHeaders(res.headers)
       }
     })
+
   }, [subredditFilter, tag])
 
   if ( !list ) return null;
@@ -123,7 +117,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const renderedList = headers.map((x, id) => {
     return (
       <React.Fragment key={id}>
-        <h3>{x}</h3>
+        <h3 className="tt-c">{x}</h3>
         {list.map((y, id) => {
           if (x === y.subreddit) {
             return (
@@ -135,15 +129,6 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
     )
   })  
 
-  const sortedByTags = list.map((x, id) => {
-    const tagged = x.Tags ? x.Tags.find(z => z.tag === tag.tag) : null
-
-    if (tagged) {
-      return <Story key={id} x={x} storyId={x.uuid}/>
-    }
-
-    return null;
-  })
 
   return (
     <div className="m+ fx-1">
@@ -154,7 +139,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
           {subredditFilter &&
             <i className="fas fa-times ml- mr-" onClick={() => setSubredditFilter("")}></i>
           }
-          {headers.map((x, id) => (
+          {initialHeaders.map((x, id) => (
             <button 
               key={id}
               className={`reading-list-filter ${subredditFilter === x ? "active" : ""}`} 
