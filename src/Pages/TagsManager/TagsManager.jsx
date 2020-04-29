@@ -45,6 +45,7 @@ const saveTag = () => {
     }
   }).then(res => {
     if (res) {
+      setTags([...tags, res])
       toast.success("Tag saved")
     }
   })
