@@ -60,7 +60,7 @@ const saveTag = () => {
         <h3>Create A Tag</h3>
         <p className="subtle mb">Tags must be unique. This means you can't have two of the same tags.</p>
 
-        <div className="d-f ai-c w-372px">
+        <div className="d-f ai-c tag-input">
           <input type="text" className="form-input" placeholder="enter tag name" onChange={e => setTag(e.target.value)}/>
           <ThirdButton
             text="Add Tag"
@@ -73,7 +73,7 @@ const saveTag = () => {
         classes="mb+ mt+"
       />
       <h3>Created Tags</h3>
-      <div className="d-f">
+      <div className="d-f fxw-w">
         {tags.map((x, id) => (
           <div className="d-f ai-c tag-item mt- can-delete" key={id} onClick={() => deleteTag(x.uuid, id)}>
             <i className="fas fa-times-circle" ></i>

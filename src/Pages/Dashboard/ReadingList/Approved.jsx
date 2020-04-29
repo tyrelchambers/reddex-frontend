@@ -81,22 +81,24 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
                 min read
               </div>
             </div>
-            <p className="subtle">{x.subreddit}</p>
           </div>
         </div>
       </div>
-      <div className="d-f ai-c reading-list-tags">
-
-        {x.Tags ? x.Tags.map((t, id) => {
+      <div className="tag-list d-f ai-c" id="tagList" >
+          {x.Tags ? x.Tags.map((t, id) => {
           return <p className="subtle d-f tag-small" key={id} onClick={() => removeTagFromStory(t)}>{t.tag}</p>
         }) : null}
+      </div>
+      <div className="d-f ai-c reading-list-tags">
+
+       
         <MinimalButton
           classNames="whs-nw ml-"
           onClick={() => {
             ModalStore.setIsOpen(true)
             ModalStore.setRender(
               <div className="d-f fxd-c ai-c">
-                <h3>Add a tag to story</h3>
+                <h3 className="mb+">Add a tag to story</h3>
                 <AddTagForm
                   story_id={storyId}
                   story_uuid={x.uuid}
