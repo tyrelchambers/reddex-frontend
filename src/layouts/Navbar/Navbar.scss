@@ -97,6 +97,20 @@
    
 }
 
+.nav-patreon-icon {
+  width: 25px;
+}
+
+.patreon-button {
+  background-color: #F86754 !important;
+  border-radius: 5px;
+  padding: 0 0.5em;
+  margin-right: 0;
+  a {
+    color: white !important;
+    font-weight: bold;
+  }
+}
 
 .profile-image.small {
   border-radius: 3px;
@@ -146,7 +160,7 @@
 
 .mobile-navbar {
   width: 90%;
-  max-width: 300px;
+  max-width: 241px;
   .nav-link {
     display: flex;
     justify-content: center;
@@ -246,7 +260,7 @@
   background-color: var(--bg);
 
 }
-@media screen and (min-width: 841px) {
+@media screen and (min-width: 1025px) {
   .nav-toggle {
     display: none;
   }
