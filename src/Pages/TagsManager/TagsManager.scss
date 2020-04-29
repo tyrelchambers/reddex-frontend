@@ -37,13 +37,12 @@
 }
 
 .tag-small {
-  background: var(--bgLighter);
+  background: var(--bg);
   padding: 0 0.5em;
   color: var(--text);
   border-radius: 20px;
   width: fit-content;
-  box-shadow: 0px 5px 8px rgba(black, 0.3);
-  margin-right: 0.5em;
+  margin: 0.5em;
   padding-bottom: 3px;
   font-weight: bold;
   transition: all 0.2s ease;
@@ -90,5 +89,22 @@
   i, p {
     color: var(--white);
 
+  }
+}
+
+.tag-input {
+  max-width: 375px;
+  width: 100%;
+}
+
+@media screen and (max-width: 425px) {
+  .tag-input {
+    flex-direction: column;
+
+    > button {
+      margin-top: 1em;
+      margin-left: 0;
+      width: 100%;
+    }
   }
 }

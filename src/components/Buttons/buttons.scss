@@ -27,7 +27,7 @@
   display: flex;
   height: 100%; 
   font-size: 0.7rem;
-
+  justify-content: center;
   i { 
     margin-right: 10px;
   }
@@ -115,6 +115,7 @@
   padding: 1.5em 1em;
   border: none;
   box-shadow: 0px 2px 10px rgba(black, 0.2);
+  
   &:hover {
     background-color: darken(#3EBD93, 5%);
     box-shadow: 0px 2px 10px rgba(black, 0.4);
