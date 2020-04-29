@@ -12,6 +12,10 @@
 
   &-body {
     color: var(--textLight);
+
+    > div {
+      width: fit-content;
+    }
   }
 
   &-close {
@@ -19,6 +23,8 @@
     transition: all 0.2s ease;
   }
 }
+
+
 
 @media screen and (max-width: 425px) {
   .announcement-content {

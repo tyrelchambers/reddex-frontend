@@ -11,6 +11,9 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
       <div className="navbar-wrapper">
         <nav className="navbar">
           <ul>
+            <li className="d-f ai-c nav-link mr-">
+              <a href="https://www.patreon.com/bePatron?u=683950" data-patreon-widget-type="become-patron-button" target="_blank" rel="noopener noreferrer">Become a Patron!</a>
+            </li>
             <li className="d-f ai-c nav-link">
               <Link to="/" >Home</Link>
             </li>

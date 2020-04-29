@@ -25,6 +25,8 @@
     text-decoration: none;
     font-weight: 400;
     padding: 0.5em;
+    white-space: nowrap;
+
   }
   
   i {
@@ -55,8 +57,9 @@
   .nav-link {
    font-size: 2rem;
    margin-bottom: 1em; 
-
    a {
+    white-space: nowrap;
+
     text-decoration: none;
    }
   }
@@ -152,10 +155,13 @@
     text-align: center;
     background-color: var(--bg);
     border-radius: 5px;
+    
     a { 
       color: var(--text);
       width: 100%;
       padding: 0.5em;
+      white-space: nowrap;
+
     }
   }
 

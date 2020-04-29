@@ -64,6 +64,9 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
               </React.Fragment>
             }
 
+            <li className="d-f ai-c nav-link">
+              <a href="https://www.patreon.com/bePatron?u=683950" data-patreon-widget-type="become-patron-button" className="mr-" target="_blank" rel="noopener noreferrer">Become a Patron!</a>
+            </li>
             <li className="d-f ai-c nav-main-btn">
               <Link onClick={setExtended} to="/" >Get Posts</Link>
             </li>
