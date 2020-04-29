@@ -117,7 +117,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const renderedList = headers.map((x, id) => {
     return (
       <React.Fragment key={id}>
-        <h3 className="tt-c">{x}</h3>
+        {list.find(y => x === y.subreddit) ? <h3 className="tt-c">{x}</h3> : null}
         {list.map((y, id) => {
           if (x === y.subreddit) {
             return (
@@ -161,10 +161,6 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
           ))}
         </div>
       </div>
-      <p className="subtle mb-">
-        <strong>Note: </strong>
-        sorting by tag takes priority if both a subreddit and a tag are specified.
-      </p>
       <HR/>
       <ul className="reading-list-list mt+">
         {renderedList}
