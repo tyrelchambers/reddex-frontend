@@ -11,12 +11,16 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
       <div className="navbar-wrapper">
         <nav className="navbar">
           <ul>
-            <li className="d-f ai-c nav-link">
+            <li className="d-f ai-c nav-link patreon-button">
+              <img src={require('../../assets/Patreon_Mark_White.png')} className="nav-patreon-icon"/>
+              <a href="https://www.patreon.com/bePatron?u=683950" data-patreon-widget-type="become-patron-button" target="_blank" rel="noopener noreferrer">Become a Patron</a>
+            </li>
+            <li className="d-f ai-c nav-link ml+">
               <Link to="/" >Home</Link>
             </li>
 
             <li className="d-f ai-c nav-link">
-              <Link to="/patreon">Patreon</Link>
+              <Link to="/patreon">Patrons</Link>
             </li>
 
             <li className="d-f ai-c nav-link">
@@ -43,10 +47,6 @@ const Navbar = inject("UserStore")(observer(({UserStore}) => {
                 <Preferences/>
               </div>
             </li>
-
-            {/* <li className="d-f ai-c nav-link">
-              <Link to="/pricing" >Pricing</Link>
-            </li> */}
 
             {!UserStore.getUser() && 
               <React.Fragment>

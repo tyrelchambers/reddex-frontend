@@ -18,7 +18,7 @@ const NavWidget = inject("UserStore")(observer(({UserStore}) => {
       }}>
         <img src={profileImg} className="profile-image small mr-" alt="Reddit User's profile"/>
         <h5 className='reddit-name fx-1'>{redditProfile.name}</h5>
-        <i className="fas fa-chevron-down ml+ topbar-dropdown-toggle"></i>
+        <i className="fas fa-chevron-down ml- topbar-dropdown-toggle"></i>
       </div>
       
       <div className="dropdown-wrapper">

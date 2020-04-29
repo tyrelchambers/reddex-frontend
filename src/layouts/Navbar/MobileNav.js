@@ -18,7 +18,7 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
             </li>
             
             <li className="d-f ai-c nav-link">
-              <Link to="/patreon">Patreon</Link>
+              <Link to="/patreon">Patrons</Link>
             </li>
 
             <li className="d-f ai-c nav-link">
@@ -64,6 +64,10 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
               </React.Fragment>
             }
 
+            <li className="d-f ai-c nav-link mr- patreon-button">
+              <img src={require('../../assets/Patreon_Mark_White.png')} className="nav-patreon-icon"/>
+              <a href="https://www.patreon.com/bePatron?u=683950" data-patreon-widget-type="become-patron-button" target="_blank" rel="noopener noreferrer">Become a Patron</a>
+            </li>
             <li className="d-f ai-c nav-main-btn">
               <Link onClick={setExtended} to="/" >Get Posts</Link>
             </li>

@@ -24,13 +24,13 @@
 
 }
 
-@media screen and (min-width: 841px) {
+@media screen and (min-width: 1025px) {
   .nav-toggle {
     display: none;
   }
 }
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 1024px) {
   .navbar {
     display: none;
   }
