@@ -14,18 +14,10 @@ import { getAxios } from '../../../api';
 
 const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingListStore, ModalStore}) => {  
   const [ refresh, setRefresh ] = useState(false);
-  const [ headers, setHeaders] = useState([])
 
   useEffect(() => {
     const fn = async () => {
-      await getAxios({
-        url: '/profile/reading_list?permission=true'
-      }).then(res => {
-        if (res) {
-          ReadingListStore.addToRead(res.stories)
-          setHeaders([...res.headers])
-        }
-      })
+      
 
       await getAxios({
         url: '/profile/stories/completed'
@@ -91,7 +83,6 @@ const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingL
             list={ReadingListStore.getToRead()}
             callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
             ModalStore={ModalStore}
-            headers={headers}
           />
         }
 

@@ -8,10 +8,11 @@ import AddTagForm from '../../../components/Forms/AddTagForm'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
-const Approved = ({list, callback, ModalStore, headers, ReadingListStore}) => {
+const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const [ subredditFilter, setSubredditFilter ] = useState("");
   const [ tags, setTags ] = useState([])
   const [tag, setTag] = useState({})
+  const [ headers, setHeaders] = useState([])
 
   useEffect(() => {
     getAxios({
@@ -22,13 +23,22 @@ const Approved = ({list, callback, ModalStore, headers, ReadingListStore}) => {
       }
     })
 
+    getAxios({
+      url: '/profile/reading_list?permission=true'
+    }).then(res => {
+      if (res) {
+        ReadingListStore.addToRead(res.stories)
+        setHeaders([...res.headers])
+      }
+    })
+
   }, [])
 
   useEffect(() => {
     getAxios({
-      url: '/profile/reading_list/sort',
+      url: '/profile/reading_list?permission=true',
       params: {
-        subreddit: subredditFilter,
+        subreddit: subredditFilter ? subredditFilter : null,
         tag: isEmpty(tag) ? null : tag.tag
       }
     }).then(res => {
