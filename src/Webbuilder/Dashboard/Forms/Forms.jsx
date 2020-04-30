@@ -41,7 +41,6 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
       }
     }).then(res => {
       if (res) {
-        console.log(res)
         FormStore.setAuthor(res.OptionsAuthor)
         FormStore.setEmail(res.OptionsEmail)
         FormStore.setSentToOthers(res.OptionsSentToOther)
@@ -55,7 +54,6 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
   const Module = ({data, name}) => (
     <div className="d-f ai-c form-module-wrapper">
-      {console.log(data)}
       <label className="form-label">{data.label}</label>
       <div className="d-f ai-c">
         <input type="checkbox" name="email" id={`${name}-required`} checked={data.required} onChange={() => {
