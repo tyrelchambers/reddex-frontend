@@ -13,19 +13,19 @@ const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loadi
 
     const fn = async () => {
      
-  
-     
-      await getAxios({
-        url: '/site/config'
-      })
-      .then(res => {
-        if (res) {
-          SiteStore.setInitial({...res, youtube_id: res.youtube_id || yt})
-          SiteStore.setPreview({subdomain: res.subdomain})
-          FormStore.setOptionsId(res.SubmissionFormOption.uuid)
-          SiteStore.setActivated(true)
-        }
-      })
+      if (UserStore.currentUser.website_id) {
+        await getAxios({
+          url: '/site/config'
+        })
+        .then(res => {
+          if (res) {
+            SiteStore.setInitial({...res, youtube_id: res.youtube_id || yt})
+            SiteStore.setPreview({subdomain: res.subdomain})
+            FormStore.setOptionsId(res.SubmissionFormOption.uuid)
+            SiteStore.setActivated(true)
+          }
+        })
+      }
 
       await getAxios({
         url: '/patreon/getUserIdentity'
