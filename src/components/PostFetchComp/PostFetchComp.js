@@ -40,7 +40,7 @@ import { observer } from 'mobx-react-lite';
             onClick={() => {
               executeFetch()
             }}
-            disabled={subreddit.length === 0 ? true : false}
+            disabled={loading}
             loading={loading}
             value="Get Posts"
           >

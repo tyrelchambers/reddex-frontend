@@ -68,6 +68,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           setCategoryOptions={setCategoryOptions}
           fetchPosts={fetchPosts}
           executeFetch={executeFetch}
+          loading={loading}
         />
         {((PostStore.collectionCount || posts.length) > 0 && !loading) &&
           <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/>
