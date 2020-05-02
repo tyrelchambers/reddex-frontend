@@ -34,8 +34,14 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             </span>
           }
         </div>
-        <p className="subreddit-title mb+" title={x.title}>{concatTitle(x.title)}</p>
-        <p className="author m-- ml- sub-detail"><i className="fas fa-user mr-"></i>{x.author}</p>
+        <a href={x.url} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv">
+          <p className="subreddit-title mb+" title={x.title}>{concatTitle(x.title)}</p>
+        </a>
+        <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv ">
+          <p className="author m-- ml- sub-detail">
+            <i className="fas fa-user mr-"></i>{x.author}
+          </p>
+        </a>
         <p className="comments m-- ml- sub-detail"><i className="fas fa-comment-alt mr-"></i> {x.num_comments} Comments</p>
         <p className="publish-tag m-- ml- sub-detail"> <i className="fas fa-history mr-"></i>{dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
         <div className="reading-info d-f">

@@ -10,6 +10,10 @@
 .post-fetch-search {
   padding: 0.5em 1em;
   
+  .preffix {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
 }
 
 .select__arrow {
@@ -28,6 +32,11 @@
 .form-label.light {
   color: var(--text);
   margin-bottom: 1em;
+}
+
+.post-fetch-search {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
 }
 
 @media screen and (max-width: 768px) {

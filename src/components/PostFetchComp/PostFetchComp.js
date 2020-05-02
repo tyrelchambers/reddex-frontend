@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 import './PostFetchComp.scss';
 import { MainButton } from '../Buttons/Buttons';
 import SelectField from '../SelectField/SelectField';
@@ -15,9 +15,11 @@ import { observer } from 'mobx-react-lite';
       <div className=" w-100pr post-fetch-search">  
         <label className="form-label dark">Enter Subreddit</label>
         <div className="d-f ai-c h-48px mobile-fetch-inputs mt--">
-          <div className="w-100pr mr- pos-r search-autocomplete-wrapper">
-            <input type="text" className="form-input w-100pr search-input" placeholder="Type subreddit here..." value={subreddit} onChange={(e) => PostStore.setSubreddit(e.target.value)} ref={inputRef}/>
-          </div>
+            <span className="preffix">
+              <p>r/</p>
+            </span>
+            <input type="text" className="form-input w-100pr mr- search-input post-fetch-search" placeholder="subreddit" value={subreddit} onChange={(e) => PostStore.setSubreddit(e.target.value)} ref={inputRef}/>
+
           <SelectField
             data={optionsJSON}
             label="Hot"
