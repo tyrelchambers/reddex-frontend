@@ -34,11 +34,11 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             </span>
           }
         </div>
-        <a href={x.url} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv">
-          <p className="subreddit-title mb+" title={x.title}>{concatTitle(x.title)}</p>
+        <a href={x.url} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv ">
+          <p className="subreddit-title mb+  post-link" title={x.title}>{concatTitle(x.title)}</p>
         </a>
-        <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv ">
-          <p className="author m-- ml- sub-detail">
+        <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv">
+          <p className="author m-- ml- sub-detail  post-link">
             <i className="fas fa-user mr-"></i>{x.author}
           </p>
         </a>
