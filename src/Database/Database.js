@@ -49,6 +49,11 @@ db.version(7).stores({
   authors: "++id, author"
 })
 
+db.version(8).stores({
+  posts: "++id, author, title, self_text, ups, url, num_comments, created, flair, post_id, subreddit, upvote_ratio",
+  authors: "++id, author"
+})
+
 const upgradeItems = async () => {
    db.posts.toCollection().first().then(x => {
     if ( !x ) {

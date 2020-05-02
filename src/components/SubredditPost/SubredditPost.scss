@@ -30,7 +30,7 @@
 
 .post-link:hover {
   text-decoration: underline;
-  color: var(--accentBg);
+  color: var(--accentBg) !important;
 }
 
 .post {
@@ -132,3 +132,25 @@
   }
 }
 
+.post-upvote-ratio {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+
+  i {
+    font-size: 1rem !important;
+  }
+
+  p {
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}
+
+.ratio-thumbs {
+  .fa-thumbs-down {
+    transform: rotateY(180deg);
+    margin-left: -3px;
+  }
+}

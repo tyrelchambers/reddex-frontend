@@ -100,8 +100,8 @@
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: var(--bg);
-    color: white;
+    background-color: var(--accentBg);
+    color: var(--white);
   }
   i {
     margin: 0;

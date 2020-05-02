@@ -28,11 +28,20 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             <i className="fas fa-arrow-circle-up mr-"></i>  
             <h1>{x.ups}</h1>
           </div>
-          {used &&
-            <span className="has-been-used-text">
-              <p>Used</p>
-            </span>
-          }
+          <div className="d-f ai-c">
+            {used &&
+              <span className="has-been-used-text mr-">
+                <p>Used</p>
+              </span>
+            }
+            <div className="post-upvote-ratio">
+              <span className="ratio-thumbs">
+                <i class="fas fa-thumbs-up"></i>
+                <i class="far fa-thumbs-down"></i>
+              </span>
+              <p>{x.upvote_ratio * 100}</p>
+            </div>
+          </div>
         </div>
         <a href={x.url} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv ">
           <p className="subreddit-title mb+  post-link" title={x.title}>{concatTitle(x.title)}</p>

@@ -149,7 +149,8 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
       created: x.data.created_utc,
       link_flair_text: x.data.link_flair_text,
       post_id: x.data.id,
-      subreddit: x.data.subreddit
+      subreddit: x.data.subreddit,
+      upvote_ratio: x.data.upvote_ratio
     };
 
     results.push(newObj)
@@ -175,7 +176,8 @@ export const saveToDatabase = async (posts) => {
       created: x.created,
       link_flair_text: x.link_flair_text,
       post_id: x.post_id,
-      subreddit: x.subreddit
+      subreddit: x.subreddit,
+      upvote_ratio: x.upvote_ratio
     });
   });
   return true;
