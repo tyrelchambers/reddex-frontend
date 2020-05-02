@@ -18,12 +18,13 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
 
   return(
     <li 
-      className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""}`} 
+      className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${selectedClass ? "active-post-select" : ""} ${used ? "has-been-used" : ""} `} 
       data-postid={x.post_id}
       key={key}
     >
+      
       <div className="d-f fxd-c w-100pr fx-1">
-        <div className=" upvotes d-f jc-sb ai-c">
+        <div className={`upvotes d-f jc-sb ai-c ${x.viewed ? "post-viewed" : ""}`}>
           <div className="d-f ai-c">
             <i className="fas fa-arrow-circle-up mr-"></i>  
             <h1>{x.ups}</h1>
@@ -36,14 +37,16 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             }
             <div className="post-upvote-ratio">
               <span className="ratio-thumbs">
-                <i class="fas fa-thumbs-up"></i>
-                <i class="far fa-thumbs-down"></i>
+                <i className="fas fa-thumbs-up"></i>
+                <i className="far fa-thumbs-down"></i>
               </span>
               <p>{x.upvote_ratio * 100}</p>
             </div>
           </div>
         </div>
-        <a href={x.url} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv ">
+        <a href={x.url} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv " onClick={() => {
+          setViewedOnPost(x.post_id)
+        }}>
           <p className="subreddit-title mb+  post-link" title={x.title}>{concatTitle(x.title)}</p>
         </a>
         <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv">
@@ -76,7 +79,9 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
           }
         </div>
 
-        <a href={x.url} className="btn-link" target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-square-alt"></i></a>
+        <a href={x.url} className="btn-link" target="_blank" rel="noopener noreferrer"  onClick={() => {
+          setViewedOnPost(x.post_id)
+        }}><i className="fas fa-external-link-square-alt"></i></a>
         
       </div>
     </li>
@@ -89,6 +94,12 @@ const Flair = ({data}) => {
     return null;
   }
 
+}
+
+const setViewedOnPost = (post_id) => {
+  window.db.posts.where({post_id}).modify({
+    viewed: true
+  })
 }
 
 const avgReadingTime = (text) => {

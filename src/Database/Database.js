@@ -50,7 +50,7 @@ db.version(7).stores({
 })
 
 db.version(8).stores({
-  posts: "++id, author, title, self_text, ups, url, num_comments, created, flair, post_id, subreddit, upvote_ratio",
+  posts: "++id, author, title, self_text, ups, url, num_comments, created, flair, post_id, subreddit, upvote_ratio, viewed",
   authors: "++id, author"
 })
 

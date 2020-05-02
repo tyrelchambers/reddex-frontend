@@ -13,7 +13,6 @@ import {getAxios} from '../../api/index'
 import HR from '../HR/HR';
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
-  const [ posts, setPosts ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ categoryOptions, setCategoryOptions ] = useState({
@@ -22,16 +21,18 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   });
   
   useEffect(() => {
-    getPostsFromDatabase(setPosts);
-  }, []);
+    const fn = async () => {
+      const saved = await getPostsFromDatabase();
+      PostStore.setPosts(saved)
+    }
+
+    fn();
+  }, [reloadPosts]);
 
   useEffect(() => {
     collCount();
   })
 
-  useEffect(() => {
-    getPostsFromDatabase(setPosts);
-  }, [reloadPosts]);
   
   const collCount = async () => {
     const _ = await window.db.posts.count().then();
@@ -42,7 +43,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     if (!PostStore.subreddit) return;
     setLoading(true);
     recentlySearched(PostStore.subreddit)
-    fetchPosts(PostStore.subreddit, setLoading, setPosts, categoryOptions);
+    fetchPosts(PostStore.subreddit, setLoading, PostStore.setPosts, categoryOptions);
     PostStore.clearSelectedPosts()
   }
 
@@ -61,8 +62,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     <React.Fragment>
       <div className="fetch-inputs w-100pr">
         <PostFetchComp 
-          posts={posts}
-          setPosts={setPosts}
           setLoading={setLoading}
           categoryOptions={categoryOptions}
           setCategoryOptions={setCategoryOptions}
@@ -70,8 +69,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           executeFetch={executeFetch}
           loading={loading}
         />
-        {((PostStore.collectionCount || posts.length) > 0 && !loading) &&
-          <SubredditFilters setReloadPosts={setReloadPosts} posts={posts} setPosts={setPosts} reloadPosts={reloadPosts}/>
+        {((PostStore.collectionCount || PostStore.posts.length) > 0 && !loading) &&
+          <SubredditFilters setReloadPosts={setReloadPosts} posts={PostStore.posts} setPosts={PostStore.setPosts} reloadPosts={reloadPosts}/>
         }
 
       </div>
@@ -84,7 +83,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         <HR />
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
-        <MessageAuthors data={PostStore.selectedPosts} posts={posts} />
+        <MessageAuthors data={PostStore.selectedPosts} posts={PostStore.posts} />
       }
 
       {loading &&
@@ -92,9 +91,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
 
       <Posts 
-        posts={posts}
+        posts={PostStore.posts}
         loading={loading}
-        setPosts={setPosts}
+        setPosts={PostStore.setPosts}
       />
       {ModalStore.isOpen && 
         <ConfirmModal />
@@ -159,7 +158,7 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   deletePostsCollection();
   saveToDatabase([...results]);
   saveSubredditToLocalStorage(subreddit);
-  setPosts([...results]);
+  setPosts(results);
   return setLoading(false);  
  
 }
@@ -177,16 +176,17 @@ export const saveToDatabase = async (posts) => {
       link_flair_text: x.link_flair_text,
       post_id: x.post_id,
       subreddit: x.subreddit,
-      upvote_ratio: x.upvote_ratio
+      upvote_ratio: x.upvote_ratio,
+      viewed: false
     });
   });
   return true;
 }
 
-export const getPostsFromDatabase = async (setPosts) => {
+export const getPostsFromDatabase = async () => {
   const db = window.db;
   const posts = await db.posts.toArray();
-  return setPosts([...posts]);
+  return posts;
 }
 
 export const deletePostsCollection = () => {

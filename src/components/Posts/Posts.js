@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { getAxios } from '../../api';
 import SubredditPost from '../SubredditPost/SubredditPost'
 
-const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore}) => {
+const Posts = inject("PostStore")(observer(({loading, setPosts, PostStore}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ endIndex, setEndIndex ] = useState(40);
   const token = window.localStorage.getItem('token');
@@ -24,7 +24,7 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
       
       fn();
     }
-  }, [posts]);
+  }, []);
 
   useEffect(() => {
     document.addEventListener('scroll', infiniteScroll);
@@ -50,11 +50,11 @@ const Posts = inject("PostStore")(observer(({posts, loading, setPosts, PostStore
     }
   }
 
-  if ( posts.length > 0 && !loading ) {
+  if ( PostStore.posts.length > 0 && !loading ) {
     return (
       <ul className="post-list mt+">
 
-        {posts.slice(0, endIndex).sort((a, b) => {
+        {PostStore.posts.slice(0, endIndex).sort((a, b) => {
           return b.created - a.created
         }).map((x, id) => {
           return(
