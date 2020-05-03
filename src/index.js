@@ -162,6 +162,15 @@ const InitialLoad = () => {
       
       }
 
+      await getAxios({
+        url: "/tokens/visitorToken"
+      }).then( res => {
+        if (res) {
+          if (!window.localStorage.getItem('visitorToken')) {
+            window.localStorage.setItem('visitorToken', res)
+          }
+        }
+      })
       
       setLoaded(true);
     }

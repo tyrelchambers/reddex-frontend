@@ -40,7 +40,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
                 <i className="fas fa-thumbs-up"></i>
                 <i className="far fa-thumbs-down"></i>
               </span>
-              <p>{x.upvote_ratio * 100}</p>
+              <p>{x.upvote_ratio * 100} %</p>
             </div>
           </div>
         </div>

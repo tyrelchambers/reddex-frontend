@@ -2,7 +2,7 @@ import React from 'react'
 import './SelectField.scss';
 
 const SelectField = ({label, data, options, setOptions, prop}) => {
-
+  
   const selectItems = data.map(x => (
     <div className="select-item" data-value={x.value} data-label={x.label} key={x.label} onClick={e => {
       setHandler(e, options, setOptions, prop)
@@ -13,10 +13,11 @@ const SelectField = ({label, data, options, setOptions, prop}) => {
   ));
 
   return (
-    <div className="select d-f ai-c" onClick={dropdownToggle}>
+    <div className="select d-f ai-c" >
       <span 
         className="select-label d-f jc-sb ai-c w-100pr"
         id="selectLabel"
+        onClick={dropdownToggle}
       >
         <p id="label">{label}</p>
         <i className="fas fa-chevron-down"></i>  
@@ -47,9 +48,9 @@ const setHandler = (e, options, set, prop) => {
 const resetStyles = (e) => {
   const parent = e.target.closest('.select');
   const list = parent.querySelector("#dropdownList");
-  
   parent.classList.remove('expanded-title');
   list.classList.remove('expanded-select');
+  console.log(e.target.classList)
 }
 
 const changeLabel = (e, value) => {

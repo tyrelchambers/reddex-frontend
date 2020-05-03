@@ -4,8 +4,9 @@ import filterOptionsJSON from './filterOptions';
 import SelectField from '../SelectField/SelectField';
 import { toast } from 'react-toastify';
 import {MinimalButton} from '../Buttons/Buttons'
+import { inject, observer } from 'mobx-react';
 
-const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
+const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts, PostStore}) => {
   const [ keywords, setKeywords ] = useState("");
   const [ filterOptions, setFilterOptions ] = useState({
     seriesOnly: false,
@@ -13,6 +14,10 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
     operator: ">"
   });
   const [collapsed, setCollapsed] = useState(document.body.clientWidth <= 425 ? true : false);
+
+  const filter = () => {
+    
+  }
 
   return(
     <div className="d-f fxd-c w-100pr filters-wrapper">
@@ -48,7 +53,7 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts}) => {
               setReloadPosts(!reloadPosts);
             }}>Reset Filters</button>
             <button className="btn btn-secondary ml-" onClick={() => {
-              applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, filterOptions.seriesOnly);
+              //applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, filterOptions.seriesOnly);
             }}>Apply Filters</button>
           </div>
         </div>
@@ -66,95 +71,95 @@ const resetFilters = (setFilterOptions) => {
   });
 }
 
-const seriesOnlyFilter = (data) => {
-  const newPromise = new Promise((resolve, reject) => {
-    const posts = data.filter(x => x.link_flair_text === "Series");
-    resolve(posts);
-  });
+// const seriesOnlyFilter = (data) => {
+//   const newPromise = new Promise((resolve, reject) => {
+//     const posts = data.filter(x => x.link_flair_text === "Series");
+//     resolve(posts);
+//   });
 
-  return newPromise;
-}
+//   return newPromise;
+// }
 
 
-const keywordSearch = (data, posts) => {
-  if ( !data || data.length === 0 ) return false;
+// const keywordSearch = (data, posts) => {
+//   if ( !data || data.length === 0 ) return false;
   
-  const newPromise = new Promise((resolve, reject) => {
-    const keywords = data.split(", ");
-    let results;
-    for ( let i = 0; i < keywords.length; i++ ) {
-      let postsTitle = posts.filter(x => x.title.toLowerCase().includes(keywords[i].toLowerCase()));
-      let postsBody = posts.filter(x => x.self_text.toLowerCase().includes(keywords[i].toLowerCase()));
-      let set = new Set([...postsTitle, ...postsBody]);
-      results = [...set];
-    }
-    resolve(results);
-  });
+//   const newPromise = new Promise((resolve, reject) => {
+//     const keywords = data.split(", ");
+//     let results;
+//     for ( let i = 0; i < keywords.length; i++ ) {
+//       let postsTitle = posts.filter(x => x.title.toLowerCase().includes(keywords[i].toLowerCase()));
+//       let postsBody = posts.filter(x => x.self_text.toLowerCase().includes(keywords[i].toLowerCase()));
+//       let set = new Set([...postsTitle, ...postsBody]);
+//       results = [...set];
+//     }
+//     resolve(results);
+//   });
 
-  return newPromise;
-}
+//   return newPromise;
+// }
 
-const operatorSort = (upvoteCount, posts, operator) => {
-  const newPromise = new Promise((resolve, reject) => {
-    const op = operator;
-    if ( op === ">") {
-      let newPosts = posts.filter(x => x.ups > upvoteCount);
-      resolve(newPosts);
-    };
+// const operatorSort = (upvoteCount, posts, operator) => {
+//   const newPromise = new Promise((resolve, reject) => {
+//     const op = operator;
+//     if ( op === ">") {
+//       let newPosts = posts.filter(x => x.ups > upvoteCount);
+//       resolve(newPosts);
+//     };
 
-    if ( op === "<") {
-      let newPosts = posts.filter(x => x.ups < upvoteCount);
-      resolve(newPosts);
-    };
+//     if ( op === "<") {
+//       let newPosts = posts.filter(x => x.ups < upvoteCount);
+//       resolve(newPosts);
+//     };
 
-    if ( op === "===") {
-      let newPosts = posts.filter(x => x.ups == upvoteCount);
-      resolve(newPosts);
-    };
-    reject("No operator specified");
+//     if ( op === "===") {
+//       let newPosts = posts.filter(x => x.ups == upvoteCount);
+//       resolve(newPosts);
+//     };
+//     reject("No operator specified");
 
-  }); 
+//   }); 
 
-  return newPromise;
-}
+//   return newPromise;
+// }
 
-const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, operator, seriesOnly) => {
-  let newPosts = [...posts];
+// const applyFilters = async (posts, setPosts, keywords = "", upvoteCount = 0, operator, seriesOnly) => {
+//   let newPosts = [...posts];
 
-  if ( keywords.length ) {
-    await keywordSearch(keywords, posts).then(res => {
-      if ( res.length === 0 ) {
-        newPosts = [...res]
-        return toast.error(`No results found for ${keywords}`)
-      }
+//   if ( keywords.length ) {
+//     await keywordSearch(keywords, posts).then(res => {
+//       if ( res.length === 0 ) {
+//         newPosts = [...res]
+//         return toast.error(`No results found for ${keywords}`)
+//       }
 
-      newPosts = [...res]
-    }).catch(console.log);
-  }
+//       newPosts = [...res]
+//     }).catch(console.log);
+//   }
 
-  if ( seriesOnly ) {
-    await seriesOnlyFilter(newPosts, seriesOnly).then(res =>  {
-      if ( res.length === 0 ) {
-        newPosts = [...res]
-        return toast.error(`No results found`)
-      }
+//   if ( seriesOnly ) {
+//     await seriesOnlyFilter(newPosts, seriesOnly).then(res =>  {
+//       if ( res.length === 0 ) {
+//         newPosts = [...res]
+//         return toast.error(`No results found`)
+//       }
 
-      newPosts = [...res]
-    }).catch(console.log);
-  }
+//       newPosts = [...res]
+//     }).catch(console.log);
+//   }
 
-  if ( upvoteCount > 0 ) {
-    await operatorSort(upvoteCount, newPosts, operator).then(res =>  {
-      if ( res.length === 0 ) {
-        newPosts = [...res]
-        return toast.error(`No results found`)
-      }
+//   if ( upvoteCount > 0 ) {
+//     await operatorSort(upvoteCount, newPosts, operator).then(res =>  {
+//       if ( res.length === 0 ) {
+//         newPosts = [...res]
+//         return toast.error(`No results found`)
+//       }
 
-      newPosts = [...res]
-    }).catch(console.log);
-  }
+//       newPosts = [...res]
+//     }).catch(console.log);
+//   }
   
-  return setPosts([...newPosts]);
-}
+//   return setPosts(newPosts);
+// }
 
-export default SubredditFilters;
+export default inject("PostStore")(observer(SubredditFilters));

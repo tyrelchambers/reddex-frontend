@@ -1,6 +1,7 @@
 import Axios from "axios"
 import { toast } from "react-toastify";
 const token = window.localStorage.getItem("token")
+const visitorToken = window.localStorage.getItem("visitorToken")
 const BACKEND = process.env.REACT_APP_BACKEND;
 
 export const getAxios = async ({
@@ -8,7 +9,8 @@ export const getAxios = async ({
   data = {},
   params = {},
   options = {
-    withToken: true
+    withToken: true,
+    withVisitorToken: false
   },
   url = ""
 } = {}) => {
@@ -20,7 +22,9 @@ export const getAxios = async ({
     url: `${BACKEND}/api${url}`,
     data,
     headers: {
-      ...options.withToken && {token}
+      ...options.withToken && {token},
+      ...options.withVisitorToken && {visitorToken}
+
     },
     params: {
       ...params

@@ -70,7 +70,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           loading={loading}
         />
         {((PostStore.collectionCount || PostStore.posts.length) > 0 && !loading) &&
-          <SubredditFilters setReloadPosts={setReloadPosts} posts={PostStore.posts} setPosts={PostStore.setPosts} reloadPosts={reloadPosts}/>
+          <SubredditFilters setReloadPosts={setReloadPosts} reloadPosts={reloadPosts}/>
         }
 
       </div>
@@ -102,12 +102,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   );
   
 }));
-
-
-
-export const saveSubredditToLocalStorage = data => {
-  return window.localStorage.setItem(`subreddit`, data);
-}
 
 export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
   const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
@@ -155,37 +149,41 @@ export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
     results.push(newObj)
   });
 
-  deletePostsCollection();
   saveToDatabase([...results]);
-  saveSubredditToLocalStorage(subreddit);
   setPosts(results);
   return setLoading(false);  
  
 }
 
 export const saveToDatabase = async (posts) => {
-  await posts.map(x => {
-    return window.db.posts.add({
-      author: x.author,
-      title: x.title,
-      self_text: x.self_text,
-      ups: x.ups,
-      url: x.url,
-      num_comments: x.num_comments,
-      created: x.created,
-      link_flair_text: x.link_flair_text,
-      post_id: x.post_id,
-      subreddit: x.subreddit,
-      upvote_ratio: x.upvote_ratio,
-      viewed: false
-    });
-  });
+  getAxios({
+    url: '/posts/save',
+    method: "post",
+    data: posts,
+    options: {
+      withToken: false,
+      withVisitorToken: true
+    }
+  }).then(res => {
+    if (res) {
+      console.log(res)
+    }
+  })
   return true;
 }
 
 export const getPostsFromDatabase = async () => {
-  const db = window.db;
-  const posts = await db.posts.toArray();
+  const posts = await getAxios({
+    url: '/posts/',
+    options: {
+      withToken: false,
+      withVisitorToken: true
+    }
+  }).then(res => {
+    if (res) {
+      return res
+    }
+  })
   return posts;
 }
 

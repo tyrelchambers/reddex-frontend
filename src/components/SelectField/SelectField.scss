@@ -10,6 +10,7 @@
   border-radius: 3px;
   color: var(--text);
   font-size: 0.9rem;
+
 }
 
 .select-dropdown {
@@ -40,7 +41,7 @@
 
 
   &:hover {
-    background-color: var(--bgLight);
+    background-color: var(--bg);
   }
 }
 
@@ -51,7 +52,7 @@
 }
 
 .expanded-title {
-  background-color: var(--bg);
+  background-color: var(--bgLight);
   
   .select-label {
     p {
