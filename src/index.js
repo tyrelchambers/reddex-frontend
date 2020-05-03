@@ -130,7 +130,7 @@ const InitialLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
   const token = window.localStorage.getItem("token");
   const redditProfile = window.localStorage.getItem('reddit_profile')
-  
+  checkValidTokens()
   useEffect(() => {
     const theme = localStorage.getItem('theme') || "light";
     document.querySelector("body").classList.add(`theme-${theme}`)

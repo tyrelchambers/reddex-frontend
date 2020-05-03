@@ -7,6 +7,7 @@ import { getAxios } from '../../api';
 import Axios from 'axios';
 import { toast } from 'react-toastify';
 import {fetchTokens} from '../../helpers/renewRefreshToken'
+import { checkValidTokens } from '../../helpers/checkValidTokens';
 const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -167,7 +168,8 @@ const saveStoryToUser = async (data) => {
 }
 
 
- export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data, tags) => {
+ export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data) => {
+   await checkValidTokens();
    const tokens = await fetchTokens().catch(err => false);
    const fmtSubject = subject;
    const link = `https://oauth.reddit.com/api/compose`;
@@ -186,13 +188,20 @@ const saveStoryToUser = async (data) => {
        "Content-Type": "application/x-www-form-urlencoded"
      }
    })
-   .then()
-   .catch(console.log);
-
+   .then(res => {
     removeMessagedAuthor();
     saveAuthorToDb(author, post_id);
     saveStoryToUser(data);
     setLoading(false)
+   })
+   .catch(err => {
+     if(err) {
+      console.log(err)
+      toast.error("Something went wrong")
+     }
+   });
+
+    
 
 
  }

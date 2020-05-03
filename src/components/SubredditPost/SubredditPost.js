@@ -4,6 +4,7 @@ import moment from 'moment';
 import './SubredditPost.scss';
 import '../PostFetchComp/PostFetchComp.scss'
 import { inject, observer } from 'mobx-react';
+import { getAxios } from '../../api';
 
 const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, used, onClickHandler, PostStore, key }) => {
   let selectedClass = false
@@ -14,6 +15,23 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
 
   if ( _ ) {
     selectedClass = true;
+  }
+
+  const setViewedOnPost = (post_id) => {
+    getAxios({
+      url: "/posts/update",
+      data: {
+        post_id
+      },
+      method: "put"
+    }).then(res => {
+      if(res) {
+        const clone = [...PostStore.posts]
+        const toUpdate = clone.findIndex(x => x.post_id === post_id)
+        clone[toUpdate].viewed = true
+        PostStore.setPosts(clone)
+      }
+    })
   }
 
   return(
@@ -40,7 +58,8 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
                 <i className="fas fa-thumbs-up"></i>
                 <i className="far fa-thumbs-down"></i>
               </span>
-              <p>{x.upvote_ratio * 100} %</p>
+              <p>{x.upvote_ratio * 100}</p>
+              <p style={{marginLeft: '-1px'}}>%</p>
             </div>
           </div>
         </div>
@@ -68,7 +87,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
       </div>
       
       <div className="d-f m- jc-sb post-actions">
-        <div>
+        <div className="d-f ai-c">
           {UserStore.getUser() &&
             <button className="btn btn-select" onClick={() => {
               onClickHandler(x);
@@ -76,6 +95,11 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             >
               <i className="fas fa-check"></i>
             </button>
+          }
+          {x.viewed &&
+            <i className="far fa-eye ml-" style={{
+              color: '#ff7e5f'
+            }}></i>
           }
         </div>
 
@@ -96,11 +120,7 @@ const Flair = ({data}) => {
 
 }
 
-const setViewedOnPost = (post_id) => {
-  window.db.posts.where({post_id}).modify({
-    viewed: true
-  })
-}
+
 
 const avgReadingTime = (text) => {
 
