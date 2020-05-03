@@ -164,10 +164,10 @@ const InitialLoad = () => {
 
       await getAxios({
         url: "/tokens/visitorToken"
-      }).then( res => {
+      }).then(async(res)=> {
         if (res) {
           if (!window.localStorage.getItem('visitorToken')) {
-            window.localStorage.setItem('visitorToken', res)
+            await window.localStorage.setItem('visitorToken', res)
           }
         }
       })

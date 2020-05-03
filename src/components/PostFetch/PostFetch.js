@@ -29,16 +29,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     fn();
   }, [reloadPosts]);
 
-  useEffect(() => {
-    collCount();
-  })
-
-  
-  const collCount = async () => {
-    const _ = await window.db.posts.count().then();
-    return PostStore.setCollectionCount(_);
-  }
-
   const executeFetch = () => {
     if (!PostStore.subreddit) return;
     setLoading(true);
@@ -152,7 +142,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           executeFetch={executeFetch}
           loading={loading}
         />
-        {((PostStore.collectionCount || PostStore.posts.length) > 0 && !loading) &&
+        {(PostStore.posts.length > 0 && !loading) &&
           <SubredditFilters setReloadPosts={setReloadPosts} reloadPosts={reloadPosts}/>
         }
 

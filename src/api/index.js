@@ -1,7 +1,6 @@
 import Axios from "axios"
 import { toast } from "react-toastify";
-const token = window.localStorage.getItem("token")
-const visitorToken = window.localStorage.getItem("visitorToken")
+
 const BACKEND = process.env.REACT_APP_BACKEND;
 
 export const getAxios = async ({
@@ -14,6 +13,9 @@ export const getAxios = async ({
   },
   url = ""
 } = {}) => {
+  const token = await window.localStorage.getItem("token")
+  const visitorToken = await window.localStorage.getItem("visitorToken")
+  
   if (options.withToken && !token) {
     return;
   }
