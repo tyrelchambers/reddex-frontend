@@ -43,7 +43,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     if (!PostStore.subreddit) return;
     setLoading(true);
     recentlySearched(PostStore.subreddit)
-    fetchPosts(PostStore.subreddit, setLoading, PostStore.setPosts, categoryOptions);
+    fetchPosts(PostStore.subreddit, setLoading, categoryOptions);
     PostStore.clearSelectedPosts()
   }
 
@@ -56,7 +56,91 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
     })
   }
+
+  const saveToDatabase = async (posts) => {
+    getAxios({
+      url: '/posts/save',
+      method: "post",
+      data: posts,
+      options: {
+        withToken: false,
+        withVisitorToken: true
+      }
+    }).then(res => {
+      if (res) {
+        PostStore.setPosts(res)
+      }
+    })
+    return true;
+  }
   
+  const getPostsFromDatabase = async () => {
+    const posts = await getAxios({
+      url: '/posts/',
+      options: {
+        withToken: false,
+        withVisitorToken: true
+      }
+    }).then(res => {
+      if (res) {
+        return res
+      }
+    })
+    return posts;
+  }
+  
+  const fetchPosts = async (subreddit, setLoading, category) => {
+    const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
+    if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
+  
+    let endpoint = "";
+  
+    if ( category !== "hot" ) {
+      endpoint = `${sr}/${category.category}.json?limit=100`;
+    } 
+    
+    if ( category.timeframe !== "day") {
+      endpoint = `${sr}/${category.category}/.json?t=${category.timeframe}`;
+    }
+  
+    const link = `https://www.reddit.com/r/${endpoint}`;
+    let posts = [];
+    let after = ``;
+    const results = []; 
+  
+    for ( let i = 0; (i < 10 && after !== null); i++ ) {
+      await Axios.get(`${link}&after=${after}`).then(res => {
+        after = res.data.data.after;
+        posts = [...posts, ...res.data.data.children];
+      }).catch(err => err);
+    }
+  
+  
+    posts.shift();
+    posts.map(x => {
+      const newObj = {
+        author: x.data.author,
+        title: x.data.title,
+        self_text: x.data.selftext,
+        ups: x.data.ups,
+        url: x.data.url,
+        num_comments: x.data.num_comments,
+        created: x.data.created_utc,
+        link_flair_text: x.data.link_flair_text,
+        post_id: x.data.id,
+        subreddit: x.data.subreddit,
+        upvote_ratio: x.data.upvote_ratio
+      };
+  
+      results.push(newObj)
+    });
+  
+    saveToDatabase([...results]);
+
+    PostStore.setPosts(results);
+    return setLoading(false);  
+   
+  }
 
   return (
     <React.Fragment>
@@ -65,7 +149,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           setLoading={setLoading}
           categoryOptions={categoryOptions}
           setCategoryOptions={setCategoryOptions}
-          fetchPosts={fetchPosts}
           executeFetch={executeFetch}
           loading={loading}
         />
@@ -102,98 +185,5 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   );
   
 }));
-
-export const fetchPosts = async (subreddit, setLoading, setPosts, category) => {
-  const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
-  if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
-
-  let endpoint = "";
-
-  if ( category !== "hot" ) {
-    endpoint = `${sr}/${category.category}.json?limit=100`;
-  } 
-  
-  if ( category.timeframe !== "day") {
-    endpoint = `${sr}/${category.category}/.json?t=${category.timeframe}`;
-  }
-
-  const link = `https://www.reddit.com/r/${endpoint}`;
-  let posts = [];
-  let after = ``;
-  const results = []; 
-
-  for ( let i = 0; (i < 10 && after !== null); i++ ) {
-    await Axios.get(`${link}&after=${after}`).then(res => {
-      after = res.data.data.after;
-      posts = [...posts, ...res.data.data.children];
-    }).catch(err => err);
-  }
-
-
-  posts.shift();
-  posts.map(x => {
-    const newObj = {
-      author: x.data.author,
-      title: x.data.title,
-      self_text: x.data.selftext,
-      ups: x.data.ups,
-      url: x.data.url,
-      num_comments: x.data.num_comments,
-      created: x.data.created_utc,
-      link_flair_text: x.data.link_flair_text,
-      post_id: x.data.id,
-      subreddit: x.data.subreddit,
-      upvote_ratio: x.data.upvote_ratio
-    };
-
-    results.push(newObj)
-  });
-
-  saveToDatabase([...results]);
-  setPosts(results);
-  return setLoading(false);  
- 
-}
-
-export const saveToDatabase = async (posts) => {
-  getAxios({
-    url: '/posts/save',
-    method: "post",
-    data: posts,
-    options: {
-      withToken: false,
-      withVisitorToken: true
-    }
-  }).then(res => {
-    if (res) {
-      console.log(res)
-    }
-  })
-  return true;
-}
-
-export const getPostsFromDatabase = async () => {
-  const posts = await getAxios({
-    url: '/posts/',
-    options: {
-      withToken: false,
-      withVisitorToken: true
-    }
-  }).then(res => {
-    if (res) {
-      return res
-    }
-  })
-  return posts;
-}
-
-export const deletePostsCollection = () => {
-  const db = window.db;
-  db.posts.clear().then().catch();
-}
-
-
-
-
 
 export default PostFetch;

@@ -11,7 +11,7 @@ class PostStore {
   }
 
   setPosts(posts) {
-    this.posts = posts;
+    this.posts = [...posts];
   }
   setSelectedPosts(post) {
     const dupe = this.selectedPosts.find((el) => {
