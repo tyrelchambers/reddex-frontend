@@ -4,9 +4,10 @@ import { inject, observer } from 'mobx-react';
 import { getAxios } from '../../api';
 import SubredditPost from '../SubredditPost/SubredditPost'
 
-const Posts = inject("PostStore")(observer(({loading, setPosts, PostStore}) => {
+const Posts = inject("PostStore")(observer(({loading, setPosts, PostStore, getPostsFromDatabase}) => {
   const [ usedPosts, setUsedPosts ] = useState([]);
-  const [ endIndex, setEndIndex ] = useState(40);
+  const [ endIndex, setEndIndex ] = useState(100);
+  const [skip, setSkip] = useState(0)
   const token = window.localStorage.getItem('token');
 
   useEffect(() => {
@@ -34,11 +35,16 @@ const Posts = inject("PostStore")(observer(({loading, setPosts, PostStore}) => {
     };
   }, [endIndex])
 
-  const infiniteScroll = () => {
+  const infiniteScroll = async () => {
     const list = document.querySelector('.App');
 
     if ( isInViewport(list) ) {
-      setEndIndex(endIndex + 40);
+      
+      // const saved = await getPostsFromDatabase({skip});
+      // PostStore.setPosts([...PostStore.posts, ...saved])
+      setEndIndex(endIndex + 100);
+      setSkip(endIndex - 100)
+      console.log(skip, endIndex)
     }
   }
   
@@ -54,7 +60,7 @@ const Posts = inject("PostStore")(observer(({loading, setPosts, PostStore}) => {
     return (
       <ul className="post-list mt+">
 
-        {PostStore.posts.slice(0, endIndex).sort((a, b) => {
+        {PostStore.posts.sort((a, b) => {
           return b.created - a.created
         }).map((x, id) => {
           return(
@@ -78,7 +84,7 @@ const Posts = inject("PostStore")(observer(({loading, setPosts, PostStore}) => {
 var isInViewport = function (elem) {
   var bounding = elem.getBoundingClientRect();
   return (
-      bounding.bottom <= ((window.innerHeight + 200) || document.documentElement.clientHeight)
+      bounding.bottom <= ((window.innerHeight + 400))
   );
 };
 

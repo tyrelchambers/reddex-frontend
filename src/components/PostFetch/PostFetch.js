@@ -64,9 +64,16 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     return true;
   }
   
-  const getPostsFromDatabase = async () => {
+  const getPostsFromDatabase = async ({
+    limit = 100,
+    skip = 0
+  } = {}) => {
     const posts = await getAxios({
       url: '/posts/',
+      params: {
+        limit,
+        skip
+      },
       options: {
         withToken: false,
         withVisitorToken: true
@@ -167,6 +174,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         posts={PostStore.posts}
         loading={loading}
         setPosts={PostStore.setPosts}
+        getPostsFromDatabase={getPostsFromDatabase}
       />
       {ModalStore.isOpen && 
         <ConfirmModal />

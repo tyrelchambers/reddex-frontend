@@ -40,7 +40,6 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
       data-postid={x.post_id}
       key={key}
     >
-      
       <div className="d-f fxd-c w-100pr fx-1">
         <div className={`upvotes d-f jc-sb ai-c ${x.viewed ? "post-viewed" : ""}`}>
           <div className="d-f ai-c">
