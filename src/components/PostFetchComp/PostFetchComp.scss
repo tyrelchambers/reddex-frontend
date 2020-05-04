@@ -39,6 +39,22 @@
   border-bottom-left-radius: 0px !important;
 }
 
+
+.post-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-column-gap: 5px;
+  grid-row-gap: 10px; 
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 702px) {
+  .post-list {
+    justify-content: center !important;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .current-subreddit {
     margin: 1em;
