@@ -9,7 +9,7 @@ const options = [
   }, 
   {
     label: "Equal to",
-    value: "==="
+    value: "="
   }
 ]
 

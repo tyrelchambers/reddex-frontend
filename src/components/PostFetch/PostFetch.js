@@ -12,12 +12,25 @@ import {getAxios} from '../../api/index'
 import HR from '../HR/HR';
 import SubredditPost from '../SubredditPost/SubredditPost';
 
+const initialState = {
+  seriesOnly: false,
+  upvotes: 0,
+  operator: ">",
+  omitSeries: false
+}
+
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [loading, setLoading] = useState(false);
   const [ reloadPosts, setReloadPosts ] = useState(false);
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: "day"
+  });
+  const [ filterOptions, setFilterOptions ] = useState({
+    seriesOnly: false,
+    upvotes: 0,
+    operator: ">",
+    omitSeries: false
   });
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ endIndex, setEndIndex ] = useState(100);
@@ -118,13 +131,19 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
   const getPostsFromDatabase = async ({
     limit = 100,
-    skip = 0
+    skip = 0,
+
   } = {}) => {
     const posts = await getAxios({
       url: '/posts/',
       params: {
         limit,
-        skip
+        skip,
+        ...(filterOptions.upvotes > 0 && {
+          upvotes: filterOptions.upvotes,
+          operator: filterOptions.operator
+        }),
+        
       },
       options: {
         withToken: false,
@@ -202,7 +221,13 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           loading={loading}
         />
         {(PostStore.posts.length > 0 && !loading) &&
-          <SubredditFilters setReloadPosts={setReloadPosts} reloadPosts={reloadPosts}/>
+          <SubredditFilters 
+            setReloadPosts={setReloadPosts} 
+            reloadPosts={reloadPosts}
+            filterOptions={filterOptions}
+            setFilterOptions={setFilterOptions}  
+            getPostsFromDatabase={getPostsFromDatabase}
+          />
         }
 
       </div>
@@ -236,12 +261,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           )
         })}
       </ul>
-      {/* <Posts 
-        posts={PostStore.posts}
-        loading={loading}
-        setPosts={PostStore.setPosts}
-        getPostsFromDatabase={getPostsFromDatabase}
-      /> */}
+
       {ModalStore.isOpen && 
         <ConfirmModal />
       }

@@ -5,18 +5,17 @@ import SelectField from '../SelectField/SelectField';
 import { toast } from 'react-toastify';
 import {MinimalButton} from '../Buttons/Buttons'
 import { inject, observer } from 'mobx-react';
+import { getAxios } from '../../api';
 
-const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts, PostStore}) => {
+const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilterOptions, getPostsFromDatabase, PostStore }) => {
   const [ keywords, setKeywords ] = useState("");
-  const [ filterOptions, setFilterOptions ] = useState({
-    seriesOnly: false,
-    upvotes: 0,
-    operator: ">"
-  });
+
   const [collapsed, setCollapsed] = useState(document.body.clientWidth <= 425 ? true : false);
 
-  const filter = () => {
-    
+  const filter = async () => {
+    await getPostsFromDatabase().then(res => {
+      PostStore.setPosts([ ...res])
+    })
   }
 
   return(
@@ -47,12 +46,15 @@ const SubredditFilters = ({ setReloadPosts, posts, setPosts, reloadPosts, PostSt
 
           <div className="filter-actions d-f ai-c">
             <button className={`btn btn-tiertiary ${filterOptions.seriesOnly ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, seriesOnly: !filterOptions.seriesOnly})}>Series Only</button>
+            <button className={`btn btn-tiertiary ${filterOptions.excludeSeries ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, excludeSeries: !filterOptions.excludeSeries})}>Exclude Series</button>
+
 
             <button className="btn btn-tiertiary" onClick={() => {
               resetFilters(setFilterOptions);
               setReloadPosts(!reloadPosts);
             }}>Reset Filters</button>
             <button className="btn btn-secondary ml-" onClick={() => {
+              filter();
               //applyFilters(posts, setPosts, keywords, filterOptions.upvotes, filterOptions.operator, filterOptions.seriesOnly);
             }}>Apply Filters</button>
           </div>
