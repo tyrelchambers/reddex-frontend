@@ -5,7 +5,6 @@ import Loading from '../Loading/Loading';
 import SubredditFilters from '../SubredditFilters/SubredditFilters';
 import MessageAuthors from '../MessageAuthors/MessageAuthors';
 import PostFetchComp from '../PostFetchComp/PostFetchComp';
-import Posts from '../Posts/Posts';
 import { inject, observer } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import RecentlySearched from '../../layouts/RecenlySearched/RecentlySearched';
