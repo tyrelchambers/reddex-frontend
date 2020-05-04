@@ -50,7 +50,6 @@ const resetStyles = (e) => {
   const list = parent.querySelector("#dropdownList");
   parent.classList.remove('expanded-title');
   list.classList.remove('expanded-select');
-  console.log(e.target.classList)
 }
 
 const changeLabel = (e, value) => {

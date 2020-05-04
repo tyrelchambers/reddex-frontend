@@ -2,20 +2,12 @@ import React, { useState } from 'react'
 import './SubredditFilters.scss';
 import filterOptionsJSON from './filterOptions';
 import SelectField from '../SelectField/SelectField';
-import { toast } from 'react-toastify';
 import {MinimalButton} from '../Buttons/Buttons'
 import { inject, observer } from 'mobx-react';
-import { getAxios } from '../../api';
 
-const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilterOptions, getPostsFromDatabase, PostStore }) => {
+const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilterOptions, filter}) => {
 
   const [collapsed, setCollapsed] = useState(document.body.clientWidth <= 425 ? true : false);
-
-  const filter = async () => {
-    await getPostsFromDatabase().then(res => {
-      PostStore.setPosts([ ...res])
-    })
-  }
 
   return(
     <div className="d-f fxd-c w-100pr filters-wrapper">

@@ -27,54 +27,59 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     omitSeries: false,
     keywords: ""
   });
+  const [fetching, setFetching] = useState(false)
   const [ usedPosts, setUsedPosts ] = useState([]);
-  const [ endIndex, setEndIndex ] = useState(100);
-
+  const [ nextPage, setNextPage ] = useState(2)
   const token = window.localStorage.getItem('token');
 
   useEffect(() => {
-    document.addEventListener('scroll', infiniteScroll);
-    if( token ) {
-      const fn = async () => {
-        await getAxios({
-          url: '/profile/stories_used'
-        }).then(res => {
-          if ( res ) {
-            setUsedPosts([...res])
-          }
-        });
-      }
-      
-      fn();
-    }
+    window.addEventListener('scroll', infiniteScroll);
+
     return () => {
-      document.removeEventListener('scroll', infiniteScroll);
+      window.removeEventListener('scroll', infiniteScroll);
     };
-  }, [])
+  }, [fetching, filterOptions])
 
-  
-  // useEffect(() => {
-  //   const fn = async () => {
-  //     const saved = await getPostsFromDatabase();
-  //     PostStore.setPosts(saved)
-  //   }
+  useEffect(() => {
+    
+    if( token ) {
+     const fn = async () => {
+       await getAxios({
+         url: '/profile/stories_used'
+       }).then(res => {
+         if ( res ) {
+           setUsedPosts([...res])
+         }
+       });
 
-  //   fn();
-  // }, [reloadPosts]);
+      const saved = await getPostsFromDatabase();
+      PostStore.setPosts(saved.posts)
+     }
+     
+     fn();
+   }
 
+ }, [])
 
   const infiniteScroll = async () => {
     const list = document.querySelector('.post-list');
+    if (fetching) return;
 
-    if ( isInViewport(list) ) {
-      
-      await getPostsFromDatabase({skip: endIndex - 100}).then(res => {
-        PostStore.setPosts([...PostStore.posts, ...res])
-        setEndIndex(endIndex + 100);
+    if ( isInViewport(list) && nextPage != null ) {
+      setFetching(true)
+
+      await getPostsFromDatabase(nextPage).then(res => {
+        PostStore.setPosts([...PostStore.posts, ...res.posts])    
+        setNextPage(res.nextPage)
+        setFetching(false)
       });
-      
     }
   }
+
+  var isInViewport = function (elem) {
+    var bounding = elem.getBoundingClientRect();
+    return (bounding.bottom <= window.innerHeight + 100);
+  };
   
   const isPostUsed = (post) => {
     for (let i = 0; i < usedPosts.length; i++ ) {
@@ -120,21 +125,19 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     return true;
   }
   
-  const getPostsFromDatabase = async ({
-    limit = 100,
-    skip = 0
-  } = {}) => {
+  const getPostsFromDatabase = async (page) => {
 
-    const posts = await getAxios({
+    return await getAxios({
       url: '/posts/',
       params: {
-        limit,
-        skip,
+        page,
         ...(filterOptions.upvotes > 0 && {
           upvotes: filterOptions.upvotes,
           operator: filterOptions.operator
         }),
-        ...(filterOptions.keywords && {keywords: filterOptions.keywords})
+        ...(filterOptions.keywords && {keywords: filterOptions.keywords}),
+        ...(filterOptions.seriesOnly && {seriesOnly: filterOptions.seriesOnly}),
+        ...(filterOptions.excludeSeries && {excludeSeries: filterOptions.excludeSeries})
         
       },
       options: {
@@ -146,7 +149,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         return res
       }
     })
-    return posts;
+
   }
   
   const fetchPosts = async (subreddit, setLoading, category) => {
@@ -201,8 +204,15 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
    
   }
 
+  const filter = async () => {
+    setNextPage(1)
+    await getPostsFromDatabase().then(res => {
+      PostStore.setPosts([...res.posts])
+    })
+  }
+
   return (
-    <React.Fragment>
+    <div className="post-fetch-wrapper">
       <div className="fetch-inputs w-100pr">
         <PostFetchComp 
           setLoading={setLoading}
@@ -218,6 +228,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
             filterOptions={filterOptions}
             setFilterOptions={setFilterOptions}  
             getPostsFromDatabase={getPostsFromDatabase}
+            filter={filter}
           />
         }
 
@@ -238,9 +249,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         <Loading title="Wrangling reddit posts..." subtitle="This will take a minute or two, hold tight"/>
       }
 
-      {PostStore.posts.length === 0 &&
-        <p className="subtle">No Reddit posts found...</p>
-      }
       {!loading &&
         <ul className="post-list mt+">
 
@@ -258,22 +266,17 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           })}
         </ul>    
       }
-
+ 
       {ModalStore.isOpen && 
         <ConfirmModal />
       }
-    </React.Fragment>
+    </div>
   );
   
 }));
 
 
-var isInViewport = function (elem) {
-  var bounding = elem.getBoundingClientRect();
-  return (
-      bounding.bottom <= ((window.innerHeight + 200))
-  );
-};
+
 
  const selectPost = (x, PostStore) => {
   PostStore.setSelectedPosts(x);
