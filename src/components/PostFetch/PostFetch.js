@@ -12,12 +12,6 @@ import {getAxios} from '../../api/index'
 import HR from '../HR/HR';
 import SubredditPost from '../SubredditPost/SubredditPost';
 
-const initialState = {
-  seriesOnly: false,
-  upvotes: 0,
-  operator: ">",
-  omitSeries: false
-}
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [loading, setLoading] = useState(false);
@@ -30,7 +24,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     seriesOnly: false,
     upvotes: 0,
     operator: ">",
-    omitSeries: false
+    omitSeries: false,
+    keywords: ""
   });
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ endIndex, setEndIndex ] = useState(100);
@@ -39,23 +34,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 
   useEffect(() => {
     document.addEventListener('scroll', infiniteScroll);
-
-    return () => {
-      document.removeEventListener('scroll', infiniteScroll);
-    };
-  }, [endIndex])
-  
-  useEffect(() => {
-    const fn = async () => {
-      const saved = await getPostsFromDatabase();
-      PostStore.setPosts(saved)
-    }
-
-    fn();
-  }, [reloadPosts]);
-
-  useEffect(() => {
-
     if( token ) {
       const fn = async () => {
         await getAxios({
@@ -69,15 +47,28 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       
       fn();
     }
-  }, []);
+    return () => {
+      document.removeEventListener('scroll', infiniteScroll);
+    };
+  }, [])
+
+  
+  // useEffect(() => {
+  //   const fn = async () => {
+  //     const saved = await getPostsFromDatabase();
+  //     PostStore.setPosts(saved)
+  //   }
+
+  //   fn();
+  // }, [reloadPosts]);
 
 
   const infiniteScroll = async () => {
-    const list = document.querySelector('.App');
+    const list = document.querySelector('.post-list');
 
     if ( isInViewport(list) ) {
       
-      await getPostsFromDatabase({skip: endIndex + 100}).then(res => {
+      await getPostsFromDatabase({skip: endIndex - 100}).then(res => {
         PostStore.setPosts([...PostStore.posts, ...res])
         setEndIndex(endIndex + 100);
       });
@@ -131,9 +122,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
   const getPostsFromDatabase = async ({
     limit = 100,
-    skip = 0,
-
+    skip = 0
   } = {}) => {
+
     const posts = await getAxios({
       url: '/posts/',
       params: {
@@ -143,6 +134,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           upvotes: filterOptions.upvotes,
           operator: filterOptions.operator
         }),
+        ...(filterOptions.keywords && {keywords: filterOptions.keywords})
         
       },
       options: {
@@ -205,7 +197,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
     saveToDatabase([...results]);
 
-    PostStore.setPosts(results);
     return setLoading(false);  
    
   }
@@ -220,7 +211,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           executeFetch={executeFetch}
           loading={loading}
         />
-        {(PostStore.posts.length > 0 && !loading) &&
+        {(!loading) &&
           <SubredditFilters 
             setReloadPosts={setReloadPosts} 
             reloadPosts={reloadPosts}
@@ -246,21 +237,27 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       {loading &&
         <Loading title="Wrangling reddit posts..." subtitle="This will take a minute or two, hold tight"/>
       }
-      <ul className="post-list mt+">
 
-        {PostStore.posts.sort((a, b) => {
-          return b.created - a.created
-        }).map((x, id) => {
-          return(
-            <SubredditPost
-            key={id}
-              x={x}
-              onClickHandler={() => selectPost(x, PostStore)}
-              used={isPostUsed(x)}
-            />
-          )
-        })}
-      </ul>
+      {PostStore.posts.length === 0 &&
+        <p className="subtle">No Reddit posts found...</p>
+      }
+      {!loading &&
+        <ul className="post-list mt+">
+
+          {PostStore.posts.sort((a, b) => {
+            return b.created - a.created
+          }).map((x, id) => {
+            return(
+              <SubredditPost
+              key={id}
+                x={x}
+                onClickHandler={() => selectPost(x, PostStore)}
+                used={isPostUsed(x)}
+              />
+            )
+          })}
+        </ul>    
+      }
 
       {ModalStore.isOpen && 
         <ConfirmModal />
@@ -274,7 +271,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 var isInViewport = function (elem) {
   var bounding = elem.getBoundingClientRect();
   return (
-      bounding.bottom <= ((window.innerHeight + 400))
+      bounding.bottom <= ((window.innerHeight + 200))
   );
 };
 
