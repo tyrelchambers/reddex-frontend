@@ -97,7 +97,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
           <p className="subject">{formattedSubject}</p>
         </div>
 
-        <div className="d-f mt- mb-">
+        <div className="d-f mt- mb- prefill-wrapper">
           <button 
             className=" btn btn-green p- m--"
             onClick={() => setDefaultMessage(UserStore.getUser().initial_message)}
@@ -112,16 +112,6 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">Message To Send</label>
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
-        </div>
-
-        <div className="field-group m0 mb-">
-          <label htmlFor="" className="form-label">Tags</label>
-          <input type="text" className="form-input" placeholder="press comma to save tag" onKeyUp={e => addTagHandler(e)}/>
-        </div>
-        <div className="d-f fxw-w">
-          {tags.map((x, id) => (
-            <p className="tag" key={id} onClick={() => removeTag(id)}>{x}</p>
-          ))}
         </div>
 
         <div className="d-f jc-sb ai-c confirm-actions mt+">
