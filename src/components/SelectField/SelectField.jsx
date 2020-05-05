@@ -2,16 +2,19 @@ import React from 'react'
 import './SelectField.scss';
 
 const SelectField = ({label, data, options, setOptions, prop}) => {
-  
-  const selectItems = data.map(x => (
-    <div className="select-item" data-value={x.value} data-label={x.label} key={x.label} onClick={e => {
-      setHandler(e, options, setOptions, prop)
-      resetStyles(e)
-    }}>
-      {x.label}
-    </div>
-  ));
+  const operators = () => {
+    const operators = {
+      ">" : "Greater than",
+      "=": "Equal to",
+      "<": "Less than"
+    }
 
+    if (operators.hasOwnProperty(options.operator)) {
+      return operators[options.operator]
+    } else {
+      return "Select operator"
+    }
+  }
   return (
     <div className="select d-f ai-c" >
       <span 
@@ -19,12 +22,19 @@ const SelectField = ({label, data, options, setOptions, prop}) => {
         id="selectLabel"
         onClick={dropdownToggle}
       >
-        <p id="label">{label}</p>
+        <p id="label">{operators()}</p>
         <i className="fas fa-chevron-down"></i>  
       </span>
 
       <div className="select-dropdown" id="dropdownList">
-        {selectItems}
+        {data.map(x => (
+          <div className="select-item" data-value={x.value} data-label={x.label} key={x.label} onClick={e => {
+            setHandler(e, options, setOptions, prop)
+            resetStyles(e)
+          }}>
+            {x.label}
+          </div>
+        ))}
       </div>
     </div>
   )

@@ -23,7 +23,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const [ filterOptions, setFilterOptions ] = useState({
     seriesOnly: false,
     upvotes: 0,
-    operator: ">",
+    operator: "",
     omitSeries: false,
     keywords: ""
   });
@@ -131,7 +131,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       url: '/posts/',
       params: {
         page,
-        ...(filterOptions.upvotes > 0 && {
+        ...((filterOptions.upvotes > 0 && filterOptions.operator )&& {
           upvotes: filterOptions.upvotes,
           operator: filterOptions.operator
         }),

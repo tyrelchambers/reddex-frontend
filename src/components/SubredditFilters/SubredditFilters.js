@@ -24,14 +24,14 @@ const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilter
           <div className="d-f w-100pr ai-c inputs">
             <SelectField 
               data={filterOptionsJSON}
-              label="Greater than"
+              label="Select operator"
               options={filterOptions}
               setOptions={setFilterOptions}
               prop="operator"
             />
             
-            <input type="number" className="form-input fx-1 ml-" placeholder="Upvote Count (default: 0)" onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
-            <input type="text" className="form-input fx-1 ml-" placeholder="keywords separated by commas" onChange={(e) => setFilterOptions({...filterOptions, keywords: e.target.value})}/>
+            <input type="number" className="form-input fx-1 ml-" placeholder="Upvote Count (default: 0)" value={filterOptions.upvotes} onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
+            <input type="text" className="form-input fx-1 ml-" placeholder="keywords separated by commas" value={filterOptions.keywords} onChange={(e) => setFilterOptions({...filterOptions, keywords: e.target.value})}/>
 
           </div>
 
@@ -41,8 +41,14 @@ const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilter
 
 
             <button className="btn btn-tiertiary" onClick={() => {
-              resetFilters(setFilterOptions);
               setReloadPosts(!reloadPosts);
+              setFilterOptions({
+                seriesOnly: false,
+                upvotes: 0,
+                operator: "",
+                omitSeries: false,
+                keywords: ""
+              });
             }}>Reset Filters</button>
             <button className="btn btn-secondary ml-" onClick={() => {
               filter();
@@ -53,17 +59,5 @@ const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilter
     </div>
   );
 }
-
-
-const resetFilters = (setFilterOptions) => {
-  return setFilterOptions({
-    seriesOnly: false,
-    upvotes: 0,
-    operator: ">",
-    omitSeries: false,
-    keywords: ""
-  });
-}
-
 
 export default inject("PostStore")(observer(SubredditFilters));
