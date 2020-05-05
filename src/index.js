@@ -135,18 +135,17 @@ const InitialLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
   const token = window.localStorage.getItem("token");
   const redditProfile = window.localStorage.getItem('reddit_profile')
+  const vToken = window.localStorage.getItem('visitorToken')
+
   checkValidTokens()
+
   useEffect(() => {
     const theme = localStorage.getItem('theme') || "light";
     document.querySelector("body").classList.add(`theme-${theme}`)
-  }, [])
-
-  useEffect(() => {
     const _ = async () => {
       
       if ( token ) {
         await stores.UserStore.setUser()
-        await checkValidTokens()
         const user = stores.UserStore.getUser();
         stores.UserStore.setRedditProfile(user.reddit_profile)
 
@@ -166,17 +165,20 @@ const InitialLoad = () => {
 
       
       }
-
-      await getAxios({
-        url: "/tokens/visitorToken"
-      }).then(async(res)=> {
-        if (res) {
-          if (!window.localStorage.getItem('visitorToken')) {
-            await window.localStorage.setItem('visitorToken', res)
-          }
-        }
-      })
       
+      if (!vToken) {
+        await getAxios({
+          url: "/tokens/visitorToken",
+          options: {
+            withToken: false
+          }
+        }).then(async(res)=> {
+          if (res) {
+            window.localStorage.setItem('visitorToken', res)
+          }
+        })
+        
+      }
       setLoaded(true);
     }
 
