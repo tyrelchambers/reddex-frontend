@@ -22,11 +22,10 @@
 .form-input {
   border: none;
   width: 100%;
-  padding: 1em 1.2em;
+  padding: 0.8em 1.2em;
   font-size: 0.8rem;
   border-radius: 3px;
   background-color: var(--inputBg);
-  line-height: 1.8em;
   color: var(--text);
   &::placeholder {
     color: var(--textLight);

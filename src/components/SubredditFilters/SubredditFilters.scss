@@ -2,17 +2,45 @@
 
 .filters-wrapper {
   background: var(--tiertiary);
-  padding: 0.5em 1em;
+}
+
+.filters {
+  background-color: var(--bgLight);
+  padding: 0.5em;
+  border-radius: 8px;
+}
+
+.filter-actions {
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {
-  .filters-wrapper > div {
-      flex-direction: column;
+  .inputs {
+    flex-direction: column;
+
+    div {
+      width: 100%;
+    }
+
+    > div:first-child {
+      margin-bottom: 1em;
+    }
+
+    > div:last-child {
+      margin-left: 0;
+    }
   }
 
   .filter-actions {
     margin-top: 1em;
-    align-self: flex-end;
+  }
+}
+
+@media screen and (max-width: 523px) {
+  .filter-actions {
+    button {
+      margin: 0.5em;
+    }
   }
 }
 
@@ -20,9 +48,7 @@
   .filters-wrapper {
     .inputs {
       flex-direction: column;
-      input {
-        margin: 1em 0;
-      }
+
     }
   }
 }
@@ -31,16 +57,17 @@
   .filter-actions {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 }
 
 @media screen and (max-width: 405px) {
-  .filter-actions {
+  .filter-actions > div {
     flex-direction: column;
 
     button {
-      width: 100%;
-      margin: 1em 0;
+      max-width: 100%;
+      margin: 0.5em 0;
     }
   }
 

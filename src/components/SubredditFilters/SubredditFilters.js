@@ -14,45 +14,59 @@ const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilter
       {document.body.clientWidth <= 425 &&
         <MinimalButton
           onClick={() => setCollapsed(!collapsed)}
-          classNames="mb-- mt--"
+          classNames="mb-- mt-- bg"
         >
           {collapsed ? "Show Filters" : "Hide Filters"}
         </MinimalButton>
       }
       {!collapsed &&
-        <div className=" d-f" style={{height: '100%'}}>
-          <div className="d-f w-100pr ai-c inputs">
-            <SelectField 
-              data={filterOptionsJSON}
-              label="Select operator"
-              options={filterOptions}
-              setOptions={setFilterOptions}
-              prop="operator"
-            />
-            
-            <input type="number" className="form-input fx-1 ml-" placeholder="Upvote Count (default: 0)" value={filterOptions.upvotes} onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
-            <input type="text" className="form-input fx-1 ml-" placeholder="keywords separated by commas" value={filterOptions.keywords} onChange={(e) => setFilterOptions({...filterOptions, keywords: e.target.value})}/>
+        <div className="d-f fxd-c filters">
+          <div className=" d-f" style={{height: '100%'}}>
+            <div className="d-f w-100pr ai-c inputs">
+              <div className="d-f fxd-c">
+                <h5 className="mb--">Sort by upvotes</h5>
+                <div className="d-f fx-1">
+                  <SelectField 
+                    data={filterOptionsJSON}
+                    defaultLabel="Select operator"
+                    options={filterOptions}
+                    setOptions={setFilterOptions}
+                    prop="operator"
+                  />
+                  
+                  <input type="number" className="form-input" placeholder="Upvote Count (default: 0)" value={filterOptions.upvotes} onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
+                </div>
+              </div>
+              <div className="d-f fxd-c  ml- fx-1">
+                <h5 className="mb--">Sort by exact phrase (ex: dark web)</h5>
+                <input type="text" className="form-input fx-1" placeholder="search phrase" value={filterOptions.keywords} onChange={(e) => setFilterOptions({...filterOptions, keywords: e.target.value})}/>
 
+              </div>
+            </div>
           </div>
+          <div className=" d-f ai-c mt-">
+            <div className="d-f fxd-c filter-actions">
+              <h5 className="mb--">Filter actions</h5>
+              <div className="d-f fxw-w">
+                <button className={`btn btn-tiertiary ${filterOptions.seriesOnly ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, seriesOnly: !filterOptions.seriesOnly})}>Series Only</button>
+                <button className={`btn btn-tiertiary ${filterOptions.excludeSeries ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, excludeSeries: !filterOptions.excludeSeries})}>Exclude Series</button>
 
-          <div className="filter-actions d-f ai-c">
-            <button className={`btn btn-tiertiary ${filterOptions.seriesOnly ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, seriesOnly: !filterOptions.seriesOnly})}>Series Only</button>
-            <button className={`btn btn-tiertiary ${filterOptions.excludeSeries ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, excludeSeries: !filterOptions.excludeSeries})}>Exclude Series</button>
 
-
-            <button className="btn btn-tiertiary" onClick={() => {
-              setReloadPosts(!reloadPosts);
-              setFilterOptions({
-                seriesOnly: false,
-                upvotes: 0,
-                operator: "",
-                omitSeries: false,
-                keywords: ""
-              });
-            }}>Reset Filters</button>
-            <button className="btn btn-secondary ml-" onClick={() => {
-              filter();
-            }}>Apply Filters</button>
+                <button className="btn btn-tiertiary" onClick={() => {
+                  setReloadPosts(!reloadPosts);
+                  setFilterOptions({
+                    seriesOnly: false,
+                    upvotes: 0,
+                    operator: "",
+                    omitSeries: false,
+                    keywords: ""
+                  });
+                }}>Reset Filters</button>
+                <button className="btn btn-secondary ml-" onClick={() => {
+                  filter();
+                }}>Apply Filters</button>
+              </div>
+            </div>
           </div>
         </div>
       }

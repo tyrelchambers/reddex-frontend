@@ -8,8 +8,6 @@
 }
 
 .post-fetch-search {
-  padding: 0.5em 1em;
-  
   .preffix {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -65,9 +63,6 @@
     justify-content: center;
   }
 
-  .filters-wrapper {
-    padding: 1em;
-  }
 }
 
 @media screen and (max-width: 603px) {
@@ -82,8 +77,17 @@
   .mobile-fetch-inputs {
     flex-direction: column;
     height: 100%;
+
+    >div {
+      width: 100%;
+
+      .form-input {
+        margin-right: 0;
+      }
+    }
     .select {
       margin-top: 1em;
+      margin-right: 0;
     }
   }
 }

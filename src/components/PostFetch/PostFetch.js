@@ -52,7 +52,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
          }
        });
 
-      const saved = await getPostsFromDatabase();
+       const saved = await getPostsFromDatabase();
       PostStore.setPosts(saved.posts)
      }
      
@@ -62,10 +62,10 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
  }, [])
 
   const infiniteScroll = async () => {
-    const list = document.querySelector('.post-list');
+    const list = document.querySelector('.App');
     if (fetching) return;
 
-    if ( isInViewport(list) && nextPage != null ) {
+    if ( isInViewport(list) && nextPage !== -1) {
       setFetching(true)
 
       await getPostsFromDatabase(nextPage).then(res => {
@@ -157,7 +157,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
   
     let endpoint = "";
-  
+    
     if ( category !== "hot" ) {
       endpoint = `${sr}/${category.category}.json?limit=100`;
     } 
@@ -205,9 +205,11 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
 
   const filter = async () => {
-    setNextPage(1)
+    setLoading(true)
     await getPostsFromDatabase().then(res => {
       PostStore.setPosts([...res.posts])
+      setNextPage(res.nextPage)
+      setLoading(false)
     })
   }
 
@@ -252,7 +254,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       {!loading &&
         <ul className="post-list mt+">
 
-          {PostStore.posts.sort((a, b) => {
+          {PostStore.posts.slice().sort((a, b) => {
             return b.created - a.created
           }).map((x, id) => {
             return(

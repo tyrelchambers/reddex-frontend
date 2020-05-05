@@ -12,17 +12,19 @@ import { observer } from 'mobx-react-lite';
     const subreddit = PostStore.subreddit;
     return (
     <section className="w-100pr d-f post-fetch-header">
-      <div className=" w-100pr post-fetch-search">  
+      <div className=" w-100pr post-fetch-search mb-">  
         <label className="form-label dark">Enter Subreddit</label>
         <div className="d-f ai-c h-48px mobile-fetch-inputs mt--">
-            <span className="preffix">
+          <div className="d-f fx-1">
+            <div className="preffix">
               <p>r/</p>
-            </span>
+            </div>
             <input type="text" className="form-input w-100pr mr- search-input post-fetch-search" placeholder="subreddit" value={subreddit} onChange={(e) => PostStore.setSubreddit(e.target.value)} ref={inputRef}/>
+          </div>
 
           <SelectField
             data={optionsJSON}
-            label="Hot"
+            defaultLabel="Hot"
             options={categoryOptions}
             setOptions={setCategoryOptions}
             prop="category"
@@ -31,7 +33,7 @@ import { observer } from 'mobx-react-lite';
           {(categoryOptions.category === "top" || categoryOptions.category === "controversial") &&
             <SelectField
               data={timeframeJSON}
-              label="Past 24 Hours"
+              defaultLabel="Past 24 Hours"
               options={categoryOptions}
               setOptions={setCategoryOptions}
               prop="timeframe"

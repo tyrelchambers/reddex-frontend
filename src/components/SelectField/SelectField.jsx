@@ -1,20 +1,7 @@
 import React from 'react'
 import './SelectField.scss';
 
-const SelectField = ({label, data, options, setOptions, prop}) => {
-  const operators = () => {
-    const operators = {
-      ">" : "Greater than",
-      "=": "Equal to",
-      "<": "Less than"
-    }
-
-    if (operators.hasOwnProperty(options.operator)) {
-      return operators[options.operator]
-    } else {
-      return "Select operator"
-    }
-  }
+const SelectField = ({defaultLabel, data, options, setOptions, prop}) => {
   return (
     <div className="select d-f ai-c" >
       <span 
@@ -22,7 +9,7 @@ const SelectField = ({label, data, options, setOptions, prop}) => {
         id="selectLabel"
         onClick={dropdownToggle}
       >
-        <p id="label">{operators()}</p>
+        <p id="label" className="mr-">{data[prop] || defaultLabel}</p>
         <i className="fas fa-chevron-down"></i>  
       </span>
 
@@ -51,7 +38,9 @@ const dropdownToggle = (e) => {
 const setHandler = (e, options, set, prop) => {
   const value = e.target.getAttribute('data-value');
   const label = e.target.getAttribute('data-label');
-  changeLabel(e, label)
+  const parent = e.target.closest('.select');
+  const childLabel = parent.querySelector('#label');
+  childLabel.innerHTML = label;
   return set({...options, [prop]: value});
 }
 
@@ -62,10 +51,5 @@ const resetStyles = (e) => {
   list.classList.remove('expanded-select');
 }
 
-const changeLabel = (e, value) => {
-  const parent = e.target.closest('.select');
-  const label = parent.querySelector('#label');
-  label.innerHTML = value;
-}
 
 export default SelectField
