@@ -57,12 +57,18 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
       }
     })
   }
+
+
   const Story = ({x, storyId}) => (
     <li className="reading-list-item">
       <div className="d-f fxd-c fx-1 reading-list-item-header">
         <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
           <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
-          <h4 className="reading-list-author">{x.author}</h4>
+          <h4 className="reading-list-author">
+            <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv" style={{color: "inherit"}}>
+              {x.author}
+            </a>
+          </h4>
         </div>
 
         <div className="message-tags">
