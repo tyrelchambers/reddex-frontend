@@ -52,9 +52,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
            setUsedPosts([...res])
          }
        });
-
-       const saved = await getPostsFromDatabase();
-      PostStore.setPosts(saved.posts)
      }
      
      fn();
@@ -66,8 +63,12 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
  useEffect(() => {
   const fn = async () => {
     setNextPage(2)
-    const saved = await getPostsFromDatabase();
-    PostStore.setPosts(saved.posts)
+    await getPostsFromDatabase().then(res => {
+      if(res) {
+
+        PostStore.setPosts(res.posts)
+      }
+    });
   }
 
   fn()
@@ -160,6 +161,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
     }).then(res => {
       if (res) {
+        console.log(res)
         return res
       }
     })
@@ -255,7 +257,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         }
 
       </div>
-      {console.log(filterOptions)}
+
       {UserStore.getUser() &&
         <RecentlySearched
           executeFetch={executeFetch}
