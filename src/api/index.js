@@ -40,6 +40,10 @@ export const getAxios = async ({
         window.localStorage.clear();
         window.location.pathname = "/login" 
       }
+
+      if (err.response.data.err === "jwt malformed") {
+        window.localStorage.removeItem('visitorToken')
+      }
     }
     return false;
   })

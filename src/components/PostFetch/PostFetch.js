@@ -65,7 +65,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     setNextPage(2)
     await getPostsFromDatabase().then(res => {
       if(res) {
-
+        
         PostStore.setPosts(res.posts)
       }
     });
