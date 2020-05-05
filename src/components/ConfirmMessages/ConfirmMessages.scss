@@ -99,6 +99,9 @@
 }
 
 @media screen and (max-width: 425px) {
+  .prefill-wrapper {
+    flex-direction: column;
+  }
   .confirm-actions {
     flex-direction: column-reverse;
     button:nth-child(1) {

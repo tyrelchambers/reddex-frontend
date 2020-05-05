@@ -3,7 +3,7 @@ const pro = [
 ]
 
 const basic = [
-
+  "Sara Pindera"
 ]
 
 export {

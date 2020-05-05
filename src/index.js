@@ -16,7 +16,6 @@ import PostStore from './stores/PostStore';
 import InboxStore from './stores/InboxStore';
 import ReadingListStore from './stores/ReadingListStore';
 import 'react-toastify/dist/ReactToastify.css';
-import db from './Database/Database';
 import { Provider } from 'mobx-react';
 import ReadingList from './Pages/Dashboard/ReadingList/ReadingList';
 import Inbox from './Pages/Dashboard/Inbox/Inbox';
@@ -40,6 +39,12 @@ import Explore from './Pages/Explore/Explore';
 import Patreon from './Pages/Patreon/Patreon';
 import { Modal } from './components/Modal/Modal';
 import TagsManager from './Pages/TagsManager/TagsManager';
+
+import Dexie from 'dexie';
+
+const db = new Dexie("Reddex");
+
+db.delete();
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');
@@ -130,18 +135,17 @@ const InitialLoad = () => {
   const [ loaded, setLoaded ] = useState(false);
   const token = window.localStorage.getItem("token");
   const redditProfile = window.localStorage.getItem('reddit_profile')
-  
+  const vToken = window.localStorage.getItem('visitorToken')
+
+  checkValidTokens()
+
   useEffect(() => {
     const theme = localStorage.getItem('theme') || "light";
     document.querySelector("body").classList.add(`theme-${theme}`)
-  }, [])
-
-  useEffect(() => {
     const _ = async () => {
       
       if ( token ) {
         await stores.UserStore.setUser()
-        await checkValidTokens()
         const user = stores.UserStore.getUser();
         stores.UserStore.setRedditProfile(user.reddit_profile)
 
@@ -161,8 +165,20 @@ const InitialLoad = () => {
 
       
       }
-
       
+      if (!vToken) {
+        await getAxios({
+          url: "/tokens/visitorToken",
+          options: {
+            withToken: false
+          }
+        }).then(async(res)=> {
+          if (res) {
+            window.localStorage.setItem('visitorToken', res)
+          }
+        })
+        
+      }
       setLoaded(true);
     }
 

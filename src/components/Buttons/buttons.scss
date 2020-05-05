@@ -40,7 +40,7 @@
   font-size: 0.7rem;
   color: hsla(201, 87%, 54%,1);
   transition: all 0.2s ease;
-
+  height: 50px;
 
   &:hover {
     background-color: hsla(201, 87%, 54%,1);
@@ -56,8 +56,10 @@
   padding: 1em;
   margin-left: 0.5em;
   transition: all 0.2s ease;
-
-  background-color: var(--bgLight);
+  width: 100%;
+  max-width: 100px;
+  height: 50px;
+  background-color: var(--bg);
   border-radius:5px;
   border:1.5px solid transparent;
 
@@ -100,8 +102,8 @@
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: var(--bg);
-    color: white;
+    background-color: var(--accentBg);
+    color: var(--white);
   }
   i {
     margin: 0;
@@ -208,6 +210,10 @@
   i {
     margin-right: 1em;
   }
+}
+
+.minimal-btn.bg {
+  background: var(--bgLight);
 }
 
 .dot {

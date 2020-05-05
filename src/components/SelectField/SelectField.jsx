@@ -1,29 +1,27 @@
 import React from 'react'
 import './SelectField.scss';
 
-const SelectField = ({label, data, options, setOptions, prop}) => {
-
-  const selectItems = data.map(x => (
-    <div className="select-item" data-value={x.value} data-label={x.label} key={x.label} onClick={e => {
-      setHandler(e, options, setOptions, prop)
-      resetStyles(e)
-    }}>
-      {x.label}
-    </div>
-  ));
-
+const SelectField = ({defaultLabel, data, options, setOptions, prop}) => {
   return (
-    <div className="select d-f ai-c" onClick={dropdownToggle}>
+    <div className="select d-f ai-c" >
       <span 
         className="select-label d-f jc-sb ai-c w-100pr"
         id="selectLabel"
+        onClick={dropdownToggle}
       >
-        <p id="label">{label}</p>
+        <p id="label" className="mr-">{data[prop] || defaultLabel}</p>
         <i className="fas fa-chevron-down"></i>  
       </span>
 
       <div className="select-dropdown" id="dropdownList">
-        {selectItems}
+        {data.map(x => (
+          <div className="select-item" data-value={x.value} data-label={x.label} key={x.label} onClick={e => {
+            setHandler(e, options, setOptions, prop)
+            resetStyles(e)
+          }}>
+            {x.label}
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -40,22 +38,18 @@ const dropdownToggle = (e) => {
 const setHandler = (e, options, set, prop) => {
   const value = e.target.getAttribute('data-value');
   const label = e.target.getAttribute('data-label');
-  changeLabel(e, label)
+  const parent = e.target.closest('.select');
+  const childLabel = parent.querySelector('#label');
+  childLabel.innerHTML = label;
   return set({...options, [prop]: value});
 }
 
 const resetStyles = (e) => {
   const parent = e.target.closest('.select');
   const list = parent.querySelector("#dropdownList");
-  
   parent.classList.remove('expanded-title');
   list.classList.remove('expanded-select');
 }
 
-const changeLabel = (e, value) => {
-  const parent = e.target.closest('.select');
-  const label = parent.querySelector('#label');
-  label.innerHTML = value;
-}
 
 export default SelectField

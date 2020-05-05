@@ -2,14 +2,16 @@
 .select {
   position: relative;
   display: flex;
-  width: 200px;
+  width: 250px;
   height: 100%;
-  background-color: var(--bgLight);
+  max-height: 45px;
+  background-color: var(--bgLighter);
   margin-right: 1em;
   padding: 5px 10px;
   border-radius: 3px;
   color: var(--text);
   font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .select-dropdown {
@@ -40,7 +42,7 @@
 
 
   &:hover {
-    background-color: var(--bgLight);
+    background-color: var(--bg);
   }
 }
 
@@ -51,7 +53,7 @@
 }
 
 .expanded-title {
-  background-color: var(--bg);
+  background-color: var(--bgLight);
   
   .select-label {
     p {

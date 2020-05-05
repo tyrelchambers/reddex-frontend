@@ -1,6 +1,6 @@
 import Axios from "axios"
 import { toast } from "react-toastify";
-const token = window.localStorage.getItem("token")
+
 const BACKEND = process.env.REACT_APP_BACKEND;
 
 export const getAxios = async ({
@@ -8,10 +8,14 @@ export const getAxios = async ({
   data = {},
   params = {},
   options = {
-    withToken: true
+    withToken: true,
+    withVisitorToken: false
   },
   url = ""
 } = {}) => {
+  const token = await window.localStorage.getItem("token")
+  const visitorToken = await window.localStorage.getItem("visitorToken")
+  
   if (options.withToken && !token) {
     return;
   }
@@ -20,7 +24,9 @@ export const getAxios = async ({
     url: `${BACKEND}/api${url}`,
     data,
     headers: {
-      ...options.withToken && {token}
+      ...options.withToken && {token},
+      ...options.withVisitorToken && {visitorToken}
+
     },
     params: {
       ...params
@@ -33,6 +39,11 @@ export const getAxios = async ({
       if(err.response.data.err === "Auth token is old. Please sign in again.") {
         window.localStorage.clear();
         window.location.pathname = "/login" 
+      }
+
+      if (err.response.data === "Visitor token invalid") {
+        window.localStorage.removeItem('visitorToken')
+        window.location.reload()
       }
     }
     return false;

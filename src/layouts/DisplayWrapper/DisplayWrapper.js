@@ -4,7 +4,7 @@ import Announcement from '../Announcement/Announcement';
 
 const DisplayWrapper = (props) => {
   return (
-    <div className="pt-large">
+    <div className="pt-large" >
       <Header />
       <Announcement 
         title={props.announcementTitle}
