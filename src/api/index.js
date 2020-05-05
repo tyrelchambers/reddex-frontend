@@ -41,8 +41,9 @@ export const getAxios = async ({
         window.location.pathname = "/login" 
       }
 
-      if (err.response.data.err === "jwt malformed") {
+      if (err.response.data === "Visitor token invalid") {
         window.localStorage.removeItem('visitorToken')
+        window.location.reload()
       }
     }
     return false;
