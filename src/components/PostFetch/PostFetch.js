@@ -61,14 +61,18 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
  
 
  useEffect(() => {
+  const vToken = window.localStorage.getItem("visitorToken");
   const fn = async () => {
     setNextPage(2)
-    await getPostsFromDatabase().then(res => {
-      if(res) {
-        
-        PostStore.setPosts(res.posts)
-      }
-    });
+    
+    if (vToken) {
+      await getPostsFromDatabase().then(res => {
+        if(res) {
+          
+          PostStore.setPosts(res.posts)
+        }
+      });
+    }
   }
 
   fn()
