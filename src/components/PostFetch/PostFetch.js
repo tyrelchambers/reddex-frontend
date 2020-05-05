@@ -11,11 +11,12 @@ import RecentlySearched from '../../layouts/RecenlySearched/RecentlySearched';
 import {getAxios} from '../../api/index'
 import HR from '../HR/HR';
 import SubredditPost from '../SubredditPost/SubredditPost';
+import { toast } from 'react-toastify';
 
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
   const [loading, setLoading] = useState(false);
-  const [ reloadPosts, setReloadPosts ] = useState(false);
+  const [refetch, setRefetch] = useState(false)
   const [ categoryOptions, setCategoryOptions ] = useState({
     category: "hot",
     timeframe: "day"
@@ -38,7 +39,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     return () => {
       window.removeEventListener('scroll', infiniteScroll);
     };
-  }, [fetching, filterOptions])
+  }, [fetching])
 
   useEffect(() => {
     
@@ -60,6 +61,20 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
    }
 
  }, [])
+ 
+
+ useEffect(() => {
+  const fn = async () => {
+    setNextPage(2)
+    const saved = await getPostsFromDatabase();
+    PostStore.setPosts(saved.posts)
+  }
+
+  fn()
+   return () => {
+     setNextPage(2)
+   }
+ }, [refetch])
 
   const infiniteScroll = async () => {
     const list = document.querySelector('.App');
@@ -78,7 +93,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 
   var isInViewport = function (elem) {
     var bounding = elem.getBoundingClientRect();
-    return (bounding.bottom <= window.innerHeight + 100);
+    return (bounding.bottom <= window.innerHeight + 250);
   };
   
   const isPostUsed = (post) => {
@@ -126,7 +141,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
   
   const getPostsFromDatabase = async (page) => {
-
     return await getAxios({
       url: '/posts/',
       params: {
@@ -155,7 +169,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   const fetchPosts = async (subreddit, setLoading, category) => {
     const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
     if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
-  
+    
+    window.localStorage.setItem("subreddit", sr)
+
     let endpoint = "";
     
     if ( category !== "hot" ) {
@@ -205,6 +221,10 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
 
   const filter = async () => {
+
+    if (filterOptions.upvotes && !filterOptions.operator) {
+      return toast.error("No operator selected")
+    }
     setLoading(true)
     await getPostsFromDatabase().then(res => {
       PostStore.setPosts([...res.posts])
@@ -225,8 +245,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         />
         {(!loading) &&
           <SubredditFilters 
-            setReloadPosts={setReloadPosts} 
-            reloadPosts={reloadPosts}
+          refetch={refetch}
+            setRefetch={setRefetch}
             filterOptions={filterOptions}
             setFilterOptions={setFilterOptions}  
             getPostsFromDatabase={getPostsFromDatabase}
@@ -235,13 +255,15 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         }
 
       </div>
-      
+      {console.log(filterOptions)}
       {UserStore.getUser() &&
         <RecentlySearched
           executeFetch={executeFetch}
         />
       }
         <HR />
+
+      {window.localStorage.getItem("subreddit") && <p className="subtle">Showing posts from <strong>{window.localStorage.getItem("subreddit")}</strong> </p>}
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
         <MessageAuthors data={PostStore.selectedPosts} posts={PostStore.posts} />

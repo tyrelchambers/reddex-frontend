@@ -5,7 +5,7 @@ import SelectField from '../SelectField/SelectField';
 import {MinimalButton} from '../Buttons/Buttons'
 import { inject, observer } from 'mobx-react';
 
-const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilterOptions, filter}) => {
+const SubredditFilters = ({refetch, filterOptions, setFilterOptions, filter, setRefetch}) => {
 
   const [collapsed, setCollapsed] = useState(document.body.clientWidth <= 425 ? true : false);
 
@@ -53,7 +53,6 @@ const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilter
 
 
                 <button className="btn btn-tiertiary" onClick={() => {
-                  setReloadPosts(!reloadPosts);
                   setFilterOptions({
                     seriesOnly: false,
                     upvotes: 0,
@@ -61,6 +60,7 @@ const SubredditFilters = ({ setReloadPosts, reloadPosts,filterOptions, setFilter
                     omitSeries: false,
                     keywords: ""
                   });
+                  setRefetch(true)
                 }}>Reset Filters</button>
                 <button className="btn btn-secondary ml-" onClick={() => {
                   filter();
