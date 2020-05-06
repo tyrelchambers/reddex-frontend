@@ -39,7 +39,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     return () => {
       window.removeEventListener('scroll', infiniteScroll);
     };
-  }, [fetching])
+  }, [fetching, nextPage])
 
   useEffect(() => {
     
@@ -63,7 +63,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
  useEffect(() => {
   const vToken = window.localStorage.getItem("visitorToken");
   const fn = async () => {
-    setNextPage(2)
     
     if (vToken) {
       await getPostsFromDatabase().then(res => {
@@ -76,9 +75,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
 
   fn()
-   return () => {
-     setNextPage(2)
-   }
+
  }, [refetch])
 
   const infiniteScroll = async () => {
@@ -87,7 +84,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 
     if ( isInViewport(list) && nextPage !== -1) {
       setFetching(true)
-
+      console.log('called')
       await getPostsFromDatabase(nextPage).then(res => {
         PostStore.setPosts([...PostStore.posts, ...res.posts])    
         setNextPage(res.nextPage)
@@ -146,6 +143,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
   
   const getPostsFromDatabase = async (page) => {
+    console.log(filterOptions)
     return await getAxios({
       url: '/posts/',
       params: {
@@ -165,7 +163,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
     }).then(res => {
       if (res) {
-        console.log(res)
         return res
       }
     })
@@ -295,6 +292,11 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
             )
           })}
         </ul>    
+      }
+
+      {fetching && 
+         <Loading  subtitle="Fetching next page..."/>
+
       }
  
       {ModalStore.isOpen && 
