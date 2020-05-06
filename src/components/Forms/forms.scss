@@ -24,6 +24,7 @@
   width: 100%;
   padding: 0.8em 1.2em;
   font-size: 0.8rem;
+  height: 100%;
   border-radius: 3px;
   background-color: var(--inputBg);
   color: var(--text);
@@ -34,6 +35,16 @@
   &:focus {
     background-color: var(--bgLight);
   }
+}
+
+.form-input.has-preffix {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.form-input.has-suffix {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .chat-send-form {
