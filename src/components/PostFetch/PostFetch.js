@@ -143,7 +143,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
   
   const getPostsFromDatabase = async (page) => {
-    console.log(filterOptions)
     return await getAxios({
       url: '/posts/',
       params: {
