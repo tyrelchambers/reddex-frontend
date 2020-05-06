@@ -10,7 +10,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         <label htmlFor="subdomain" className="form-label">Subdomain</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">https://</span>
-          <input type="text" className="form-input fx-1" name="subdomain" value={config.subdomain} onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix has-suffix fx-1" name="subdomain" value={config.subdomain} onChange={e => configHandler(e)}/>
           <span className="suffix">.{process.env.REACT_APP_SUBDOMAIN_HOST}</span>
         </div>
         {config.subdomain &&
@@ -24,7 +24,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           <span className="preffix">
             <i className="fas fa-id-badge"></i>
           </span>
-          <input type="text" className="form-input fx-1" name="title" value={config.title} placeholder="My Awesome Site" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix fx-1" name="title" value={config.title} placeholder="My Awesome Site" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
@@ -85,7 +85,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         <label htmlFor="twitter" className="form-label">Twitter</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">@</span>
-          <input type="text" className="form-input fx-1" name="twitter" value={config.twitter} placeholder="@twitter_handle" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix fx-1" name="twitter" value={config.twitter} placeholder="@twitter_handle" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
@@ -93,7 +93,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         <label htmlFor="instagram" className="form-label">Instagram</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">@</span>
-          <input type="text" className="form-input fx-1" name="instagram"  value={config.instagram} placeholder="Instagram username" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix fx-1" name="instagram"  value={config.instagram} placeholder="Instagram username" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           <span className="preffix">
             <i className="fab fa-facebook-f"></i>
           </span>
-          <input type="text" className="form-input fx-1" name="facebook"  value={config.facebook} placeholder="https://facebook.com/mypage" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix fx-1" name="facebook"  value={config.facebook} placeholder="https://facebook.com/mypage" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
@@ -113,7 +113,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           <span className="preffix">
             <i className="fab fa-patreon"></i>
           </span>
-          <input type="text" className="form-input fx-1" name="patreon" value={config.patreon}  placeholder="https://patreon.com/mypage" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix fx-1" name="patreon" value={config.patreon}  placeholder="https://patreon.com/mypage" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
@@ -123,7 +123,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           <span className="preffix">
             <i className="fab fa-youtube"></i>
           </span>
-          <input type="text" className="form-input fx-1" name="youtube" value={config.youtube}  placeholder="https://youtube.com/c/channelId" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix fx-1" name="youtube" value={config.youtube}  placeholder="https://youtube.com/c/channelId" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
@@ -133,7 +133,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
           <span className="preffix">
             <i className="fas fa-podcast"></i>
           </span>
-          <input type="text" className="form-input fx-1" name="podcast" value={config.podcast}  placeholder="Link to your podcast" onChange={e => configHandler(e)}/>
+          <input type="text" className="form-input has-preffix fx-1" name="podcast" value={config.podcast}  placeholder="Link to your podcast" onChange={e => configHandler(e)}/>
         </div>
       </div>
 
