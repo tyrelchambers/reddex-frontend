@@ -15,7 +15,7 @@ import { observer } from 'mobx-react-lite';
       <div className=" w-100pr post-fetch-search mb-">  
         <label className="form-label dark">Enter Subreddit</label>
         <div className="d-f ai-c h-48px mobile-fetch-inputs mt--">
-          <div className="d-f fx-1">
+          <div className="d-f fx-1 h-100p">
             <div className="preffix">
               <p>r/</p>
             </div>
