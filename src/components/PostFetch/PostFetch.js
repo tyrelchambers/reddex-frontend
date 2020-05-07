@@ -84,7 +84,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 
     if ( isInViewport(list) && nextPage !== -1) {
       setFetching(true)
-      console.log('called')
+
       await getPostsFromDatabase(nextPage).then(res => {
         PostStore.setPosts([...PostStore.posts, ...res.posts])    
         setNextPage(res.nextPage)
