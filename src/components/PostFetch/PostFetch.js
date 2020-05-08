@@ -299,7 +299,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         </ul>    
       }
 
-      {fetching && 
+      {(fetching && !loading) && 
          <Loading  subtitle="Fetching next page..."/>
 
       }
