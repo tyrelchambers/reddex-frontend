@@ -77,11 +77,11 @@
   .mobile-fetch-inputs {
     flex-direction: column;
     
-    height: 140px;
+    height: 160px;
 
     >div {
       width: 100%;
-
+      max-height: 45px;
       .form-input {
         margin-right: 0;
       }
