@@ -26,7 +26,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     upvotes: 0,
     operator: "",
     omitSeries: false,
-    keywords: ""
+    keywords: "",
+    readTime: 0,
+    readTimeOperator: ""
   });
   const [fetching, setFetching] = useState(false)
   const [ usedPosts, setUsedPosts ] = useState([]);
@@ -150,6 +152,10 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         ...((filterOptions.upvotes > 0 && filterOptions.operator )&& {
           upvotes: filterOptions.upvotes,
           operator: filterOptions.operator
+        }),
+        ...((filterOptions.readTime > 0 && filterOptions.readTimeOperator )&& {
+          readTime: filterOptions.readTime,
+          readTimeOperator: filterOptions.readTimeOperator
         }),
         ...(filterOptions.keywords && {keywords: filterOptions.keywords}),
         ...(filterOptions.seriesOnly && {seriesOnly: filterOptions.seriesOnly}),
@@ -293,7 +299,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         </ul>    
       }
 
-      {fetching && 
+      {(fetching && !loading) && 
          <Loading  subtitle="Fetching next page..."/>
 
       }

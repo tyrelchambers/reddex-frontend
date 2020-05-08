@@ -76,7 +76,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
         <p className="publish-tag m-- ml- sub-detail"> <i className="fas fa-history mr-"></i>{dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago</p>
         <div className="reading-info d-f">
         <div className="reading-time">
-          <span>{avgReadingTime(x.self_text)}</span>
+          <span>~{x.readTime} </span>
           min read
         </div>
       </div>
@@ -117,22 +117,6 @@ const Flair = ({data}) => {
     return null;
   }
 
-}
-
-
-
-const avgReadingTime = (text) => {
-
-  const wordsPerMinute = 200; // Average case.
-  let result;
-  
-  let textLength = text.split(" ").length; // Split by words
-  if(textLength > 0){
-    let value = Math.ceil(textLength / wordsPerMinute);
-    result = `~${value} `;
-  }
-
-  return result;
 }
 
 const concatTitle = title => {

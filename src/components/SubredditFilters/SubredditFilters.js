@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './SubredditFilters.scss';
-import filterOptionsJSON from './filterOptions';
+import {filterOptionsJSON, readtimeOptions} from './filterOptions';
 import SelectField from '../SelectField/SelectField';
 import {MinimalButton} from '../Buttons/Buttons'
 import { inject, observer } from 'mobx-react';
 
-const SubredditFilters = ({refetch, filterOptions, setFilterOptions, filter, setRefetch}) => {
+const SubredditFilters = ({filterOptions, setFilterOptions, filter, setRefetch}) => {
 
   const [collapsed, setCollapsed] = useState(document.body.clientWidth <= 425 ? true : false);
 
@@ -23,7 +23,7 @@ const SubredditFilters = ({refetch, filterOptions, setFilterOptions, filter, set
         <div className="d-f fxd-c filters">
           <div className=" d-f" style={{height: '100%'}}>
             <div className="d-f w-100pr ai-c inputs">
-              <div className="d-f fxd-c">
+              <div className="d-f fxd-c fx-1">
                 <h5 className="mb--">Sort by upvotes</h5>
                 <div className="d-f fx-1">
                   <SelectField 
@@ -37,12 +37,27 @@ const SubredditFilters = ({refetch, filterOptions, setFilterOptions, filter, set
                   <input type="number" className="form-input" placeholder="Upvote Count (default: 0)" value={filterOptions.upvotes} onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
                 </div>
               </div>
-              <div className="d-f fxd-c  ml- fx-1">
-                <h5 className="mb--">Sort by exact phrase (ex: dark web)</h5>
-                <input type="text" className="form-input fx-1" placeholder="search phrase" value={filterOptions.keywords} onChange={(e) => setFilterOptions({...filterOptions, keywords: e.target.value})}/>
-
+              <div className="d-f fxd-c fx-1 ml-">
+                <h5 className="mb--">Sort by approximate read time (in minutes)</h5>
+                <div className="d-f fx-1">
+                  <SelectField 
+                    data={readtimeOptions}
+                    defaultLabel="Select operator"
+                    options={filterOptions}
+                    setOptions={setFilterOptions}
+                    prop="readTimeOperator"
+                  />
+                  
+                  <input type="number" className="form-input" placeholder="ex: 5" value={filterOptions.readTime} onChange={e => setFilterOptions({...filterOptions, readTime: e.target.value})}/>
+                </div>
               </div>
+
             </div>
+          </div>
+          <div className="d-f fxd-c mt- mb- fx-1">
+            <h5 className="mb--">Sort by exact phrase (ex: dark web)</h5>
+            <input type="text" className="form-input fx-1" placeholder="search phrase" value={filterOptions.keywords} onChange={(e) => setFilterOptions({...filterOptions, keywords: e.target.value})}/>
+
           </div>
           <div className=" d-f ai-c mt-">
             <div className="d-f fxd-c filter-actions">
