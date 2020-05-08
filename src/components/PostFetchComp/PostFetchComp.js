@@ -16,7 +16,7 @@ import { observer } from 'mobx-react-lite';
         <label className="form-label dark">Enter Subreddit</label>
         <div className="d-f ai-c h-48px mobile-fetch-inputs mt--">
           <div className="d-f fx-1 h-100p">
-            <div className="preffix">
+            <div className="preffix" style={{height: '100%'}}>
               <p>r/</p>
             </div>
             <input type="text" className="form-input w-100pr mr- search-input post-fetch-search" placeholder="subreddit" value={subreddit} onChange={(e) => PostStore.setSubreddit(e.target.value)} ref={inputRef}/>

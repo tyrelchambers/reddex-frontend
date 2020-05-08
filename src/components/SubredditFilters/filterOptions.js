@@ -1,4 +1,4 @@
-const options = [
+export const filterOptionsJSON = [
   {
     label: "Greater than",
     value: ">"
@@ -13,4 +13,14 @@ const options = [
   }
 ]
 
-export default options;
+export const readtimeOptions = [
+  {
+    label: "Greater than",
+    value: ">"
+  },
+  {
+    label: "Less than",
+    value: "<"
+  }, 
+]
+
