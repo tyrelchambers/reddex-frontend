@@ -44,7 +44,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }, [fetching, nextPage])
 
   useEffect(() => {
-    
+    const vToken = window.localStorage.getItem("visitorToken");
+
     if( token ) {
      const fn = async () => {
        await getAxios({
@@ -54,29 +55,19 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
            setUsedPosts([...res])
          }
        });
+
+       if (vToken) {
+        await getPostsFromDatabase().then(res => {
+          if(res) {
+            
+            PostStore.setPosts(res.posts)
+          }
+        });
+      }
      }
      
      fn();
    }
-
- }, [])
- 
-
- useEffect(() => {
-  const vToken = window.localStorage.getItem("visitorToken");
-  const fn = async () => {
-    
-    if (vToken) {
-      await getPostsFromDatabase().then(res => {
-        if(res) {
-          
-          PostStore.setPosts(res.posts)
-        }
-      });
-    }
-  }
-
-  fn()
 
  }, [refetch])
 
@@ -145,22 +136,26 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
   
   const getPostsFromDatabase = async (page) => {
+
+    const query = {
+      ...((filterOptions.upvotes > 0 && filterOptions.operator )&& {
+        upvotes: filterOptions.upvotes,
+        operator: filterOptions.operator
+      }),
+      ...((filterOptions.readTime > 0 && filterOptions.readTimeOperator )&& {
+        readTime: filterOptions.readTime,
+        readTimeOperator: filterOptions.readTimeOperator
+      }),
+      ...(filterOptions.keywords && {keywords: filterOptions.keywords}),
+      ...(filterOptions.seriesOnly && {seriesOnly: filterOptions.seriesOnly}),
+      ...(filterOptions.excludeSeries && {excludeSeries: filterOptions.excludeSeries})
+    }
+
     return await getAxios({
       url: '/posts/',
       params: {
         page,
-        ...((filterOptions.upvotes > 0 && filterOptions.operator )&& {
-          upvotes: filterOptions.upvotes,
-          operator: filterOptions.operator
-        }),
-        ...((filterOptions.readTime > 0 && filterOptions.readTimeOperator )&& {
-          readTime: filterOptions.readTime,
-          readTimeOperator: filterOptions.readTimeOperator
-        }),
-        ...(filterOptions.keywords && {keywords: filterOptions.keywords}),
-        ...(filterOptions.seriesOnly && {seriesOnly: filterOptions.seriesOnly}),
-        ...(filterOptions.excludeSeries && {excludeSeries: filterOptions.excludeSeries})
-        
+        ...query
       },
       options: {
         withToken: false,
