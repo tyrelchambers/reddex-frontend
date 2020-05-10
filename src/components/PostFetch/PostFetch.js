@@ -175,6 +175,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
   
   const fetchPosts = async (subreddit, setLoading, category) => {
+    PostStore.setPosts([])
     const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
     if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
     
@@ -221,7 +222,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
       results.push(newObj)
     });
-  
+    
+    PostStore.setPosts([...results])
     saveToDatabase([...results]);
 
     return setLoading(false);  
@@ -303,6 +305,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
          <Loading  subtitle="Fetching next page..."/>
 
       }
+
+      {(!PostStore.posts.length && !loading && !fetching) && <p className="subtle ta-c ml-a mr-a">No posts found...</p>}
  
       {ModalStore.isOpen && 
         <ConfirmModal />
