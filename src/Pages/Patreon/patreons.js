@@ -6,7 +6,11 @@ const basic = [
   "Sara Pindera"
 ]
 
+const omegaSuper = [
+  "MrCreepyPasta"
+]
 export {
   pro,
-  basic
+  basic,
+  omegaSuper
 }
