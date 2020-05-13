@@ -3,7 +3,6 @@ import './SiteSaveStatus.scss'
 import { MainButton } from '../../components/Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
-import _ from 'lodash'
 
 const SiteSaveStatus = inject("SiteStore", "FormStore")(observer(({submitHandler, SiteStore, FormStore, saving}) => {
   if ( SiteStore.changes || FormStore.changes ) {

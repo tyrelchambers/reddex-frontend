@@ -184,7 +184,7 @@ const InitialLoad = () => {
 
     _();
     
-  }, [])
+  }, [redditProfile, token, vToken])
 
   if ( loaded ) {
 
