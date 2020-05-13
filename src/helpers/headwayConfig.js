@@ -1,4 +1,3 @@
-import React from 'react';
 
 const headwayConfig = () => {
   const HW_config = {

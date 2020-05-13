@@ -13,7 +13,6 @@
     "filepond-plugin-file-validate-size": "^2.2.0",
     "filepond-plugin-image-exif-orientation": "^1.0.6",
     "filepond-plugin-image-preview": "^4.5.0",
-    "lodash": "^4.17.15",
     "logrocket": "^0.6.21",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
