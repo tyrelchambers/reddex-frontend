@@ -17,7 +17,7 @@ export const deleteDomainAlias = async (alias) => {
       if (x !== domainAlias) {
         _.push(x)
       }
-
+      return null;
     })
  
       // Update the Netlify Site to include the domain alias we want to add

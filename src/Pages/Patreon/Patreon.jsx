@@ -1,6 +1,6 @@
 import React from 'react';
 import './Patreon.scss'
-import {basic, pro} from './patreons'
+import {basic, pro, omegaSuper} from './patreons'
 import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import { MainButton } from '../../components/Buttons/Buttons';
 import HR from '../../components/HR/HR';
@@ -21,6 +21,20 @@ const Patreon = () => {
           onClick={() => window.location.href="https://www.patreon.com/reddex"}
         />
         <HR classes="mt+ mb+"/>
+        <h2 className="mt+">Omega Super Supporters $50</h2>
+
+        {omegaSuper.length > 0 &&
+          <div className="patron-list mt+">
+            {omegaSuper.map((x, id) => (
+              <p className="patron">{x}</p>
+            ))}
+          </div>
+        }
+
+        {pro.length === 0 &&
+          <p className="ta-c mt+">No pro patrons, yet!</p>
+        }
+
         <h2 className="mt+">Pro Supporters $20</h2>
 
         {pro.length > 0 &&
