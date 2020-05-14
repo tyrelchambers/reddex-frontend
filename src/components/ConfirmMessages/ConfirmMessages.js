@@ -8,13 +8,13 @@ import Axios from 'axios';
 import { toast } from 'react-toastify';
 import {fetchTokens} from '../../helpers/renewRefreshToken'
 import { checkValidTokens } from '../../helpers/checkValidTokens';
+import PostStore from '../../stores/PostStore';
 const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ contact, setContact ] = useState();
   const [ expandContact, setExpandContact ] = useState(false);
   const [authorsMessaged, setAuthorsMessaged] = useState([]);
-  const [tags, setTags] = useState([])
 
   useEffect(() => {
     const fn = async () => {
@@ -38,7 +38,6 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
     }
 
     fn();
-    addTagHandler()
 
     return () => {
       setExpandContact(false);
@@ -60,19 +59,41 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
     }
   }
 
-  const addTagHandler = (e) => {
-    if (e && e.which === 188 && e.target.value && e.target.value !== ",") {
-      setTags([...tags, e.target.value.substring(0, e.target.value.length - 1)])
-      e.target.value = ""
-    }
+  const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data) => {
+    await checkValidTokens();
+    const tokens = await fetchTokens().catch(err => false);
+    const fmtSubject = subject;
+    const link = `https://oauth.reddit.com/api/compose`;
+ 
+    if (!tokens || !author) return toast.error("Something went wrong");
+    if (!message ) return toast.error("A messaged is needed to send");
+    if ( !fmtSubject ) return toast.error("A subject is needed");
+    if ( fmtSubject.length > 80 ) return toast.error("Subject line is too long");
+    const body = new FormData();
+    body.set('to', `/u/${author}`);
+    body.set("subject", fmtSubject);
+    body.set("text", message);
+    await Axios.post(link, body, {
+      headers: {
+        "Authorization": `bearer ${tokens.access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .then(res => {
+      removeMessagedAuthor();
+      saveAuthorToDb(author, post_id);
+      saveStoryToUser(data);
+      setLoading(false)
+      PostStore.clearSelectedPosts()
+    })
+    .catch(err => {
+      if(err) {
+       console.log(err)
+       toast.error("Something went wrong")
+      }
+    });
   }
 
-  const removeTag = (id) => {
-    const clone = [...tags]
-    clone.splice(id, 1)
-    
-    setTags([...clone])
-  }
   return (
     <div className="confirm-messages-wrapper">
       <h1 className="confirm-title" id="author" data-author={data.author} onClick={() => setExpandContact(!expandContact)}>
@@ -125,8 +146,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
             className="btn btn-primary" 
             onClick={() => {
               setLoading(true);
-
-              sendMessageToAuthors(data.author, formattedSubject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data, tags);
+              sendMessageToAuthors(data.author, formattedSubject, defaultMessage, removeMessagedAuthor, setLoading, data.post_id, data);
             }} 
             value="Message Author"
             loading={loading}
@@ -158,42 +178,6 @@ const saveStoryToUser = async (data) => {
 }
 
 
- export const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data) => {
-   await checkValidTokens();
-   const tokens = await fetchTokens().catch(err => false);
-   const fmtSubject = subject;
-   const link = `https://oauth.reddit.com/api/compose`;
 
-   if (!tokens || !author) return toast.error("Something went wrong");
-   if (!message ) return toast.error("A messaged is needed to send");
-   if ( !fmtSubject ) return toast.error("A subject is needed");
-   if ( fmtSubject.length > 80 ) return toast.error("Subject line is too long");
-   const body = new FormData();
-   body.set('to', `/u/${author}`);
-   body.set("subject", fmtSubject);
-   body.set("text", message);
-   await Axios.post(link, body, {
-     headers: {
-       "Authorization": `bearer ${tokens.access_token}`,
-       "Content-Type": "application/x-www-form-urlencoded"
-     }
-   })
-   .then(res => {
-    removeMessagedAuthor();
-    saveAuthorToDb(author, post_id);
-    saveStoryToUser(data);
-    setLoading(false)
-   })
-   .catch(err => {
-     if(err) {
-      console.log(err)
-      toast.error("Something went wrong")
-     }
-   });
-
-    
-
-
- }
 
 export default ConfirmMessages;
