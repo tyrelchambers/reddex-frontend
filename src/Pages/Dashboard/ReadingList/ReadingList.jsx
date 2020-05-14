@@ -91,7 +91,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observ
           classNames="mobile-margin ml- minimal-btn bg"
         >
           <i className="fas fa-plus mr-"></i>
-          Request Permission &amp; Import
+          Request Permission Using URL
         </MinimalButton>
       </div>
       <div className="d-f mobile-column">
