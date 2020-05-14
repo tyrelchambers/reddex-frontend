@@ -6,10 +6,18 @@ import { is_url } from '../../helpers/isURL';
 import { toast } from 'react-toastify';
 import { inject, observer } from 'mobx-react';
 
-const RequestWithUrl = ({PostStore}) => {
+const RequestWithUrl = ({PostStore, ModalStore}) => {
   const [ url, setURL ] = React.useState("");
   const [ saving, setSaving ] = React.useState(false); 
   const [ proceed, setProceed ] = React.useState(false)
+
+  React.useEffect(() => {
+    ModalStore.setClearPostsOnExit(true)
+
+    return () => {
+      ModalStore.setClearPostsOnExit(false)
+    };
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -75,4 +83,4 @@ const RequestWithUrl = ({PostStore}) => {
   }
 }
 
-export default inject("PostStore")(observer(RequestWithUrl));
+export default inject("PostStore", "ModalStore")(observer(RequestWithUrl));

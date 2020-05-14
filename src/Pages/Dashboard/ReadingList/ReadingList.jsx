@@ -11,7 +11,6 @@ import tabs from './tabs';
 import Tabs from '../../../layouts/Tabs/Tabs';
 import Dashboard from '../Dashboard';
 import { getAxios } from '../../../api';
-import ConfirmModal from '../../../components/ConfirmModal/ConfirmModal';
 import RequestWithUrl from '../../../components/RequestWithUrl/RequestWithUrl';
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observer(({ReadingListStore, ModalStore, PostStore}) => {  
@@ -34,7 +33,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observ
     
     fn();
     return () => {
-      PostStore.setSelectedPosts([])
+      PostStore.clearSelectedPosts();
       setRefresh(false)
     }
   }, [refresh]);

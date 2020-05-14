@@ -5,6 +5,7 @@ import { inject } from 'mobx-react';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalStore, PostStore}) => {
+
   return (
     <div className="message-author-box mt+ mb+ animated fadeIn faster">
       <div className="message-author-box-header d-f jc-sb ai-c">
@@ -15,7 +16,7 @@ const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalS
         }}>Confirm Messages</button>
 
       </div>
-
+        {console.log(PostStore.selectedPosts)}
       <div className="d-f fxd-c ai-c p-">
         <div className="message-author-body d-f jc-c pb-">
           <p className="subtle ta-c">Confirming messages will open a pop-up that will walk you through each message to make sure it's correct. It will not send any messages.</p>
