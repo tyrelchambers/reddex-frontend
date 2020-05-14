@@ -8,7 +8,7 @@ import { getAxios } from '../../api';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
-const ImportStoryForm = ({ReadingListStore, ModalStore}) => {
+const ImportStoryForm = ({ModalStore, buttonText, icon}) => {
   const [ url, setURL ] = useState();
   const [ saving, setSaving ] = useState(false);
 
@@ -66,15 +66,15 @@ const ImportStoryForm = ({ReadingListStore, ModalStore}) => {
       <div className="d-f ai-c jc-fe">
         <MainButton
           className="btn btn-primary" 
-          value="Import Story"
+          value={buttonText}
           onClick={e => saveStoryFromURL(e)}
           loading={saving}
         >
-          <i className="fas fa-check mr-"></i>
+          {icon}
         </MainButton>
       </div>
     </form>
   )
 }
 
-export default inject("ReadingListStore", "ModalStore")(observer(ImportStoryForm));
+export default inject("ModalStore")(observer(ImportStoryForm));

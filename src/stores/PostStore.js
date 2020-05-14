@@ -21,6 +21,8 @@ class PostStore {
     if ( !dupe ) {
       this.selectedPosts.push(post)
     }
+
+    return true;
   }
 
   setCollectionCount(count) {
@@ -32,7 +34,7 @@ class PostStore {
   }
 
   clearSelectedPosts() {
-    this.selectedPosts.clear();
+    this.selectedPosts = [];
   }
 }
 

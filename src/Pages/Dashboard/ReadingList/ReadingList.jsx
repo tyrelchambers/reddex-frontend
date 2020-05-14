@@ -11,8 +11,9 @@ import tabs from './tabs';
 import Tabs from '../../../layouts/Tabs/Tabs';
 import Dashboard from '../Dashboard';
 import { getAxios } from '../../../api';
+import RequestWithUrl from '../../../components/RequestWithUrl/RequestWithUrl';
 
-const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingListStore, ModalStore}) => {  
+const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observer(({ReadingListStore, ModalStore, PostStore}) => {  
   const [ refresh, setRefresh ] = useState(false);
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingL
     
     fn();
     return () => {
+      PostStore.clearSelectedPosts();
       setRefresh(false)
     }
   }, [refresh]);
@@ -66,15 +68,30 @@ const ReadingList = inject("ReadingListStore", "ModalStore")(observer(({ReadingL
                 <h2 className="ta-c">Import A Story </h2>
                 <div className="d-f jc-c">
                   <ImportStoryForm
+                    buttonText="Import Story"
+                    icon={<i className="fas fa-check mr-"></i>}
                   />
                 </div>
               </>
             )
           }}
-          classNames="mobile-margin ml-"
+          classNames="mobile-margin ml- minimal-btn bg"
         >
           <i className="fas fa-plus mr-"></i>
           Import Story from URL
+        </MinimalButton>
+
+        <MinimalButton
+          onClick={() => {
+            ModalStore.setIsOpen(true)
+            ModalStore.setRender(
+              <RequestWithUrl/>
+            )
+          }}
+          classNames="mobile-margin ml- minimal-btn bg"
+        >
+          <i className="fas fa-plus mr-"></i>
+          Request Permission Using URL
         </MinimalButton>
       </div>
       <div className="d-f mobile-column">

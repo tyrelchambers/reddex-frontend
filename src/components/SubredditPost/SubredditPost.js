@@ -85,7 +85,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
             <i className="fas fa-history mr-"></i>
             {dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago
           </p>
-          <p className="subreddit-treading-time sub-detail ml-">
+          <p className="subreddit-reading-time sub-detail ml-">
             <i className="fas fa-book-reader mr-"></i>
             ~{x.readTime} min read
           </p>
