@@ -4,7 +4,7 @@ import { getAxios } from '../../api';
 import './TagsManager.scss'
 import { toast } from 'react-toastify';
 import HR from '../../components/HR/HR'
-import { ThirdButton } from '../../components/Buttons/Buttons';
+import { ThirdButton, MainButton } from '../../components/Buttons/Buttons';
 
 const TagsManager = () => {
   const [tags, setTags] = useState([])
@@ -60,11 +60,11 @@ const saveTag = () => {
         <h3>Create A Tag</h3>
         <p className="subtle mb">Tags must be unique. This means you can't have two of the same tags.</p>
 
-        <div className="d-f ai-c tag-input">
+        <div className="d-f ai-c tag-input h-36px">
           <input type="text" className="form-input" placeholder="enter tag name" onChange={e => setTag(e.target.value)}/>
-          <ThirdButton
-            text="Add Tag"
-            classNames="ml-"
+          <MainButton
+            value="Add Tag"
+            className="ml- btn btn-green h-100p"
             onClick={saveTag}
           />
         </div>
