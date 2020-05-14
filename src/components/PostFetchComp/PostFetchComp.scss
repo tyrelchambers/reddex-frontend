@@ -98,3 +98,9 @@
     margin-right: 0;
   }
 }
+
+@media screen and (max-width: 1276px) and (min-width: 768px) {
+  .post-list {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 100%));
+  }
+}

@@ -92,8 +92,38 @@
 
 .sub-detail {
   color: var(--textLight);
+
+  &:not(:last-child) {
+    margin-right: 1em;
+  }
   i {
     color: var(--textLight);
+  }
+}
+
+.sub-detail.comments {
+
+  color: var(--accent-warning);
+  i {
+    color: var(--accent-warning);
+
+  }
+}
+
+.sub-detail.publish-tag {
+  color: var(--accentBg);
+
+
+  i {
+    color: var(--accentBg);
+  }
+}
+
+.sub-detail.subreddit-reading-time {
+  color: var(--forest-20);
+
+  i {
+    color: var(--forest-20);
   }
 }
 
