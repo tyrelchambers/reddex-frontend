@@ -112,7 +112,7 @@ const removeMessagedAuthor = (list, index, setPostData) => {
 const EndOfList = () => {
   return (
     <div className="end-of-list d-f fxd-c jc-c ai-c">
-      <h1>You've reached the end!</h1>
+      <h1>No more messages to send</h1>
       <i className="fas fa-check"></i>
     </div>
   );
