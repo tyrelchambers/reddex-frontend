@@ -11,17 +11,16 @@ const DashboardTopbar = ({SiteStore}) => {
   })
 
   return (
-    <div className="d-f dashboard-topbar jc-sb">
-      <div className="d-f ai-c">
-        <NavToggle />
-        <div id="headway" className="ml- mr-"></div>
-        {SiteStore.preview.subdomain &&
-          <a href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site</a>
-        }
+    <div className="dashboard-topbar d-f jc-c">
+      <div className="container d-f ai-c jc-sb">
+        <div className="d-f ai-c">
+          <img src={require('../../assets/watermark-green.svg')} alt="Reddex" style={{width: '140px'}}/>
+          <div id="headway" className="ml- mr-"></div>
+        </div>
+
+
+        <NavWidget/>
       </div>
-
-
-      <NavWidget/>
     </div>
   )
 }

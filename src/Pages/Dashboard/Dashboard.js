@@ -40,22 +40,22 @@ const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loadi
   }, [])
 
   return (
-    <div className="d-f dashboard-wrapper">
+    <div className="d-f fxd-c dashboard-wrapper">
+      <DashboardTopbar />
       <DashboardNav />
       
-      <main className="dashboard-inner" id="#dashboard-inner-slide">
-        <DashboardTopbar />
-
-        {loading &&
+      {loading &&
           <Loading />
-        }
+      }
 
-        {!loading &&
-          <div className={`p+ dashboard-page-wrapper animated fadeIn faster`}>
+      {!loading &&
+        <main className={`p+ dashboard-page-wrapper animated fadeIn faster`}>
+          <div className="container">
             {children}
-          </div>
-        }
-      </main>
+          </div>    
+    
+        </main>
+      }
     </div>
   )
 }));

@@ -11,8 +11,10 @@
 .dashboard-page-wrapper {
    
   padding: 2em 2em 0 2em;
-      min-width: 288px;
-
+  min-width: 288px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .dashboard-inner-slide {
