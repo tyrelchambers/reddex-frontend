@@ -24,8 +24,9 @@
   --proGradient: linear-gradient(270deg, rgba(216,38,255,1) 0%, rgba(83,15,135,1) 100%);
   --forest: rgb(12, 107, 88);
   --forest-20: rgb(25, 148, 115);
+  --off-blue: rgb(232, 236, 241);
   // backgrounds
-  --bg: var(--white);
+  --bg: var(--off-blue);
   --bgLighter: var(--white-20);
   --bg-40: var(--white-40);
   --accentBg: var(--black-20);
@@ -62,7 +63,7 @@
 }
 
 .theme-light {
-  --bg: var(--white-20);
+  --bg: var(--off-blue);
   --bgLight: var(--white);
   --highlight: var(--white-60);
   --text: var(--black-20);
@@ -227,7 +228,7 @@ ul {
 
 .bg {
   background: var(--bgLight);
-  padding: 1em;
+  padding: 0.5em;
   border-radius: 5px;
 }
 

@@ -1,4 +1,4 @@
-const BASE_URL = '/account'
+const BASE_URL = '/dashboard/account'
 
 export default [
   {
@@ -12,5 +12,9 @@ export default [
   {
     text: "Recurring Message",
     url: `${BASE_URL}?t=alt_message`
+  },
+  {
+    text: "Integrations",
+    url: `${BASE_URL}?t=integrations`
   }
 ]

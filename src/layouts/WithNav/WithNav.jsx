@@ -1,19 +1,15 @@
 import React from 'react';
 import './WithNav.scss'
-import { NavLink } from 'react-router-dom';
+import Tabs from '../Tabs/Tabs';
 
-const WithNav = ({tabs}) => {
+const WithNav = ({tabs, children}) => {
   return (
-    <div className="w-100pr d-f">
-      <ul className="d-f fxd-c tabs">
-        {tabs.map(tab => (
-          <li className="tab">
-            <NavLink to={`/dashboard${tab.url}`}>
-              {tab.text}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+    <div className="w-100pr d-f mt+">
+      <Tabs tabs={tabs}/>
+
+      <section className="bg fx-1 ml-- shadow-lg"> 
+        {children}
+      </section>
     </div>
   );
 }
