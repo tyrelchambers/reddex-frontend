@@ -3,7 +3,6 @@ import './ReadingList.scss';
 import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
 import isEmpty from '../../../helpers/objIsEmpty'
-import { MinimalButton } from '../../../components/Buttons/Buttons';
 import AddTagForm from '../../../components/Forms/AddTagForm'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';

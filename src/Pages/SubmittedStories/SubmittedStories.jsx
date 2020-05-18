@@ -3,11 +3,13 @@ import './SubmittedStories.scss'
 import Dashboard from '../Dashboard/Dashboard'
 import { getAxios } from '../../api';
 import SubmittedItem from '../../components/SubmittedItem/SubmittedItem';
-import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { H1 } from '../../components/Headings/Headings'
+import WithNav from '../../layouts/WithNav/WithNav'
+import HR from '../../components/HR/HR';
 
-const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
+const SubmittedStories = () => {
   const [state, setState] = useState([]);
   const [ sortVal, setSortVal ] = useState("");
 
@@ -62,25 +64,28 @@ const SubmittedStories = inject("ModalStore")(observer(({ModalStore}) => {
 
   return (
     <Dashboard>
-      <h1>Submitted Stories</h1>
+      <H1>Submitted Stories</H1>
+      <WithNav>
 
-      <p className="font-bold mt+">Sort by title, author, or tags</p>
-      <input type="text" className="search-large w-100pr  mb+" placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
-      
-      <div className="grid-wrapper">
-        <div className="d-f submitted-headers">
-          <p>Title</p>
-          <p>Author</p>
-          <p>Tags</p>
-          <p>Submitted</p>
-          <p>Actions</p>
+        <p className="font-bold ">Sort by title, author, or tags</p>
+        <input type="text" className="search-large w-100pr max-w-xl mt-  mb+" placeholder="Search by title, author, or tags..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
+
+        <div className="grid-wrapper">
+          <div className="d-f submitted-headers">
+            <p>Title</p>
+            <p>Author</p>
+            <p>Tags</p>
+            <p>Submitted</p>
+            <p>Actions</p>
+          </div>
+
+          <div className="submitted-stories">
+            {stories}
+          </div>
         </div>
-        <div className="submitted-stories">
-          {stories}
-        </div>
-      </div>
+      </WithNav>
     </Dashboard>
   )
-}));
+};
 
 export default SubmittedStories;
