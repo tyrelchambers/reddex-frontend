@@ -7,7 +7,7 @@ const WithNav = ({tabs, children, optionalTabs}) => {
     <div className="w-100pr d-f mt+">
       <Tabs tabs={tabs} optionalTabs={optionalTabs}/>
 
-      <section className="bg fx-1 ml-- shadow-lg animated fadeIn faster"> 
+      <section className="bg fx-1 ml-- shadow-lg animated fadeIn faster" style={{height: 'fit-content'}}> 
         {children}
       </section>
     </div>

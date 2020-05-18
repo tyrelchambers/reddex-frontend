@@ -76,7 +76,7 @@ const Tag = ({x, id, toAdd, setToAdd}) => {
   const [isAdded, setIsAdd] = useState(false)
 
   return(
-    <div className={`d-f ai-c tag-item mt- ${isAdded ? "to-add" : ""}`} onClick={() => {
+    <div className={`d-f ai-c tag-isolated shadow-md mt- ${isAdded ? "to-add" : ""}`} onClick={() => {
        if (isAdded) {
          const clone = [...toAdd];
          clone.splice(clone.indexOf(id), 1)

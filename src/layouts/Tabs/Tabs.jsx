@@ -8,19 +8,21 @@ const Tabs = ({tabs, optionalTabs}) => {
 
   return (
     <div className="d-f fxd-c">
-      <ul className="d-f fxd-c tabs">
-        {tabs.map((tab, id) => (
-          <li className="tab" key={id}>
-            <NavLink to={tab.url} activeClassName="tab-active" isActive={() => {
-              if(url === tab.url) {
-                return true
-              }
-            }}>
-              {tab.text}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      {tabs &&
+        <ul className="d-f fxd-c tabs">
+          {tabs.map((tab, id) => (
+            <li className="tab" key={id}>
+              <NavLink to={tab.url} activeClassName="tab-active" isActive={() => {
+                if(url === tab.url) {
+                  return true
+                }
+              }}>
+                {tab.text}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      }
       {optionalTabs &&
         <>
           <HR/>

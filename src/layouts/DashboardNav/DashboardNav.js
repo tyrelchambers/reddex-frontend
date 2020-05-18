@@ -13,7 +13,7 @@ const DashboardNav = () => {
     <nav className={`dash-nav ${bodyWidth <= 768 ? "collapsed" : ""}`} id="dashNav">
       <ul className="container d-f ai-c">
         <li>
-          <NavLink onClick={e => parent(e)} to="/dashboard/reading_list?t=open" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">            
+          <NavLink onClick={e => parent(e)} to="/dashboard/reading_list?t=approved" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">            
           <p>Reading List</p>
           </NavLink>
         </li>

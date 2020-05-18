@@ -1,11 +1,14 @@
  
 .reading-list {
   &-item {
-    border-bottom: 1px solid var(--bg);
     padding: 0.5em 0;
   }
 }
 
+.reading-list-item-wrapper {
+  border-bottom: 1px solid var(--bg);
+
+}
 .reading-list-author {
   color: var(--text) !important;
 }
@@ -14,7 +17,7 @@
   position: absolute;
   background: var(--bgLight);
   border-radius: 5px;
-  border: 2px solid var(--bgLighter);
+  border: 1px solid var(--bgLighter);
   width: 150px;
   color: var(--text);
   right: 0;
@@ -31,8 +34,6 @@
   
     }
   }
-}
-.dropdown.extended {
 }
 
 .reading-list-item-dropdown {
@@ -150,7 +151,6 @@
 
 .tag-list {
   flex-wrap: wrap;
-  margin-top: 1em;
   p {
     white-space: nowrap;
   }

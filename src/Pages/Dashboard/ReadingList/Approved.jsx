@@ -63,7 +63,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
 
 
   const Story = ({x}) => (
-    <li>
+    <li className="reading-list-item-wrapper">
       <div className="reading-list-item grid grid-cols-5 gap-4 grid-flow-col ai-c">
         <a href={x.url} className="reading-list-title w-100pr font-bold col-span-2">{x.title}</a>
         <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv reading-list-author" style={{color: "inherit"}}>
@@ -118,36 +118,11 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
             Add Tags
           </button>
         </Dropdown>
-
-        
-        {/* <div className="tag-list d-f ai-c" id="tagList" >
-            {x.Tags ? x.Tags.map((t, id) => {
-            return <p className="subtle d-f tag-small" key={id} onClick={() => removeTagFromStory(t)}>{t.tag}</p>
-          }) : null}
-        </div> */}
-        {/* <div className="d-f ai-c reading-list-tags">
-
-        
-          <MinimalButton
-            classNames="whs-nw ml-"
-            onClick={() => {
-              ModalStore.setIsOpen(true)
-              ModalStore.setRender(
-                <div className="d-f fxd-c ai-c">
-                  <h3 className="mb+">Add a tag to story</h3>
-                  <AddTagForm
-                    story_id={storyId}
-                    story_uuid={x.uuid}
-                  />
-                </div>
-              )
-            }}
-            
-          >
-            <i className="fas fa-plus mr---"></i> 
-            Add Tags
-          </MinimalButton>
-        </div> */}
+      </div>
+      <div className="tag-list d-f ai-c" id="tagList" >
+        {x.Tags ? x.Tags.map((t, id) => {
+          return <p className="subtle d-f tag-small" key={id} onClick={() => removeTagFromStory(t)}>{t.tag}</p>
+        }) : null}
       </div>
     </li>
   )

@@ -4,11 +4,15 @@ import { getAxios } from '../../api';
 import './TagsManager.scss'
 import { toast } from 'react-toastify';
 import HR from '../../components/HR/HR'
-import { ThirdButton, MainButton } from '../../components/Buttons/Buttons';
+import { MainButton } from '../../components/Buttons/Buttons';
+import WithNav from '../../layouts/WithNav/WithNav';
+import { H1, H1Subtitle, H2, H2Subtitle } from '../../components/Headings/Headings';
+import Dropdown from '../../components/Dropdown/Dropdown';
 
 const TagsManager = () => {
   const [tags, setTags] = useState([])
   const [tag, setTag] = useState()
+  const [ openDropdown, setOpenDropdown] = useState("")
 
   useEffect(() => {
     getAxios({
@@ -53,34 +57,57 @@ const saveTag = () => {
 
   return (
     <Dashboard>
-      <h1>Tag Manager</h1>
-      <p className="subtle mb+">Manage all the tags you've created. You can create and delete the tags you've created.</p>
-               
-      <div className="bg">
-        <h3>Create A Tag</h3>
-        <p className="subtle mb">Tags must be unique. This means you can't have two of the same tags.</p>
-
-        <div className="d-f ai-c tag-input h-36px">
+      <H1>Tag Manager</H1>
+      <H1Subtitle>Manage all the tags you've created. You can create and delete tags here.</H1Subtitle>
+      <WithNav>
+        <H2>Create a tag</H2>
+        <H2Subtitle>Tags must be unique. This means you can't have two of the same tags.</H2Subtitle>
+        <div className="d-f ai-c tag-input h-36px mt-">
           <input type="text" className="form-input" placeholder="enter tag name" onChange={e => setTag(e.target.value)}/>
           <MainButton
             value="Add Tag"
-            className="ml- btn btn-green h-100p"
+            className="ml- btn btn-green h-100p p-"
             onClick={saveTag}
           />
         </div>
-      </div>
-      <HR 
-        classes="mb+ mt+"
-      />
-      <h3>Created Tags</h3>
-      <div className="d-f fxw-w">
-        {tags.map((x, id) => (
-          <div className="d-f ai-c tag-item mt- can-delete" key={id} onClick={() => deleteTag(x.uuid, id)}>
-            <i className="fas fa-times-circle" ></i>
-            <p>{x.tag}</p>
-          </div>
-        ))}
-      </div>
+
+        <HR/>
+
+        <H2>Created tags</H2>
+        
+        <div className="d-f fxw-w">
+          {tags.map((x, id) => (
+            <div className="d-f ai-c tag-item mt- can-delete" key={id} >
+              <p className="fx-1">{x.tag}</p>
+              <Dropdown
+                triggerIcon={ <i className="fas fa-ellipsis-h"></i> }
+                width="55px"
+                identifier={x.uuid}
+                showDropdown={() => {
+                  if (openDropdown === x.uuid) {
+                    return true
+                  }
+                }}
+                toggleDropdown={() => {
+                  setOpenDropdown(x.uuid)
+                  if (openDropdown === x.uuid) {
+                    setOpenDropdown("")
+                  }
+                }}
+              >
+                <button
+                  onClick={() => {
+                    setOpenDropdown("")
+                    deleteTag(x.uuid, id)
+                  }}
+                >
+                  Delete 
+                </button>
+              </Dropdown>
+            </div>
+          ))}
+        </div>
+      </WithNav>
     </Dashboard>
   );
 }
