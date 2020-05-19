@@ -15,6 +15,9 @@
   height: 60px;
   background-color: var(--black);
   justify-content: center;
+  position: sticky;
+  top: 60px;
+  z-index: 2;
 }
 
 .collapsed {

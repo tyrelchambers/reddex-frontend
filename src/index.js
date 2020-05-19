@@ -43,6 +43,7 @@ import TagsManager from './Pages/TagsManager/TagsManager';
 import Dexie from 'dexie';
 import EditContact from './Pages/EditContact/EditContact';
 import AddContact from './Pages/AddContact/AddContact';
+import InboxMessage from './components/InboxMessage/InboxMessage';
 
 const db = new Dexie("Reddex");
 
@@ -212,7 +213,7 @@ const InitialLoad = () => {
             <Route exact path="/patreon" component={Patreon} />
             <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-            <PrivateRoute exact path="/dashboard/inbox/:message" component={Inbox}/>
+            <PrivateRoute exact path="/dashboard/inbox/:message" component={InboxMessage}/>
             <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
             <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
             <PrivateRoute exact path="/dashboard/contacts/:contact/edit" component={EditContact} />

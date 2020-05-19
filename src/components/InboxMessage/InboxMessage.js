@@ -7,16 +7,37 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 import { getAxios } from '../../api';
+import Dashboard from '../../Pages/Dashboard/Dashboard';
+import WithNav from '../../layouts/WithNav/WithNav';
+import tabs from './tabs'
+import Axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { checkValidTokens } from '../../helpers/checkValidTokens';
+import { fetchTokens } from '../../helpers/renewRefreshToken';
 
 const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(observer(({InboxStore, UserStore, ReadingListStore}) => {
   const [ storyLink, setStoryLink ] = useState("");
   const [ data, setData ] = useState();
   const [ contacts, setContacts ] = useState([]);
   const [ isContact, setIsContact ] = useState(false)
+  const {message} = useParams();
 
   useEffect(() => {
-    getStory(InboxStore.getSelectedMessage(), setStoryLink);
-    setData(InboxStore.getSelectedMessage());
+    // getStory(InboxStore.getSelectedMessage(), setStoryLink);
+    // setData(InboxStore.getSelectedMessage());
+    const fn = async () => {
+      await checkValidTokens()
+      const token = await fetchTokens();  
+      await Axios.get(`https://oauth.reddit.com/message/messages/${message}`, {
+        headers: {
+          "Authorization": `bearer ${token.access_token}`
+        }
+      }).then(res => {
+        setData(res.data.data.children[0].data)
+      })
+    }
+
+    fn();
   }, [InboxStore.selectedMessage]);
 
   useEffect(() => {
@@ -92,26 +113,30 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   }
   
   return (
-    <div className="inbox-message-wrapper fx-1 ml+">
-      <main>
-        <div className="d-f fxd-c inbox-message-header">
-          <h2>
-            <a href={storyLink} target="_blank" rel="noopener noreferrer">{data.subject}</a>
-          </h2>
-          <p className="mb- message-subtitle">From: <a href={`https://reddit.com/u/${destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}`} target="_blank" rel="noopener noreferrer"  >{destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</a> </p>
-          <div className="message-tags mb-">
-            <IsInReadingList/>
-            <IsInContacts/>
-          </div>
+    <Dashboard>
+      <WithNav tabs={tabs}>
+        <div className="inbox-message-wrapper fx-1 ">
+          <main>
+            <div className="d-f fxd-c inbox-message-header">
+              <h2>
+                <a href={storyLink} target="_blank" rel="noopener noreferrer">{data.subject}</a>
+              </h2>
+              <p className="mb- message-subtitle">From: <a href={`https://reddit.com/u/${destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}`} target="_blank" rel="noopener noreferrer"  >{destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</a> </p>
+              <div className="message-tags mb-">
+                <IsInReadingList/>
+                <IsInContacts/>
+              </div>
 
-          <HR/>
+              <HR/>
+            </div>
+            <InboxChat 
+              data={msgArr}
+              UserStore={UserStore}
+            />
+          </main>
         </div>
-        <InboxChat 
-          data={msgArr}
-          UserStore={UserStore}
-        />
-      </main>
-    </div>
+      </WithNav>
+    </Dashboard>
   )
 }));
 

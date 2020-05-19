@@ -5,7 +5,7 @@ import './UserInbox.scss';
 import isEmpty from '../../helpers/objIsEmpty';
 import { MainButton } from '../Buttons/Buttons';
 
-const UserInboxDumb = ({data, key, onClick, getMoreMessages, loadingBtn, UserStore}) => {
+const UserInboxDumb = ({data, key, getMoreMessages, onClick, loadingBtn, UserStore, InboxStore}) => {
 
   const currentUser = UserStore.redditProfile.name;
   const getLastReply = (x) => {
@@ -33,11 +33,14 @@ const UserInboxDumb = ({data, key, onClick, getMoreMessages, loadingBtn, UserSto
 
     }
 
+    const selectHandler = (msg) => {
+      return InboxStore.setSelectedMessage(msg);
+    }
+
     return (
       <li key={x.data.id}  className="inbox-item d-f ai-c fx-2" name={x.data.name} onClick={(e) => {
-        removeActiveClasses();
-        e.target.closest('.inbox-item').classList.add('selected-inbox-message');
-        onClick(x.data);
+        selectHandler(x.data);
+        onClick(x.data)
       }}>
         <div className="d-f fxd-c fx-1 ">
           <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">

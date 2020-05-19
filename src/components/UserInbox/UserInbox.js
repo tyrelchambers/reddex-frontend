@@ -5,11 +5,13 @@ import UserInboxDumb from './UserInboxDumb';
 import { inject, observer } from 'mobx-react';
 import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
+import { useHistory } from 'react-router-dom';
 
 const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loading, UserStore}) => {
   const [ messages, setMessages ] = useState([]);
   const [ sortVal, setSortVal ] = useState("");
   const [ loadingBtn, setLoadingBtn ] = useState(false);
+  const history = useHistory();
 
   const bodyWidth = document.documentElement.clientWidth;
 
@@ -30,11 +32,9 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
     }
   }, [sortVal]);
 
-  const selectHandler = (msg) => {
-    return InboxStore.setSelectedMessage(msg);
-  }
+  
 
-  const showChatComp = InboxStore.openChatWindow || bodyWidth >= 1025 ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
+  // const showChatComp = InboxStore.openChatWindow || bodyWidth >= 1025 ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
 
   if ( loading ) return <Loading title="Fetching inbox from Reddit"/>
 
@@ -49,12 +49,7 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
           <UserInboxDumb 
             data={messages}
             onClick={(v) => {
-              selectHandler(v);
-
-              if ( bodyWidth <= 1024 ) {
-                InboxStore.setOpenChatWindow(true);
-
-              }
+              history.push(`/dashboard/inbox/${v.id}`)
             }}
             selected={InboxStore.getSelectedMessage()}
             getMoreMessages={() => {
@@ -63,10 +58,11 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
             }}
             loadingBtn={loadingBtn}
             UserStore={UserStore}
+            InboxStore={InboxStore}
           />
         }
 
-        {showChatComp}
+        {/* {showChatComp} */}
       </div>
     </div>
   )
