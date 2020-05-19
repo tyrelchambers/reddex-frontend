@@ -6,6 +6,7 @@ import { AddContactForm } from '../../components/Forms/AddContactForm';
 import { getAxios } from '../../api';
 import { toast } from 'react-toastify';
 import { useHistory } from "react-router-dom";
+import tabs from './tabs'
 
 const AddContact = () => {
   const history = useHistory()
@@ -35,7 +36,7 @@ const AddContact = () => {
   return (
     <Dashboard>
       <H1>Add Contact</H1>
-      <WithNav>
+      <WithNav tabs={tabs}>
         <AddContactForm
           saveContact={saveContactHandler}
           stateHandler={stateHandler}
