@@ -74,9 +74,9 @@ export const ContactsPage = () => {
         <HR/>
         <section className=" mt+ contact-main-wrapper">
           <div className="grid grid-cols-5 gap-3">
-            <p className="font-bold">Name</p>
-            <p className="font-bold col-span-3">Notes</p>
-            <p className="font-bold jc-fe d-f">Actions</p>
+            <p className="font-bold text-lg">Name</p>
+            <p className="font-bold col-span-3 text-lg">Notes</p>
+            <p className="font-bold jc-fe d-f text-lg">Actions</p>
           </div>
           <ContactsList
             contacts={contacts}

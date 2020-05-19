@@ -127,6 +127,17 @@ p {
   text-overflow: ellipsis;
 }
 
+.cell-row {
+  &:hover {
+    background: var(--white-40) !important;
+  }
+
+  padding: 1em;
+  border-radius: 5px;
+  &:nth-child(odd) {
+    background: var(--white-20);
+  }
+}
 .container {
   max-width: 1300px;
   width: 100%;

@@ -69,19 +69,17 @@ const SubmittedStories = () => {
         <p className="font-bold ">Sort by title, author, or tags</p>
         <input type="text" className="search-large w-100pr max-w-xl mt-  mb+" placeholder="Search by title, author, or tags..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
 
-        <div className="grid-wrapper">
-          <div className="d-f submitted-headers">
-            <p>Title</p>
-            <p>Author</p>
-            <p>Tags</p>
-            <p>Submitted</p>
-            <p>Actions</p>
-          </div>
-
-          <div className="submitted-stories">
-            {stories}
-          </div>
+        <div className="grid grid-cols-5  gap-3">
+          <p className="text-lg font-bold">Title</p>
+          <p className="text-lg font-bold">Author</p>
+          <p className="text-lg font-bold">Tags</p>
+          <p className="text-lg font-bold">Submitted</p>
+          <p className="text-lg font-bold ta-r">Actions</p>
         </div>
+
+        <ul>
+          {stories}
+        </ul>
       </WithNav>
     </Dashboard>
   )

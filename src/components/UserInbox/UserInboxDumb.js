@@ -37,29 +37,28 @@ const UserInboxDumb = ({data, key, onClick, UserStore, InboxStore}) => {
     }
 
     return (
-      <li key={x.data.id}  className="inbox-item d-f fxd-c" name={x.data.name} onClick={(e) => {
+      <li key={x.data.id}  className="inbox-item d-f fxd-c cell-row" name={x.data.name} onClick={(e) => {
         selectHandler(x.data);
         onClick(x.data)
       }}>
         <div className="grid grid-cols-3 gap-3">
           <p className="font-bold">{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</p>
           <p className="ellipses">{x.data.subject}</p>
-          <p>{getLastReply(x)}</p>
+          <p className="ta-r">{getLastReply(x)}</p>
         </div>
-        <p className="inbox-item-body">{formatThreads()}</p>
+        <div className="inbox-item-body">
+          <i className="fas fa-comment-alt mr-"></i>
+          <p className=" message-snippet">{formatThreads()}</p>
+        </div>
 
       </li>
     );
   }) : <p className="mt+">No results found!</p>;
 
   return (
-    <div key={key} className="inbox-left-wrapper ">
-      <ul className="mt+">
-        {listItem}
-      </ul>
-
-      
-    </div>
+    <ul className="mt-">
+      {listItem}
+    </ul>
   )
 }
 

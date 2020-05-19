@@ -57,9 +57,9 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
       </div>
 
       <div className="grid grid-cols-3 mt+ gap-3">
-        <p className="font-bold">From</p>
-        <p className="font-bold">Subject</p>
-        <p className="font-bold">Sent/Received</p>
+        <p className="font-bold text-lg">From</p>
+        <p className="font-bold text-lg">Subject</p>
+        <p className="font-bold text-lg ta-r">Sent/Received</p>
       </div>
       
       <UserInboxDumb 

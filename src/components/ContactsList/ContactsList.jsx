@@ -7,7 +7,7 @@ export const ContactsList = ({contacts, sortVal, deleteHandler}) => {
   const [ openDropdown, setOpenDropdown] = useState("")
 
   const list = contacts.filter(x => x.name.toLowerCase().includes(sortVal.toLowerCase())).map((x, id) => (
-    <li key={id} className="contact-list-item visible grid grid-cols-5 mt- gap-3">
+    <li key={id} className="contact-list-item visible grid grid-cols-5 mt- gap-3 cell-row">
       <p>{x.name}</p>
 
       {x.notes &&

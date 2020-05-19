@@ -62,7 +62,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
 
 
   const Story = ({x}) => (
-    <li className="reading-list-item-wrapper">
+    <li className="reading-list-item-wrapper cell-row">
       <div className="reading-list-item grid grid-cols-5 gap-4 grid-flow-col ai-c">
         <a href={x.url} className="reading-list-title w-100pr font-bold col-span-2">{x.title}</a>
         <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv reading-list-author" style={{color: "inherit"}}>
@@ -182,11 +182,11 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
       </div>
       <HR/>
       <div className="grid grid-cols-5 gap-4 grid-flow-col">
-        <p className="font-bold col-span-2">Title</p>
-        <p className="font-bold">Author</p>
-        <p className="font-bold">Subreddit</p>
-        <p className="font-bold">Reading Time</p>
-        <p className="font-bold">Actions</p>
+        <p className="font-bold text-lg col-span-2">Title</p>
+        <p className="font-bold text-lg">Author</p>
+        <p className="font-bold text-lg">Subreddit</p>
+        <p className="font-bold text-lg">Reading Time</p>
+        <p className="font-bold text-lg">Actions</p>
       </div>
       <ul className="reading-list-list mt-">
         {renderedList}

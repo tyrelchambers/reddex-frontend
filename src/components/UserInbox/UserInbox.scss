@@ -18,24 +18,30 @@
 }
 
 .inbox-item {
-  background-color: var(--bgLight);
-  padding: 1.5em 0;
   border-radius: 5px;
   transition: all 0.2s ease;
   border-bottom: 2px solid var(--bg);
+
 }
 
-
-.inbox-item-body {
-  display: block;
-  color: var(--textLight);
-  margin-top: 0.5em;
-  word-break: break-word;
-  white-space: nowrap;
-  max-width: 350px;
-  width: 100%;
+.message-snippet {
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
+
+}
+
+.inbox-item-body {
+  margin-top: 0.5em;
+  width: 100%;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  
+  p, 
+  i {
+    color: var(--textLight);
+  }
 }
 
 .selected-inbox-message {
