@@ -3,7 +3,6 @@ import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import UserInboxDumb from './UserInboxDumb';
 import { inject, observer } from 'mobx-react';
-import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
 import { useHistory } from 'react-router-dom';
 import { MainButton } from '../Buttons/Buttons';
@@ -14,7 +13,6 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
   const [ loadingBtn, setLoadingBtn ] = useState(false);
   const history = useHistory();
 
-  const bodyWidth = document.documentElement.clientWidth;
 
   useEffect(() => {
     const _ = async () => {

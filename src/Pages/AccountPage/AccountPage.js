@@ -5,7 +5,6 @@ import { inject } from 'mobx-react';
 import Home from './subpages/Home/Home';
 import AltMessage from './subpages/AltMessage/AltMessage';
 import tabs from './tabs'
-import Tabs from '../../layouts/Tabs/Tabs';
 import Security from './Security/Security';
 import Dashboard from '../Dashboard/Dashboard';
 import { getAxios } from '../../api';

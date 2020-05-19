@@ -5,7 +5,6 @@ import { MainButton } from '../../../../components/Buttons/Buttons';
 import { H2, H2Subtitle } from '../../../../components/Headings/Headings';
 const AltMessage = ({UserStore, repeatGreeting, setRepeatGreeting}) => {
 
-  const DefaultMessage = () => repeatGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{repeatGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No alternative message saved</p>
   const Username = () => UserStore.getRedditProfile() ? <p>From: <span className="highlight-text">{UserStore.getRedditProfile().name}</span></p> : null;
 
   const saveMessageHandler = async (e) => {

@@ -5,7 +5,6 @@ import { MainButton } from '../../../../components/Buttons/Buttons';
 import { H2Subtitle, H2 } from '../../../../components/Headings/Headings';
 
 const Home = ({UserStore, setInitialGreeting, initialGreeting}) => {
-  const DefaultMessage = () => initialGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{initialGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No default message saved</p>
   const Username = () => UserStore.getRedditProfile() ? <p>From: <span className="highlight-text">{UserStore.getRedditProfile().name}</span></p> : null;
 
   const saveMessageHandler = async (e) => {

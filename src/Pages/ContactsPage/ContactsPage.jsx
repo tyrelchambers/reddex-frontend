@@ -1,22 +1,15 @@
 import React, { useEffect, useState} from 'react'
 import Dashboard from '../Dashboard/Dashboard'
-import { MinimalButton, MainButton } from '../../components/Buttons/Buttons'
-import { AddContactForm } from '../../components/Forms/AddContactForm';
 import { ContactsList } from '../../components/ContactsList/ContactsList';
  import './ContactsPage.scss'
 import { getAxios } from '../../api';
-import { H1, H2 } from '../../components/Headings/Headings'
+import { H1, H2, H1Subtitle } from '../../components/Headings/Headings'
 import WithNav from '../../layouts/WithNav/WithNav'
-import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import HR from '../../components/HR/HR';
 
 export const ContactsPage = () => {
   const [ contacts, setContacts ] = useState([]);
-  const [ state, setState ] = useState({
-    name: "",
-    notes: ""
-  })
   const [ sortVal, setSortVal ] = useState("");
 
   useEffect(() => {
@@ -57,6 +50,7 @@ export const ContactsPage = () => {
   return (
     <Dashboard>
       <H1>Contacts</H1>
+      <H1Subtitle>Create contacts in order to keep track of people you've contacted.</H1Subtitle>
       <WithNav>
         <H2>Search by name</H2>
         <div className="d-f ai-c mt- mb+">

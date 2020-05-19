@@ -1,27 +1,24 @@
+const BASE_URL = '/dashboard/site'
+
 export default [
   {
     text: "General Settings",
-    paramKey: "t",
-    paramValue: "general"
+    url: `${BASE_URL}/general`
   },
   {
     text: "Colour Theme",
-    paramKey: "t",
-    paramValue: "theme"
+    url: `${BASE_URL}/colour`
   },
   {
     text: "Submission Forms",
-    paramKey: "t",
-    paramValue: "forms"
+    url: `${BASE_URL}/submissions`
   },
   {
     text: "Timelines",
-    paramKey: "t",
-    paramValue: "timelines"
+    url: `${BASE_URL}/timelines`
   },
   {
     text: "Miscellaneous",
-    paramKey: "t",
-    paramValue: "misc"
+    url:`${BASE_URL}/miscellaneous`
   }
 ]

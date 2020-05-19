@@ -5,10 +5,8 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import CompletedStories from './CompletedStories';
 import { Redirect } from 'react-router-dom';
-import { MinimalButton } from '../../../components/Buttons/Buttons';
 import ImportStoryForm from '../../../components/Forms/ImportStoryForm';
 import tabs from './tabs';
-import Tabs from '../../../layouts/Tabs/Tabs';
 import Dashboard from '../Dashboard';
 import { getAxios } from '../../../api';
 import RequestWithUrl from '../../../components/RequestWithUrl/RequestWithUrl';
@@ -17,7 +15,6 @@ import { H1 } from '../../../components/Headings/Headings'
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observer(({ReadingListStore, ModalStore, PostStore}) => {  
   const [ refresh, setRefresh ] = useState(false);
-  const [ optionalTabs, setOptionalTabs] = useState([])
 
   useEffect(() => {
     const fn = async () => {
@@ -103,7 +100,6 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observ
               list={ReadingListStore.getToRead()}
               callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
               ModalStore={ModalStore}
-              setOptionalTabs={setOptionalTabs}
             />
           }
 

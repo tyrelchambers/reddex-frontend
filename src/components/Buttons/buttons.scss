@@ -49,6 +49,12 @@
   }
 }
 
+.btn-yellow {
+  background: var(--yellow);
+  padding: 0.8em 1.5em;
+  color: var(--black);
+}
+
 .btn-tiertiary {
   color: var(--text);
   font-size: 0.7rem;

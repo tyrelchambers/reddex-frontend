@@ -3,48 +3,57 @@ import ToggleStatus from '../../../components/ToggleStatus/ToggleStatus';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import HR from '../../../components/HR/HR';
+import Dashboard from '../../../Pages/Dashboard/Dashboard';
+import SiteBuilderWrapper from '../../../layouts/SiteBuilderWrapper/SiteBuilderWrapper';
+import WithNav from '../../../layouts/WithNav/WithNav';
+import { H2, H2Subtitle } from '../../../components/Headings/Headings';
+import tabs from '../tabs'
 
 const Misc = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}) => {
   return (
-    <div>
-      <div className="d-f mt-">
-        <div className="mr--- mt-">
-          <ToggleStatus
-            context="show_credit_link"
-            option="Hidden"
-            disabledText="Visible"
-            setToggledHandler={() => {
-              SiteStore.setConfig({show_credit_link: !SiteStore.config.show_credit_link});
-            }}
-            toggled={SiteStore.config.show_credit_link ? true : false}
-          />
-        </div>
-        <div className="d-f fxd-c">
-          <h2>Show Reddex Credit Link</h2>
-          <p className="mt-- subtle">This is the "Powered by Reddex" link in the footer of your site. It helps other narrators see how your site is made (also helps the site grow!).</p>
-        </div>
-      </div>
-
-      <HR classes="mt+"/>
-
-      {UserStore.patron.patreon_tier === "basic" &&
-        <div className="d-f mt+">
-          <div className="d-f fxd-c">
-            <h2>Reddex Supporter</h2>
-            <p className="mt-- subtle">Thank you so much for supporting Reddex.</p>
+    <Dashboard>
+      <SiteBuilderWrapper>
+        <WithNav tabs={tabs}>
+          <div className="d-f mt-">
+            <div className="mr--- mt-">
+              <ToggleStatus
+                context="show_credit_link"
+                option="Hidden"
+                disabledText="Visible"
+                setToggledHandler={() => {
+                  SiteStore.setConfig({show_credit_link: !SiteStore.config.show_credit_link});
+                }}
+                toggled={SiteStore.config.show_credit_link ? true : false}
+              />
+            </div>
+            <div className="d-f fxd-c">
+              <H2>Show Reddex Credit Link</H2>
+              <H2Subtitle>This is the "Powered by Reddex" link in the footer of your site. It helps other narrators see how your site is made (also helps the site grow!).</H2Subtitle>
+            </div>
           </div>
-        </div>
-      }
 
-      {UserStore.patron.patreon_tier === "pro" &&
-        <div className="d-f mt+">
-          <div className="d-f fxd-c">
-            <h2>Reddex Pro Supporter</h2>
-            <p className="mt-- subtle">A badge has been added to your website to show everyone how awesome you are.</p>
-          </div>
-        </div>
-      }
-    </div>
+          <HR classes="mt+"/>
+
+          {UserStore.patron.patreon_tier === "basic" &&
+            <div className="d-f mt+">
+              <div className="d-f fxd-c">
+                <H2>Reddex Supporter</H2>
+                <H2Subtitle>Thank you so much for supporting Reddex.</H2Subtitle>
+              </div>
+            </div>
+          }
+
+          {UserStore.patron.patreon_tier === "pro" &&
+            <div className="d-f mt+">
+              <div className="d-f fxd-c">
+                <H2>Reddex Pro Supporter</H2>
+                <H2Subtitle>A badge has been added to your website to show everyone how awesome you are.</H2Subtitle>
+              </div>
+            </div>
+          }
+        </WithNav>
+      </SiteBuilderWrapper>
+    </Dashboard>
   );
 }))
 

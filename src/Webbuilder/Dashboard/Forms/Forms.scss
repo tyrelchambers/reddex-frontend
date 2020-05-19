@@ -26,14 +26,15 @@
 
 
 .form-module-wrapper {
-  background-color: var(--bgLight);
+  background-color: var(--bg);
   padding: 1em;
   border-radius: 8px;
   margin: 0.5em 0;
-
+  width: fit-content;
   label {
     margin-bottom: 0;
     margin-right: 2em;
+    width: 150px;
   }
 
   p {

@@ -7,7 +7,7 @@ import Axios from 'axios';
 import './Inbox.scss'
 import { checkValidTokens } from '../../../helpers/checkValidTokens';
 import WithNav from '../../../layouts/WithNav/WithNav'
-import {H1} from '../../../components/Headings/Headings'
+import {H1, H1Subtitle} from '../../../components/Headings/Headings'
 
 const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   const [ loading, setLoading ] = useState(true);
@@ -23,6 +23,7 @@ const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   return (
     <Dashboard>
       <H1>Inbox</H1>
+      <H1Subtitle>Your Reddit-connected inbox.</H1Subtitle>
       <WithNav>
         {InboxStore.openChatWindow &&
           <Breadcrumbs

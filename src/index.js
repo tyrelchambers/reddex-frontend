@@ -44,6 +44,10 @@ import Dexie from 'dexie';
 import EditContact from './Pages/EditContact/EditContact';
 import AddContact from './Pages/AddContact/AddContact';
 import InboxMessage from './components/InboxMessage/InboxMessage';
+import Misc from './Webbuilder/Dashboard/Misc/Misc';
+import Theme from './Webbuilder/Dashboard/Theme/Theme';
+import Forms from './Webbuilder/Dashboard/Forms/Forms';
+import Timelines from './Webbuilder/Dashboard/Timelines/Timelines';
 
 const db = new Dexie("Reddex");
 
@@ -212,14 +216,24 @@ const InitialLoad = () => {
             <Route exact path="/explore" component={Explore} />
             <Route exact path="/patreon" component={Patreon} />
             <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
+
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
             <PrivateRoute exact path="/dashboard/inbox/:message" component={InboxMessage}/>
+
             <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
+
             <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
             <PrivateRoute exact path="/dashboard/contacts/:contact/edit" component={EditContact} />
             <PrivateRoute exact path="/dashboard/contacts/new" component={AddContact} />
-            <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
+
+            <PrivateRoute exact path="/dashboard/site/general" component={SiteIndex} />
+            <PrivateRoute exact path="/dashboard/site/colour" component={Theme} />
+            <PrivateRoute exact path="/dashboard/site/submissions" component={Forms} />
+            <PrivateRoute exact path="/dashboard/site/timelines" component={Timelines} />
+            <PrivateRoute exact path="/dashboard/site/miscellaneous" component={Misc} />
+
             <PrivateRoute exact path="/dashboard/submitted" component={SubmittedStories} />
+
             <PrivateRoute exact path="/dashboard/tags" component={TagsManager} />
             <PrivateRoute path="/dashboard/story/:id" component={Story} />
             <Route component={Page404}/>
