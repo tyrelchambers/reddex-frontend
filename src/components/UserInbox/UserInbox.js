@@ -55,19 +55,23 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
           </MainButton>
         </div>
       </div>
-      
-      <div className="d-f">
-        <UserInboxDumb 
-          data={messages}
-          onClick={(v) => {
-            history.push(`/dashboard/inbox/${v.id}`)
-          }}
-          selected={InboxStore.getSelectedMessage()}
-          loadingBtn={loadingBtn}
-          UserStore={UserStore}
-          InboxStore={InboxStore}
-        />
+
+      <div className="grid grid-cols-3 mt+ gap-3">
+        <p className="font-bold">From</p>
+        <p className="font-bold">Subject</p>
+        <p className="font-bold">Sent/Received</p>
       </div>
+      
+      <UserInboxDumb 
+        data={messages}
+        onClick={(v) => {
+          history.push(`/dashboard/inbox/${v.id}`)
+        }}
+        selected={InboxStore.getSelectedMessage()}
+        loadingBtn={loadingBtn}
+        UserStore={UserStore}
+        InboxStore={InboxStore}
+      />
     </div>
   )
 }));

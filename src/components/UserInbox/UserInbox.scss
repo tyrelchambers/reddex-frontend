@@ -2,17 +2,8 @@
 .inbox-wrapper {
   width: 100%;
 }
-
-.inbox-left-wrapper,
-.inbox-message-wrapper {
-  overflow-y: auto;
-  padding: 0 1em;
-}
-
 .inbox-left-wrapper {
   width: 100%;
-  max-width: 500px;
-
 }
 
 .inbox-message-wrapper {
@@ -28,20 +19,16 @@
 
 .inbox-item {
   background-color: var(--bgLight);
-  padding: 1.5em;
-  margin-bottom: 1.5em;
+  padding: 1.5em 0;
   border-radius: 5px;
-  opacity: 0.5;
   transition: all 0.2s ease;
-
-  &:hover {
-    opacity: 1;
-  }
+  border-bottom: 2px solid var(--bg);
 }
+
 
 .inbox-item-body {
   display: block;
-  color: var(--black-60);
+  color: var(--textLight);
   margin-top: 0.5em;
   word-break: break-word;
   white-space: nowrap;

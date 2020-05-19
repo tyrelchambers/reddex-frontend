@@ -3,9 +3,8 @@ import dateFns from 'date-fns'
 import moment from 'moment';
 import './UserInbox.scss';
 import isEmpty from '../../helpers/objIsEmpty';
-import { MainButton } from '../Buttons/Buttons';
 
-const UserInboxDumb = ({data, key, getMoreMessages, onClick, loadingBtn, UserStore, InboxStore}) => {
+const UserInboxDumb = ({data, key, onClick, UserStore, InboxStore}) => {
 
   const currentUser = UserStore.redditProfile.name;
   const getLastReply = (x) => {
@@ -38,19 +37,17 @@ const UserInboxDumb = ({data, key, getMoreMessages, onClick, loadingBtn, UserSto
     }
 
     return (
-      <li key={x.data.id}  className="inbox-item d-f ai-c fx-2" name={x.data.name} onClick={(e) => {
+      <li key={x.data.id}  className="inbox-item d-f fxd-c" name={x.data.name} onClick={(e) => {
         selectHandler(x.data);
         onClick(x.data)
       }}>
-        <div className="d-f fxd-c fx-1 ">
-          <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">
-            <h4 className="font-thin mb--">{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</h4>
-            <p>{getLastReply(x)}</p>
-          </div>
-          <h4>{concatTitle(x.data.subject)}</h4>
-
-          <p className="inbox-item-body">{formatThreads()}</p>
+        <div className="grid grid-cols-3 gap-3">
+          <p className="font-bold">{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</p>
+          <p className="ellipses">{x.data.subject}</p>
+          <p>{getLastReply(x)}</p>
         </div>
+        <p className="inbox-item-body">{formatThreads()}</p>
+
       </li>
     );
   }) : <p className="mt+">No results found!</p>;
@@ -64,22 +61,6 @@ const UserInboxDumb = ({data, key, getMoreMessages, onClick, loadingBtn, UserSto
       
     </div>
   )
-}
-
-
-
-const removeActiveClasses = () => {
-  const el = document.querySelectorAll('.selected-inbox-message');
-  if (el) {
-    el.forEach(x => {
-      x.classList.remove('selected-inbox-message');
-    })
-  }
-}
-
-const concatTitle = title => {
-  const str = title.length < 70 ? title : title.slice(0,70) + "...";
-  return str; 
 }
 
 export default UserInboxDumb
