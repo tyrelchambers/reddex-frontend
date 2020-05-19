@@ -7,7 +7,7 @@ const Tabs = ({tabs, optionalTabs}) => {
   const url = window.location.pathname + window.location.search;
 
   return (
-    <div className="d-f fxd-c">
+    <div className="d-f fxd-c tabs-wrapper">
       {tabs &&
         <ul className="d-f fxd-c tabs">
           {tabs.map((tab, id) => (

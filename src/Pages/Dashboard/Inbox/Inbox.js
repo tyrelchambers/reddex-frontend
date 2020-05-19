@@ -8,6 +8,7 @@ import './Inbox.scss'
 import { checkValidTokens } from '../../../helpers/checkValidTokens';
 import WithNav from '../../../layouts/WithNav/WithNav'
 import {H1} from '../../../components/Headings/Headings'
+
 const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
   const [ loading, setLoading ] = useState(true);
 

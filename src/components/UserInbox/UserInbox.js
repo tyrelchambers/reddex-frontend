@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react';
 import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
 import { useHistory } from 'react-router-dom';
+import { MainButton } from '../Buttons/Buttons';
 
 const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loading, UserStore}) => {
   const [ messages, setMessages ] = useState([]);
@@ -34,35 +35,38 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
 
   
 
-  // const showChatComp = InboxStore.openChatWindow || bodyWidth >= 1025 ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
 
   if ( loading ) return <Loading title="Fetching inbox from Reddit"/>
 
   return(
     <div className="inbox-wrapper">
-      {!InboxStore.openChatWindow &&
-        <input type="text" className="search-large w-100pr  mb+" placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
-      }
-      
-      <div className="d-f">
-        {!InboxStore.openChatWindow &&
-          <UserInboxDumb 
-            data={messages}
-            onClick={(v) => {
-              history.push(`/dashboard/inbox/${v.id}`)
-            }}
-            selected={InboxStore.getSelectedMessage()}
-            getMoreMessages={() => {
+      <div className="d-f jc-sb">
+        <input type="text" className="search-large w- max-w-xl w-100pr " placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
+        <div className="h-48px get-more-button">
+          <MainButton
+            loading={loadingBtn}
+            className="btn btn-primary w-100pr"
+            onClick={() => {
               setLoadingBtn(true)
               getMoreMessages(InboxStore, setLoadingBtn)
             }}
-            loadingBtn={loadingBtn}
-            UserStore={UserStore}
-            InboxStore={InboxStore}
-          />
-        }
-
-        {/* {showChatComp} */}
+          >
+            Get More Messages
+          </MainButton>
+        </div>
+      </div>
+      
+      <div className="d-f">
+        <UserInboxDumb 
+          data={messages}
+          onClick={(v) => {
+            history.push(`/dashboard/inbox/${v.id}`)
+          }}
+          selected={InboxStore.getSelectedMessage()}
+          loadingBtn={loadingBtn}
+          UserStore={UserStore}
+          InboxStore={InboxStore}
+        />
       </div>
     </div>
   )

@@ -14,6 +14,8 @@ import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { checkValidTokens } from '../../helpers/checkValidTokens';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
+import { H2 } from '../Headings/Headings';
+import Loading from '../Loading/Loading';
 
 const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(observer(({InboxStore, UserStore, ReadingListStore}) => {
   const [ storyLink, setStoryLink ] = useState("");
@@ -23,8 +25,6 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   const {message} = useParams();
 
   useEffect(() => {
-    // getStory(InboxStore.getSelectedMessage(), setStoryLink);
-    // setData(InboxStore.getSelectedMessage());
     const fn = async () => {
       await checkValidTokens()
       const token = await fetchTokens();  
@@ -34,14 +34,9 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
         }
       }).then(res => {
         setData(res.data.data.children[0].data)
+        getStory(res.data.data.children[0].data, setStoryLink)
       })
-    }
 
-    fn();
-  }, [InboxStore.selectedMessage]);
-
-  useEffect(() => {
-    const fn = async () => {
       const c = await getAxios({
         url: '/contacts/all'
       });
@@ -49,13 +44,11 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
     }
 
     fn();
-  }, [data])
-
-  if ( isEmpty(data) ) return null;
+  }, []);
 
   const msgArr = [];
 
-  if ( !isEmpty(data.replies) ) {
+  if ( data && !isEmpty(data.replies) ) {
     data.replies.data.children.forEach(x => {
       msgArr.push(x.data);
     });
@@ -115,26 +108,29 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   return (
     <Dashboard>
       <WithNav tabs={tabs}>
-        <div className="inbox-message-wrapper fx-1 ">
-          <main>
-            <div className="d-f fxd-c inbox-message-header">
-              <h2>
-                <a href={storyLink} target="_blank" rel="noopener noreferrer">{data.subject}</a>
-              </h2>
-              <p className="mb- message-subtitle">From: <a href={`https://reddit.com/u/${destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}`} target="_blank" rel="noopener noreferrer"  >{destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</a> </p>
-              <div className="message-tags mb-">
-                <IsInReadingList/>
-                <IsInContacts/>
-              </div>
+        {!isEmpty(data) && 
+          <div className="inbox-message-wrapper fx-1 ">
+            <main>
+              <div className="d-f fxd-c inbox-message-header">
+                <H2>
+                  <a href={storyLink} target="_blank" rel="noopener noreferrer">{data.subject}</a>
+                </H2>
+                <p className="mb- message-subtitle font-bold mt-">From: <a href={`https://reddit.com/u/${destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}`} target="_blank" rel="noopener noreferrer"  >{destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</a> </p>
+                <div className="message-tags mb-">
+                  <IsInReadingList/>
+                  <IsInContacts/>
+                </div>
 
-              <HR/>
-            </div>
-            <InboxChat 
-              data={msgArr}
-              UserStore={UserStore}
-            />
-          </main>
-        </div>
+                <HR/>
+              </div>
+              <InboxChat 
+                data={msgArr}
+                UserStore={UserStore}
+              />
+            </main>
+          </div>
+        }
+        {isEmpty(data) && <Loading title="Fetching message from Reddit"/>}
       </WithNav>
     </Dashboard>
   )
