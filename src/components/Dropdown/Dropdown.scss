@@ -10,6 +10,7 @@
   padding: 0.4em;
   border-radius: 5px;
   border: 2px solid var(--bgLighter);
+  align-self: flex-start;
 }
 
 .drop-comp-main {
@@ -22,7 +23,9 @@
   width: 150px;
   border-radius: 5px;
 
-  button {
+  button,
+  a {
+    display: block;
     color: var(--text);
     padding: 0.7em;
     width: 100%;

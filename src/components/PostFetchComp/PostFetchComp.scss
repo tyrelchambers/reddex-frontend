@@ -8,6 +8,8 @@
 }
 
 .post-fetch-search {
+  border-radius: 5px;
+  overflow: hidden;
   .preffix {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -32,7 +34,7 @@
   margin-bottom: 1em;
 }
 
-.post-fetch-search {
+.post-fetch-search-input {
   border-top-left-radius: 0px !important;
   border-bottom-left-radius: 0px !important;
 }

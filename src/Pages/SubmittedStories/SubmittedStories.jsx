@@ -7,7 +7,6 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import { H1 } from '../../components/Headings/Headings'
 import WithNav from '../../layouts/WithNav/WithNav'
-import HR from '../../components/HR/HR';
 
 const SubmittedStories = () => {
   const [state, setState] = useState([]);

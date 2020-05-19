@@ -62,7 +62,7 @@
   height: 50px;
   background-color: var(--white);
   border-radius:5px;
-  border:1.5px solid transparent;
+  border:2px solid var(--bg);
 
   &:hover {
     color: var(--blue-40);

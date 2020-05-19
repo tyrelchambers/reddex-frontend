@@ -41,6 +41,8 @@ import { Modal } from './components/Modal/Modal';
 import TagsManager from './Pages/TagsManager/TagsManager';
 
 import Dexie from 'dexie';
+import EditContact from './Pages/EditContact/EditContact';
+import AddContact from './Pages/AddContact/AddContact';
 
 const db = new Dexie("Reddex");
 
@@ -208,11 +210,13 @@ const InitialLoad = () => {
             <Route exact path="/authorize" component={Authorize} />
             <Route exact path="/explore" component={Explore} />
             <Route exact path="/patreon" component={Patreon} />
-            {/* <Route exact path="/pricing" component={PricingPage} /> */}
             <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
             <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
             <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+            <PrivateRoute exact path="/dashboard/contacts" component={ContactsPage} />
+            <PrivateRoute exact path="/dashboard/contacts/:contact/edit" component={EditContact} />
+            <PrivateRoute exact path="/dashboard/contacts/new" component={AddContact} />
             <PrivateRoute exact path="/dashboard/site" component={SiteIndex} />
             <PrivateRoute exact path="/dashboard/submitted" component={SubmittedStories} />
             <PrivateRoute exact path="/dashboard/tags" component={TagsManager} />
