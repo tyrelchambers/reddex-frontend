@@ -63,7 +63,7 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
       <UserInboxDumb 
         data={messages}
         onClick={(v) => {
-          history.push(`/dashboard/inbox/${v.id}`)
+          history.push(`/dashboard/message/${v.id}`)
         }}
         selected={InboxStore.getSelectedMessage()}
         loadingBtn={loadingBtn}

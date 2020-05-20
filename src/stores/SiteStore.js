@@ -31,31 +31,6 @@ class SiteStore {
     rules: ""
   }
 
-  configClone = {
-    uuid: "",
-    subdomain: "",
-    title: "",
-    twitter: "",
-    facebook: "",
-    instagram: "",
-    patreon: "",
-    youtube: "",
-    podcast: "",
-    introduction: "",
-    banner_url: "",
-    submission_form: false,
-    youtube_id: "",
-    youtube_timeline: false,
-    twitter_id: "",
-    twitter_timeline: false,
-    show_credit_link: true,
-    accent: "#000000",
-    theme: "light",
-    headline: "",
-    submission_title: "",
-    rules: ""
-  }
-
   uploaderRef = ""
   activated = false
   saving = false
@@ -70,7 +45,6 @@ class SiteStore {
 
   setInitial(data) {
     this.config = {...this.config, ...data}
-    this.configClone = {...this.configClone, ...data}
 
     if (data.subdomain) {
       this.setIsSaved(true);
@@ -204,11 +178,6 @@ class SiteStore {
 
   setActivated(bool) {
     this.activated = bool
-  }
-
-  undoChanges() {
-    this.changes = false;
-    this.config = this.configClone;
   }
 }
 

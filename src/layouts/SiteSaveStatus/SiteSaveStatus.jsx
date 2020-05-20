@@ -1,6 +1,6 @@
 import React from 'react'
 import './SiteSaveStatus.scss'
-import { MainButton, MinimalButton } from '../../components/Buttons/Buttons';
+import { MainButton } from '../../components/Buttons/Buttons';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
@@ -11,7 +11,7 @@ const SiteSaveStatus = inject("SiteStore", "FormStore")(observer(({submitHandler
         <p>You have unsaved changes</p>
 
         <div className="site-save-actions d-f ai-c">
-          <button className="btn mr+">
+          <button className="btn mr+" onClick={() => window.location.reload()}>
             Discard
           </button>
           <MainButton

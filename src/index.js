@@ -218,7 +218,7 @@ const InitialLoad = () => {
             <PrivateRoute exact path="/dashboard/account" component={AccountPage}/>
 
             <PrivateRoute exact path="/dashboard/inbox" component={Inbox}/>
-            <PrivateRoute exact path="/dashboard/inbox/:message" component={InboxMessage}/>
+            <PrivateRoute exact path="/dashboard/message/:message" component={InboxMessage}/>
 
             <PrivateRoute exact path="/dashboard/reading_list" component={ReadingList} />
 

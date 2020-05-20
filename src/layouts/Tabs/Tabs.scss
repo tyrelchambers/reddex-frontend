@@ -27,3 +27,35 @@
   font-weight: bold;
 
 }
+
+@media screen and (max-width: 768px) and (min-width: 426px) {
+  .tabs-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    .tabs {
+      width: fit-content;
+    }
+    ul {
+      display: flex;
+      flex-direction: row;
+      li {
+        margin-right: 1em;
+      }
+    }
+
+    .hr {
+      width: 2px !important;
+      height: 10px !important;
+      margin-right: 1em;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .tabs-wrapper {
+    margin-bottom: 1em;
+
+    .tabs {width: 100%;}
+  }
+}

@@ -49,21 +49,16 @@ const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormSto
         <H1>Site Builder</H1>
         <H1Subtitle>Build your website and advertise what you do.</H1Subtitle>
           <SiteBuilderWrapper>
-            <WithNav tabs={SiteStore.activated ? tabs : []}>
-            <div className="pb-">
-              {/* <div className="mb+">
-                <div className="d-f ai-c mb- site-index-header">
-                  {SiteStore.preview.subdomain &&
-                    <a href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n link"><i className="fas fa-external-link-square-alt mr---"></i> View your site</a>
-                  }
+            <WithNav 
+              tabs={SiteStore.activated ? tabs : []}
+              optionalTabs={SiteStore.preview.subdomain && SiteStore.isSiteSaved ? [
+                <a href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n">View your site</a>,
+                <div className="d-f ai-c share-wrapper">
+                  <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" className="twitter-share-button" data-url={`https://${SiteStore.config.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} data-text={`Check out my new webpage!`} data-via="ReddexApp" data-hashtags="newSite" data-show-count="false">Tweet</a>
                 </div>
-                {(SiteStore.isSiteSaved && SiteStore.config.subdomain) &&
-                  <div className="d-f ai-c share-wrapper">
-                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" className="twitter-share-button" data-url={`https://${SiteStore.config.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} data-text={`Check out my new webpage!`} data-via="ReddexApp" data-hashtags="newSite" data-show-count="false">Tweet</a>
-                    <p className="subtle ml-">Share your site!</p>
-                  </div>
-                }
-              </div> */}
+              ]:  []}
+            >
+           
               {!SiteStore.activated &&
                 <div className="mt- d-f ai-c">
                   <p className="mr-">Activate website</p>
@@ -101,7 +96,6 @@ const SiteIndex = inject("SiteStore", "FormStore")(observer(({SiteStore, FormSto
                   </MainButton>
                 </section>
               }
-            </div>
           </WithNav>
         </SiteBuilderWrapper>
       </Dashboard>
