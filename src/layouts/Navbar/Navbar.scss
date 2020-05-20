@@ -1,4 +1,12 @@
- 
+ .mobile-navbar-wrapper {
+  position: fixed;
+  right: -320px;
+  transition: all 0.2s ease;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  height: 100%;
+ }
 .nav-toggle {
   position: fixed;
   display: flex;
@@ -11,10 +19,12 @@
   z-index: 5;
   background-color: rgba(white, 0.5);
   padding: 0.5em;
+  border-radius: 5px;
 
 }
 
 .navbar {
+
   ul {
     display: flex;
   }
@@ -45,18 +55,19 @@
 .extended {
   display: flex !important;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   position: fixed;
+  width: 100%;
+  max-width: 320px;
   top: 0;
   right: 0;
-  left: 0;
   bottom: 0;
-  background-color: rgba(black, 0.9);
+  background-color: var(--black);
   overflow: auto;
   padding: 5em 0;
+  opacity: 1;
   .nav-link {
    font-size: 2rem;
-   margin-bottom: 1em; 
    a {
     white-space: nowrap;
 
@@ -101,16 +112,7 @@
   width: 25px;
 }
 
-.patreon-button {
-  background-color: #F86754 !important;
-  border-radius: 5px;
-  padding: 0 0.5em;
-  margin-right: 0;
-  a {
-    color: white !important;
-    font-weight: bold;
-  }
-}
+
 
 .profile-image.small {
   border-radius: 3px;
@@ -132,7 +134,7 @@
 .dash-nav-toggle {
   width: 30px;
   height: 40px;
-   
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,32 +156,29 @@
   }  
 }
 
-.mobile-navbar-wrapper {
-  display: none;
-}
-
 .mobile-navbar {
-  width: 90%;
+  width: 100%;
+  padding: 0.5em;
   max-width: 320px;
   .nav-link {
-    display: flex;
-    justify-content: center;
+
     font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-    background-color: var(--bg);
-    border-radius: 5px;
+    text-align: right;
     
     a { 
-      color: var(--text);
+      color: var(--white);
       width: 100%;
-      padding: 0.5em;
-      white-space: nowrap;
+      padding: 1em 1.5em;
 
     }
+    
   }
 
   
+}
+
+.nav-link.has-divider {
+  border-bottom: 2px solid var(--black-20);
 }
 
 .nav-dropdown {
@@ -187,7 +186,16 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+
+  button {
+    margin: 0.5em 0;
+
+    p,
+    i {
+      color: white;
+    }
+  }
 
   i {
     color: var(--text);
@@ -221,6 +229,20 @@
 
 }
 
+.nav-link.patreon-button {
+  margin-top: 1em;
+}
+
+.patreon-button {
+  background-color: #F86754 !important;
+  border-radius: 5px;
+  padding: 0 0.5em;
+  margin-right: 0;
+  a {
+    color: white !important;
+    font-weight: bold;
+  }
+}
 .extend.nav-dropdown {
   position: relative;
   width: 100%;
