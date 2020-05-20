@@ -49,7 +49,7 @@ const DashboardNav = () => {
         </li>
         
         <li>
-          <NavLink onClick={e => parent(e)} to="/dashboard/site" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">            
+          <NavLink onClick={e => parent(e)} to="/dashboard/site/general" className="dash-nav-item" activeClassName="dash-nav-item-active ta-c">            
             <p>Site Builder</p>
           </NavLink>
         </li>

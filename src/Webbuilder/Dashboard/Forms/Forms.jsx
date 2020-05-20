@@ -38,23 +38,25 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
    useEffect(() => {
 
-    getAxios({
-      url:'/submissionForm/',
-      params: {
-        sid: SiteStore.config.uuid
-      }
-    }).then(res => {
-      if (res) {
-        FormStore.setAuthor(res.OptionsAuthor)
-        FormStore.setEmail(res.OptionsEmail)
-        FormStore.setSentToOthers(res.OptionsSentToOther)
-        FormStore.setTags(res.OptionsTag)
-        FormStore.setStoryTitle(res.OptionsStoryTitle)
-        FormStore.setOptionsId(res.uuid)
-      }
-    })
+    if (SiteStore.config.uuid) {
+      getAxios({
+        url:'/submissionForm/',
+        params: {
+          sid: SiteStore.config.uuid
+        }
+      }).then(res => {
+        if (res) {
+          FormStore.setAuthor(res.OptionsAuthor)
+          FormStore.setEmail(res.OptionsEmail)
+          FormStore.setSentToOthers(res.OptionsSentToOther)
+          FormStore.setTags(res.OptionsTag)
+          FormStore.setStoryTitle(res.OptionsStoryTitle)
+          FormStore.setOptionsId(res.uuid)
+        }
+      })
+    }
 
-  }, [])
+  }, [SiteStore.config])
 
   const Module = ({data, name}) => (
     <div className="d-f ai-c form-module-wrapper">
