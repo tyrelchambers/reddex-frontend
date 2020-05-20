@@ -1,60 +1,56 @@
- 
-.reading-list {
-  &-author {
-    font-weight: 400;
-  }
+.reading-list-item-wrapper {
+  border-bottom: 1px solid var(--bg);
+  transition: all 0.2s ease;
+}
+.reading-list-author {
+  color: var(--text) !important;
+}
 
-  &-body {
-    display: none;
-    
-    p {
-      color: var(--text);
-      font-size: 0.9rem;
-      white-space: pre-wrap;
-      line-height: 1.6em;
-    }
-  }
-
-  &-item {
-    margin: 1em 0;
-    background-color: var(--bgLight);
+.reading-list-item-dropdown .dropdown {
+  position: absolute;
+  background: var(--bgLight);
+  border-radius: 5px;
+  border: 1px solid var(--bgLighter);
+  width: 150px;
+  color: var(--text);
+  right: 0;
+  top: 2em;
+  display: none;
+  z-index: 2;
+  button {
     padding: 1em;
-    box-shadow:0px 2px 40px rgba(black, 0.05);
-    border-radius: 5px;
-    position: relative;
-    margin-bottom: 3em;
-  }
-
-  &-header {
-    display: flex;
-    justify-content: space-between;
-
-  }
-
-  &-list {
     width: 100%;
-    max-width: 1200px;
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--white-40);
+  
+    }
   }
 }
 
-.reading-list-tags {
-  position: absolute;
-  right: 0.5em;
-  padding: 0.5em;
-  bottom: -25px;
+.reading-list-item-dropdown {
+  width: 57px;
+  padding: 0.3em;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  position: relative;
+
   
-  button {
-    background: var(--green);
-    padding: 1em;
-    border-radius: 20px;
-    box-shadow: 0px 5px 8px rgba(black, 0.3);
-    transition: all 0.2s ease;
-    color: white;
-    &:hover {
-      background: var(--accentBg);
-      color: white;
-    }
+
+  i {
+    color: var(--textLight);
   }
+
+  &:hover {
+    background-color: var(--bgLighter);
+  }
+}
+
+.reading-list-title {
+  color: var(--link);
+  text-decoration: underline;
 }
 
 .reading-list-item.opaque {
@@ -74,23 +70,12 @@
   }
 }
 
-.reading-time {
-  padding: 0.5em;
-  color: var(--text);
-  font-size: 0.8rem;
-  margin: 0 0.5em;
-  white-space: nowrap;
-  span {
-    color: var(--accent);
-    font-weight: bold;
-  }
-}
 
 .reading-list-filter {
   text-transform: capitalize;
   color: var(--text);
   border: none;
-  background-color: var(--bgLight);
+  background-color: var(--bg);
   border-radius: 20px;
   outline: none;
   padding: 0.4em 0.9em;
@@ -118,14 +103,13 @@
     min-width: 30px;
     min-height: 30px;
     color: var(--text);
-    background-color: var(--bgLight);
+    background-color: var(--bg);
     border-radius: 50%;
   }
 }
 
 .tag-list {
   flex-wrap: wrap;
-  margin-top: 1em;
   p {
     white-space: nowrap;
   }

@@ -3,9 +3,8 @@ import dateFns from 'date-fns'
 import moment from 'moment';
 import './UserInbox.scss';
 import isEmpty from '../../helpers/objIsEmpty';
-import { MainButton } from '../Buttons/Buttons';
 
-const UserInboxDumb = ({data, key, onClick, getMoreMessages, loadingBtn, UserStore}) => {
+const UserInboxDumb = ({data, key, onClick, UserStore, InboxStore}) => {
 
   const currentUser = UserStore.redditProfile.name;
   const getLastReply = (x) => {
@@ -33,59 +32,34 @@ const UserInboxDumb = ({data, key, onClick, getMoreMessages, loadingBtn, UserSto
 
     }
 
-    return (
-      <li key={x.data.id}  className="inbox-item d-f ai-c fx-2" name={x.data.name} onClick={(e) => {
-        removeActiveClasses();
-        e.target.closest('.inbox-item').classList.add('selected-inbox-message');
-        onClick(x.data);
-      }}>
-        <div className="d-f fxd-c fx-1 ">
-          <div className="d-f ai-c jc-sb fx-1 inbox-item-header-mobile">
-            <h4 className="font-thin mb--">{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</h4>
-            <p>{getLastReply(x)}</p>
-          </div>
-          <h4>{concatTitle(x.data.subject)}</h4>
+    const selectHandler = (msg) => {
+      return InboxStore.setSelectedMessage(msg);
+    }
 
-          <p className="inbox-item-body">{formatThreads()}</p>
+    return (
+      <li key={x.data.id}  className="inbox-item d-f fxd-c cell-row" name={x.data.name} onClick={(e) => {
+        selectHandler(x.data);
+        onClick(x.data)
+      }}>
+        <div className="grid grid-cols-3 gap-3">
+          <p className="font-bold">{x.data.author === currentUser.replace(/\s/g, "") ? x.data.dest : x.data.author}</p>
+          <p className="ellipses">{x.data.subject}</p>
+          <p className="ta-r">{getLastReply(x)}</p>
         </div>
+        <div className="inbox-item-body">
+          <i className="fas fa-comment-alt mr-"></i>
+          <p className=" message-snippet">{formatThreads()}</p>
+        </div>
+
       </li>
     );
   }) : <p className="mt+">No results found!</p>;
 
   return (
-    <div key={key} className="inbox-left-wrapper ">
-      <div className="h-48px w-100pr get-more-button">
-        <MainButton
-          loading={loadingBtn}
-          className="btn btn-primary w-100pr"
-          onClick={getMoreMessages}
-        >
-          Get More Messages
-        </MainButton>
-      </div>
-      <ul className="mt+">
-        {listItem}
-      </ul>
-
-      
-    </div>
+    <ul className="mt-">
+      {listItem}
+    </ul>
   )
-}
-
-
-
-const removeActiveClasses = () => {
-  const el = document.querySelectorAll('.selected-inbox-message');
-  if (el) {
-    el.forEach(x => {
-      x.classList.remove('selected-inbox-message');
-    })
-  }
-}
-
-const concatTitle = title => {
-  const str = title.length < 70 ? title : title.slice(0,70) + "...";
-  return str; 
 }
 
 export default UserInboxDumb

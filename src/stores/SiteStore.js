@@ -30,6 +30,8 @@ class SiteStore {
     submission_title: "",
     rules: ""
   }
+
+  uploaderRef = ""
   activated = false
   saving = false
 
@@ -43,6 +45,7 @@ class SiteStore {
 
   setInitial(data) {
     this.config = {...this.config, ...data}
+
     if (data.subdomain) {
       this.setIsSaved(true);
     }
@@ -68,7 +71,11 @@ class SiteStore {
     this.preview = {...this.preview, ...data}
   }
 
-  submit = async (pondRef) => {
+  setUploaderRef(ref) {
+    this.uploaderRef = ref;
+  }
+
+  submit = async () => {
     const data = this.config
     if ( !data.subdomain ) {
       return toast.error("Subdomain can't be empty");
@@ -82,8 +89,8 @@ class SiteStore {
     let banner_url = data.banner_url || "";
     let thumbnail;
 
-    if ( pondRef.current && pondRef.current.getFiles().length > 0 ) {
-      const files = await this.processFiles(pondRef).then(res => JSON.parse(res))
+    if ( this.uploaderRef && this.uploaderRef.getFiles().length > 0 ) {
+      const files = await this.processFiles(this.uploaderRef).then(res => JSON.parse(res))
       banner_url = files.original;
       thumbnail = files.thumbnail;
     }
@@ -114,7 +121,7 @@ class SiteStore {
   }
 
   processFiles = async (pondRef) => {
-    const banner = await pondRef.current.processFiles().then(files => {
+    const banner = await pondRef.processFiles().then(files => {
       return files[0].serverId;
     });
     return banner;
@@ -184,7 +191,9 @@ decorate(SiteStore, {
   saving: observable,
   setSaving: action,
   activated: observable,
-  setActivated: action
+  setActivated: action,
+  uploaderRef: observable,
+  setUploaderRef: action
 })
 
 export default new SiteStore();

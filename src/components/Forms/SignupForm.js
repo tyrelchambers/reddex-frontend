@@ -9,7 +9,7 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
       <ul>
         {errors.map((x, id) => (
           <li key={id}>
-            <p className="error-text">{x}</p>
+            <p className="danger-text">{x}</p>
           </li>
         ))}
       </ul>

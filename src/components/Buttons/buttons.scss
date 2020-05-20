@@ -49,6 +49,12 @@
   }
 }
 
+.btn-yellow {
+  background: var(--yellow);
+  padding: 0.8em 1.5em;
+  color: var(--black);
+}
+
 .btn-tiertiary {
   color: var(--text);
   font-size: 0.7rem;
@@ -62,7 +68,7 @@
   height: 50px;
   background-color: var(--bg);
   border-radius:5px;
-  border:1.5px solid transparent;
+  border:2px solid var(--bg);
 
   &:hover {
     color: var(--blue-40);

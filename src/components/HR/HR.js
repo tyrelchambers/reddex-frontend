@@ -9,7 +9,7 @@ const styles = {
 }
 const HR = ({classes}) => {
   return (
-    <div style={{...styles}} className={classes}>
+    <div style={{...styles}} className={`hr ${classes ? classes : ""}`}>
       
     </div>
   )

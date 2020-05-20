@@ -1,0 +1,43 @@
+.drop-comp-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.drop-comp-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.4em;
+  border-radius: 5px;
+  border: 2px solid var(--bgLighter);
+  align-self: flex-start;
+  background-color: white;
+
+}
+
+.drop-comp-main {
+  position: absolute;
+  right: 0;
+  top: 2.5em;
+  z-index: 2;
+  background-color: var(--bgLight);
+  border: 2px solid var(--bgLighter);
+  width: 150px;
+  border-radius: 5px;
+
+  button,
+  a {
+    display: block;
+    color: var(--text);
+    padding: 0.7em;
+    width: 100%;
+    text-align: left;
+    &:hover {
+      background-color: var(--bg);
+    }
+  }
+}  
+
+.drop-comp-trigger.active {
+  background-color: var(--bgLighter);
+}

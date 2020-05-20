@@ -1,14 +1,12 @@
+const BASE_URL = '/dashboard/reading_list'
+
 export default [
   {
-    text: "Accepted",
-    paramKey: "t",
-    paramValue: "open",
-    link: "/dashboard/reading_list"
+    text: "Approved",
+    url: `${BASE_URL}?t=approved`
   },
   {
-    text: "Completed",
-    paramKey: "t",
-    paramValue: "completed",
-    link: "/dashboard/reading_list"
+    text: "Complete",
+    url: `${BASE_URL}?t=complete`
   }
 ]

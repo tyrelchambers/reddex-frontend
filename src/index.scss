@@ -24,8 +24,9 @@
   --proGradient: linear-gradient(270deg, rgba(216,38,255,1) 0%, rgba(83,15,135,1) 100%);
   --forest: rgb(12, 107, 88);
   --forest-20: rgb(25, 148, 115);
+  --off-blue: rgb(232, 236, 241);
   // backgrounds
-  --bg: var(--white);
+  --bg: var(--off-blue);
   --bgLighter: var(--white-20);
   --bg-40: var(--white-40);
   --accentBg: var(--black-20);
@@ -62,7 +63,7 @@
 }
 
 .theme-light {
-  --bg: var(--white-20);
+  --bg: var(--off-blue);
   --bgLight: var(--white);
   --highlight: var(--white-60);
   --text: var(--black-20);
@@ -120,6 +121,23 @@ p {
   margin-right: auto;
 }
 
+.ellipses {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-row {
+  &:hover {
+    background: var(--white-40) !important;
+  }
+
+  padding: 1em;
+  border-radius: 5px;
+  &:nth-child(odd) {
+    background: var(--white-20);
+  }
+}
 .container {
   max-width: 1300px;
   width: 100%;
@@ -170,18 +188,6 @@ ul {
   font-weight: bold;
 }
 
-.highlight-text-dark {
-  color:var(--blue-20);
-  font-weight: bold;
-}
-
-.hidden {
-  display: none;
-}
-.error-text {
-  color: var(--error);
-}
-
 .toggle-line {
   width: 100%;
   height: 3px;
@@ -190,21 +196,11 @@ ul {
   background-color: var(--text);
 }
 
-.font-thin {
-  font-weight: 300;
-}
-
-.font-bold {
-  font-weight: 700;
-}
 .title {
   font-weight: 900;
   letter-spacing: 2px;
 }
 
-.link-small {
-  font-size: 0.7rem;
-}
 
 .danger-text {
   color: var(--error) !important;
@@ -213,10 +209,6 @@ ul {
 .wrapper {
   max-width: 1920px;
   width: 100%;
-}
-
-.current-subreddit {
-  color: var(--text);
 }
 
 .subtle {
@@ -231,31 +223,6 @@ ul {
   border-radius: 5px;
 }
 
-
-.mw-500 {
-  width: 100%;
-  max-width: 500px;
-}
-
-.lh-1-8 {
-  line-height: 1.8em;
-}
-
-.p0 {
-  padding: 0;
-}
-
-
-.message-story-tag {
-  padding: 0.5em 1em;
-  white-space: nowrap;
-  font-size: 0.7rem;
-  color: var(--link);
-  text-decoration: underline;
-  border-radius: 20px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
 
 #HW_badge_cont {
   display: flex;

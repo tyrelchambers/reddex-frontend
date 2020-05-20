@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import DashboardNav from '../../layouts/DashboardNav/DashboardNav';
 import './Dashboard.scss';
-import DashboardTopbar from '../../layouts/DashboardTopbar/DashboardTopbar';
 import Loading from '../../components/Loading/Loading';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { getAxios } from '../../api';
+import Header from '../../layouts/Header/Header'
 
 const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loading, children, UserStore, SiteStore, FormStore}) => {
   useEffect(() => {
@@ -40,22 +40,22 @@ const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loadi
   }, [])
 
   return (
-    <div className="d-f dashboard-wrapper">
+    <div className="d-f fxd-c dashboard-wrapper">
+      <Header />
       <DashboardNav />
       
-      <main className="dashboard-inner" id="#dashboard-inner-slide">
-        <DashboardTopbar />
-
-        {loading &&
+      {loading &&
           <Loading />
-        }
+      }
 
-        {!loading &&
-          <div className={`p+ dashboard-page-wrapper animated fadeIn faster`}>
+      {!loading &&
+        <main className={`p+ dashboard-page-wrapper animated fadeIn faster`}>
+          <div className="container">
             {children}
-          </div>
-        }
-      </main>
+          </div>    
+    
+        </main>
+      }
     </div>
   )
 }));

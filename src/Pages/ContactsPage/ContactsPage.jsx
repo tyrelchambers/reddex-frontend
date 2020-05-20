@@ -1,20 +1,16 @@
 import React, { useEffect, useState} from 'react'
 import Dashboard from '../Dashboard/Dashboard'
-import { MinimalButton } from '../../components/Buttons/Buttons'
-import { AddContactForm } from '../../components/Forms/AddContactForm';
 import { ContactsList } from '../../components/ContactsList/ContactsList';
  import './ContactsPage.scss'
 import { getAxios } from '../../api';
+import { H1, H2, H1Subtitle } from '../../components/Headings/Headings'
+import WithNav from '../../layouts/WithNav/WithNav'
+import { Link } from 'react-router-dom';
+import HR from '../../components/HR/HR';
 
 export const ContactsPage = () => {
   const [ contacts, setContacts ] = useState([]);
-  const [ state, setState ] = useState({
-    name: "",
-    notes: ""
-  })
   const [ sortVal, setSortVal ] = useState("");
-
-  const [ openForm, setOpenForm ] = useState(false);
 
   useEffect(() => {
     const fn = async () => {
@@ -28,51 +24,7 @@ export const ContactsPage = () => {
 
   }, []);
 
-  const openFormToggle = () => {
-    setOpenForm(!openForm);
-  }
-
-  const saveContactHandler = async (e) => {
-    e.preventDefault();
-    const url = new URLSearchParams(window.location.search);
-
-    if (url.has("edit")) {
-      if ( url.get("edit") === "true" ) {
-        const c = await getAxios({
-          url: '/contacts/update',
-          data: state,
-          method: 'post'
-        });;
-
-       contacts.filter((x, id) => {
-         if ( x.uuid === c.uuid ) {
-          const copy = contacts;
-          copy.splice(id, 1, c);
-          setContacts([...copy])
-        }
-       });
-      }
-      window.location.search = "";
-    } else {
-      const c = await getAxios({
-        url: '/contacts/save',
-        method: 'post',
-        data: state
-      })
-      
-      setContacts([...contacts, {...c}])
-    }
-    
-  }
-
-  const stateHandler = (e) => {
-    setState({...state, [e.target.name]: e.target.value});
-  }
-
-  const editHandler = (v) => {
-    setOpenForm(true)
-    setState({...v});
-  }
+  
 
   const deleteHandler = async (data) => {
     const copy = contacts;
@@ -97,45 +49,37 @@ export const ContactsPage = () => {
  
   return (
     <Dashboard>
-      <input type="text" className="search-large w-100pr  mb+" placeholder="Search contact list..." onChange={e => setSortVal(e.target.value)}/>  
-
-      <div className="d-f">
-        <h2 className="mr+ contact-title">Contacts</h2>
-        {!openForm &&
-          <MinimalButton
-            onClick={openFormToggle}
+      <H1>Contacts</H1>
+      <H1Subtitle>Create contacts in order to keep track of people you've contacted.</H1Subtitle>
+      <WithNav>
+        <H2>Search by name</H2>
+        <div className="d-f ai-c mt- mb+">
+          <Link
+            to='/dashboard/contacts/new'
+            className="ml- btn btn-tiertiary mr- h-100p p-"
           >
             <i className="fas fa-plus"></i>
             Add Contact
-          </MinimalButton>
-        }
+          </Link>
 
-        {openForm &&
-          <MinimalButton
-            onClick={openFormToggle}
-          >
-            <i className="fas fa-minus"></i>
-            Hide Form
-          </MinimalButton>
-        }
-      </div>
-      {openForm &&
-          <AddContactForm
-            saveContact={saveContactHandler}
-            stateHandler={stateHandler}
-            state={state}
-          />
-        }
-        
-        <section className="d-f mt+ contact-main-wrapper">
+          <input type="text" className="search-large w-100pr max-w-xl" placeholder="Search contact list..." onChange={e => setSortVal(e.target.value)}/>  
+
+        </div>
+        <HR/>
+        <section className=" mt+ contact-main-wrapper">
+          <div className="grid grid-cols-5 gap-3">
+            <p className="font-bold text-lg">Name</p>
+            <p className="font-bold col-span-3 text-lg">Notes</p>
+            <p className="font-bold jc-fe d-f text-lg">Actions</p>
+          </div>
           <ContactsList
             contacts={contacts}
             sortVal={sortVal}
-  
-            editHandler={editHandler}
+
             deleteHandler={deleteHandler}
           />
         </section>
+      </WithNav>
     </Dashboard>
   )
 }

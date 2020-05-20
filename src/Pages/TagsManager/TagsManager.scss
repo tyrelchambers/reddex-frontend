@@ -1,43 +1,23 @@
 .tag-item {
-  background: var(--bgLight);
-  width: fit-content;
-  padding: 0.3em 0.8em;
-  border-radius: 5px;
-  box-shadow: 0px 2px 10px rgba(black, 0.2);
-  margin-right: 0.5em;
-  border: 2px solid var(--text);
+  width: 100%;
+  padding: 0.7em 0;
   transition: all 0.2s ease;
+  border-bottom: 1px solid var(--bg);
   i {
     color: var(--text);
-    margin-right: 1em;
     transition: all 0.2s ease;
   }
   p {
-    font-size: 1.3rem;
     color: var(--text);
-    font-weight: bold;
   }
 
-  
-}
-.tags-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.tag-item.can-delete {
   &:hover {
-    background: rgba(red, 0.2);
-    border: 2px solid rgba(red, 1);
-    cursor: pointer;
-    i {
-      color: var(--red);
-    }
+    background-color: var(--bg);
   }
 }
 
 .tag-small {
-  background: var(--bg);
+  background: var(--white-20);
   padding: 0 0.5em;
   color: var(--text);
   border-radius: 20px;
@@ -60,6 +40,7 @@
     justify-content: center;
     background-color: red;
     position: absolute;
+    color: var(--white);
     top: 0;
     right: 0;
     left: 0;
@@ -73,7 +54,7 @@
   }
 }
 
-.tag-item.exists {
+.tag-isolated.exists {
   border: 2px solid var(--accentBg);
   background:rgba(#0552B5, 0.3);
 
@@ -83,7 +64,7 @@
   }
 }
 
-.tag-item.to-add {
+.tag-isolated.to-add {
   background: var(--green);
   border: 2px solid var(--white);
   i, p {
@@ -92,19 +73,16 @@
   }
 }
 
-.tag-input {
-  max-width: 375px;
-  width: 100%;
-}
-
-@media screen and (max-width: 425px) {
-  .tag-input {
-    flex-direction: column;
-
-    > button {
-      margin-top: 1em;
-      margin-left: 0;
-      width: 100%;
-    }
+.tag-isolated {
+  margin-right: 1em;
+  background-color: var(--bgLight);
+  padding: 0.6em;
+  font-weight: bold;
+  border: 2px solid var(--white);
+  border-radius: 5px;
+  > i {
+    font-size: 0.8rem;
+    margin-right: 1em;
   }
 }
+

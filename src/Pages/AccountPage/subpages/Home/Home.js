@@ -2,9 +2,9 @@ import React from 'react'
 import { getAxios } from '../../../../api';
 import { toast } from 'react-toastify';
 import { MainButton } from '../../../../components/Buttons/Buttons';
+import { H2Subtitle, H2 } from '../../../../components/Headings/Headings';
 
 const Home = ({UserStore, setInitialGreeting, initialGreeting}) => {
-  const DefaultMessage = () => initialGreeting ? <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">{initialGreeting}</p> : <p className="mw-500 lh-1-8 default-message-holder" id="defaultMessageHolder">No default message saved</p>
   const Username = () => UserStore.getRedditProfile() ? <p>From: <span className="highlight-text">{UserStore.getRedditProfile().name}</span></p> : null;
 
   const saveMessageHandler = async (e) => {
@@ -22,14 +22,11 @@ const Home = ({UserStore, setInitialGreeting, initialGreeting}) => {
   }
 
   return (
-    <section className="default-message mt+ animated fadeIn faster">
-      <p className="subtle mt- mb-">This message is used when you haven't messaged an author before. Think of it as an initial greeting. Say hello, introduce yourself, go from there.</p>
-      <div className="current-message mt+ mb+">
-        <h4 className="form-label">Your current greeting</h4>
-        
-        <DefaultMessage />
-      </div>
-      <form className="d-f fxd-c ai-fs">
+    <section className="default-message animated fadeIn faster">
+      <H2>Greeting Message</H2>
+      <H2Subtitle>This message is used when you haven't messaged an author before. Think of it as an initial greeting. Say hello, introduce yourself, go from there.</H2Subtitle>
+
+      <form className="d-f fxd-c ai-fs mt+">
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">Your Greeting Message</label>
           <textarea name="defaultMessage" className="textarea" id="defaultMessage" placeholder="Enter default message.." value={initialGreeting || ""} onChange={e => setInitialGreeting(e.target.value)}></textarea>

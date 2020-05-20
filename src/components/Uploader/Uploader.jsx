@@ -11,14 +11,14 @@ import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 registerPlugin(FilePondPluginFileValidateSize);
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const Uploader = inject("SiteStore")(observer(({pondRef, SiteStore}) => {
+const Uploader = inject("SiteStore")(observer(({SiteStore}) => {
   const [_file, _setFile] = useState([]);
   const token = window.localStorage.getItem("token");
 
   return (
     <div>
       <FilePond
-          ref={ref => (pondRef.current = ref)}
+          ref={ref => SiteStore.setUploaderRef(ref)}
           allowMultiple={false}
           maxFiles={1}
           maxFileSize="3MB"       
