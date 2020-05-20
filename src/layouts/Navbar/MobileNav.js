@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Navbar.scss';
@@ -41,10 +41,46 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
           <ul>
             {(UserStore.getUser() && redditProfile) &&
               <>
-                <li className="d-f ai-c  nav-link">
-                  <Link to="/dashboard/reading_list?t=approved"
-                  
-                  >Dashboard</Link>
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/reading_list?t=approved">            
+                    Reading List
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/submitted">            
+                    Submitted
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/tags">            
+                    Tag Manager
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/contacts">
+                      Contacts
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/inbox">            
+                    Inbox
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/account?t=security">           
+                      Account
+                  </NavLink>
+                </li>
+                
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/site/general">            
+                      Site Builder
+                  </NavLink>
                 </li>
       
                 <li className="d-f ai-c  nav-link has-divider">

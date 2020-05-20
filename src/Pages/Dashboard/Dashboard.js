@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import DashboardNav from '../../layouts/DashboardNav/DashboardNav';
 import './Dashboard.scss';
-import DashboardTopbar from '../../layouts/DashboardTopbar/DashboardTopbar';
 import Loading from '../../components/Loading/Loading';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { getAxios } from '../../api';
+import Header from '../../layouts/Header/Header'
 
 const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loading, children, UserStore, SiteStore, FormStore}) => {
   useEffect(() => {
@@ -41,7 +41,7 @@ const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loadi
 
   return (
     <div className="d-f fxd-c dashboard-wrapper">
-      <DashboardTopbar />
+      <Header />
       <DashboardNav />
       
       {loading &&
