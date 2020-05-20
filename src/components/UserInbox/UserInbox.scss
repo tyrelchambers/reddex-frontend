@@ -2,9 +2,6 @@
 .inbox-wrapper {
   width: 100%;
 }
-.inbox-left-wrapper {
-  width: 100%;
-}
 
 .inbox-message-wrapper {
   position: relative;
@@ -83,7 +80,6 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .inbox-left-wrapper,
 .inbox-message-wrapper {
   height: 100%;
 }

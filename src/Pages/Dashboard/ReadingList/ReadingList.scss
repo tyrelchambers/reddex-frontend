@@ -1,8 +1,3 @@
- 
-.reading-list {
-  
-}
-
 .reading-list-item-wrapper {
   border-bottom: 1px solid var(--bg);
   transition: all 0.2s ease;
@@ -54,31 +49,8 @@
 }
 
 .reading-list-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   color: var(--link);
   text-decoration: underline;
-}
-
-.reading-list-tags {
-  position: absolute;
-  right: 0.5em;
-  padding: 0.5em;
-  bottom: -25px;
-  
-  button {
-    background: var(--green);
-    padding: 1em;
-    border-radius: 20px;
-    box-shadow: 0px 5px 8px rgba(black, 0.3);
-    transition: all 0.2s ease;
-    color: white;
-    &:hover {
-      background: var(--accentBg);
-      color: white;
-    }
-  }
 }
 
 .reading-list-item.opaque {
@@ -98,17 +70,6 @@
   }
 }
 
-.reading-time {
-  padding: 0.5em;
-  color: var(--text);
-  font-size: 0.8rem;
-  margin: 0 0.5em;
-  white-space: nowrap;
-  span {
-    color: var(--accent);
-    font-weight: bold;
-  }
-}
 
 .reading-list-filter {
   text-transform: capitalize;

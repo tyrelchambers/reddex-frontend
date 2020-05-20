@@ -64,15 +64,14 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const Story = ({x}) => (
     <li className="reading-list-item-wrapper cell-row">
       <div className="reading-list-item grid grid-cols-5 gap-4 grid-flow-col ai-c">
-        <a href={x.url} className="reading-list-title w-100pr font-bold col-span-2">{x.title}</a>
+        <a href={x.url} className="reading-list-title ellipses w-100pr font-bold col-span-2">{x.title}</a>
         <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv reading-list-author" style={{color: "inherit"}}>
           {x.author}
         </a>
         <p className="tt-c">{x.subreddit}</p>
-        <div className="reading-time">
-          <span>{avgReadingTime(x.self_text)}</span>
-          min read
-        </div>
+        <p className="reading-time">
+          {avgReadingTime(x.self_text)} minutes
+        </p>
         <Dropdown
           triggerIcon={ <i className="fas fa-ellipsis-h"></i> }
           width="55px"

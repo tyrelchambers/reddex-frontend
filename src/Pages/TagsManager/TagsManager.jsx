@@ -62,7 +62,7 @@ const saveTag = () => {
       <WithNav>
         <H2>Create a tag</H2>
         <H2Subtitle>Tags must be unique. This means you can't have two of the same tags.</H2Subtitle>
-        <div className="d-f ai-c tag-input h-36px mt-">
+        <div className="d-f ai-c max-w-md h-36px mt-">
           <input type="text" className="form-input" placeholder="enter tag name" onChange={e => setTag(e.target.value)}/>
           <MainButton
             value="Add Tag"

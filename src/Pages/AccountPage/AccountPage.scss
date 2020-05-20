@@ -22,15 +22,6 @@
   }
 }
 
-.default-message-holder {
-  white-space: pre-wrap;
-  background-color: var(--bgLight);
-  padding: 0.5em;
-  border-radius: 0.5em;
-  color: var(--text);
-}
-
-
 @media screen and (max-width: 375px) {
   .account-footer {
     flex-direction: column;

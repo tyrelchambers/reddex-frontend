@@ -188,18 +188,6 @@ ul {
   font-weight: bold;
 }
 
-.highlight-text-dark {
-  color:var(--blue-20);
-  font-weight: bold;
-}
-
-.hidden {
-  display: none;
-}
-.error-text {
-  color: var(--error);
-}
-
 .toggle-line {
   width: 100%;
   height: 3px;
@@ -208,21 +196,11 @@ ul {
   background-color: var(--text);
 }
 
-.font-thin {
-  font-weight: 300;
-}
-
-.font-bold {
-  font-weight: 700;
-}
 .title {
   font-weight: 900;
   letter-spacing: 2px;
 }
 
-.link-small {
-  font-size: 0.7rem;
-}
 
 .danger-text {
   color: var(--error) !important;
@@ -231,10 +209,6 @@ ul {
 .wrapper {
   max-width: 1920px;
   width: 100%;
-}
-
-.current-subreddit {
-  color: var(--text);
 }
 
 .subtle {
@@ -249,31 +223,6 @@ ul {
   border-radius: 5px;
 }
 
-
-.mw-500 {
-  width: 100%;
-  max-width: 500px;
-}
-
-.lh-1-8 {
-  line-height: 1.8em;
-}
-
-.p0 {
-  padding: 0;
-}
-
-
-.message-story-tag {
-  padding: 0.5em 1em;
-  white-space: nowrap;
-  font-size: 0.7rem;
-  color: var(--link);
-  text-decoration: underline;
-  border-radius: 20px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
 
 #HW_badge_cont {
   display: flex;
