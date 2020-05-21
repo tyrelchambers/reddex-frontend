@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import { getAxios } from '../../api';
 import Header from '../../layouts/Header/Header'
 
-const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loading, children, UserStore, SiteStore, FormStore}) => {
+const Dashboard = inject("FormStore", "UserStore", "SiteStore", "ReadingListStore")(observer(({loading, children, UserStore, SiteStore, FormStore, ReadingListStore}) => {
   useEffect(() => {
     const yt = UserStore.currentUser.youtube_id;
 
@@ -34,7 +34,13 @@ const Dashboard = inject("FormStore", "UserStore", "SiteStore")(observer(({loadi
         }
       })
     }
-
+    getAxios({
+      url: '/profile/reading_list?permission=true'
+    }).then(res => {
+      if (res) {
+        ReadingListStore.addToRead(res.stories)
+      }
+    })
 
     fn();
   }, [])
