@@ -50,10 +50,6 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observ
 
   const params = new URLSearchParams(window.location.search);
 
-  if ( !params.get('t') ) {
-    return <Redirect to="/dashboard/reading_list?t=open" />
-  }
-
   const optionalTabList = [
     <button
       onClick={() => {

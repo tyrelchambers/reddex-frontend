@@ -14,7 +14,7 @@ import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { checkValidTokens } from '../../helpers/checkValidTokens';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
-import { H2 } from '../Headings/Headings';
+import { H2, H1 } from '../Headings/Headings';
 import Loading from '../Loading/Loading';
 
 const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(observer(({InboxStore, UserStore, ReadingListStore}) => {
@@ -59,7 +59,7 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   const IsInReadingList = () => {
     if (!storyLink) return null;
 
-    let isListed = ReadingListStore.toRead.filter((x, id) => data.subject === x.title)
+    let isListed = ReadingListStore.toRead.filter((x, id) =>  x.title.replace('...', "").includes(data.subject.replace('...', "")))
 
     if (isListed.length > 0) {
       return (
@@ -107,6 +107,7 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
   
   return (
     <Dashboard>
+      <H1>Inbox Message</H1>
       <WithNav tabs={tabs}>
         {!isEmpty(data) && 
           <div className="inbox-message-wrapper fx-1 ">
@@ -115,7 +116,7 @@ const InboxMessage = inject("InboxStore", "UserStore", "ReadingListStore")(obser
                 <H2>
                   <a href={storyLink} target="_blank" rel="noopener noreferrer">{data.subject}</a>
                 </H2>
-                <p className="mb- message-subtitle font-bold mt-">From: <a href={`https://reddit.com/u/${destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}`} target="_blank" rel="noopener noreferrer"  >{destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</a> </p>
+                <p className="mb- message-subtitle mt-">From: <a href={`https://reddit.com/u/${destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}`} target="_blank" rel="noopener noreferrer"  >{destIsMe(data, UserStore.redditProfile) ? data.author : data.dest}</a> </p>
                 <div className="message-tags mb-">
                   <IsInReadingList/>
                   <IsInContacts/>
