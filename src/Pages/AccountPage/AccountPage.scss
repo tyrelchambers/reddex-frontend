@@ -1,16 +1,11 @@
  
 .account-wrapper {
   height: 100%;
-  padding: 1em;
   margin-bottom: 3em;
 
   > h1 {
     color: var(--text);
   }
-}
-.default-message {
-  width: 100%;
-  max-width: 500px;
 }
 .default-message-input {
   display: block;
@@ -26,15 +21,6 @@
     color: var(--text);
   }
 }
-
-.default-message-holder {
-  white-space: pre-wrap;
-  background-color: var(--bgLight);
-  padding: 0.5em;
-  border-radius: 0.5em;
-  color: var(--text);
-}
-
 
 @media screen and (max-width: 375px) {
   .account-footer {

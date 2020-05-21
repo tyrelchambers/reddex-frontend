@@ -5,13 +5,13 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import CompletedStories from './CompletedStories';
 import { Redirect } from 'react-router-dom';
-import { MinimalButton } from '../../../components/Buttons/Buttons';
 import ImportStoryForm from '../../../components/Forms/ImportStoryForm';
 import tabs from './tabs';
-import Tabs from '../../../layouts/Tabs/Tabs';
 import Dashboard from '../Dashboard';
 import { getAxios } from '../../../api';
 import RequestWithUrl from '../../../components/RequestWithUrl/RequestWithUrl';
+import WithNav from '../../../layouts/WithNav/WithNav'
+import { H1 } from '../../../components/Headings/Headings'
 
 const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observer(({ReadingListStore, ModalStore, PostStore}) => {  
   const [ refresh, setRefresh ] = useState(false);
@@ -54,64 +54,65 @@ const ReadingList = inject("ReadingListStore", "ModalStore", "PostStore")(observ
     return <Redirect to="/dashboard/reading_list?t=open" />
   }
 
+  const optionalTabList = [
+    <button
+      onClick={() => {
+        ModalStore.setIsOpen(true)
+        ModalStore.setRender(
+          <>
+            <h2 className="ta-c">Import A Story </h2>
+            <div className="d-f jc-c">
+              <ImportStoryForm
+                buttonText="Import Story"
+                icon={<i className="fas fa-check mr-"></i>}
+              />
+            </div>
+          </>
+        )
+      }}
+    >
+      Import Story from URL
+    </button>,
+
+    <button
+      onClick={() => {
+        ModalStore.setIsOpen(true)
+        ModalStore.setRender(
+          <RequestWithUrl/>
+        )
+      }}
+    >
+      Request Permission Using URL
+    </button>
+  ]
+
   return (
     <Dashboard>
-      <div className="d-f ai-c mobile-column">
-        <Tabs url="/dashboard/reading_list" data={tabs}/>
+      <H1>Reading List</H1>
+  
+      <WithNav
+        tabs={tabs}
+        optionalTabs={optionalTabList}
+      >
+        <div className="d-f mobile-column">
+          {params.get('t') === "approved" &&
+            <Approved 
+              list={ReadingListStore.getToRead()}
+              callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
+              ModalStore={ModalStore}
+            />
+          }
 
-        
-        <MinimalButton
-          onClick={() => {
-            ModalStore.setIsOpen(true)
-            ModalStore.setRender(
-              <>
-                <h2 className="ta-c">Import A Story </h2>
-                <div className="d-f jc-c">
-                  <ImportStoryForm
-                    buttonText="Import Story"
-                    icon={<i className="fas fa-check mr-"></i>}
-                  />
-                </div>
-              </>
-            )
-          }}
-          classNames="mobile-margin ml- minimal-btn bg"
-        >
-          <i className="fas fa-plus mr-"></i>
-          Import Story from URL
-        </MinimalButton>
-
-        <MinimalButton
-          onClick={() => {
-            ModalStore.setIsOpen(true)
-            ModalStore.setRender(
-              <RequestWithUrl/>
-            )
-          }}
-          classNames="mobile-margin ml- minimal-btn bg"
-        >
-          <i className="fas fa-plus mr-"></i>
-          Request Permission Using URL
-        </MinimalButton>
-      </div>
-      <div className="d-f mobile-column">
-        {params.get('t') === "open" &&
-          <Approved 
-            list={ReadingListStore.getToRead()}
-            callback={(v) => ReadingListStore.transferStoryFromList(v, "toRead", "completed")}
-            ModalStore={ModalStore}
-          />
-        }
-
-        {params.get('t') === "completed" &&   
-          <CompletedStories 
-            list={ReadingListStore.getCompleted()}
-            ReadingListStore={ReadingListStore}
-            callback={(v) => ReadingListStore.transferStoryFromList(v, "completed", "toRead")}
-            removeStoryFromDb={removeStoryFromDb}
-          />
-        }
-      </div>
+          {params.get('t') === "complete" &&   
+            <CompletedStories 
+              list={ReadingListStore.getCompleted()}
+              ReadingListStore={ReadingListStore}
+              callback={(v) => ReadingListStore.transferStoryFromList(v, "completed", "toRead")}
+              removeStoryFromDb={removeStoryFromDb}
+            />
+          }
+        </div>
+      </WithNav>
     </Dashboard>
   )
 }));

@@ -10,9 +10,12 @@ const SiteSaveStatus = inject("SiteStore", "FormStore")(observer(({submitHandler
       <div className="site-save-status mt+ mb+ d-f ai-c jc-sb animated fadeIn faster">
         <p>You have unsaved changes</p>
 
-        <div className="site-save-actions">
+        <div className="site-save-actions d-f ai-c">
+          <button className="btn mr+" onClick={() => window.location.reload()}>
+            Discard
+          </button>
           <MainButton
-            className="btn btn-primary"
+            className="btn btn-yellow"
             value="Save"
             onClick={submitHandler}
             loading={saving}

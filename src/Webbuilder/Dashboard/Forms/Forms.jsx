@@ -5,8 +5,12 @@ import Quill from 'quill'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Forms.scss'
-import SubmissionForm from '../../../components/Forms/SubmissionForm';
 import { getAxios } from '../../../api';
+import WithNav from '../../../layouts/WithNav/WithNav'
+import Dashboard from '../../../Pages/Dashboard/Dashboard'
+import SiteBuilderWrapper from '../../../layouts/SiteBuilderWrapper/SiteBuilderWrapper'
+import { H2Subtitle, H2, H1, H1Subtitle } from '../../../components/Headings/Headings';
+import tabs from '../tabs'
 
 const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore}) => {
   useEffect(() => {
@@ -34,23 +38,26 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
 
    useEffect(() => {
 
-    getAxios({
-      url:'/submissionForm/',
-      params: {
-        sid: SiteStore.config.uuid
-      }
-    }).then(res => {
-      if (res) {
-        FormStore.setAuthor(res.OptionsAuthor)
-        FormStore.setEmail(res.OptionsEmail)
-        FormStore.setSentToOthers(res.OptionsSentToOther)
-        FormStore.setTags(res.OptionsTag)
-        FormStore.setStoryTitle(res.OptionsStoryTitle)
-        FormStore.setOptionsId(res.uuid)
-      }
-    })
+    if (SiteStore.config.uuid) {
+      console.log('called')
+      getAxios({
+        url:'/submissionForm/',
+        params: {
+          sid: SiteStore.config.uuid
+        }
+      }).then(res => {
+        if (res) {
+          FormStore.setAuthor(res.OptionsAuthor)
+          FormStore.setEmail(res.OptionsEmail)
+          FormStore.setSentToOthers(res.OptionsSentToOther)
+          FormStore.setTags(res.OptionsTag)
+          FormStore.setStoryTitle(res.OptionsStoryTitle)
+          FormStore.setOptionsId(res.uuid)
+        }
+      })
+    }
 
-  }, [])
+  }, [SiteStore.config.uuid])
 
   const Module = ({data, name}) => (
     <div className="d-f ai-c form-module-wrapper">
@@ -78,85 +85,87 @@ const Forms = inject("SiteStore", "FormStore")(observer(({SiteStore, FormStore})
     </div>
   )
   return (
-    <div>
-      <div className="d-f">
-        <div className="mt--- mr-">
-          <ToggleStatus
-            context="submissionForm"
-            option="Inactive"
-            disabledText="Active"
-            setToggledHandler={() => {
-              SiteStore.setConfig({submission_form: !SiteStore.config.submission_form});
-            }}
-            toggled={SiteStore.config.submission_form ? true : false}
-          />
-        </div>
-        <div className="d-f fxd-c">
-          <h2>Submission Form</h2>
-          <p className="mb- subtle">Activate this submission form to allow visitors to email you their own stories</p>
-        </div>
-        
-      </div>
-      <HR />
-      {SiteStore.config.submission_form &&
-        <div className="d-f submission-form-wrapper">
-          <form className="form custom-story-form mt+">
-            <h2>Customize your submission form</h2>
-            <p className="subtle mb+">This is what your visitor will see when they submit you a story. Customize it to fit it how you'd like.</p>
-            <h3 className="mb-">Basics</h3>
-            <div className="field-group">
-              <label htmlFor="title" className="form-label">Page title</label>
-              <input type="text" className="form-input" name="submission_title" placeholder="Eg: Submit your story" value={SiteStore.config.submission_title} onChange={e => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
+    <Dashboard>
+      <H1>Site Builder</H1>
+      <H1Subtitle>Build your website and advertise what you do.</H1Subtitle>
+      <SiteBuilderWrapper>
+        <WithNav 
+          tabs={tabs}
+          optionalTabs={SiteStore.preview.subdomain && SiteStore.isSiteSaved ? [
+            <a href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} rel="noopener noreferrer" target="_blank" className="td-n">View your site</a>,
+            <div className="d-f ai-c share-wrapper">
+              <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" className="twitter-share-button" data-url={`https://${SiteStore.config.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`} data-text={`Check out my new webpage!`} data-via="ReddexApp" data-hashtags="newSite" data-show-count="false">Tweet</a>
             </div>
-
-
-            <div className="rules-wrapper">
-              <h3 className="mb-">Rules</h3>
-              <div className="field-group">
-                <label htmlFor="headline" className="form-label">Headline</label>
-                <input type="text" name="headline" className="form-input" placeholder="Describe how you want to introduce the rules" value={SiteStore.config.headline} onChange={(e) => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
-              </div>
-
-              <p className="subtle mb-">Add your rules here. Can be point form or a normal sentence/paragraph. Whatever you choose.</p>
-              <div className="rules-wrapper" id="editor">
-                
-              </div>
+          ]:  []}
+        >
+          <div className="d-f">
+            <div className="mt--- mr-">
+              <ToggleStatus
+                context="submissionForm"
+                option="Inactive"
+                disabledText="Active"
+                setToggledHandler={() => {
+                  SiteStore.setConfig({submission_form: !SiteStore.config.submission_form});
+                }}
+                toggled={SiteStore.config.submission_form ? true : false}
+              />
             </div>
-
-            <div className="modules-wrapper mt+">
-              <h3>Customize Modules</h3>
-
-              <div className="field-group">
-                <div className="d-f fxd-c">
-                  <Module data={FormStore.state.OptionsEmail} name="OptionsEmail"/>
-                  <Module data={FormStore.state.OptionsStoryTitle} name="OptionsStoryTitle"/>
-                  <Module data={FormStore.state.OptionsSentToOther} name="OptionsSentToOther"/>
-                  <Module data={FormStore.state.OptionsAuthor} name="OptionsAuthor"/>
-                  <Module data={FormStore.state.OptionsTag} name="OptionsTag"/>
-
+            <div className="d-f fxd-c">
+              <H2>Submission Form</H2>
+              <H2Subtitle>Activate this submission form to allow visitors to email you their own stories</H2Subtitle>
+            </div>
+            
+          </div>
+          <HR />
+          {SiteStore.config.submission_form &&
+            <div className="d-f submission-form-wrapper">
+              <form className="form custom-story-form form-wide">
+                <H2>Page Title</H2>
+                <H2Subtitle>The page title is the name of your submission page. Make it whatever you like in order to convey what the visitor is doing on your page (eg: Story Submission)</H2Subtitle>
+                <div className="field-group mt-">
+                  <input type="text" className="form-input" name="submission_title" placeholder="Eg: Submit your story" value={SiteStore.config.submission_title} onChange={e => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
                 </div>
-              </div>
-            </div>
-          </form>
 
-          <section className="form-preview">
-            {SiteStore.config.submission_title &&
-              <h1 className="preview-title">{SiteStore.config.submission_title}</h1>
-            }
-            {SiteStore.config.headline &&
-              <h3 className="preview-headline">{SiteStore.config.headline}</h3>
-            }
-            <div dangerouslySetInnerHTML={{__html: SiteStore.config.rules}} id="preview-body" style={{whiteSpace: 'pre-line'}}></div>
-          
-            <div className="d-f fxd-c ai-c">
-            <SubmissionForm
-              data={FormStore.state}
-            />
+
+                <div className="rules-wrapper mt+">
+                  <H2>Headline</H2>
+                  <H2Subtitle>The headline is used to point out a particularly important piece of information (eg: Please read the guidelines for submitting a story)</H2Subtitle>
+
+                  <div className="field-group">
+                    <input type="text" name="headline" className="form-input" placeholder="Describe how you want to introduce the rules" value={SiteStore.config.headline} onChange={(e) => SiteStore.setConfig({[e.target.name]: e.target.value})}/>
+                  </div>
+
+                  <div className="mt+">
+                    <H2>Rules for Submission</H2>
+                    <H2Subtitle>Add your rules here. Can be point form or a normal sentence/paragraph. Whatever you choose.</H2Subtitle>
+                    <div className="mt-">
+                      <div className="rules-wrapper" id="editor">
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="modules-wrapper mt+">
+                  <H2>Customize Modules</H2>
+
+                  <div className="field-group">
+                    <div className="d-f fxd-c">
+                      <Module data={FormStore.state.OptionsEmail} name="OptionsEmail"/>
+                      <Module data={FormStore.state.OptionsStoryTitle} name="OptionsStoryTitle"/>
+                      <Module data={FormStore.state.OptionsSentToOther} name="OptionsSentToOther"/>
+                      <Module data={FormStore.state.OptionsAuthor} name="OptionsAuthor"/>
+                      <Module data={FormStore.state.OptionsTag} name="OptionsTag"/>
+
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-          </section>
-        </div>
-      }
-    </div>
+          }
+        </WithNav>
+      </SiteBuilderWrapper>
+    </Dashboard>
   );
 }));
 

@@ -1,17 +1,20 @@
+const BASE_URL = '/dashboard/account'
+
 export default [
   {
     text: "Login & Security",
-    paramKey: "t",
-    paramValue: "security"
+    url: `${BASE_URL}?t=security`
   },
   {
     text: "Greeting Message",
-    paramKey: "t",
-    paramValue: "default_message"
+    url: `${BASE_URL}?t=default_message`
   },
   {
     text: "Recurring Message",
-    paramKey: "t",
-    paramValue: "alt_message"
+    url: `${BASE_URL}?t=alt_message`
+  },
+  {
+    text: "Integrations",
+    url: `${BASE_URL}?t=integrations`
   }
 ]

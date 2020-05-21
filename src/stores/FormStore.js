@@ -142,6 +142,7 @@ class FormStore {
   setStoryTitle(data) {
     this.state.OptionsStoryTitle = {...data}
   }
+
 }
 
 decorate(FormStore, {

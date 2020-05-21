@@ -8,23 +8,12 @@
 }
 
 .post-fetch-search {
+  border-radius: 5px;
+  overflow: hidden;
   .preffix {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
   }
-}
-
-.select__arrow {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  border-style: solid;
-  border-width: 8px 5px 0 5px;
-  border-color: #7b7b7b transparent transparent transparent;
-
 }
 
 .form-label.light {
@@ -32,7 +21,7 @@
   margin-bottom: 1em;
 }
 
-.post-fetch-search {
+.post-fetch-search-input {
   border-top-left-radius: 0px !important;
   border-bottom-left-radius: 0px !important;
 }

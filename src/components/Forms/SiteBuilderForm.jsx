@@ -2,6 +2,7 @@ import React from 'react';
 import HR from '../HR/HR';
 import Uploader from '../Uploader/Uploader';
 import {MinimalButton} from '../Buttons/Buttons'
+import { H2, H2Subtitle } from '../Headings/Headings';
 
 const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) => {
   return (
@@ -78,8 +79,8 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
         classes="mt+ mb+"
       />
 
-      <h2 className="mb-">Social Media</h2>
-      <p className="subtle mb-">The links below will appear as social icons on your site. These are not required, and the icons will not appear on your site if you leave them blank.</p>
+      <H2>Social Media</H2>
+      <H2Subtitle>The links below will appear as social icons on your site. These are not required, and the icons will not appear on your site if you leave them blank.</H2Subtitle>
 
       <div className="field-group">
         <label htmlFor="twitter" className="form-label">Twitter</label>

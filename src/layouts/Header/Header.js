@@ -33,7 +33,7 @@ const Header = inject("UserStore")(observer(({UserStore}) => {
   return(
     <header className="header d-f jc-c">
 
-      <div className="wrapper d-f jc-sb ai-c">
+      <div className="container d-f jc-sb ai-c">
         <div className="brand d-f">
           <img src={reddexLogo} alt="Reddex"/>
           <div id="headway"></div>

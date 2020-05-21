@@ -4,19 +4,12 @@
   height: 100%;
   width: 100%;
 }
-.dashboard-inner {
-  width: 100%;
-  overflow-y: auto;
-}
+
 .dashboard-page-wrapper {
-   
-  padding: 2em 2em 0 2em;
-      min-width: 288px;
 
-}
-
-.dashboard-inner-slide {
-  margin-left: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -36,15 +29,7 @@
 }
 @media screen and (min-width: 769px) {
   .dashboard-wrapper {
-    overflow: hidden;
-  position: fixed;
   width: 100%;
   }
   
-}
-
-@media screen and (max-width: 768px) {
-  .dashboard-wrapper {
-    margin-top: 4em;
-  }
 }

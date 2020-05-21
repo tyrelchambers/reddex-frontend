@@ -7,6 +7,7 @@ import './Security.scss'
 import { getAxios } from '../../../api';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import { H2} from '../../../components/Headings/Headings'
 
 const Security = ({UserStore}) => {
   const [u, setU] = useState();
@@ -109,57 +110,27 @@ const Security = ({UserStore}) => {
      }
    }
 
-  const linkPatreonAccount = () => {
-    window.location.href = `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_PATREON_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT}/dashboard/account?t=security&scope=identity identity.memberships`
-  }
 
-  const disconnectPatreonAccount = () => {
-    getAxios({
-      url: '/patreon/disconnect',
-      method: 'delete'
-    }).then(res => {
-      if (res) {
-        UserStore.setPatron({})
-        toast.success("Patreon successfully disconnected")
-      }
-    })
-  }
 
   return (
     <div className="account-security-wrapper">
-      <p className="mb+ mt+">Your registered email: {u.email}</p>
-
-      <EditUserForm
-        stateHandler={stateHandler}
-        changeEmailHandler={changeEmailHandler}
-        changePasswordHandler={changePasswordHandler}
-        state={changes}
-      />
-
-      <section className="mt+">
-        <h3 className="mt-"><i className="fab fa-patreon mr-"></i> Connect your Patreon</h3>
-        <p>Link to your Patreon account in order to receive any benefits supplied by your pledge tier.</p>
-        {UserStore.patron.patreon_connected &&
-          <MainButton
-            value="Diconnect Patreon"
-            className="btn-tiertiary danger mt-"
-            onClick={disconnectPatreonAccount}
-          />
-        }
+      <H2>Login &amp; Security</H2>
         
-        {!UserStore.patron.patreon_connected &&
-          <MainButton
-            value="Link to your Patreon"
-            className="btn btn-green p- mt-"
-            onClick={linkPatreonAccount}
-          />
-        }
-      </section>
+      <div className="mt">
+        <EditUserForm
+          stateHandler={stateHandler}
+          changeEmailHandler={changeEmailHandler}
+          changePasswordHandler={changePasswordHandler}
+          state={changes}
+        />
+      </div>
 
       <HR
         classes="mt+"
       />
-      <h2 className="mt">Danger Zone</h2>
+      <div className="mt">
+        <H2>Danger Zone</H2>
+      </div>
       <p style={{color: 'var(--textLight)'}}>This action is permanent. This will delete your account forever.</p>
       <MainButton
         value="Delete Account"

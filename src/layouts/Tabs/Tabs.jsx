@@ -1,18 +1,38 @@
 import React from 'react';
 import './Tabs.scss'
-import Tab from '../Tab/Tab';
+import { NavLink, Link } from 'react-router-dom';
+import HR from '../../components/HR/HR';
 
-const Tabs = ({data, url}) => {
-  const params = new URLSearchParams(window.location.search);
+const Tabs = ({tabs, optionalTabs}) => {
+  const url = window.location.pathname + window.location.search;
 
   return (
-    <div className="tabs-wrapper">
-      {data.map((x, id) => <Tab 
-        {...x}
-        url={url}
-        params={params}
-        key={id}
-      />)}
+    <div className="d-f fxd-c tabs-wrapper">
+      {tabs &&
+        <ul className="d-f fxd-c tabs">
+          {tabs.map((tab, id) => (
+            <li className="tab" key={id}>
+              <NavLink to={tab.url} activeClassName="tab-active" isActive={() => {
+                if(url === tab.url) {
+                  return true
+                }
+              }}>
+                {tab.text}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      }
+      {optionalTabs &&
+        <>
+          <HR/>
+          <ul className="d-f fxd-c tabs">
+            {optionalTabs.map((tab, id) => 
+              <li className="tab" key={id}>{tab}</li>
+            )}
+          </ul>
+        </>
+      }
     </div>
   );
 }

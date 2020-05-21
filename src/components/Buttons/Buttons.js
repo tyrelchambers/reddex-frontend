@@ -21,7 +21,7 @@ export const MainButton = (props) => {
 }
 
 export const MinimalButton = ({...props}) => (
-  <button className={`minimal-btn ${props.classNames ? props.classNames : ""}`} onClick={props.onClick} >
+  <button className={`minimal-btn ${props.classNames ? props.classNames : ""}`}  onClick={props.onClick} >
     {props.children}
   </button>
 )

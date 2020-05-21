@@ -32,8 +32,8 @@ class ReadingListStore {
         this[list].splice(id, 1);
       }
     });
-    
   }
+
 }
 
 decorate(ReadingListStore, {

@@ -3,10 +3,11 @@ import './ReadingList.scss';
 import HR from '../../../components/HR/HR';
 import { getAxios } from '../../../api';
 import isEmpty from '../../../helpers/objIsEmpty'
-import { MinimalButton } from '../../../components/Buttons/Buttons';
 import AddTagForm from '../../../components/Forms/AddTagForm'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import { H2 } from '../../../components/Headings/Headings';
+import Dropdown from '../../../components/Dropdown/Dropdown';
 
 const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const [ subredditFilter, setSubredditFilter ] = useState("");
@@ -14,6 +15,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const [tag, setTag] = useState({})
   const [ headers, setHeaders] = useState([])
   const [ initialHeaders, setInitialHeaders] = useState([])
+  const [ openDropdown, setOpenDropdown] = useState("")
 
   useEffect(() => {
     getAxios({
@@ -59,64 +61,66 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   }
 
 
-  const Story = ({x, storyId}) => (
-    <li className="reading-list-item">
-      <div className="d-f fxd-c fx-1 reading-list-item-header">
-        <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
-          <h3 className="reading-list-title mr- w-100pr">{x.title}</h3>
-          <h4 className="reading-list-author">
-            <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv" style={{color: "inherit"}}>
-              {x.author}
-            </a>
-          </h4>
-        </div>
+  const Story = ({x}) => (
+    <li className="reading-list-item-wrapper cell-row">
+      <div className="reading-list-item grid grid-cols-5 gap-4 grid-flow-col ai-c">
+        <a href={x.url} className="reading-list-title ellipses w-100pr font-bold col-span-2">{x.title}</a>
+        <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv reading-list-author ellipses" style={{color: "inherit"}}>
+          {x.author}
+        </a>
+        <p className="tt-c">{x.subreddit}</p>
+        <p className="reading-time">
+          {avgReadingTime(x.self_text)} minutes
+        </p>
+        <Dropdown
+          triggerIcon={ <i className="fas fa-ellipsis-h"></i> }
+          width="55px"
+          identifier={x.uuid}
+          showDropdown={() => {
+            if (openDropdown === x.uuid) {
+              return true
+            }
+          }}
+          toggleDropdown={() => {
+            setOpenDropdown(x.uuid)
+            if (openDropdown === x.uuid) {
+              setOpenDropdown("")
+            }
+          }}
+        >
+          <button onClick={() => {
+            addToCompleted(x, true);
+            callback(x);
+            setOpenDropdown("")
 
-        <div className="message-tags">
-          <a className="message-story-tag" target="_blank" rel="noopener noreferrer" href={x.url}>Link to story</a>
-          <div className="chat-actions d-f">
-            <div className="chat-action-btn-wrapper d-f ai-c">
-              <button className="chat-action primary ai-c whs-nw" onClick={() => {
-                addToCompleted(x, true);
-                callback(x);
-              }}>
-                <i className="fas fa-check mr-"></i>
-                Set as read
-              </button>
-              <div className="reading-time">
-                <span>{avgReadingTime(x.self_text)}</span>
-                min read
-              </div>
-            </div>
-          </div>
-        </div>
+          }}>
+            Set as read
+          </button>
+
+          <button
+            onClick={() => {
+              setOpenDropdown("")
+
+              ModalStore.setIsOpen(true)
+              ModalStore.setRender(
+                <div className="d-f fxd-c ai-c">
+                  <h3 className="mb+">Add tag</h3>
+                  <AddTagForm
+                    story_uuid={x.uuid}
+                  />
+                </div>
+              )
+            }}
+            
+          >
+            Add Tags
+          </button>
+        </Dropdown>
       </div>
       <div className="tag-list d-f ai-c" id="tagList" >
-          {x.Tags ? x.Tags.map((t, id) => {
+        {x.Tags ? x.Tags.map((t, id) => {
           return <p className="subtle d-f tag-small" key={id} onClick={() => removeTagFromStory(t)}>{t.tag}</p>
         }) : null}
-      </div>
-      <div className="d-f ai-c reading-list-tags">
-
-       
-        <MinimalButton
-          classNames="whs-nw ml-"
-          onClick={() => {
-            ModalStore.setIsOpen(true)
-            ModalStore.setRender(
-              <div className="d-f fxd-c ai-c">
-                <h3 className="mb+">Add a tag to story</h3>
-                <AddTagForm
-                  story_id={storyId}
-                  story_uuid={x.uuid}
-                />
-              </div>
-            )
-          }}
-          
-        >
-          <i className="fas fa-plus mr---"></i> 
-          Add Tags
-        </MinimalButton>
       </div>
     </li>
   )
@@ -125,7 +129,6 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const renderedList = headers.map((x, id) => {
     return (
       <React.Fragment key={id}>
-        {list.find(y => x === y.subreddit) ? <h3 className="tt-c">{x}</h3> : null}
         {list.map((y, id) => {
           if (x === y.subreddit) {
             return (
@@ -139,10 +142,10 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
 
 
   return (
-    <div className="m+ fx-1">
+    <div className="fx-1">
       
-      <div className="reading-list-filters d-f fxd-c jc-c mt- mb-">
-        <p className="subtle font-bold">Sort by subreddit</p>
+      <div className="reading-list-filters d-f fxd-c jc-c mb-">
+        <H2>Sort by subreddit</H2>
         <div className="header-items">
           {subredditFilter &&
             <i className="fas fa-times ml- mr-" onClick={() => setSubredditFilter("")}></i>
@@ -155,22 +158,36 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
             >{x}</button>
           ))}
         </div>
-        <p className="subtle font-bold">Sort by tags</p>      
-        <div className="header-items">
-          {!isEmpty(tag) &&
-            <i className="fas fa-times ml- mr-" onClick={() => setTag("")}></i>
-          }
-          {tags.map((x, id) => (
-            <button 
-              key={id}
-              className={`reading-list-filter ${tag.tag === x.tag ? "active" : ""}`} 
-              onClick={() => setTag(x)}
-            >{x.tag}</button>
-          ))}
-        </div>
+
+        {tags.length > 0 &&
+          <>
+            <div className="mt">
+              <H2>Sort by tags</H2> 
+            </div>     
+            <div className="header-items">
+              {!isEmpty(tag) &&
+                <i className="fas fa-times ml- mr-" onClick={() => setTag("")}></i>
+              }
+              {tags.map((x, id) => (
+                <button 
+                  key={id}
+                  className={`reading-list-filter ${tag.tag === x.tag ? "active" : ""}`} 
+                  onClick={() => setTag(x)}
+                >{x.tag}</button>
+              ))}
+            </div>
+          </>
+        }
       </div>
       <HR/>
-      <ul className="reading-list-list mt+">
+      <div className="grid grid-cols-5 gap-4 grid-flow-col">
+        <p className="font-bold text-lg col-span-2">Title</p>
+        <p className="font-bold text-lg">Author</p>
+        <p className="font-bold text-lg">Subreddit</p>
+        <p className="font-bold text-lg">Reading Time</p>
+        <p className="font-bold text-lg">Actions</p>
+      </div>
+      <ul className="reading-list-list mt-">
         {renderedList}
       </ul>
     </div>

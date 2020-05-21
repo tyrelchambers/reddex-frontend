@@ -1,80 +1,70 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './ReadingList.scss';
-import Axios from 'axios';
 import { getAxios } from '../../../api';
+import Dropdown from '../../../components/Dropdown/Dropdown';
 
 const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb}) => {
+  const [ openDropdown, setOpenDropdown] = useState("")
+
   if ( !list ) return null;
 
-  const token = window.localStorage.getItem('token');
-
-  const masterList = [];
-
-  list.map(x => {
-    if ( x.subreddit ) {
-      if ( masterList[x.subreddit] ) {
-        masterList[x.subreddit].push(x)
-      } else {
-        masterList[x.subreddit] = [];
-        masterList[x.subreddit].push(x)
-      }
-    } else {
-      if (masterList["Uncategorized"]) {
-        masterList["Uncategorized"].push(x)
-      } else {
-        masterList["Uncategorized"] = [];
-        masterList["Uncategorized"].push(x)
-      } 
-    }
-  });
-
   const Story = ({x}) => (
-    <li className="reading-list-item opaque">
-      <div className="d-f fxd-c reading-list-header ">
-        <div className="d-f ai-c jc-sb reading-list-item-header-subheader">
-          <h3 className="reading-list-title mr+">{x.title}</h3>
-          <h4 className="reading-list-author">{x.author}</h4>
-        </div>
-        <div className="message-tags mt-">
-          <a className="message-story-tag" target="_blank" rel="noopener noreferrer" href={x.url}>Link to story</a>
-          <div className="chat-actions d-f">
-            <div className="chat-action-btn-wrapper d-f">
-              <button className="chat-action primary ai-c" onClick={() => {
-                addToReadingList(x, false)
-                callback(x);
-              }}>
-                <i className="fas fa-bookmark mr-"></i>
-                Add back to Read List
-              </button>
+    <li>
+       <div className="reading-list-item grid grid-cols-4 gap-4 grid-flow-col ai-c">
+        <a href={x.url} className="reading-list-title w-100pr font-bold col-span-2">{x.title}</a>
+        <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv reading-list-author" style={{color: "inherit"}}>
+          {x.author}
+        </a>
+        <p className="tt-c">{x.subreddit}</p>
 
-              <button className="chat-action primary ai-c" onClick={() => {
-                ReadingListStore.removeStoryFromList("completed", x.post_id);
-                removeStoryFromDb(x.uuid)
-              }}>
-                <i className="fas fa-bookmark mr-"></i>
-                Remove from reading list
-              </button>
-            </div>
-          </div>
-        </div>
+        <Dropdown
+          triggerIcon={ <i className="fas fa-ellipsis-h"></i> }
+          width="55px"
+          identifier={x.uuid}
+          showDropdown={() => {
+            if (openDropdown === x.uuid) {
+              return true
+            }
+          }}
+          toggleDropdown={() => {
+            setOpenDropdown(x.uuid)
+            if (openDropdown === x.uuid) {
+              setOpenDropdown("")
+            }
+          }}
+        >
+          <button onClick={() => {
+            addToReadingList(x, false)
+            setOpenDropdown("")
+
+            callback(x);
+          }}>
+            Add back to Read List
+          </button>
+
+          <button onClick={() => {
+            ReadingListStore.removeStoryFromList("completed", x.post_id);
+            setOpenDropdown("")
+            removeStoryFromDb(x.uuid)
+          }}>
+            Permanently delete
+          </button>
+        </Dropdown>
       </div>
     </li>
   )
 
-   
-  const renderedList = Object.keys(masterList).map((key, id) => {
-    return (
-      <React.Fragment key={id}>
-        <h3 className="tt-c thin">{key}</h3>
-        {masterList[key].map((x, id) => <Story x={x} key={id}/>)}
-      </React.Fragment>
-    )
-  })
 
   return (
-    <div className="m+ all-stories-wrapper fx-1">
+    <div className="all-stories-wrapper fx-1">
+      <div className="grid grid-cols-4 gap-4 grid-flow-col">
+        <p className="font-bold col-span-2">Title</p>
+        <p className="font-bold">Author</p>
+        <p className="font-bold">Subreddit</p>
+        <p className="font-bold">Actions</p>
+      </div>
       <ul className="reading-list-list ">
-        {renderedList}
+        {list.map(x => <Story x={x}/>)}
       </ul>
     </div>
   )

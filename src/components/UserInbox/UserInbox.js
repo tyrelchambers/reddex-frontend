@@ -3,15 +3,16 @@ import Axios from 'axios';
 import { fetchTokens } from '../../helpers/renewRefreshToken';
 import UserInboxDumb from './UserInboxDumb';
 import { inject, observer } from 'mobx-react';
-import InboxMessage from '../InboxMessage/InboxMessage';
 import Loading from '../Loading/Loading';
+import { useHistory } from 'react-router-dom';
+import { MainButton } from '../Buttons/Buttons';
 
 const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loading, UserStore}) => {
   const [ messages, setMessages ] = useState([]);
   const [ sortVal, setSortVal ] = useState("");
   const [ loadingBtn, setLoadingBtn ] = useState(false);
+  const history = useHistory();
 
-  const bodyWidth = document.documentElement.clientWidth;
 
   useEffect(() => {
     const _ = async () => {
@@ -30,44 +31,45 @@ const UserInbox = inject("InboxStore", "UserStore")(observer(({InboxStore, loadi
     }
   }, [sortVal]);
 
-  const selectHandler = (msg) => {
-    return InboxStore.setSelectedMessage(msg);
-  }
+  
 
-  const showChatComp = InboxStore.openChatWindow || bodyWidth >= 1025 ? <InboxMessage data={InboxStore.getSelectedMessage()}/> : null;
 
   if ( loading ) return <Loading title="Fetching inbox from Reddit"/>
 
   return(
     <div className="inbox-wrapper">
-      {!InboxStore.openChatWindow &&
-        <input type="text" className="search-large w-100pr  mb+" placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
-      }
-      
-      <div className="d-f">
-        {!InboxStore.openChatWindow &&
-          <UserInboxDumb 
-            data={messages}
-            onClick={(v) => {
-              selectHandler(v);
-
-              if ( bodyWidth <= 1024 ) {
-                InboxStore.setOpenChatWindow(true);
-
-              }
-            }}
-            selected={InboxStore.getSelectedMessage()}
-            getMoreMessages={() => {
+      <div className="d-f jc-sb">
+        <input type="text" className="search-large w- max-w-xl w-100pr " placeholder="Search inbox by username..." onChange={e => setSortVal(e.target.value.toLowerCase())}/>  
+        <div className="h-48px get-more-button">
+          <MainButton
+            loading={loadingBtn}
+            className="btn btn-primary w-100pr"
+            onClick={() => {
               setLoadingBtn(true)
               getMoreMessages(InboxStore, setLoadingBtn)
             }}
-            loadingBtn={loadingBtn}
-            UserStore={UserStore}
-          />
-        }
-
-        {showChatComp}
+          >
+            Get More Messages
+          </MainButton>
+        </div>
       </div>
+
+      <div className="grid grid-cols-3 mt+ gap-3">
+        <p className="font-bold text-lg">From</p>
+        <p className="font-bold text-lg">Subject</p>
+        <p className="font-bold text-lg ta-r">Sent/Received</p>
+      </div>
+      
+      <UserInboxDumb 
+        data={messages}
+        onClick={(v) => {
+          history.push(`/dashboard/message/${v.id}`)
+        }}
+        selected={InboxStore.getSelectedMessage()}
+        loadingBtn={loadingBtn}
+        UserStore={UserStore}
+        InboxStore={InboxStore}
+      />
     </div>
   )
 }));

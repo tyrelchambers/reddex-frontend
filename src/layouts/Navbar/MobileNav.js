@@ -1,12 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import './Navbar.scss';
-import NavWidget from '../NavWidget/NavWidget';
 import Preferences from '../Preferences/Preferences';
 import HR from '../../components/HR/HR'
-
+import {H2} from '../../components/Headings/Headings'
 const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, extended = "", setExtended}) => {
 
   return (
@@ -29,27 +28,69 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
               <Link to="/help" >Help</Link>
             </li>
 
-            <li className="d-f ai-c nav-link">
+            <li className="d-f ai-c nav-link has-divider">
               <Link to="/explore" >Explore</Link>
             </li>
+          </ul>
 
-            <li className="d-f ai-c nav-link nav-dropdown p-" >
-              <div className="d-f nav-dropdown-label" onClick={(e) => {
-                e.target.closest('.nav-dropdown').classList.toggle('extend')
-              }}>
-                <p>Options</p>
-                <i className="fas fa-ellipsis-h"></i>
-              </div>
-
-              <div className="nav-item-dropdown">
-                <Preferences/>
-              </div>
-            </li>
-
+          <ul>
+            <li className="d-f ai-c nav-link nav-dropdown p- has-divider" >
+              <Preferences/>
+              </li>
+            </ul>
+          <ul>
             {(UserStore.getUser() && redditProfile) &&
-              <NavWidget />
+              <>
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/reading_list?t=approved">            
+                    Reading List
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/submitted">            
+                    Submitted
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/tags">            
+                    Tag Manager
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/contacts">
+                      Contacts
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/inbox">            
+                    Inbox
+                  </NavLink>
+                </li>
+
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/account?t=security">           
+                      Account
+                  </NavLink>
+                </li>
+                
+                <li className="d-f ai-c nav-link">
+                  <NavLink to="/dashboard/site/general">            
+                      Site Builder
+                  </NavLink>
+                </li>
+      
+                <li className="d-f ai-c  nav-link has-divider">
+                  <Link to="/signout" >Sign Out</Link>
+                </li>
+              </>
             }
+          </ul>
            
+          <ul>
             {!UserStore.getUser() && 
               <React.Fragment>
                 <div className="mb-">
@@ -63,15 +104,16 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
                 </li>
               </React.Fragment>
             }
+          </ul>
 
+          <ul>
             <li className="d-f ai-c nav-link mr- patreon-button">
               <img src={require('../../assets/Patreon_Mark_White.png')} className="nav-patreon-icon" alt="Patreon water mark"/>
               <a href="https://www.patreon.com/bePatron?u=683950" data-patreon-widget-type="become-patron-button" target="_blank" rel="noopener noreferrer">Become a Patron</a>
             </li>
-            <li className="d-f ai-c nav-main-btn">
+            <li className="d-f ai-c nav-link">
               <Link onClick={setExtended} to="/" >Get Posts</Link>
             </li>
-
           </ul>
         </nav>
 
