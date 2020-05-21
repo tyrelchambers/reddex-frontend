@@ -64,7 +64,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const Story = ({x}) => (
     <li className="reading-list-item-wrapper cell-row">
       <div className="reading-list-item grid grid-cols-5 gap-4 grid-flow-col ai-c">
-        <a href={x.url} className="reading-list-title ellipses w-100pr font-bold col-span-2">{x.title}</a>
+        <a href={x.url} className="reading-list-title ellipses w-100pr font-bold col-span-2" target="_blank" rel="noopener noreferrer">{x.title}</a>
         <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv reading-list-author ellipses" style={{color: "inherit"}}>
           {x.author}
         </a>

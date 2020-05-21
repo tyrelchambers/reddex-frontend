@@ -35,10 +35,11 @@
   p {
     white-space: nowrap;
     color: var(--white);
-    font-weight: bold;
 
   }
   &:hover {
+    font-weight: bold;
+
     opacity: 1;
   }
 }
