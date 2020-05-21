@@ -107,7 +107,7 @@ const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, exten
           </ul>
 
           <ul>
-            <li className="d-f ai-c nav-link mr- patreon-button">
+            <li className="d-f ai-c nav-link mr- mt- patreon-button">
               <img src={require('../../assets/Patreon_Mark_White.png')} className="nav-patreon-icon" alt="Patreon water mark"/>
               <a href="https://www.patreon.com/bePatron?u=683950" data-patreon-widget-type="become-patron-button" target="_blank" rel="noopener noreferrer">Become a Patron</a>
             </li>

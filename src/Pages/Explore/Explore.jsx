@@ -3,6 +3,7 @@ import DisplayWrapper from '../../layouts/DisplayWrapper/DisplayWrapper';
 import './Explore.scss'
 import { getAxios } from '../../api';
 import PatreonBadge from '../../layouts/PatreonBadge/PatreonBadge'
+import { H1, H1Subtitle } from '../../components/Headings/Headings';
 
 const Explore = () => {
   const [ channels, setChannels ] = useState([])
@@ -27,8 +28,8 @@ const Explore = () => {
   return (
     <DisplayWrapper>
       <div className="container explore-wrapper">
-        <h1 className="ta-c">Explore different channels</h1>
-        <p className="mt- ta-c">Explore the horror sites hosted by Reddex and maybe you'll find your new favourite channel to watch. Maybe take a shot at writing a story for them!</p>
+        <H1 className="ta-c">Explore different channels</H1>
+        <H1Subtitle>Explore the horror sites hosted by Reddex and maybe you'll find your new favourite channel to watch. Maybe take a shot at writing a story for them!</H1Subtitle>
 
         <div className="channels-list">
           {channelsList}

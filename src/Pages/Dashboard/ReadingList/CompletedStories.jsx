@@ -58,10 +58,10 @@ const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb})
   return (
     <div className="all-stories-wrapper fx-1">
       <div className="grid grid-cols-4 gap-4 grid-flow-col">
-        <p className="font-bold col-span-2">Title</p>
-        <p className="font-bold">Author</p>
-        <p className="font-bold">Subreddit</p>
-        <p className="font-bold">Actions</p>
+        <p className="font-bold text-lg  col-span-2">Title</p>
+        <p className="font-bold text-lg ">Author</p>
+        <p className="font-bold text-lg ">Subreddit</p>
+        <p className="font-bold text-lg ">Actions</p>
       </div>
       <ul className="reading-list-list ">
         {list.map(x => <Story x={x}/>)}
