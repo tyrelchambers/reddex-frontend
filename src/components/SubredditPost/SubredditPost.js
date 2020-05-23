@@ -44,7 +44,7 @@ const SubredditPost = inject("UserStore", "PostStore")(observer(({x, UserStore, 
         <section className="d-f ai-c h-100p">
           <div className={`d-f ai-c upvotes  ${x.viewed ? "post-viewed" : ""}`}>
             <i className="fas fa-arrow-circle-up mr-"></i>  
-            <h1>{x.ups}</h1>
+            <p className="font-bold text-2xl text-white">{x.ups}</p>
           </div>
           <div className="post-upvote-ratio">
             <span className="ratio-thumbs">
