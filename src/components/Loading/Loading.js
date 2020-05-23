@@ -5,8 +5,8 @@ const Loading = ({title, subtitle}) => {
   return (
     <div className="loading-wrapper d-f ai-c fxd-c animated fadeIn faster">
       <div className="loader mb+ mt+"></div>
-      <h2 className="ta-c">{title}</h2>
-      <h4 className="ta-c">{subtitle}</h4>
+      <p className="ta-c text-3xl font-bold">{title}</p>
+      <p className="ta-c text-xl">{subtitle}</p>
 
     </div>
   );

@@ -24,7 +24,7 @@ const SubredditFilters = ({filterOptions, setFilterOptions, filter, setRefetch})
           <div className=" d-f" style={{height: '100%'}}>
             <div className="d-f w-100pr ai-c inputs">
               <div className="d-f fxd-c fx-1">
-                <h5 className="mb--">Sort by upvotes</h5>
+                <p className="mb-- font-bold text-sm">Sort by upvotes</p>
                 <div className="d-f fx-1">
                   <SelectField 
                     data={filterOptionsJSON}
@@ -38,7 +38,7 @@ const SubredditFilters = ({filterOptions, setFilterOptions, filter, setRefetch})
                 </div>
               </div>
               <div className="d-f fxd-c fx-1 ml-">
-                <h5 className="mb--">Sort by approximate read time (in minutes)</h5>
+                <p className="mb-- font-bold text-sm">Sort by approximate read time (in minutes)</p>
                 <div className="d-f fx-1">
                   <SelectField 
                     data={readtimeOptions}
@@ -55,13 +55,13 @@ const SubredditFilters = ({filterOptions, setFilterOptions, filter, setRefetch})
             </div>
           </div>
           <div className="d-f fxd-c mt- mb- fx-1">
-            <h5 className="mb--">Sort by exact phrase (ex: dark web)</h5>
+            <p className="mb-- font-bold text-sm">Sort by exact phrase (ex: dark web)</p>
             <input type="text" className="form-input fx-1" placeholder="search phrase" value={filterOptions.keywords} onChange={(e) => setFilterOptions({...filterOptions, keywords: e.target.value})}/>
 
           </div>
           <div className=" d-f ai-c mt-">
             <div className="d-f fxd-c filter-actions">
-              <h5 className="mb--">Filter actions</h5>
+              <p className="mb-- font-bold text-sm">Filter actions</p>
               <div className="d-f fxw-w">
                 <button className={`btn btn-tiertiary ${filterOptions.seriesOnly ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, seriesOnly: !filterOptions.seriesOnly})}>Series Only</button>
                 <button className={`btn btn-tiertiary ${filterOptions.excludeSeries ? "active" : ""}`} onClick={() => setFilterOptions({...filterOptions, excludeSeries: !filterOptions.excludeSeries})}>Exclude Series</button>

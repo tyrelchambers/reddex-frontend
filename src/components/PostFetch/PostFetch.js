@@ -75,7 +75,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     const list = document.querySelector('.App');
     if (fetching) return;
 
-    if ( isInViewport(list) && nextPage !== -1) {
+    if ( isInViewport(list) && nextPage !== -1 && !fetching) {
       setFetching(true)
 
       await getPostsFromDatabase(nextPage).then(res => {
@@ -130,6 +130,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     }).then(res => {
       if (res) {
         PostStore.setPosts(res)
+        setFetching(false)
+
+        return setLoading(false);  
       }
     })
     return true;
@@ -171,6 +174,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
   const fetchPosts = async (subreddit, setLoading, category) => {
     PostStore.setPosts([])
+    setNextPage(2)
+    setFetching(true)
     const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
     if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
     
@@ -218,10 +223,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       results.push(newObj)
     });
     
-    PostStore.setPosts([...results])
-    saveToDatabase([...results]);
-
-    return setLoading(false);  
+    await saveToDatabase([...results])
    
   }
 

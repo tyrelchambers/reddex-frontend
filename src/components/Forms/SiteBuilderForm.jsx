@@ -82,7 +82,7 @@ const SiteBuilderForm = ({config, configHandler, pondRef, deleteImageHandler}) =
       <H2>Social Media</H2>
       <H2Subtitle>The links below will appear as social icons on your site. These are not required, and the icons will not appear on your site if you leave them blank.</H2Subtitle>
 
-      <div className="field-group">
+      <div className="field-group mt-">
         <label htmlFor="twitter" className="form-label">Twitter</label>
         <div className="d-f ai-c multi-input">
           <span className="preffix">@</span>
