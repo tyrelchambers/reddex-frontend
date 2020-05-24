@@ -8,6 +8,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import { H2 } from '../../../components/Headings/Headings';
 import Dropdown from '../../../components/Dropdown/Dropdown';
+import { MainButton } from '../../../components/Buttons/Buttons';
 
 const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const [ subredditFilter, setSubredditFilter ] = useState("");
@@ -16,6 +17,8 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   const [ headers, setHeaders] = useState([])
   const [ initialHeaders, setInitialHeaders] = useState([])
   const [ openDropdown, setOpenDropdown] = useState("")
+  const [ keywords, setKeywords ] = useState("");
+  const [ readingList, setReadingList ] = useState([])
 
   useEffect(() => {
     getAxios({
@@ -44,6 +47,12 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
 
   }, [subredditFilter, tag])
 
+  useEffect(() => {
+    if (!keywords) {
+      setReadingList(list)
+    }
+  }, [list, keywords]);
+
   if ( !list ) return null;
 
   const removeTagFromStory = (t) => {
@@ -58,6 +67,25 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
         window.location.reload()
       }
     })
+  }
+
+  const getPostsFromDatabase = async () => {
+
+    const query = {
+      ...(keywords && {keywords: keywords}),
+    }
+
+    return await getAxios({
+      url: '/profile/reading_list?permission=true',
+      params: {
+        ...query
+      }
+    }).then(res => {
+      if (res) {
+        return setReadingList([...res.stories])
+      }
+    })
+
   }
 
 
@@ -124,12 +152,11 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
       </div>
     </li>
   )
-
   
   const renderedList = headers.map((x, id) => {
     return (
       <React.Fragment key={id}>
-        {list.map((y, id) => {
+        {readingList.map((y, id) => {
           if (x === y.subreddit) {
             return (
               <Story key={`${y.post_id}_${id}`} x={y} story_id={id}/>
@@ -143,7 +170,30 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
 
   return (
     <div className="fx-1">
-      
+      <div className=" mb+">
+        <H2>Search reading list</H2>
+        <div className="d-f ai-c mt- h-36px">
+          <input type="text" className="search-large w-100pr max-w-xl" placeholder="Search by keywords..." value={keywords} onChange={e => setKeywords(e.target.value)}/> 
+
+          <MainButton 
+            className="btn btn-tiertiary p- ml-"
+            onClick={() => {
+              setKeywords("")
+              setReadingList(list)
+            }}
+          >
+            Clear
+          </MainButton>
+
+          <MainButton 
+            className="btn btn-green p- ml-"
+            onClick={getPostsFromDatabase}
+            disabled={!keywords ? true : false}
+          >
+            Search
+          </MainButton>
+        </div>
+      </div>
       <div className="reading-list-filters d-f fxd-c jc-c mb-">
         <H2>Sort by subreddit</H2>
         <div className="header-items">
