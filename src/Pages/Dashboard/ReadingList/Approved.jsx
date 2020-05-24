@@ -171,7 +171,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
   return (
     <div className="fx-1">
       <div className="d-f ai-c h-36px mb+">
-        <input type="text" className="search-large w-100pr max-w-xl" placeholder="Search by keywords..." onChange={e => setKeywords(e.target.value)}/> 
+        <input type="text" className="search-large w-100pr max-w-xl" placeholder="Search by keywords..." value={keywords} onChange={e => setKeywords(e.target.value)}/> 
 
         <MainButton 
           className="btn btn-tiertiary p- ml-"
