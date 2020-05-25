@@ -18,7 +18,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
 
   useEffect(() => {
     const fn = async () => {
-      const c = await getAxios({
+      const contact = await getAxios({
         url: '/contacts/name',
         params: {
           name: data.author
@@ -30,11 +30,9 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
       });
 
       setAuthorsMessaged([...authors])
-      if (c.length > 0) {
-        setContact({...c[0]})
-      } else {
-        setContact()
-      }
+      if (contact) {
+        setContact({contact})
+      } 
     }
 
     fn();

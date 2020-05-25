@@ -22,7 +22,7 @@ const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({M
       <>
         {index < postData.length && 
             <React.Fragment>
-              <h3 className="ta-c">Confirm Messages</h3>
+              <h3 className="ta-c font-bold text-xl mt-">Confirm Messages</h3>
 
               <div className=" modal-inner-body">
                 <div className="d-f ai-c">
