@@ -129,13 +129,13 @@ p {
 
 .cell-row {
   &:hover {
-    background: var(--white-40) !important;
+    background: var(--white-20) !important;
   }
 
   padding: 1em;
   border-radius: 5px;
   &:nth-child(odd) {
-    background: var(--white-20);
+    background: var(--bg);
   }
 }
 .container {
