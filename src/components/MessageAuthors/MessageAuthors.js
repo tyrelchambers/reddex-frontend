@@ -9,14 +9,13 @@ const MessageAuthors = inject("ModalStore", "PostStore")(observer(({data, ModalS
   return (
     <div className="message-author-box mt+ mb+ animated fadeIn faster">
       <div className="message-author-box-header d-f jc-sb ai-c">
-        <h3>You've selected {data.length} to message.</h3>
+        <h3 className="font-bold">You've selected {data.length} author(s) to message.</h3>
         <button className="btn btn-green p-" onClick={() => {
           ModalStore.setIsOpen(true)
           ModalStore.setRender(<ConfirmModal/>)
         }}>Confirm Messages</button>
 
       </div>
-        {console.log(PostStore.selectedPosts)}
       <div className="d-f fxd-c ai-c p-">
         <div className="message-author-body d-f jc-c pb-">
           <p className="subtle ta-c">Confirming messages will open a pop-up that will walk you through each message to make sure it's correct. It will not send any messages.</p>
