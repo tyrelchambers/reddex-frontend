@@ -32,7 +32,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   });
   const [fetching, setFetching] = useState(false)
   const [ usedPosts, setUsedPosts ] = useState([]);
-  const [ nextPage, setNextPage ] = useState(2)
+  const [ nextPage, setNextPage ] = useState(-1)
   const token = window.localStorage.getItem('token');
 
   useEffect(() => {
