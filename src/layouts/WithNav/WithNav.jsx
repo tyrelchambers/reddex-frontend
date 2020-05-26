@@ -12,7 +12,7 @@ const WithNav = ({tabs, children, optionalTabs}) => {
     <div className="w-100pr d-f mt+ overflow-x-auto with-nav-body">
       <Tabs tabs={tabs} optionalTabs={optionalTabs}/>
 
-      <section className="bg fx-1 ml-- shadow-lg animated fadeIn faster  " style={{height: 'fit-content',  ...(overflowBody ? {minWidth: "560px"} : null) }}> 
+      <section className="bg fx-1 ml-- shadow-lg animated fadeIn faster m-" style={{height: 'fit-content',  ...(overflowBody ? {minWidth: "560px"} : null) }}> 
         {children}
       </section>
     </div>
