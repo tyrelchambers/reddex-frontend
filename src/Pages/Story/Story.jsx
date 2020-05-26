@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 import { getAxios } from '../../api';
 import './Story.scss'
+import WithNav from '../../layouts/WithNav/WithNav'
 
 const Story = () => {
   const [story, setStory] = useState()
@@ -23,17 +24,13 @@ const Story = () => {
 
   return (
     <Dashboard>
-      <div className="story-wrapper">
-        <h2 className="mb+ ta-c">{story.story_title}</h2>
-        <p className="mb+ ta-c">{story.author}</p>
-        <p className="mb+ ta-c">{story.email}</p>
-        <div  id="preview-body" style={{whiteSpace: 'pre-line'}} dangerouslySetInnerHTML={{__html: story.body}}></div>
-
-        <div className="d-f fxd-c mt+">
-          <h4 className="mb--">Tags</h4>
-          <p>{story.tags}</p>
+      <WithNav>
+        <div className="story-wrapper">
+          <h2 className="mb+ ta-c font-bold text-xl">{story.story_title}</h2>
+          <p className="mb+ ta-c italic">By: {story.author}</p>
+          <div  id="preview-body" style={{whiteSpace: 'pre-line'}} dangerouslySetInnerHTML={{__html: story.body}}></div>
         </div>
-      </div>
+      </WithNav>
     </Dashboard>
   );
 }
