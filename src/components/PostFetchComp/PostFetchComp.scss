@@ -38,6 +38,20 @@
 
 .MuiPagination-ul {
   flex-direction: column;
+
+  li {
+    & button {
+      color: var(--text);
+    }
+
+    & div {
+      color: var(--text);
+    }
+  }
+}
+
+.Mui-selected {
+  background: var(--bgLight) !important;
 }
 
 .MuiPagination-root {
