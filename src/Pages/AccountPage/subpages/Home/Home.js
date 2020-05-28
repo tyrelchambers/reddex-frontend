@@ -16,7 +16,9 @@ const Home = ({UserStore, setInitialGreeting, initialGreeting}) => {
         text: initialGreeting
       }
     }).then(res => {
-      if (res) return toast.success("Greeting saved")
+      if (res) {
+        toast.success("Greeting saved")
+      }
     })
 
   }
