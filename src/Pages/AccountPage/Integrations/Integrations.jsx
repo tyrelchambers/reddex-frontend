@@ -1,6 +1,6 @@
 import React from 'react';
 import './Integrations.scss'
-import { H2, H1, H2Subtitle } from '../../../components/Headings/Headings'
+import { H2, H2Subtitle } from '../../../components/Headings/Headings'
 import { inject, observer } from 'mobx-react';
 import { getAxios } from '../../../api';
 import { MainButton } from '../../../components/Buttons/Buttons';

@@ -77,7 +77,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     if (!PostStore.subreddit) return;
     setLoading(true);
     recentlySearched(PostStore.subreddit)
-    fetchPosts(PostStore.subreddit, setLoading, categoryOptions);
+    fetchPosts(PostStore.subreddit, categoryOptions);
     PostStore.clearSelectedPosts()
   }
 
