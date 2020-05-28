@@ -58,6 +58,14 @@
   margin-right: 0.5em;
 }
 
+@media screen and (min-width:426px) {
+  .MuiPagination-root {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+  }
+}
+
 @media screen and (max-width: 702px) {
   .post-list {
     justify-content: center !important;
