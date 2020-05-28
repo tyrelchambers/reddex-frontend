@@ -22,6 +22,7 @@
   --blueGradient: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
   --greenGradient: linear-gradient(31deg, rgba(62,189,147,1) 0%, rgba(31,214,154,1) 100%);
   --proGradient: linear-gradient(270deg, rgba(216,38,255,1) 0%, rgba(83,15,135,1) 100%);
+  --redGradient: linear-gradient(to right top, #de3a11, #e6491c, #ef5727, #f76431, #ff703b);
   --forest: rgb(12, 107, 88);
   --forest-20: rgb(25, 148, 115);
   --off-blue: rgb(232, 236, 241);
@@ -143,6 +144,30 @@ p {
   width: 100%;
 }
 
+.Toastify__toast {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 5px !important;
+  background: var(--bgLight) !important;
+  padding-left: 1em !important;
+  padding-right: 1em !important;
+
+} 
+
+.Toastify__toast--success {
+  color: var(--white);
+  background: var(--greenGradient) !important;
+}
+
+.Toastify__toast-container {
+  width: 100% !important;
+  max-width: 500px;
+}
+
+.Toastify__toast--error {
+  color: var(--white);
+  background: var(--redGradient) !important;
+}
 
 ul {
   list-style: none;

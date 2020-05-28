@@ -34,7 +34,7 @@ const SubredditFilters = ({filterOptions, setFilterOptions, filter, setRefetch})
                     prop="operator"
                   />
                   
-                  <input type="number" className="form-input" placeholder="Upvote Count (default: 0)" value={filterOptions.upvotes} onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
+                  <input type="number" className="form-input" placeholder="Upvote Count (default: 0)" onChange={e => setFilterOptions({...filterOptions, upvotes: e.target.value})}/>
                 </div>
               </div>
               <div className="d-f fxd-c fx-1 ml-">
@@ -48,7 +48,7 @@ const SubredditFilters = ({filterOptions, setFilterOptions, filter, setRefetch})
                     prop="readTimeOperator"
                   />
                   
-                  <input type="number" className="form-input" placeholder="ex: 5" value={filterOptions.readTime} onChange={e => setFilterOptions({...filterOptions, readTime: e.target.value})}/>
+                  <input type="number" className="form-input" placeholder="ex: 5" onChange={e => setFilterOptions({...filterOptions, readTime: e.target.value})}/>
                 </div>
               </div>
 

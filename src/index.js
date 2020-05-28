@@ -198,7 +198,7 @@ const InitialLoad = () => {
     return(
       <Provider {...stores}>
         <Router>  
-          <ToastContainer />
+          <ToastContainer/>
           <Modal/>
           <Switch>
             <Route exact path="/" component={App}/>

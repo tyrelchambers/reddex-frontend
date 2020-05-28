@@ -12,6 +12,7 @@ import {getAxios} from '../../api/index'
 import HR from '../HR/HR';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { toast } from 'react-toastify';
+import Pagination from '@material-ui/lab/Pagination';
 
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
@@ -32,16 +33,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   });
   const [fetching, setFetching] = useState(false)
   const [ usedPosts, setUsedPosts ] = useState([]);
-  const [ nextPage, setNextPage ] = useState(2)
+  const [ maxPages, setMaxPages ] = useState();
   const token = window.localStorage.getItem('token');
-
-  useEffect(() => {
-    window.addEventListener('scroll', infiniteScroll);
-
-    return () => {
-      window.removeEventListener('scroll', infiniteScroll);
-    };
-  }, [fetching, nextPage])
 
   useEffect(() => {
     const vToken = window.localStorage.getItem("visitorToken");
@@ -59,7 +52,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
        if (vToken) {
         await getPostsFromDatabase().then(res => {
           if(res) {
-            
+            setMaxPages(res.maxPages)
             PostStore.setPosts(res.posts)
           }
         });
@@ -70,26 +63,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
    }
 
  }, [refetch])
-
-  const infiniteScroll = async () => {
-    const list = document.querySelector('.App');
-    if (fetching) return;
-
-    if ( isInViewport(list) && nextPage !== -1 && !fetching) {
-      setFetching(true)
-
-      await getPostsFromDatabase(nextPage).then(res => {
-        PostStore.setPosts([...PostStore.posts, ...res.posts])    
-        setNextPage(res.nextPage)
-        setFetching(false)
-      });
-    }
-  }
-
-  var isInViewport = function (elem) {
-    var bounding = elem.getBoundingClientRect();
-    return (bounding.bottom <= window.innerHeight + 250);
-  };
   
   const isPostUsed = (post) => {
     for (let i = 0; i < usedPosts.length; i++ ) {
@@ -129,9 +102,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
     }).then(res => {
       if (res) {
-        PostStore.setPosts(res)
-        setFetching(false)
-
+        PostStore.setPosts(res.posts)
+        setMaxPages(res.maxPages)
         return setLoading(false);  
       }
     })
@@ -172,9 +144,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
 
   }
   
-  const fetchPosts = async (subreddit, setLoading, category) => {
+  const fetchPosts = async (subreddit, category) => {
     PostStore.setPosts([])
-    setNextPage(2)
     setFetching(true)
     const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
     if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
@@ -234,8 +205,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     }
     setLoading(true)
     await getPostsFromDatabase().then(res => {
-      PostStore.setPosts([...res.posts])
-      setNextPage(res.nextPage)
+      PostStore.setPosts(res.posts)
+      setMaxPages(res.maxPages)
       setLoading(false)
     })
   }
@@ -269,8 +240,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         />
       }
         <HR />
-
-      {window.localStorage.getItem("subreddit") && <p className="subtle">Showing posts from <strong>{window.localStorage.getItem("subreddit")}</strong> </p>}
+      {window.localStorage.getItem("subreddit") && <p className="subtle mb+">Showing posts from <strong>{window.localStorage.getItem("subreddit")}</strong> </p>}
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
         <MessageAuthors data={PostStore.selectedPosts} posts={PostStore.posts} />
@@ -281,21 +251,33 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
 
       {!loading &&
-        <ul className="post-list mt+">
+        <div className="d-f pagination-post-wrapper">
+          <Pagination 
+            count={maxPages}
+            shape="rounded"
+            onChange={(e, page) => {
+              getPostsFromDatabase(page).then(res => {
+                PostStore.setPosts(res.posts)    
+              });
+            }}
+          />
 
-          {PostStore.posts.slice().sort((a, b) => {
-            return b.created - a.created
-          }).map((x, id) => {
-            return(
-              <SubredditPost
-              key={id}
-                x={x}
-                onClickHandler={() => selectPost(x, PostStore)}
-                used={isPostUsed(x)}
-              />
-            )
-          })}
-        </ul>    
+            <ul className="post-list">
+
+              {PostStore.posts.slice().sort((a, b) => {
+                return b.created - a.created
+              }).map((x, id) => {
+                return(
+                  <SubredditPost
+                  key={id}
+                    x={x}
+                    onClickHandler={() => selectPost(x, PostStore)}
+                    used={isPostUsed(x)}
+                  />
+                )
+              })}
+            </ul>    
+        </div>
       }
 
       {(fetching && !loading) && 
@@ -304,7 +286,9 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
 
       {(!PostStore.posts.length && !loading && !fetching) && <p className="subtle ta-c ml-a mr-a">No posts found...</p>}
- 
+      
+      
+
       {ModalStore.isOpen && 
         <ConfirmModal />
       }
