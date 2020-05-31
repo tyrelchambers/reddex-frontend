@@ -1,10 +1,10 @@
-.with-nav-body {
+.with-nav-wrapper {
   width: 100%;
 
 }
 
 @media screen and (max-width: 768px) {
-  .with-nav-body {
+  .with-nav-wrapper {
     display: flex;
     flex-direction: column;
   }

@@ -9,10 +9,10 @@ const WithNav = ({tabs, children, optionalTabs}) => {
                         url.includes("contacts") ||
                         url.includes("inbox"))
   return (
-    <div className="w-100pr d-f mt+ overflow-x-auto with-nav-body">
+    <div className="w-100pr d-f mt+ overflow-x-auto with-nav-wrapper">
       <Tabs tabs={tabs} optionalTabs={optionalTabs}/>
 
-      <section className="bg fx-1 ml-- shadow-lg animated fadeIn faster m-" style={{height: 'fit-content',  ...(overflowBody ? {minWidth: "560px"} : null) }}> 
+      <section className="bg fx-1 ml-- shadow-lg animated fadeIn faster with-nav-body m-" style={{height: 'fit-content',  ...(overflowBody ? {minWidth: "560px"} : null) }}> 
         {children}
       </section>
     </div>
