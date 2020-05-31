@@ -44,15 +44,6 @@
   }
 }
 
-@media screen and (max-width: 425px) {
-  .filters-wrapper {
-    .inputs {
-      flex-direction: column;
-
-    }
-  }
-}
-
 @media screen and (max-width: 452px) {
   .filter-actions {
     width: 100%;
@@ -61,7 +52,13 @@
   }
 }
 
-@media screen and (max-width: 405px) {
+@media screen and (max-width: 425px) {
+  .filters-wrapper {
+    .inputs {
+      flex-direction: column;
+
+    }
+  }
   .filter-actions > div {
     flex-direction: column;
 

@@ -40,7 +40,7 @@ import { observer } from 'mobx-react-lite';
             />
           }
           <MainButton 
-            className={`btn btn-primary ${subreddit.length === 0 ? "disabled" : ""}`}
+            className={`btn btn-primary w-100pr ${subreddit.length === 0 ? "disabled" : ""}`}
             onClick={() => {
               executeFetch()
             }}
