@@ -124,6 +124,10 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
+  .post-fetch-header .btn-primary {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 1276px) and (min-width: 768px) {
