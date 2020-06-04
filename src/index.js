@@ -40,7 +40,6 @@ import Patreon from './Pages/Patreon/Patreon';
 import { Modal } from './components/Modal/Modal';
 import TagsManager from './Pages/TagsManager/TagsManager';
 
-import Dexie from 'dexie';
 import EditContact from './Pages/EditContact/EditContact';
 import AddContact from './Pages/AddContact/AddContact';
 import InboxMessage from './components/InboxMessage/InboxMessage';
@@ -48,10 +47,6 @@ import Misc from './Webbuilder/Dashboard/Misc/Misc';
 import Theme from './Webbuilder/Dashboard/Theme/Theme';
 import Forms from './Webbuilder/Dashboard/Forms/Forms';
 import Timelines from './Webbuilder/Dashboard/Timelines/Timelines';
-
-const db = new Dexie("Reddex");
-
-db.delete();
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem('token');

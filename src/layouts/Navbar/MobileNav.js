@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import './Navbar.scss';
 import Preferences from '../Preferences/Preferences';
 import HR from '../../components/HR/HR'
-import {H2} from '../../components/Headings/Headings'
+
 const MobileNav = inject("UserStore")(observer(({redditProfile, UserStore, extended = "", setExtended}) => {
 
   return (
