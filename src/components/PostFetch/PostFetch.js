@@ -208,7 +208,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       });
       
       postCount += posts.length
-      setCurrentAction(`Fetching posts from reddit. ${Number(postCount)} retrieved`)
+      setCurrentAction(`Fetching posts from reddit. ${Number(postCount)} posts retrieved...`)
       setMaxPages(Math.round(postCount / 25))
       await saveToDatabase(results)
     }
@@ -269,7 +269,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
 
       {loading &&
-        <Loading title="Wrangling reddit posts..." subtitle="This will take a minute or two, hold tight"/>
+        <Loading title="Wrangling initial reddit posts..." subtitle="This will take a second, hold tight"/>
       }
 
       {!loading &&
