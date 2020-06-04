@@ -209,6 +209,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       
       postCount += posts.length
       setCurrentAction(`Fetching posts from reddit. ${Number(postCount)} retrieved`)
+      setMaxPages(Math.round(postCount / 25))
       await saveToDatabase(results)
     }
    
