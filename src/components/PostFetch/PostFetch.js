@@ -13,6 +13,7 @@ import HR from '../HR/HR';
 import SubredditPost from '../SubredditPost/SubredditPost';
 import { toast } from 'react-toastify';
 import Pagination from '@material-ui/lab/Pagination';
+import StatusUI from '../../layouts/StatusUI/StatusUI';
 
 
 const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({UserStore, ModalStore, PostStore}) => {
@@ -33,6 +34,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   });
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ maxPages, setMaxPages ] = useState();
+  const [ currentAction, setCurrentAction ] = useState("")
+
   const token = window.localStorage.getItem('token');
 
   useEffect(() => {
@@ -51,7 +54,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
        if (vToken) {
         await getPostsFromDatabase().then(res => {
           if(res) {
-            console.log(res)
             setMaxPages(res.maxPages)
             PostStore.setPosts(res.posts)
           }
@@ -78,6 +80,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     setLoading(true);
     recentlySearched(PostStore.subreddit)
     
+    setCurrentAction("Deleting existing posts...")
     await getAxios({
       url: '/posts/delete',
       method: "delete",
@@ -86,9 +89,11 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         withVisitorToken: true
       }
     })
-
-    //fetchPosts(PostStore.subreddit, categoryOptions);
+  
+    await fetchPosts(PostStore.subreddit, categoryOptions);
+    setCurrentAction("")
     PostStore.clearSelectedPosts()
+
   }
 
   const recentlySearched = (subreddit) => {
@@ -102,7 +107,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
 
   const saveToDatabase = async (posts) => {
-    getAxios({
+    await getAxios({
       url: '/posts/save',
       method: "post",
       data: posts,
@@ -173,7 +178,8 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     const link = `https://www.reddit.com/r/${endpoint}`;
     let posts = [];
     let after = ``;
-  
+    let postCount = 0;
+
     for ( let i = 0; (i < 10 && after !== null); i++ ) {
       const results = []; 
 
@@ -196,17 +202,17 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           subreddit: x.data.subreddit,
           upvote_ratio: x.data.upvote_ratio
         };
-    
-        results.push(newObj)
-      });
 
-       await saveToDatabase(results)
+        results.push(newObj)
+        
+      });
+      
+      postCount += posts.length
+      setCurrentAction(`Fetching posts from reddit. ${Number(postCount)} retrieved`)
+      await saveToDatabase(results)
     }
-  
-  
- 
-    
    
+    return
   }
 
   const filter = async () => {
@@ -250,8 +256,12 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
           executeFetch={executeFetch}
         />
       }
-        <HR />
-      {window.localStorage.getItem("subreddit") && <p className="subtle mb+">Showing posts from <strong>{window.localStorage.getItem("subreddit")}</strong> </p>}
+
+      <HR />
+      <StatusUI status={currentAction}/>
+
+      {window.localStorage.getItem("subreddit") && <p className="subtle mb+ mt-">Showing posts from <strong>{window.localStorage.getItem("subreddit")}</strong> </p>}
+
 
       {(PostStore.selectedPosts.length > 0 && UserStore.getUser()) &&
         <MessageAuthors data={PostStore.selectedPosts} posts={PostStore.posts} />
