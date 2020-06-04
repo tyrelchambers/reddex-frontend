@@ -31,7 +31,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     readTime: 0,
     readTimeOperator: ""
   });
-  const [fetching, setFetching] = useState(false)
   const [ usedPosts, setUsedPosts ] = useState([]);
   const [ maxPages, setMaxPages ] = useState();
   const token = window.localStorage.getItem('token');
@@ -52,6 +51,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
        if (vToken) {
         await getPostsFromDatabase().then(res => {
           if(res) {
+            console.log(res)
             setMaxPages(res.maxPages)
             PostStore.setPosts(res.posts)
           }
@@ -73,11 +73,21 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   }
 
 
-  const executeFetch = () => {
+  const executeFetch = async () => {
     if (!PostStore.subreddit) return;
     setLoading(true);
     recentlySearched(PostStore.subreddit)
-    fetchPosts(PostStore.subreddit, categoryOptions);
+    
+    await getAxios({
+      url: '/posts/delete',
+      method: "delete",
+      options: {
+        withToken: false,
+        withVisitorToken: true
+      }
+    })
+
+    //fetchPosts(PostStore.subreddit, categoryOptions);
     PostStore.clearSelectedPosts()
   }
 
@@ -102,8 +112,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
       }
     }).then(res => {
       if (res) {
-        PostStore.setPosts(res.posts)
-        setMaxPages(res.maxPages)
+        PostStore.setPosts([...PostStore.posts, ...res])
         return setLoading(false);  
       }
     })
@@ -146,7 +155,6 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
   
   const fetchPosts = async (subreddit, category) => {
     PostStore.setPosts([])
-    setFetching(true)
     const sr = subreddit.replace(/\s/g, '').trim().toLowerCase();
     if ( !sr || sr.length === 0 ) return alert("Must include a subreddit");
     
@@ -165,36 +173,39 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
     const link = `https://www.reddit.com/r/${endpoint}`;
     let posts = [];
     let after = ``;
-    const results = []; 
   
     for ( let i = 0; (i < 10 && after !== null); i++ ) {
+      const results = []; 
+
       await Axios.get(`${link}&after=${after}`).then(res => {
         after = res.data.data.after;
-        posts = [...posts, ...res.data.data.children];
+        posts = [...res.data.data.children];
       }).catch(err => err);
+      
+      await posts.map(x => {
+        const newObj = {
+          author: x.data.author,
+          title: x.data.title,
+          self_text: x.data.selftext,
+          ups: x.data.ups,
+          url: x.data.url,
+          num_comments: x.data.num_comments,
+          created: x.data.created_utc,
+          link_flair_text: x.data.link_flair_text,
+          post_id: x.data.id,
+          subreddit: x.data.subreddit,
+          upvote_ratio: x.data.upvote_ratio
+        };
+    
+        results.push(newObj)
+      });
+
+       await saveToDatabase(results)
     }
   
   
-    posts.shift();
-    posts.map(x => {
-      const newObj = {
-        author: x.data.author,
-        title: x.data.title,
-        self_text: x.data.selftext,
-        ups: x.data.ups,
-        url: x.data.url,
-        num_comments: x.data.num_comments,
-        created: x.data.created_utc,
-        link_flair_text: x.data.link_flair_text,
-        post_id: x.data.id,
-        subreddit: x.data.subreddit,
-        upvote_ratio: x.data.upvote_ratio
-      };
-  
-      results.push(newObj)
-    });
+ 
     
-    await saveToDatabase([...results])
    
   }
 
@@ -280,12 +291,7 @@ const PostFetch = inject("UserStore", "ModalStore", "PostStore")(observer(({User
         </div>
       }
 
-      {(fetching && !loading) && 
-         <Loading  subtitle="Fetching next page..."/>
-
-      }
-
-      {(!PostStore.posts.length && !loading && !fetching) && <p className="subtle ta-c ml-a mr-a">No posts found...</p>}
+      {(!PostStore.posts.length && !loading) && <p className="subtle ta-c ml-a mr-a">No posts found...</p>}
       
       
 
