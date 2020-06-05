@@ -56,7 +56,7 @@ const Static = inject("SiteStore", "UserStore")(observer(({SiteStore, UserStore}
         <div className="d-f">
           <h2 style={{
             color: config.accent
-          }}>{config.title}</h2>
+          }} className="font-bold text-2xl">{config.title}</h2>
           {UserStore.patron.patreon_tier === "pro" &&
             <PatreonBadge theme={config.accent}/>
           }
