@@ -16,7 +16,7 @@ export default function LoginForm({credentialHandler, submitHandler, loading, se
         <input type="password" className="form-input" placeholder="anything but password123" name="password" onChange={credentialHandler}/>
       </div>
 
-      <Link to="/signup" className="link m--">Register</Link>
+      <Link to="/authorize" className="link m--">Register</Link>
       <Link to="/request-reset" className="link m--">Forgot password?</Link>
 
       <div className="d-f jc-c">

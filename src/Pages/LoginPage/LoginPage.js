@@ -65,7 +65,7 @@ const LoginPage = inject("UserStore")(observer(({UserStore}) => {
   return(
     <DisplayWrapper >
       <div className="d-f jc-c ai-c w-100pr mt+ fxd-c animated fadeIn">
-        <h1>Login to Reddex</h1>
+        <h1 className="font-bold">Login to Reddex</h1>
         <LoginForm 
           credentialHandler={credentialHandler}
           submitHandler={submitHandler}

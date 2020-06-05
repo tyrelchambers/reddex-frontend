@@ -28,7 +28,7 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
         <input type="password" className="form-input" placeholder="type your password again" name="confirmPassword" value={credentials.confirmPassword} onChange={credentialHandler}/>
       </div>
 
-      <div className="field-actions d-f jc-c mt+">
+      <div className="field-actions d-f jc-c ">
         <MainButton
           value="Create Account"
           onClick={submitHandler}
