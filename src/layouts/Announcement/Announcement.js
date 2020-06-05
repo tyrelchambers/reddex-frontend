@@ -10,7 +10,7 @@ const Announcement = () => {
   const {
     title,
     body
-  } = announcements["patreon"]
+  } = announcements["websitePromo"]
   
   return (
     <div className="d-f jc-c w-100pr announcement">

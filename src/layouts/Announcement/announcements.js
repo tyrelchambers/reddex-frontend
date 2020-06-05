@@ -13,5 +13,9 @@ export default {
   patreon: {
     title: "Finding Reddex helpful?",
     body: `Support Reddex via our new Patreon! Please note, you'll never have to pay to use Reddex. This is strictly to help the site!`
+  },
+  websitePromo: {
+    title: "Need a Website?",
+    body: "Create an account and get a website to show off your recent Youtube videos, and a story submission form."
   }
 }
