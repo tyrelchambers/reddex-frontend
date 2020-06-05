@@ -67,7 +67,7 @@ const Channel = ({x}) => {
       }}
     >
       <div className="channel-item-body d-f ai-c">
-        <h2 className="mr-">{x.title}</h2>
+        <h2 className="mr- font-bold">{x.title}</h2>
         {tier &&
           tier.patreon_tier === "pro" &&
             <PatreonBadge />
