@@ -9,12 +9,16 @@ import { toast } from 'react-toastify';
 import {fetchTokens} from '../../helpers/renewRefreshToken'
 import { checkValidTokens } from '../../helpers/checkValidTokens';
 import PostStore from '../../stores/PostStore';
+import { Tag } from '../Forms/AddTagForm'
+
 const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, removeMessagedAuthor, UserStore}) => {
   const [ defaultMessage, setDefaultMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ contact, setContact ] = useState();
   const [ expandContact, setExpandContact ] = useState(false);
   const [authorsMessaged, setAuthorsMessaged] = useState([]);
+  const [ availableTags, setAvailableTags ] = useState([])
+  const [toAdd, setToAdd] = useState([])
 
   useEffect(() => {
     const fn = async () => {
@@ -28,6 +32,14 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
       const authors = await getAxios({
         url: '/profile/authors_messaged'
       });
+
+      await getAxios({
+        url: '/tags/'
+      }).then(res => {
+        if (res) {
+          setAvailableTags([...res])
+        }
+      })
 
       setAuthorsMessaged([...authors])
       if (contact) {
@@ -57,6 +69,7 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
     }
   }
 
+
   const sendMessageToAuthors = async (author, subject, message, removeMessagedAuthor, setLoading, post_id, data) => {
     await checkValidTokens();
     const tokens = await fetchTokens().catch(err => false);
@@ -71,25 +84,54 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
     body.set('to', `/u/${author}`);
     body.set("subject", fmtSubject);
     body.set("text", message);
-    await Axios.post(link, body, {
-      headers: {
-        "Authorization": `bearer ${tokens.access_token}`,
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    })
-    .then(res => {
-      removeMessagedAuthor();
-      saveAuthorToDb(author, post_id);
+    // await Axios.post(link, body, {
+    //   headers: {
+    //     "Authorization": `bearer ${tokens.access_token}`,
+    //     "Content-Type": "application/x-www-form-urlencoded"
+    //   }
+    // })
+    // .then(res => {
+    //   removeMessagedAuthor();
+    //   saveAuthorToDb(author, post_id);
+    //   saveStoryToUser(data);
+    //   setLoading(false)
+    //   PostStore.clearSelectedPosts()
+    // })
+    // .catch(err => {
+    //   if(err) {
+    //    console.log(err)
+    //    toast.error("Something went wrong")
+    //   }
+    // });
+
+    // removeMessagedAuthor();
+      // saveAuthorToDb(author, post_id);
       saveStoryToUser(data);
-      setLoading(false)
-      PostStore.clearSelectedPosts()
-    })
-    .catch(err => {
-      if(err) {
-       console.log(err)
-       toast.error("Something went wrong")
+      // setLoading(false)
+      // PostStore.clearSelectedPosts()
+  }
+
+  const saveStoryToUser = async (data) => {  
+    return await getAxios({
+      url: '/profile/save_story',
+      method: 'post',
+      data
+    }).then(res => {
+      if ( res ) {
+        saveTags(res.uuid)
       }
-    });
+    })
+  }
+  
+  const saveTags = (story_uuid) => {
+    getAxios({
+      url: '/tag_story/save',
+      method: 'post',
+      data: {
+        story_uuid,
+        tags: toAdd
+      }
+    })
   }
 
   return (
@@ -133,6 +175,18 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
           <textarea name="defaultMessage" className="default-message-input" id="defaultMessage" placeholder="Enter default message.." value={defaultMessage} onChange={(e) => setDefaultMessage(e.target.value)}></textarea>
         </div>
 
+        <h3 className="font-bold">Add tags</h3>
+        <div className="d-f fxw-w">
+          {availableTags.map((x, id) => (
+            <Tag
+              key={id}
+              x={x}
+              id={id}
+              toAdd={toAdd}
+              setToAdd={setToAdd}
+            />
+          ))}
+        </div>
         <div className="d-f jc-sb ai-c confirm-actions mt+">
           <MinimalButton
             onClick={() => removeMessagedAuthor()}
@@ -167,13 +221,6 @@ const saveAuthorToDb = async (name, post_id)=> {
   })
 }
 
-const saveStoryToUser = async (data) => {  
-  return await getAxios({
-    url: '/profile/save_story',
-    method: 'post',
-    data
-  })
-}
 
 
 

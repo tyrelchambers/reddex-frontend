@@ -55,7 +55,7 @@ const AddTagForm = ({ModalStore, story_uuid}) => {
         </MainButton>
       </div>
 
-      <h3>Available tags</h3>
+      <h3 className="font-bold">Available tags</h3>
       <div className="d-f fxw-w">
         {availableTags.filter(x => x.tag.includes(tag)).map((x, id) => (
           <Tag
@@ -72,7 +72,7 @@ const AddTagForm = ({ModalStore, story_uuid}) => {
 }
 
 
-const Tag = ({x, id, toAdd, setToAdd}) => {
+export const Tag = ({x, id, toAdd, setToAdd}) => {
   const [isAdded, setIsAdd] = useState(false)
 
   return(
