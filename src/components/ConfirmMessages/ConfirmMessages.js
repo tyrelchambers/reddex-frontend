@@ -84,31 +84,25 @@ const ConfirmMessages = inject("UserStore", "ModalStore")(observer(({data, remov
     body.set('to', `/u/${author}`);
     body.set("subject", fmtSubject);
     body.set("text", message);
-    // await Axios.post(link, body, {
-    //   headers: {
-    //     "Authorization": `bearer ${tokens.access_token}`,
-    //     "Content-Type": "application/x-www-form-urlencoded"
-    //   }
-    // })
-    // .then(res => {
-    //   removeMessagedAuthor();
-    //   saveAuthorToDb(author, post_id);
-    //   saveStoryToUser(data);
-    //   setLoading(false)
-    //   PostStore.clearSelectedPosts()
-    // })
-    // .catch(err => {
-    //   if(err) {
-    //    console.log(err)
-    //    toast.error("Something went wrong")
-    //   }
-    // });
-
-    // removeMessagedAuthor();
-      // saveAuthorToDb(author, post_id);
+    await Axios.post(link, body, {
+      headers: {
+        "Authorization": `bearer ${tokens.access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .then(res => {
+      removeMessagedAuthor();
+      saveAuthorToDb(author, post_id);
       saveStoryToUser(data);
-      // setLoading(false)
-      // PostStore.clearSelectedPosts()
+      setLoading(false)
+      PostStore.clearSelectedPosts()
+    })
+    .catch(err => {
+      if(err) {
+       toast.error("Something went wrong")
+      }
+    });
+
   }
 
   const saveStoryToUser = async (data) => {  
