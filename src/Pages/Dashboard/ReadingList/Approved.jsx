@@ -132,7 +132,7 @@ const Approved = ({list, callback, ModalStore, ReadingListStore}) => {
               ModalStore.setIsOpen(true)
               ModalStore.setRender(
                 <div className="d-f fxd-c ai-c">
-                  <h3 className="mb+">Add tag</h3>
+                  <H2 className="mb+ font-bold">Add tag</H2>
                   <AddTagForm
                     story_uuid={x.uuid}
                   />
