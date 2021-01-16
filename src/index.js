@@ -304,7 +304,8 @@ const InitialLoad = () => {
 
 const Index = () => {
   if (
-    (subdomain.length > 2 && subdomain[0] !== "development") ||
+    (subdomain.length > 2 &&
+      (subdomain[0] !== "development" || subdomain[0] !== "www")) ||
     (subdomain.length > 1 && subdomain.includes("localhost:3000"))
   ) {
     return <InitialSubLoad />;
