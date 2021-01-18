@@ -1,9 +1,7 @@
 import { decorate, observable, action } from "mobx";
-import React from 'react';
+import React from "react";
 import { getAxios } from "../api";
 import { toast } from "react-toastify";
-import { deleteDomainAlias } from "../api/put";
-import { addDomainAlias } from "../api/post";
 
 class SiteStore {
   config = {
@@ -28,31 +26,31 @@ class SiteStore {
     theme: "light",
     headline: "",
     submission_title: "",
-    rules: ""
-  }
+    rules: "",
+  };
 
-  uploaderRef = ""
-  activated = false
-  saving = false
+  uploaderRef = "";
+  activated = false;
+  saving = false;
 
   isSiteSaved = false;
 
   preview = {
-    subdomain: ""
-  }
+    subdomain: "",
+  };
 
   changes = false;
 
   setInitial(data) {
-    this.config = {...this.config, ...data}
+    this.config = { ...this.config, ...data };
 
     if (data.subdomain) {
       this.setIsSaved(true);
     }
   }
   setConfig(data) {
-    this.setChanges(true)
-    this.config = {...this.config, ...data}
+    this.setChanges(true);
+    this.config = { ...this.config, ...data };
   }
 
   setSaving(bool) {
@@ -65,10 +63,10 @@ class SiteStore {
 
   setChanges(state) {
     this.changes = state;
-  } 
+  }
 
   setPreview(data) {
-    this.preview = {...this.preview, ...data}
+    this.preview = { ...this.preview, ...data };
   }
 
   setUploaderRef(ref) {
@@ -76,108 +74,103 @@ class SiteStore {
   }
 
   submit = async () => {
-    const data = this.config
-    if ( !data.subdomain ) {
+    const data = this.config;
+    if (!data.subdomain) {
       return toast.error("Subdomain can't be empty");
     }
     data.subdomain = data.subdomain.trim().replace(/\W/g, "-").toLowerCase();
-    
-    if ( data.introduction > 1000 ) {
-      return toast.error("Introduction is too long")
+
+    if (data.introduction > 1000) {
+      return toast.error("Introduction is too long");
     }
 
     let banner_url = data.banner_url || "";
     let thumbnail;
 
-    if ( this.uploaderRef && this.uploaderRef.getFiles().length > 0 ) {
-      const files = await this.processFiles(this.uploaderRef).then(res => JSON.parse(res))
+    if (this.uploaderRef && this.uploaderRef.getFiles().length > 0) {
+      const files = await this.processFiles(this.uploaderRef).then((res) =>
+        JSON.parse(res)
+      );
       banner_url = files.original;
       thumbnail = files.thumbnail;
     }
 
     if (!banner_url) {
-      banner_url = "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80"
+      banner_url =
+        "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80";
     }
 
     const payload = {
       ...data,
       banner_url,
-      thumbnail
-    }
+      thumbnail,
+    };
 
-    if ( data.subdomain !== this.preview.subdomain ) {
-      await deleteDomainAlias(this.preview.subdomain)
-      await addDomainAlias(data.subdomain);
-    }
+    this.setChanges(false);
 
-    this.setChanges(false)
-    
     await getAxios({
-      url: '/site/update',
-      method: 'post',
-      data: payload
-    })
-    .then(res => toast.success("Changes saved"));
-  }
+      url: "/site/update",
+      method: "post",
+      data: payload,
+    }).then((res) => toast.success("Changes saved"));
+  };
 
   processFiles = async (pondRef) => {
-    const banner = await pondRef.processFiles().then(files => {
+    const banner = await pondRef.processFiles().then((files) => {
       return files[0].serverId;
     });
     return banner;
-  }
+  };
 
   deleteSiteHandler = async (uuid) => {
     const toDelete = window.confirm("Are you sure you want to delete?");
-    
+
     if (toDelete) {
-      await deleteDomainAlias(this.config.subdomain)
-      
       getAxios({
-        url: '/site/delete',
-        method: 'delete',
+        url: "/site/delete",
+        method: "delete",
         params: {
-          uuid
-        }
-      })
-      
+          uuid,
+        },
+      });
+
       window.location.reload();
     }
-  }
+  };
 
   deleteImageHandler = async (e) => {
     e.preventDefault();
     const payload = {
       ...this.config,
-      banner_url: "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80",
-      thumbnail: "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80"
-    }
-    if ( !this.config.banner_url.match(/unsplash.com/gi) ) {
+      banner_url:
+        "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80",
+      thumbnail:
+        "https://images.unsplash.com/photo-1524721696987-b9527df9e512?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2090&amp;q=80",
+    };
+    if (!this.config.banner_url.match(/unsplash.com/gi)) {
       await getAxios({
-        url: '/upload/revert',
-        method: 'delete',
+        url: "/upload/revert",
+        method: "delete",
         params: {
-          url: this.config.banner_url
-        }
-      })
+          url: this.config.banner_url,
+        },
+      });
     }
 
     this.setConfig({
       banner_url: "",
-      thumbnail: ""
-    })
+      thumbnail: "",
+    });
 
     await getAxios({
-      url: '/site/update',
-      method: 'post',
-      data: payload
-    })
-    .then(res => toast.success("Changes saved"));
-
-  }
+      url: "/site/update",
+      method: "post",
+      data: payload,
+    }).then((res) => toast.success("Changes saved"));
+  };
 
   setActivated(bool) {
-    this.activated = bool
+    this.activated = bool;
   }
 }
 
@@ -193,7 +186,7 @@ decorate(SiteStore, {
   activated: observable,
   setActivated: action,
   uploaderRef: observable,
-  setUploaderRef: action
-})
+  setUploaderRef: action,
+});
 
 export default new SiteStore();
