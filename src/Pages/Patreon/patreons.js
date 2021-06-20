@@ -1,16 +1,6 @@
-const pro = [
-  "Emily Wion"
-]
+const pro = [];
 
-const basic = [
-  "Sara Pindera"
-]
+const basic = [];
 
-const omegaSuper = [
-  "MrCreepyPasta"
-]
-export {
-  pro,
-  basic,
-  omegaSuper
-}
+const omegaSuper = ["MrCreepyPasta"];
+export { pro, basic, omegaSuper };

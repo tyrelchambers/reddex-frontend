@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import About from "./Pages/About/About";
 import SignupPage from "./Pages/SignupPage/SignupPage";
-import LoginPage from "./Pages/LoginPage/LoginPage";
+import LoginPage from "./Pages/LoginPage/LoginPage.jsx";
 import AccountPage from "./Pages/AccountPage/AccountPage";
 import { ToastContainer } from "react-toastify";
 import UserStore from "./stores/UserStore";

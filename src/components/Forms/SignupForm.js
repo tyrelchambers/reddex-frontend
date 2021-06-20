@@ -1,11 +1,15 @@
-import React from 'react'
-import './forms.scss';
-import { MainButton } from '../Buttons/Buttons';
+import React from "react";
+import "./forms.scss";
+import { MainButton } from "../Buttons/Buttons";
 
-
-const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => {
+const SignupForm = ({
+  credentialHandler,
+  credentials,
+  errors,
+  submitHandler,
+}) => {
   return (
-    <form className="form">
+    <form className="form p-4 shadow-lg rounded-lg with-bg">
       <ul>
         {errors.map((x, id) => (
           <li key={id}>
@@ -14,18 +18,45 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
         ))}
       </ul>
       <div className="field-group">
-        <label htmlFor="email" className="form-label">Email</label>
-        <input type="email" className="form-input" placeholder="user@example.com" name="email" value={credentials.email} onChange={credentialHandler}/>
+        <label htmlFor="email" className="form-label">
+          Email
+        </label>
+        <input
+          type="email"
+          className="form-input"
+          placeholder="user@example.com"
+          name="email"
+          value={credentials.email}
+          onChange={credentialHandler}
+        />
       </div>
 
       <div className="field-group">
-        <label htmlFor="password" className="form-label">Password</label>
-        <input type="password" className="form-input" placeholder="anything but password123" name="password" value={credentials.password} onChange={credentialHandler}/>
+        <label htmlFor="password" className="form-label">
+          Password
+        </label>
+        <input
+          type="password"
+          className="form-input"
+          placeholder="anything but password123"
+          name="password"
+          value={credentials.password}
+          onChange={credentialHandler}
+        />
       </div>
 
       <div className="field-group">
-        <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-        <input type="password" className="form-input" placeholder="type your password again" name="confirmPassword" value={credentials.confirmPassword} onChange={credentialHandler}/>
+        <label htmlFor="confirmPassword" className="form-label">
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          className="form-input"
+          placeholder="type your password again"
+          name="confirmPassword"
+          value={credentials.confirmPassword}
+          onChange={credentialHandler}
+        />
       </div>
 
       <div className="field-actions d-f jc-c ">
@@ -36,9 +67,7 @@ const SignupForm = ({credentialHandler, credentials, errors, submitHandler}) => 
         />
       </div>
     </form>
-  )
-}
-
-
+  );
+};
 
 export default SignupForm;
