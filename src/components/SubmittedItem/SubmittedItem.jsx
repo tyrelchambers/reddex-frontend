@@ -5,7 +5,6 @@ import Dropdown from "../Dropdown/Dropdown";
 
 const SubmittedItem = ({ data, deleteHandler }) => {
   const [openDropdown, setOpenDropdown] = useState("");
-  const zone = moment.tz.guess();
 
   return (
     <li className="cell-row submitted-item-wrapper grid-cols-4 grid gap-3 ">
