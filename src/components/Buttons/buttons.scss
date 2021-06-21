@@ -166,6 +166,7 @@
 }
 
 .chat-action {
+  background: var(--bg);
   border: none;
   padding: 1em;
   margin:0 1em;
@@ -176,13 +177,12 @@
    
   outline: none;
   font-size: 0.6rem;
-}
 
-.chat-action {
   i {
     font-size: 0.8rem;
   }
 }
+
 
 .chat-action.primary {
   background-color: var(--bgLight);
