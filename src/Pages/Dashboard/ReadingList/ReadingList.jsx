@@ -82,14 +82,7 @@ const ReadingList = inject(
           )}
 
           {params.get("t") === "complete" && (
-            <CompletedStories
-              list={ReadingListStore.getCompleted()}
-              ReadingListStore={ReadingListStore}
-              callback={(v) =>
-                ReadingListStore.transferStoryFromList(v, "completed", "toRead")
-              }
-              removeStoryFromDb={removeStoryFromDb}
-            />
+            <CompletedStories list={ReadingListStore.getCompleted()} />
           )}
         </WithNav>
       </Dashboard>

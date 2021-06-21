@@ -1,16 +1,12 @@
 import React from "react";
 import "./ReadingList.scss";
-import { getAxios } from "../../../api";
 import Story from "../../../components/Story/Story";
 import { MinimalButton } from "../../../components/Buttons/Buttons";
 import { addToReadingList } from "../../../api/addToReadingList";
+import { inject, observer } from "mobx-react";
+import { removeStoryFromDb } from "../../../api/removeStoryFromDb";
 
-const CompletedStories = ({
-  list,
-  ReadingListStore,
-  callback,
-  removeStoryFromDb,
-}) => {
+const CompletedStories = ({ list, ReadingListStore }) => {
   if (!list) return null;
 
   return (
@@ -22,7 +18,11 @@ const CompletedStories = ({
               onClick={() => {
                 addToReadingList(x, false);
 
-                callback(x);
+                ReadingListStore.transferStoryFromList(
+                  x,
+                  "completed",
+                  "toRead"
+                );
               }}
             >
               Add back to Read List
@@ -43,4 +43,4 @@ const CompletedStories = ({
   );
 };
 
-export default CompletedStories;
+export default inject("ReadingListStore")(observer(CompletedStories));
