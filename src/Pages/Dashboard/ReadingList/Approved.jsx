@@ -122,7 +122,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
             onChange={(e) => setKeywords(e.target.value)}
           />
 
-          <div className="reading-list-search-actions">
+          <div className="reading-list-search-actions flex">
             <MainButton
               className="btn btn-tiertiary p- ml-"
               onClick={() => {
