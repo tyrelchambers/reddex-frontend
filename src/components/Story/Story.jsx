@@ -1,13 +1,9 @@
 import { inject, observer } from "mobx-react";
 import React from "react";
-import { addToCompleted } from "../../api/addToCompleted";
 import { removeTagFromStory } from "../../api/removeTagFromStory";
 import { avgReadingTime } from "../../helpers/averageReadingTime";
-import { MinimalButton } from "../Buttons/Buttons";
-import AddTagForm from "../Forms/AddTagForm";
-import { H2 } from "../Headings/Headings";
 
-const Story = ({ ReadingListStore, ModalStore, story, children }) => {
+const Story = ({ story, children }) => {
   return (
     <li className="reading-list-item-wrapper rounded-md shadow-md flex flex-col p-4 gap-4 h-full">
       <a
@@ -30,7 +26,7 @@ const Story = ({ ReadingListStore, ModalStore, story, children }) => {
             <i className="fas fa-user text-sm mr-4 "></i>
             {story.author}
           </a>
-          <p className="flex items-center text-gray-700 ">
+          <p className="flex items-center text-gray-700 reading-list-subreddit">
             <i className="fas fa-folder text-sm mr-4 "></i>
             {story.subreddit}
           </p>

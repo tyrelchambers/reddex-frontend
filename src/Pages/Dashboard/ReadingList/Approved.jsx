@@ -111,18 +111,18 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
 
   return (
     <>
-      <div className="bg gap-4 grid-cols-2 grid ">
-        <div className=" ">
-          <H3>Search reading list</H3>
-          <div className="d-f ai-c mt- h-36px">
-            <input
-              type="text"
-              className="search-large w-100pr max-w-xl"
-              placeholder="Search by keywords..."
-              value={keywords}
-              onChange={(e) => setKeywords(e.target.value)}
-            />
+      <div className="bg gap-4 grid ">
+        <H3>Search reading list</H3>
+        <div className="d-f ai-c mt-  reading-list-search">
+          <input
+            type="text"
+            className="search-large w-100pr max-w-xl"
+            placeholder="Search by keywords..."
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+          />
 
+          <div className="reading-list-search-actions">
             <MainButton
               className="btn btn-tiertiary p- ml-"
               onClick={() => {

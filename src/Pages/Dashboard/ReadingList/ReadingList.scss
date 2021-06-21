@@ -6,6 +6,11 @@
 }
 .reading-list-author {
   color: var(--text) !important;
+
+  
+}
+
+.reading-list-subreddit {
   hyphens: auto;
 }
 
@@ -156,7 +161,24 @@
       margin-right: 10px;
     }
   }
+  .reading-list-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) ;
+  }
 
+  .reading-list-search {
+    flex-direction: column;
+  }
+
+  .reading-list-search-actions {
+    display: flex;
+    margin-top: 1.5em;
+    width: 100%;
+    .btn-green {
+      width: 100% !important;
+    }
+  }
+
+  
 }
 
 @media screen and (max-width: 479px) {
@@ -176,5 +198,11 @@
 
   .circle-divider {
     display: none;
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width:644px) {
+  .reading-list-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) ;
   }
 }
