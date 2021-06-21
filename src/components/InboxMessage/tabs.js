@@ -1,7 +1,7 @@
-const BASE_URL='/dashboard'
+const BASE_URL = "/dashboard";
 export default [
   {
-    text: "Messages",
-    url: `${BASE_URL}/inbox`
-  }
-]
+    text: "Back to Inbox",
+    url: `${BASE_URL}/inbox`,
+  },
+];
