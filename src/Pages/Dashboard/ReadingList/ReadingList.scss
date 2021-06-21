@@ -1,9 +1,12 @@
 .reading-list-item-wrapper {
-  border-bottom: 1px solid var(--bg);
   transition: all 0.2s ease;
+  background-color: var(--bgLight);
+  min-height: 250px;
+  height: 100%;
 }
 .reading-list-author {
   color: var(--text) !important;
+  hyphens: auto;
 }
 
 .reading-list-item-dropdown .dropdown {
@@ -51,6 +54,7 @@
 .reading-list-title {
   color: var(--link);
   text-decoration: underline;
+  hyphens: auto;
 }
 
 .reading-list-item.opaque {
@@ -75,7 +79,7 @@
   text-transform: capitalize;
   color: var(--text);
   border: none;
-  background-color: var(--bg);
+  background-color: var(--bgLight);
   border-radius: 20px;
   outline: none;
   padding: 0.4em 0.9em;
@@ -103,7 +107,7 @@
     min-width: 30px;
     min-height: 30px;
     color: var(--text);
-    background-color: var(--bg);
+    background-color: var(--bgLight);
     border-radius: 50%;
   }
 }
@@ -112,6 +116,10 @@
   flex-wrap: wrap;
   p {
     white-space: nowrap;
+  }
+
+  i {
+    color: var(--textLight)
   }
 }
 

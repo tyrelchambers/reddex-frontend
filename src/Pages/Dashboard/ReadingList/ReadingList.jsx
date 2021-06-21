@@ -12,6 +12,7 @@ import { getAxios } from "../../../api";
 import RequestWithUrl from "../../../components/RequestWithUrl/RequestWithUrl";
 import WithNav from "../../../layouts/WithNav/WithNav";
 import { H1 } from "../../../components/Headings/Headings";
+import { removeStoryFromDb } from "../../../api/removeStoryFromDb";
 
 const ReadingList = inject(
   "ReadingListStore",
@@ -38,16 +39,6 @@ const ReadingList = inject(
         setRefresh(false);
       };
     }, [refresh]);
-
-    const removeStoryFromDb = (item) => {
-      getAxios({
-        url: "/profile/stories/remove",
-        method: "delete",
-        params: {
-          uuid: item,
-        },
-      });
-    };
 
     const params = new URLSearchParams(window.location.search);
 
@@ -87,13 +78,7 @@ const ReadingList = inject(
 
         <WithNav tabs={tabs} optionalTabs={optionalTabList}>
           {params.get("t") === "approved" && (
-            <Approved
-              list={ReadingListStore.getToRead()}
-              callback={(v) =>
-                ReadingListStore.transferStoryFromList(v, "toRead", "completed")
-              }
-              ModalStore={ModalStore}
-            />
+            <Approved list={ReadingListStore.getToRead()} />
           )}
 
           {params.get("t") === "complete" && (

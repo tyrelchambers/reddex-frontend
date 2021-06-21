@@ -1,85 +1,46 @@
-import React, {useState} from 'react'
-import './ReadingList.scss';
-import { getAxios } from '../../../api';
-import Dropdown from '../../../components/Dropdown/Dropdown';
+import React from "react";
+import "./ReadingList.scss";
+import { getAxios } from "../../../api";
+import Story from "../../../components/Story/Story";
+import { MinimalButton } from "../../../components/Buttons/Buttons";
+import { addToReadingList } from "../../../api/addToReadingList";
 
-const CompletedStories = ({list, ReadingListStore, callback, removeStoryFromDb}) => {
-  const [ openDropdown, setOpenDropdown] = useState("")
-
-  if ( !list ) return null;
-
-  const Story = ({x}) => (
-    <li className="reading-list-item-wrapper cell-row">
-       <div className="reading-list-item grid grid-cols-5 gap-4 grid-flow-col ai-c">
-        <a href={x.url} className="reading-list-title ellipses w-100pr font-bold col-span-2">{x.title}</a>
-        <a href={`https://www.reddit.com/user/${x.author}`} target="_blank" rel="noopener noreferrer" className="td-n td-u-hv reading-list-author ellipses" style={{color: "inherit"}}>
-          {x.author}
-        </a>
-        <p className="tt-c">{x.subreddit}</p>
-
-        <Dropdown
-          triggerIcon={ <i className="fas fa-ellipsis-h"></i> }
-          width="55px"
-          identifier={x.uuid}
-          showDropdown={() => {
-            if (openDropdown === x.uuid) {
-              return true
-            }
-          }}
-          toggleDropdown={() => {
-            setOpenDropdown(x.uuid)
-            if (openDropdown === x.uuid) {
-              setOpenDropdown("")
-            }
-          }}
-        >
-          <button onClick={() => {
-            addToReadingList(x, false)
-            setOpenDropdown("")
-
-            callback(x);
-          }}>
-            Add back to Read List
-          </button>
-
-          <button onClick={() => {
-            ReadingListStore.removeStoryFromList("completed", x.post_id);
-            setOpenDropdown("")
-            removeStoryFromDb(x.uuid)
-          }}>
-            Permanently delete
-          </button>
-        </Dropdown>
-      </div>
-    </li>
-  )
-
+const CompletedStories = ({
+  list,
+  ReadingListStore,
+  callback,
+  removeStoryFromDb,
+}) => {
+  if (!list) return null;
 
   return (
-    <div className="all-stories-wrapper fx-1">
-      <div className="grid grid-cols-4 gap-4 grid-flow-col">
-        <p className="font-bold text-lg  col-span-2">Title</p>
-        <p className="font-bold text-lg ">Author</p>
-        <p className="font-bold text-lg ">Subreddit</p>
-        <p className="font-bold text-lg ">Actions</p>
-      </div>
-      <ul className="reading-list-list ">
-        {list.map(x => <Story x={x}/>)}
-      </ul>
-    </div>
-  )
-}
+    <ul className="reading-list-list grid grid-cols-3 gap-4 mt- ">
+      {list.map((x) => (
+        <Story story={x}>
+          <div className="flex items-center gap-6">
+            <MinimalButton
+              onClick={() => {
+                addToReadingList(x, false);
 
-const addToReadingList = (data, bool) => {
-  getAxios({
-    url: '/profile/stories/completed',
-    method: 'post',
-    data: {
-      uuid: data.uuid,
-      read: bool
-    }
-  })
-}
+                callback(x);
+              }}
+            >
+              Add back to Read List
+            </MinimalButton>
+
+            <MinimalButton
+              onClick={() => {
+                ReadingListStore.removeStoryFromList("completed", x.post_id);
+                removeStoryFromDb(x.uuid);
+              }}
+            >
+              Permanently delete
+            </MinimalButton>
+          </div>
+        </Story>
+      ))}
+    </ul>
+  );
+};
 
 export default CompletedStories;
-
