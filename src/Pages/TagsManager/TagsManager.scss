@@ -1,8 +1,6 @@
 .tag-item {
-  width: 100%;
-  padding: 0.7em 0;
   transition: all 0.2s ease;
-  border-bottom: 1px solid var(--bg);
+  background-color: var(--bgLight);
   i {
     color: var(--text);
     transition: all 0.2s ease;
@@ -11,9 +9,6 @@
     color: var(--text);
   }
 
-  &:hover {
-    background-color: var(--bg);
-  }
 }
 
 .tag-small {

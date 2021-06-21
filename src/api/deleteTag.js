@@ -1,12 +1,9 @@
 import { getAxios } from ".";
 
-export const deleteHandler = (uuid) => {
-  return getAxios({
-    url: "/submitted/delete",
+export const deleteTag = (uuid) => {
+  getAxios({
+    url: `/tags/${uuid}`,
     method: "delete",
-    params: {
-      uuid,
-    },
   }).then((res) => {
     if (res) {
       window.location.reload();
