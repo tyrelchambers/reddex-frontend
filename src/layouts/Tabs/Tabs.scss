@@ -6,10 +6,12 @@
 .tab {
   margin: 0.5em 0;
   transition: all 0.2s ease;
+        font-weight: bold;
+
   a,
   button {
     color: var(--text);
-    opacity: 0.8;
+    opacity: 0.5;
     text-decoration: none;
     transition: all 0.2s ease;
     text-align: left;
