@@ -2,13 +2,13 @@ import { inject, observer } from "mobx-react";
 import React from "react";
 import { removeTagFromStory } from "../../api/removeTagFromStory";
 import { avgReadingTime } from "../../helpers/averageReadingTime";
-
+import "./Story.scss";
 const Story = ({ story, children }) => {
   return (
-    <li className="reading-list-item-wrapper rounded-md shadow-md flex flex-col p-4 gap-4 h-full">
+    <li className="story-item-wrapper rounded-md shadow-md flex flex-col p-4 gap-4 h-full">
       <a
         href={story.url}
-        className="reading-list-title font-bold"
+        className="story-title font-bold"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -20,20 +20,24 @@ const Story = ({ story, children }) => {
             href={`https://www.reddit.com/user/${story.author}`}
             target="_blank"
             rel="noopener noreferrer"
-            className=" reading-list-author flex items-center text-gray-700 "
+            className=" story-author flex items-center text-gray-700 "
             style={{ color: "inherit" }}
           >
             <i className="fas fa-user text-sm mr-4 "></i>
             {story.author}
           </a>
-          <p className="flex items-center text-gray-700 reading-list-subreddit">
-            <i className="fas fa-folder text-sm mr-4 "></i>
-            {story.subreddit}
-          </p>
-          <p className="reading-time flex items-center text-gray-700 ">
-            <i className="fas fa-clock mr-4 text-sm "></i>
-            {avgReadingTime(story.self_text)} minutes
-          </p>
+          {story.subreddit && (
+            <p className="flex items-center text-gray-700 story-subreddit">
+              <i className="fas fa-folder text-sm mr-4 "></i>
+              {story.subreddit}
+            </p>
+          )}
+          {story.self_text && (
+            <p className="reading-time flex items-center text-gray-700 ">
+              <i className="fas fa-clock mr-4 text-sm "></i>
+              {avgReadingTime(story.self_text)} minutes
+            </p>
+          )}
         </div>
       </div>
       <div className="tag-list flex items-center" id="tagList">

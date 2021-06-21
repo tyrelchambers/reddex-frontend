@@ -4,7 +4,6 @@ import Approved from "./Approved";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
 import CompletedStories from "./CompletedStories";
-import { Redirect } from "react-router-dom";
 import ImportStoryForm from "../../../components/Forms/ImportStoryForm";
 import tabs from "./tabs";
 import Dashboard from "../Dashboard";
@@ -12,7 +11,6 @@ import { getAxios } from "../../../api";
 import RequestWithUrl from "../../../components/RequestWithUrl/RequestWithUrl";
 import WithNav from "../../../layouts/WithNav/WithNav";
 import { H1 } from "../../../components/Headings/Headings";
-import { removeStoryFromDb } from "../../../api/removeStoryFromDb";
 
 const ReadingList = inject(
   "ReadingListStore",

@@ -1,40 +1,46 @@
-import React from 'react';
-import './Tabs.scss'
-import { NavLink, Link } from 'react-router-dom';
-import HR from '../../components/HR/HR';
+import React from "react";
+import "./Tabs.scss";
+import { NavLink, Link } from "react-router-dom";
+import HR from "../../components/HR/HR";
 
-const Tabs = ({tabs, optionalTabs}) => {
+const Tabs = ({ tabs, optionalTabs }) => {
   const url = window.location.pathname + window.location.search;
 
   return (
-    <div className="d-f fxd-c tabs-wrapper">
-      {tabs &&
+    <div className="d-f fxd-c tabs-wrapper mr-10">
+      {tabs && (
         <ul className="d-f fxd-c tabs">
           {tabs.map((tab, id) => (
             <li className="tab" key={id}>
-              <NavLink to={tab.url} activeClassName="tab-active" isActive={() => {
-                if(url === tab.url) {
-                  return true
-                }
-              }}>
+              <NavLink
+                to={tab.url}
+                activeClassName="tab-active"
+                isActive={() => {
+                  if (url === tab.url) {
+                    return true;
+                  }
+                }}
+              >
                 {tab.text}
               </NavLink>
             </li>
           ))}
         </ul>
-      }
-      {optionalTabs &&
+      )}
+      {optionalTabs && (
         <>
-          <HR/>
+          <HR />
           <ul className="d-f fxd-c tabs">
-            {optionalTabs.map((tab, id) => 
-              <li className="tab" key={id}>{tab}</li>
-            )}
+            {optionalTabs.map((tab, id) => (
+              <li className="tab" key={id}>
+                {tab}
+              </li>
+            ))}
           </ul>
         </>
-      }
+      )}
     </div>
   );
-}
+};
 
 export default Tabs;

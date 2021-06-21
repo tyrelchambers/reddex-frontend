@@ -1,6 +1,45 @@
+.story-item-wrapper {
+  transition: all 0.2s ease;
+  background-color: var(--bgLight);
+  min-height: 100px;
+  height: 100%;
+}
+
+.story-author {
+  color: var(--text) !important;
+}
+
+.story-subreddit {
+  hyphens: auto;
+}
 
 
-.reading-list-filter {
+.story-title {
+  color: var(--link);
+  text-decoration: underline;
+  hyphens: auto;
+}
+
+.story-item.opaque {
+  opacity: 0.7;
+  transition: all 0.2s ease;
+
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.story-item-header-subheader {
+
+  h3,
+  h4 {
+    color: var(--text);
+  }
+}
+
+
+.story-filter {
   text-transform: capitalize;
   color: var(--text);
   border: none;
@@ -9,6 +48,7 @@
   outline: none;
   padding: 0.4em 0.9em;
   margin: 0.5em;
+
   &.active {
     background-color: var(--success);
     color: white;
@@ -16,7 +56,7 @@
   }
 }
 
-.reading-list-filters {
+.story-filters {
 
   .header-items {
     display: flex;
@@ -39,6 +79,7 @@
 
 .tag-list {
   flex-wrap: wrap;
+
   p {
     white-space: nowrap;
   }
@@ -58,7 +99,7 @@
     }
   }
 
-  .reading-list-item-header-subheader {
+  .story-item-header-subheader {
     flex-direction: column;
     align-items: center;
 
@@ -74,35 +115,37 @@
   }
 }
 
-@media screen and (max-width: 425px ) {
-  .reading-list-item {
+@media screen and (max-width: 425px) {
+  .story-item {
 
     .body-toggle {
       margin-right: 10px;
     }
   }
-  .reading-list-list {
-    grid-template-columns: repeat(1, minmax(0, 1fr)) ;
+
+  .story-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
-  .reading-list-search {
+  .story-search {
     flex-direction: column;
   }
 
-  .reading-list-search-actions {
+  .story-search-actions {
     display: flex;
     margin-top: 1.5em;
     width: 100%;
+
     .btn-green {
       width: 100% !important;
     }
   }
 
-  
+
 }
 
 @media screen and (max-width: 479px) {
-  .reading-list-body {
+  .story-body {
     p {
       width: 100%;
     }
@@ -110,8 +153,8 @@
 }
 
 @media screen and (max-width: 748px) {
-  .reading-list-item-header-subheader {
-    .reading-list-author {
+  .story-item-header-subheader {
+    .story-author {
       margin-top: 1em;
     }
   }
@@ -122,7 +165,7 @@
 }
 
 @media screen and (min-width: 426px) and (max-width:644px) {
-  .reading-list-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) ;
+  .story-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
