@@ -111,7 +111,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
 
   return (
     <>
-      <div className="bg gap-4 grid ">
+      <div className="bg gap-4 grid shadow-md">
         <H3>Search reading list</H3>
         <div className="d-f ai-c mt-  reading-list-search">
           <input

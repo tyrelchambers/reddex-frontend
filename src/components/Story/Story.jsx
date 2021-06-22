@@ -20,20 +20,20 @@ const Story = ({ story, children }) => {
             href={`https://www.reddit.com/user/${story.author}`}
             target="_blank"
             rel="noopener noreferrer"
-            className=" story-author flex items-center text-gray-700 "
+            className=" story-author flex items-center  "
             style={{ color: "inherit" }}
           >
             <i className="fas fa-user text-sm mr-4 "></i>
             {story.author}
           </a>
           {story.subreddit && (
-            <p className="flex items-center text-gray-700 story-subreddit">
+            <p className="flex items-center  story-subreddit">
               <i className="fas fa-folder text-sm mr-4 "></i>
               {story.subreddit}
             </p>
           )}
           {story.self_text && (
-            <p className="reading-time flex items-center text-gray-700 ">
+            <p className="reading-time flex items-center  ">
               <i className="fas fa-clock mr-4 text-sm "></i>
               {avgReadingTime(story.self_text)} minutes
             </p>
