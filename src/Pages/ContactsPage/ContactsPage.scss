@@ -10,4 +10,19 @@
   .contact-wrapper {
     margin-left: 0.5em;
   }
+
+  .contact-list-wrapper {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contact-search {
+    flex-direction: column;
+
+    .btn-tiertiary {
+      max-width: 100% !important;
+      margin-bottom: 1em;
+    }
+  }
 }

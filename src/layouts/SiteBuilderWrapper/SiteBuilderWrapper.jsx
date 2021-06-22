@@ -1,16 +1,14 @@
-import React from 'react';
-import { inject, observer } from 'mobx-react';
-import SiteSaveStatus from '../SiteSaveStatus/SiteSaveStatus';
+import React from "react";
+import { inject, observer } from "mobx-react";
+import SiteSaveStatus from "../SiteSaveStatus/SiteSaveStatus";
 
-const SiteBuilderWrapper = ({SiteStore, FormStore, children}) => {
-
+const SiteBuilderWrapper = ({ SiteStore, FormStore, children }) => {
   const submitHandler = async () => {
-    SiteStore.setSaving(true)
+    SiteStore.setSaving(true);
     await SiteStore.submit();
-    await FormStore.save(SiteStore.config.uuid, FormStore.options_id)
-    SiteStore.setSaving(false)
-
-  }
+    await FormStore.save(SiteStore.config.uuid, FormStore.options_id);
+    SiteStore.setSaving(false);
+  };
 
   return (
     <>
@@ -20,9 +18,9 @@ const SiteBuilderWrapper = ({SiteStore, FormStore, children}) => {
         submitHandler={submitHandler}
         saving={SiteStore.saving}
       />
-      {children}
+      <div className="bg shadow-md max-w-2xl">{children}</div>
     </>
   );
-}
+};
 
 export default inject("SiteStore", "FormStore")(observer(SiteBuilderWrapper));

@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import About from "./Pages/About/About";
 import SignupPage from "./Pages/SignupPage/SignupPage";
-import LoginPage from "./Pages/LoginPage/LoginPage";
+import LoginPage from "./Pages/LoginPage/LoginPage.jsx";
 import AccountPage from "./Pages/AccountPage/AccountPage";
 import { ToastContainer } from "react-toastify";
 import UserStore from "./stores/UserStore";
@@ -38,7 +38,6 @@ import { getAxios } from "./api/index";
 import StorySubmission from "./Webbuilder/Static/StorySubmission/StorySubmission";
 import FormStore from "./stores/FormStore";
 import SubmittedStories from "./Pages/SubmittedStories/SubmittedStories";
-import Story from "./Pages/Story/Story";
 import Authorize from "./Pages/Authorize/Authorize";
 import Explore from "./Pages/Explore/Explore";
 import Patreon from "./Pages/Patreon/Patreon";
@@ -291,7 +290,6 @@ const InitialLoad = () => {
               path="/dashboard/tags"
               component={TagsManager}
             />
-            <PrivateRoute path="/dashboard/story/:id" component={Story} />
             <Route component={Page404} />
           </Switch>
         </Router>

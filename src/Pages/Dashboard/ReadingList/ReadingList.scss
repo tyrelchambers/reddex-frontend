@@ -1,81 +1,10 @@
-.reading-list-item-wrapper {
-  border-bottom: 1px solid var(--bg);
-  transition: all 0.2s ease;
-}
-.reading-list-author {
-  color: var(--text) !important;
-}
-
-.reading-list-item-dropdown .dropdown {
-  position: absolute;
-  background: var(--bgLight);
-  border-radius: 5px;
-  border: 1px solid var(--bgLighter);
-  width: 150px;
-  color: var(--text);
-  right: 0;
-  top: 2em;
-  display: none;
-  z-index: 2;
-  button {
-    padding: 1em;
-    width: 100%;
-    background-color: transparent;
-
-    &:hover {
-      background-color: var(--white-40);
-  
-    }
-  }
-}
-
-.reading-list-item-dropdown {
-  width: 57px;
-  padding: 0.3em;
-  display: flex;
-  justify-content: center;
-  border-radius: 5px;
-  position: relative;
-
-  
-
-  i {
-    color: var(--textLight);
-  }
-
-  &:hover {
-    background-color: var(--bgLighter);
-  }
-}
-
-.reading-list-title {
-  color: var(--link);
-  text-decoration: underline;
-}
-
-.reading-list-item.opaque {
-  opacity: 0.7;
-  transition: all 0.2s ease;
-
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.reading-list-item-header-subheader {
-  h3,
-  h4 {
-    color: var(--text);
-  }
-}
 
 
 .reading-list-filter {
   text-transform: capitalize;
   color: var(--text);
   border: none;
-  background-color: var(--bg);
+  background-color: var(--bgLight);
   border-radius: 20px;
   outline: none;
   padding: 0.4em 0.9em;
@@ -103,7 +32,7 @@
     min-width: 30px;
     min-height: 30px;
     color: var(--text);
-    background-color: var(--bg);
+    background-color: var(--bgLight);
     border-radius: 50%;
   }
 }
@@ -112,6 +41,10 @@
   flex-wrap: wrap;
   p {
     white-space: nowrap;
+  }
+
+  i {
+    color: var(--textLight)
   }
 }
 
@@ -148,7 +81,24 @@
       margin-right: 10px;
     }
   }
+  .reading-list-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) ;
+  }
 
+  .reading-list-search {
+    flex-direction: column;
+  }
+
+  .reading-list-search-actions {
+    display: flex;
+    margin-top: 1.5em;
+    width: 100%;
+    .btn-green {
+      width: 100% !important;
+    }
+  }
+
+  
 }
 
 @media screen and (max-width: 479px) {
@@ -168,5 +118,11 @@
 
   .circle-divider {
     display: none;
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width:644px) {
+  .reading-list-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) ;
   }
 }

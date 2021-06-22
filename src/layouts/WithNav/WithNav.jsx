@@ -1,22 +1,19 @@
-import React from 'react';
-import './WithNav.scss'
-import Tabs from '../Tabs/Tabs';
+import React from "react";
+import "./WithNav.scss";
+import Tabs from "../Tabs/Tabs";
 
-const WithNav = ({tabs, children, optionalTabs}) => {
-  const url = window.location.pathname
-
-  const overflowBody = (url.includes("reading_list") || 
-                        url.includes("contacts") ||
-                        url.includes("inbox"))
+const WithNav = ({ tabs, children, optionalTabs }) => {
   return (
-    <div className="w-100pr d-f mt+ overflow-x-auto with-nav-wrapper">
-      <Tabs tabs={tabs} optionalTabs={optionalTabs}/>
+    <div className="w-full d-f mt+  with-nav-wrapper h-full">
+      {tabs && tabs.length > 0 && (
+        <Tabs tabs={tabs} optionalTabs={optionalTabs} />
+      )}
 
-      <section className="bg fx-1 ml-- shadow-lg animated fadeIn faster with-nav-body m-" style={{height: 'fit-content',  ...(overflowBody ? {minWidth: "560px"} : null) }}> 
+      <section className="animated fadeIn faster with-nav-body  mobile-column h-full p-2 w-full">
         {children}
       </section>
     </div>
   );
-}
+};
 
 export default WithNav;
