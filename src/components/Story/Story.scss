@@ -15,6 +15,16 @@
   hyphens: auto;
 }
 
+.icon-with-bg {
+  background-color: rgba(71, 163, 243, 0.3);
+  color: var(--blue-20);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
 
 .story-title {
   color: var(--link);

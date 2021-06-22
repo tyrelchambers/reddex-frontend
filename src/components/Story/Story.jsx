@@ -23,18 +23,18 @@ const Story = ({ story, children }) => {
             className=" story-author flex items-center  "
             style={{ color: "inherit" }}
           >
-            <i className="fas fa-user text-sm mr-4 "></i>
+            <i className="fas fa-user text-sm mr-4 icon-with-bg"></i>
             {story.author}
           </a>
           {story.subreddit && (
             <p className="flex items-center  story-subreddit">
-              <i className="fas fa-folder text-sm mr-4 "></i>
+              <i className="fas fa-folder text-sm mr-4 icon-with-bg"></i>
               {story.subreddit}
             </p>
           )}
           {story.self_text && (
             <p className="reading-time flex items-center  ">
-              <i className="fas fa-clock mr-4 text-sm "></i>
+              <i className="fas fa-clock mr-4 text-sm icon-with-bg"></i>
               {avgReadingTime(story.self_text)} minutes
             </p>
           )}
