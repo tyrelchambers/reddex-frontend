@@ -38,7 +38,6 @@ import { getAxios } from "./api/index";
 import StorySubmission from "./Webbuilder/Static/StorySubmission/StorySubmission";
 import FormStore from "./stores/FormStore";
 import SubmittedStories from "./Pages/SubmittedStories/SubmittedStories";
-import Story from "./Pages/Story/Story";
 import Authorize from "./Pages/Authorize/Authorize";
 import Explore from "./Pages/Explore/Explore";
 import Patreon from "./Pages/Patreon/Patreon";
@@ -291,7 +290,6 @@ const InitialLoad = () => {
               path="/dashboard/tags"
               component={TagsManager}
             />
-            <PrivateRoute path="/dashboard/story/:id" component={Story} />
             <Route component={Page404} />
           </Switch>
         </Router>
