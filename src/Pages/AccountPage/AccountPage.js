@@ -10,7 +10,6 @@ import Dashboard from "../Dashboard/Dashboard";
 import { getAxios } from "../../api";
 import WithNav from "../../layouts/WithNav/WithNav";
 import { H1, H1Subtitle } from "../../components/Headings/Headings";
-import Integrations from "./Integrations/Integrations";
 
 const AccountPage = inject("UserStore")(
   observer(({ UserStore }) => {
