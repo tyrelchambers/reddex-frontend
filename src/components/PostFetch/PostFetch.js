@@ -291,7 +291,7 @@ const PostFetch = inject(
 
             <ul className="post-list">
               {PostStore.posts
-                .slice()
+                .slice(0, 25)
                 .sort((a, b) => {
                   return b.created - a.created;
                 })
