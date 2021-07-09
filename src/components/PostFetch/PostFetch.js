@@ -14,6 +14,7 @@ import SubredditPost from "../SubredditPost/SubredditPost";
 import { toast } from "react-toastify";
 import Pagination from "@material-ui/lab/Pagination";
 import StatusUI from "../../layouts/StatusUI/StatusUI";
+import { recentlySearched } from "../../api/recentlySearched";
 
 const PostFetch = inject(
   "UserStore",
@@ -95,16 +96,6 @@ const PostFetch = inject(
       await fetchPosts(PostStore.subreddit, categoryOptions);
       setCurrentAction("");
       PostStore.clearSelectedPosts();
-    };
-
-    const recentlySearched = (subreddit) => {
-      getAxios({
-        url: "/recently_searched",
-        method: "post",
-        data: {
-          subreddit,
-        },
-      });
     };
 
     const saveToDatabase = async (posts) => {
@@ -291,7 +282,7 @@ const PostFetch = inject(
             <Pagination
               count={maxPages}
               shape="rounded"
-              onChange={(page) => {
+              onChange={(_, page) => {
                 getPostsFromDatabase(page).then((res) => {
                   PostStore.setPosts(res.posts);
                 });
