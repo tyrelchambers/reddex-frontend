@@ -2,10 +2,12 @@ import Axios from "axios";
 import { getAxios } from "../api";
 
 export const renewRefreshToken = async () => {
+  const token = window.localStorage.getItem("token");
+
+  if (!token) return;
   const encode = window.btoa(
     `${process.env.REACT_APP_REDDIT_APP_NAME}:${process.env.REACT_APP_REDDIT_APP_SECRET}`
   );
-  const token = window.localStorage.getItem("token");
   const tokens = await fetchTokens(token);
 
   if (!tokens || !tokens.access_token) return null;

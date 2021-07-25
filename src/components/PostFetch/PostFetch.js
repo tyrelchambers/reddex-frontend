@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "../PostFetchComp/PostFetchComp.scss";
+import "../SubredditSearch/PostFetchComp.scss";
 import Axios from "axios";
 import Loading from "../Loading/Loading";
 import SubredditFilters from "../SubredditFilters/SubredditFilters";
 import MessageAuthors from "../MessageAuthors/MessageAuthors";
-import PostFetchComp from "../PostFetchComp/PostFetchComp";
+import SubredditSearch from "../SubredditSearch/SubredditSearch";
 import { inject, observer } from "mobx-react";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import RecentlySearched from "../../layouts/RecenlySearched/RecentlySearched";
@@ -113,7 +113,12 @@ const PostFetch = inject(
     };
 
     const getPostsFromDatabase = async (page) => {
-      const token = window.localStorage.getItem("token");
+      const token =
+        window.localStorage.getItem("token") ||
+        window.localStorage.getItem("vToken") ||
+        null;
+
+      if (!token) return;
       const query = {
         ...(filterOptions.upvotes > 0 &&
           filterOptions.operator && {
@@ -224,12 +229,11 @@ const PostFetch = inject(
     return (
       <div className="post-fetch-wrapper">
         <div className="fetch-inputs w-100pr">
-          <PostFetchComp
-            setLoading={setLoading}
+          <SubredditSearch
             categoryOptions={categoryOptions}
             setCategoryOptions={setCategoryOptions}
-            executeFetch={executeFetch}
-            loading={loading}
+            currentAction={currentAction}
+            setCurrentAction={setCurrentAction}
           />
           {!loading && (
             <SubredditFilters

@@ -40,7 +40,6 @@ import FormStore from "./stores/FormStore";
 import SubmittedStories from "./Pages/SubmittedStories/SubmittedStories";
 import Authorize from "./Pages/Authorize/Authorize";
 import Explore from "./Pages/Explore/Explore";
-import Patreon from "./Pages/Patreon/Patreon";
 import { Modal } from "./components/Modal/Modal";
 import TagsManager from "./Pages/TagsManager/TagsManager";
 
