@@ -153,66 +153,7 @@ const PostFetch = inject(
       });
     };
 
-    const fetchPosts = async (subreddit, category) => {
-      PostStore.setPosts([]);
-      const sr = subreddit.replace(/\s/g, "").trim().toLowerCase();
-      if (!sr || sr.length === 0) return alert("Must include a subreddit");
-
-      window.localStorage.setItem("subreddit", sr);
-
-      let endpoint = "";
-
-      if (category !== "hot") {
-        endpoint = `${sr}/${category.category}.json?limit=100`;
-      }
-
-      if (category.timeframe !== "day") {
-        endpoint = `${sr}/${category.category}/.json?t=${category.timeframe}`;
-      }
-
-      const link = `https://www.reddit.com/r/${endpoint}`;
-      let posts = [];
-      let after = ``;
-      let postCount = 0;
-
-      for (let i = 0; i < 10 && after !== null; i++) {
-        const results = [];
-
-        await Axios.get(`${link}&after=${after}`)
-          .then((res) => {
-            after = res.data.data.after;
-            posts = [...res.data.data.children];
-          })
-          .catch((err) => err);
-
-        await posts.map((x) => {
-          const newObj = {
-            author: x.data.author,
-            title: x.data.title,
-            self_text: x.data.selftext,
-            ups: x.data.ups,
-            url: x.data.url,
-            num_comments: x.data.num_comments,
-            created: x.data.created_utc,
-            link_flair_text: x.data.link_flair_text,
-            post_id: x.data.id,
-            subreddit: x.data.subreddit,
-            upvote_ratio: x.data.upvote_ratio,
-          };
-
-          results.push(newObj);
-        });
-
-        postCount += posts.length;
-        setCurrentAction(
-          `Fetching posts from reddit. ${Number(postCount)} posts retrieved...`
-        );
-        setMaxPages(Math.round(postCount / 25));
-        await saveToDatabase(results);
-      }
-
-      return;
-    };
+    const fetchPosts = async (subreddit, category) => {};
 
     const filter = async () => {
       if (filterOptions.upvotes && !filterOptions.operator) {
@@ -268,17 +209,18 @@ const PostFetch = inject(
           />
         )}
 
-        {loading && (
+        {currentAction && (
           <Loading
             title="Wrangling initial reddit posts..."
             subtitle="This will take a second, hold tight"
           />
         )}
 
-        {!loading && (
+        {console.log(PostStore.maxPages, "---")}
+        {!currentAction && (
           <div className="d-f pagination-post-wrapper">
             <Pagination
-              count={maxPages}
+              count={PostStore.maxPages}
               shape="rounded"
               onChange={(_, page) => {
                 getPostsFromDatabase(page).then((res) => {
@@ -307,7 +249,7 @@ const PostFetch = inject(
           </div>
         )}
 
-        {!PostStore.posts.length && !loading && (
+        {!PostStore.posts.length && !currentAction && (
           <p className="subtle ta-c ml-a mr-a">No posts found...</p>
         )}
 

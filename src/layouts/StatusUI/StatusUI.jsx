@@ -13,8 +13,6 @@ const StatusUI = ({ status }) => {
       </div>
 
       {status === "deleting posts" && "Deleting old posts..."}
-      {status === "fetching posts" &&
-        "Fetching posts from Reddit... this might take a minute"}
     </div>
   );
 };

@@ -16,8 +16,7 @@ class PostStore {
   }
 
   setMaxPages = (num) => {
-    console.log(num);
-    this.setMaxPages = num;
+    this.maxPages = num;
   };
   setSelectedPosts(post) {
     const dupe = this.selectedPosts.find((el) => {
