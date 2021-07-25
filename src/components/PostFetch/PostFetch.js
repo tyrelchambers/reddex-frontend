@@ -142,10 +142,7 @@ const PostFetch = inject(
         subreddit: sr,
       });
 
-      setCurrentAction(`fetching posts`);
-
       const results = await getPostsFromReddit({ endpoint });
-      console.log(results.length);
       const formattedPosts = await formatPostsFromReddit(results);
 
       PostStore.setPosts(formattedPosts);
@@ -210,7 +207,7 @@ const PostFetch = inject(
           />
         )}
 
-        {currentAction && (
+        {currentAction && currentAction !== "deleting posts" && (
           <Loading
             title="Wrangling initial reddit posts..."
             subtitle="This will take a second, hold tight"
