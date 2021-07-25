@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import Pagination from "@material-ui/lab/Pagination";
 import StatusUI from "../../layouts/StatusUI/StatusUI";
 import { recentlySearched } from "../../api/recentlySearched";
+import { getStoriesUsed } from "../../api/getStoriesUsed";
 
 const PostFetch = inject(
   "UserStore",
@@ -42,19 +43,15 @@ const PostFetch = inject(
     const [currentAction, setCurrentAction] = useState("");
 
     const token = window.localStorage.getItem("token");
+    const vToken = window.localStorage.getItem("visitorToken");
 
     useEffect(() => {
-      const vToken = window.localStorage.getItem("visitorToken");
-
       const fn = async () => {
         if (token) {
-          await getAxios({
-            url: "/profile/stories_used",
-          }).then((res) => {
-            if (res) {
-              setUsedPosts([...res]);
-            }
-          });
+          const stories = await getStoriesUsed(token);
+          if (stories) {
+            setUsedPosts([...stories]);
+          }
         }
 
         if (vToken) {
@@ -116,6 +113,7 @@ const PostFetch = inject(
     };
 
     const getPostsFromDatabase = async (page) => {
+      const token = window.localStorage.getItem("token");
       const query = {
         ...(filterOptions.upvotes > 0 &&
           filterOptions.operator && {
@@ -142,10 +140,7 @@ const PostFetch = inject(
           page,
           ...query,
         },
-        options: {
-          withToken: false,
-          withVisitorToken: true,
-        },
+        token,
       }).then((res) => {
         if (res) {
           return res;
