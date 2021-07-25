@@ -1,26 +1,25 @@
-export const filterOptionsJSON = [
+export const filterOptions = [
   {
     label: "Greater than",
-    value: ">"
+    value: ">",
   },
   {
     label: "Less than",
-    value: "<"
-  }, 
+    value: "<",
+  },
   {
     label: "Equal to",
-    value: "="
-  }
-]
+    value: "=",
+  },
+];
 
 export const readtimeOptions = [
   {
     label: "Greater than",
-    value: ">"
+    value: ">",
   },
   {
     label: "Less than",
-    value: "<"
-  }, 
-]
-
+    value: "<",
+  },
+];

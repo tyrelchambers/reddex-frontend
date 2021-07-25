@@ -7,7 +7,7 @@ const SelectField = ({ options, returnValue }) => {
     <Select
       options={options}
       defaultValue={options[0]}
-      className="w-40"
+      className="select"
       onChange={(v) => returnValue(v.value)}
     />
   );

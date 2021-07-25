@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../SubredditSearch/PostFetchComp.scss";
-import Axios from "axios";
 import Loading from "../Loading/Loading";
 import SubredditFilters from "../SubredditFilters/SubredditFilters";
 import MessageAuthors from "../MessageAuthors/MessageAuthors";
@@ -14,7 +13,6 @@ import SubredditPost from "../SubredditPost/SubredditPost";
 import { toast } from "react-toastify";
 import Pagination from "@material-ui/lab/Pagination";
 import StatusUI from "../../layouts/StatusUI/StatusUI";
-import { recentlySearched } from "../../api/recentlySearched";
 import { getStoriesUsed } from "../../api/getStoriesUsed";
 import { getPostsFromReddit } from "../../api/getPostsFromReddit";
 import { structureEndpoint } from "../../helpers/structureEndpoint";
@@ -34,13 +32,13 @@ const PostFetch = inject(
       category: "hot",
       timeframe: "day",
     });
-    const [filterOptions, setFilterOptions] = useState({
+    const [filterState, setFilterState] = useState({
       seriesOnly: false,
-      upvotes: 0,
-      operator: "",
+      upvotes: "",
+      operator: ">",
       omitSeries: false,
       keywords: "",
-      readTime: 0,
+      readTime: "",
       readTimeOperator: "",
     });
     const [usedPosts, setUsedPosts] = useState([]);
@@ -86,22 +84,22 @@ const PostFetch = inject(
 
       if (!token) return;
       const query = {
-        ...(filterOptions.upvotes > 0 &&
-          filterOptions.operator && {
-            upvotes: filterOptions.upvotes,
-            operator: filterOptions.operator,
+        ...(filterState.upvotes > 0 &&
+          filterState.operator && {
+            upvotes: filterState.upvotes,
+            operator: filterState.operator,
           }),
-        ...(filterOptions.readTime > 0 &&
-          filterOptions.readTimeOperator && {
-            readTime: filterOptions.readTime,
-            readTimeOperator: filterOptions.readTimeOperator,
+        ...(filterState.readTime > 0 &&
+          filterState.readTimeOperator && {
+            readTime: filterState.readTime,
+            readTimeOperator: filterState.readTimeOperator,
           }),
-        ...(filterOptions.keywords && { keywords: filterOptions.keywords }),
-        ...(filterOptions.seriesOnly && {
-          seriesOnly: filterOptions.seriesOnly,
+        ...(filterState.keywords && { keywords: filterState.keywords }),
+        ...(filterState.seriesOnly && {
+          seriesOnly: filterState.seriesOnly,
         }),
-        ...(filterOptions.excludeSeries && {
-          excludeSeries: filterOptions.excludeSeries,
+        ...(filterState.excludeSeries && {
+          excludeSeries: filterState.excludeSeries,
         }),
       };
 
@@ -164,14 +162,9 @@ const PostFetch = inject(
     };
 
     const filter = async () => {
-      if (filterOptions.upvotes && !filterOptions.operator) {
-        return toast.error("No operator selected");
-      }
-      setLoading(true);
       await getPostsFromDatabase().then((res) => {
         PostStore.setPosts(res.posts);
         PostStore.setMaxPages(res.maxPages);
-        setLoading(false);
       });
     };
 
@@ -185,13 +178,12 @@ const PostFetch = inject(
             setCurrentAction={setCurrentAction}
             fetch={executeFetch}
           />
+
           {!loading && (
             <SubredditFilters
-              refetch={refetch}
               setRefetch={setRefetch}
-              filterOptions={filterOptions}
-              setFilterOptions={setFilterOptions}
-              getPostsFromDatabase={getPostsFromDatabase}
+              filterState={filterState}
+              setFilterState={setFilterState}
               filter={filter}
             />
           )}
