@@ -16,6 +16,10 @@ import Pagination from "@material-ui/lab/Pagination";
 import StatusUI from "../../layouts/StatusUI/StatusUI";
 import { recentlySearched } from "../../api/recentlySearched";
 import { getStoriesUsed } from "../../api/getStoriesUsed";
+import { getPostsFromReddit } from "../../api/getPostsFromReddit";
+import { structureEndpoint } from "../../helpers/structureEndpoint";
+import { formatPostsFromReddit } from "../../helpers/formatPostsFromReddit";
+import { savePostsToDatabase } from "../../api/savePostsToDatabase";
 
 const PostFetch = inject(
   "UserStore",
@@ -25,7 +29,8 @@ const PostFetch = inject(
   observer(({ UserStore, ModalStore, PostStore }) => {
     const [loading, setLoading] = useState(false);
     const [refetch, setRefetch] = useState(false);
-    const [categoryOptions, setCategoryOptions] = useState({
+
+    const [categoryState, setCategoryState] = useState({
       category: "hot",
       timeframe: "day",
     });
@@ -39,7 +44,6 @@ const PostFetch = inject(
       readTimeOperator: "",
     });
     const [usedPosts, setUsedPosts] = useState([]);
-    const [maxPages, setMaxPages] = useState();
     const [currentAction, setCurrentAction] = useState("");
 
     const token = window.localStorage.getItem("token");
@@ -57,7 +61,7 @@ const PostFetch = inject(
         if (vToken) {
           await getPostsFromDatabase().then((res) => {
             if (res) {
-              setMaxPages(res.maxPages);
+              PostStore.setMaxPages(res.maxPages);
               PostStore.setPosts(res.posts);
             }
           });
@@ -74,48 +78,10 @@ const PostFetch = inject(
       }
     };
 
-    const executeFetch = async () => {
-      if (!PostStore.subreddit) return;
-      setLoading(true);
-      recentlySearched(PostStore.subreddit);
-
-      setCurrentAction("Deleting existing posts...");
-      await getAxios({
-        url: "/posts/delete",
-        method: "delete",
-        options: {
-          withToken: false,
-          withVisitorToken: true,
-        },
-      });
-
-      await fetchPosts(PostStore.subreddit, categoryOptions);
-      setCurrentAction("");
-      PostStore.clearSelectedPosts();
-    };
-
-    const saveToDatabase = async (posts) => {
-      await getAxios({
-        url: "/posts/save",
-        method: "post",
-        data: posts,
-        options: {
-          withToken: false,
-          withVisitorToken: true,
-        },
-      }).then((res) => {
-        if (res) {
-          PostStore.setPosts([...PostStore.posts, ...res]);
-          return setLoading(false);
-        }
-      });
-      return true;
-    };
-
     const getPostsFromDatabase = async (page) => {
       const token =
         window.localStorage.getItem("token") ||
-        window.localStorage.getItem("vToken") ||
+        window.localStorage.getItem("visitorToken") ||
         null;
 
       if (!token) return;
@@ -152,8 +118,50 @@ const PostFetch = inject(
         }
       });
     };
+    const deleteExisitingPosts = async () => {
+      const token = window.localStorage.getItem("visitorToken");
+      await getAxios({
+        url: "/posts/delete",
+        method: "delete",
+        token,
+      });
+    };
 
-    const fetchPosts = async (subreddit, category) => {};
+    const executeFetch = async () => {
+      const subreddit = PostStore.subreddit;
+
+      const sr = subreddit.replace(/\s/g, "").trim().toLowerCase();
+      if (!sr || sr.length === 0) return alert("Must include a subreddit");
+
+      PostStore.setPosts([]);
+
+      setCurrentAction("deleting posts");
+
+      await deleteExisitingPosts();
+
+      const endpoint = structureEndpoint({
+        category: categoryState,
+        subreddit: sr,
+      });
+
+      setCurrentAction(`fetching posts`);
+
+      const results = await getPostsFromReddit({ endpoint });
+      console.log(results.length);
+      const formattedPosts = await formatPostsFromReddit(results);
+
+      PostStore.setPosts(formattedPosts);
+      PostStore.setMaxPages(Math.round(formattedPosts.length / 25));
+
+      setCurrentAction();
+
+      savePostsToDatabase({
+        posts: formattedPosts,
+        token:
+          window.localStorage.getItem("token") ||
+          window.localStorage.getItem("visitorToken"),
+      });
+    };
 
     const filter = async () => {
       if (filterOptions.upvotes && !filterOptions.operator) {
@@ -162,7 +170,7 @@ const PostFetch = inject(
       setLoading(true);
       await getPostsFromDatabase().then((res) => {
         PostStore.setPosts(res.posts);
-        setMaxPages(res.maxPages);
+        PostStore.setMaxPages(res.maxPages);
         setLoading(false);
       });
     };
@@ -171,10 +179,11 @@ const PostFetch = inject(
       <div className="post-fetch-wrapper">
         <div className="fetch-inputs w-100pr">
           <SubredditSearch
-            categoryOptions={categoryOptions}
-            setCategoryOptions={setCategoryOptions}
+            categoryState={categoryState}
+            setCategoryState={setCategoryState}
             currentAction={currentAction}
             setCurrentAction={setCurrentAction}
+            fetch={executeFetch}
           />
           {!loading && (
             <SubredditFilters
@@ -216,7 +225,6 @@ const PostFetch = inject(
           />
         )}
 
-        {console.log(PostStore.maxPages, "---")}
         {!currentAction && (
           <div className="d-f pagination-post-wrapper">
             <Pagination

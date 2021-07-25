@@ -12,7 +12,7 @@ class PostStore {
   }
 
   setPosts(posts) {
-    this.posts = [...posts];
+    this.posts = posts;
   }
 
   setMaxPages = (num) => {

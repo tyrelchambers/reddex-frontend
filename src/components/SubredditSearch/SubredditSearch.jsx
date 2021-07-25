@@ -5,66 +5,16 @@ import SelectField from "../SelectField/SelectField";
 import { categoryOptions, timeframeOptions } from "./options";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
-import { getPostsFromReddit } from "../../api/getPostsFromReddit";
-import { structureEndpoint } from "../../helpers/structureEndpoint";
-import { formatPostsFromReddit } from "../../helpers/formatPostsFromReddit";
-import { getAxios } from "../../api";
-import { savePostsToDatabase } from "../../api/savePostsToDatabase";
 
 const SubredditSearch = ({
-  loading,
   PostStore,
-  setCurrentAction,
+  categoryState,
+  setCategoryState,
   currentAction,
+  fetch,
 }) => {
-  const [categoryState, setCategoryState] = useState({
-    category: "hot",
-    timeframe: "day",
-  });
   const inputRef = useRef();
   const subreddit = PostStore.subreddit;
-
-  const executeFetch = async () => {
-    const sr = subreddit.replace(/\s/g, "").trim().toLowerCase();
-    if (!sr || sr.length === 0) return alert("Must include a subreddit");
-
-    PostStore.setPosts([]);
-
-    setCurrentAction("deleting posts");
-
-    await deleteExisitingPosts();
-
-    const endpoint = structureEndpoint({
-      category: categoryState,
-      subreddit: sr,
-    });
-
-    setCurrentAction(`fetching posts`);
-
-    const results = await getPostsFromReddit({ endpoint });
-    const formattedPosts = await formatPostsFromReddit(results);
-
-    PostStore.setPosts(formattedPosts);
-    PostStore.setMaxPages(Math.round(formattedPosts.length / 25));
-
-    setCurrentAction();
-
-    savePostsToDatabase({
-      posts: formattedPosts,
-      token:
-        window.localStorage.getItem("token") ||
-        window.localStorage.getItem("visitorToken"),
-    });
-  };
-
-  const deleteExisitingPosts = async () => {
-    const token = window.localStorage.getItem("vToken");
-    await getAxios({
-      url: "/posts/delete",
-      method: "delete",
-      token,
-    });
-  };
 
   return (
     <section className="w-100pr d-f post-fetch-header">
@@ -105,7 +55,7 @@ const SubredditSearch = ({
               subreddit.length === 0 ? "disabled" : ""
             }`}
             onClick={() => {
-              executeFetch();
+              fetch();
             }}
             disabled={currentAction}
             loading={currentAction}

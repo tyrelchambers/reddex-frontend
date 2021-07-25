@@ -29,9 +29,7 @@ const RecentlySearched = ({ PostStore, executeFetch }) => {
               className="searched-term"
               key={id}
               onClick={() => {
-                PostStore.setSubreddit(
-                  x.subreddit.replace(/\s/g, "").trim().toLowerCase()
-                );
+                PostStore.setSubreddit(x.subreddit);
                 executeFetch();
               }}
             >
