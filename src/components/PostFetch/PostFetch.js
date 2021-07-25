@@ -46,8 +46,8 @@ const PostFetch = inject(
     useEffect(() => {
       const vToken = window.localStorage.getItem("visitorToken");
 
-      if (token) {
-        const fn = async () => {
+      const fn = async () => {
+        if (token) {
           await getAxios({
             url: "/profile/stories_used",
           }).then((res) => {
@@ -55,19 +55,18 @@ const PostFetch = inject(
               setUsedPosts([...res]);
             }
           });
+        }
 
-          if (vToken) {
-            await getPostsFromDatabase().then((res) => {
-              if (res) {
-                setMaxPages(res.maxPages);
-                PostStore.setPosts(res.posts);
-              }
-            });
-          }
-        };
-
-        fn();
-      }
+        if (vToken) {
+          await getPostsFromDatabase().then((res) => {
+            if (res) {
+              setMaxPages(res.maxPages);
+              PostStore.setPosts(res.posts);
+            }
+          });
+        }
+      };
+      fn();
     }, [refetch]);
 
     const isPostUsed = (post) => {

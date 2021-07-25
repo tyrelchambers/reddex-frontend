@@ -217,7 +217,6 @@ const InitialLoad = () => {
             <Route exact path="/help" component={HelpPage} />
             <Route exact path="/authorize" component={Authorize} />
             <Route exact path="/explore" component={Explore} />
-            <Route exact path="/patreon" component={Patreon} />
             <PrivateRoute
               exact
               path="/dashboard/account"
