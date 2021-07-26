@@ -15,7 +15,7 @@ const Story = ({ story, children }) => {
         {story.title}
       </a>
       <div className="h-full">
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-col gap-4">
           <a
             href={`https://www.reddit.com/user/${story.author}`}
             target="_blank"

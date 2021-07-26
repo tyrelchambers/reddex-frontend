@@ -1,5 +1,4 @@
- 
-.form { 
+.form {
   width: 100%;
   max-width: 600px;
 }
@@ -29,7 +28,7 @@
   padding: 0.8em 1.2em;
   font-size: 0.8rem;
   height: 100%;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: var(--inputBg);
   color: var(--text);
   &::placeholder {
@@ -61,7 +60,6 @@
   padding: 1em;
   border-radius: 5px;
   border: 2px solid var(--bg);
-
 }
 
 .chat-input {
@@ -76,7 +74,7 @@
 
 .textarea {
   display: block;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   width: 100%;
   height: 300px;
   border-radius: 5px;
@@ -100,7 +98,7 @@
   border-radius: 3px;
   background-color: var(--inputBg);
   font-size: 0.8rem;
-  padding:1em;
+  padding: 1em;
   color: var(--text);
 
   &::placeholder {
@@ -122,8 +120,7 @@
 .ql-editor {
   background: white;
   * {
-    color: #2E2E2E;
-
+    color: #2e2e2e;
   }
 }
 .required {
@@ -131,5 +128,5 @@
 }
 
 .form.with-bg {
-  background-color: var(--bgLight) ;
+  background-color: var(--bgLight);
 }

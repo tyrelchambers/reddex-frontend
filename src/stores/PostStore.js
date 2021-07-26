@@ -1,25 +1,32 @@
-import { observable, decorate, action, toJS } from 'mobx';
+import { observable, decorate, action, toJS } from "mobx";
 
 class PostStore {
   selectedPosts = [];
   collectionCount = 0;
-  subreddit = ""
-  posts = []
+  subreddit = "";
+  posts = [];
+  maxPages = 0;
 
   setSubreddit(data) {
     this.subreddit = data;
   }
 
   setPosts(posts) {
-    this.posts = [...posts];
+    this.posts = posts;
   }
+
+  setMaxPages = (num) => {
+    this.maxPages = num;
+  };
   setSelectedPosts(post) {
     const dupe = this.selectedPosts.find((el) => {
-      return el.post_id === post.post_id ? this.selectedPosts.remove(el) : false
+      return el.post_id === post.post_id
+        ? this.selectedPosts.remove(el)
+        : false;
     });
 
-    if ( !dupe ) {
-      this.selectedPosts.push(post)
+    if (!dupe) {
+      this.selectedPosts.push(post);
     }
 
     return true;
@@ -29,7 +36,7 @@ class PostStore {
     this.collectionCount = count;
   }
 
-  getSelectedPosts() { 
+  getSelectedPosts() {
     return toJS(this.selectedPosts);
   }
 
@@ -47,6 +54,8 @@ decorate(PostStore, {
   subreddit: observable,
   setSubreddit: action,
   posts: observable,
-  setPosts: action
+  setPosts: action,
+  maxPages: observable,
+  setMaxPages: action,
 });
 export default new PostStore();

@@ -1,69 +1,12 @@
- 
 .select {
-  position: relative;
-  display: flex;
-  width: 250px;
-  height: 100%;
-  max-height: 45px;
-  background-color: var(--bgLighter);
-  margin-right: 1em;
-  padding: 5px 10px;
-  border-radius: 3px;
-  color: var(--text);
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.select-dropdown {
-  height: 0;
-  display: none;
-  position: absolute;
-  background-color: white;
   width: 100%;
-  left:0;
-  top: 3em;
-  border-radius: 3px;
-  overflow: hidden;
-  box-shadow: 0px 2px 10px rgba(black, 0.1);
-  z-index: 4;
-}
+  max-width: 300px;
 
-.select-label {
-   p {
-     color: var(--text);
-   }
-
-}
-
-.select-item {
-  padding: 0.5em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-
-  &:hover {
-    background-color: var(--bg);
+  [class*="-control"] {
+    background-color: var(--bgLighter) !important;
   }
-}
-
-.expanded-select {
-  height: auto;
-  display: flex !important;
-  flex-direction: column;
-}
-
-.expanded-title {
-  background-color: var(--bgLight);
-  
-  .select-label {
-    p {
-      color: var(--text);
-    }
-  }
-
-  i {
-    color: var(--text);
-    transform: rotateZ(180deg);
+  [class*="-singleValue"] {
+    color: var(--text) !important;
   }
 }
 

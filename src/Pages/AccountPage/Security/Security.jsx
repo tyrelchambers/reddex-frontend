@@ -130,7 +130,7 @@ const Security = ({ UserStore }) => {
       </p>
       <MainButton
         value="Delete Account"
-        className="btn-tiertiary danger mt-"
+        className="btn btn-tiertiary danger mt-"
         onClick={deleteAccountHandler}
       />
     </div>

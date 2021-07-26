@@ -1,5 +1,3 @@
- 
-
 .filters-wrapper {
   background: var(--tiertiary);
 }
@@ -15,22 +13,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .inputs {
-    flex-direction: column;
-
-    div {
-      width: 100%;
-    }
-
-    > div:first-child {
-      margin-bottom: 1em;
-    }
-
-    > div:last-child {
-      margin-left: 0;
-    }
-  }
-
   .filter-actions {
     margin-top: 1em;
   }
@@ -56,7 +38,6 @@
   .filters-wrapper {
     .inputs {
       flex-direction: column;
-
     }
   }
   .filter-actions > div {
@@ -67,5 +48,4 @@
       margin: 0.5em 0;
     }
   }
-
 }

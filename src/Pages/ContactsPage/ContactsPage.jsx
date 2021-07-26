@@ -46,21 +46,21 @@ export const ContactsPage = () => {
       <WithNav>
         <div className="bg shadow-md ">
           <H2>Search by name</H2>
-          <div className="d-f ai-c mt- contact-search">
+          <div className="d-f ai-c mt- contact-search gap-2">
+            <input
+              type="text"
+              className="search-large w-full "
+              placeholder="Search contact list..."
+              onChange={(e) => setSortVal(e.target.value)}
+            />
             <Link
               to="/dashboard/contacts/new"
-              className="ml- btn btn-tiertiary mr- h-100p p-"
+              className=" btn btn-tiertiary h-100p p-"
+              style={{ maxWidth: "200px" }}
             >
               <i className="fas fa-plus"></i>
               Add Contact
             </Link>
-
-            <input
-              type="text"
-              className="search-large w-100pr max-w-xl"
-              placeholder="Search contact list..."
-              onChange={(e) => setSortVal(e.target.value)}
-            />
           </div>
         </div>
         <section className=" mt+ flex flex-wrap gap-6 contact-list-wrapper">

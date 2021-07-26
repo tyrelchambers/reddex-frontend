@@ -10,7 +10,9 @@ const Contact = ({ contact, deleteHandler }) => {
         {contact.name}
       </p>
 
-      {contact.notes && <p className="mb-6 mt-2 ">{contact.notes}</p>}
+      {contact.notes && (
+        <p className="mb-6 mt-2 break-words">{contact.notes}</p>
+      )}
       {!contact.notes && <p className="mb-6 mt-2">No notes on contact</p>}
       <div className="flex gap-6">
         <MinimalButton>

@@ -10,14 +10,14 @@
 }
 
 .story-subreddit {
-    color: var(--text) !important;
+  color: var(--text) !important;
 
   hyphens: auto;
 }
 
 .icon-with-bg {
   background-color: rgba(71, 163, 243, 0.3);
-  color: var(--blue-20);
+  color: var(--text);
   width: 30px;
   height: 30px;
   display: flex;
@@ -36,20 +36,17 @@
   opacity: 0.7;
   transition: all 0.2s ease;
 
-
   &:hover {
     opacity: 1;
   }
 }
 
 .story-item-header-subheader {
-
   h3,
   h4 {
     color: var(--text);
   }
 }
-
 
 .story-filter {
   text-transform: capitalize;
@@ -69,13 +66,11 @@
 }
 
 .story-filters {
-
   .header-items {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
   }
-
 
   .fa-times {
     display: flex;
@@ -97,10 +92,9 @@
   }
 
   i {
-    color: var(--textLight)
+    color: var(--textLight);
   }
 }
-
 
 @media screen and (max-width: 768px) {
   .mobile-column {
@@ -129,7 +123,6 @@
 
 @media screen and (max-width: 425px) {
   .story-item {
-
     .body-toggle {
       margin-right: 10px;
     }
@@ -152,8 +145,6 @@
       width: 100% !important;
     }
   }
-
-
 }
 
 @media screen and (max-width: 479px) {
@@ -176,7 +167,7 @@
   }
 }
 
-@media screen and (min-width: 426px) and (max-width:644px) {
+@media screen and (min-width: 426px) and (max-width: 644px) {
   .story-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
