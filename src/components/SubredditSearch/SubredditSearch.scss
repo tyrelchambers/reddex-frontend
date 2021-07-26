@@ -1,4 +1,3 @@
- 
 .post-fetch-header {
   width: 100%;
 }
@@ -25,19 +24,13 @@
   border-bottom-left-radius: 0px !important;
 }
 
-
 .post-list {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 570px));
-  grid-column-gap: 5px;
-  grid-row-gap: 10px; 
+
   justify-content: space-between;
 }
 
 .MuiPagination-ul {
-  flex-direction: column;
-
   li {
     & button {
       color: var(--text);
@@ -54,10 +47,10 @@
 }
 
 .MuiPagination-root {
-  margin-right: 0.5em;
+  margin: 1em 0;
 }
 
-@media screen and (min-width:426px) {
+@media screen and (min-width: 426px) {
   .MuiPagination-root {
     position: sticky;
     top: 100px;
@@ -80,11 +73,9 @@
     padding: 1em;
     justify-content: center;
   }
-
 }
 
 @media screen and (max-width: 603px) {
-
   .post-fetch-header {
     flex-direction: column;
   }
@@ -95,10 +86,10 @@
 
   .mobile-fetch-inputs {
     flex-direction: column;
-    
+
     height: 160px;
 
-    >div {
+    > div {
       width: 100%;
       max-height: 45px;
       .form-input {

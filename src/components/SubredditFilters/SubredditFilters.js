@@ -26,12 +26,12 @@ const SubredditFilters = ({
         </MinimalButton>
       )}
       {!collapsed && (
-        <div className="d-f fxd-c filters">
+        <div className="d-f fxd-c filters gap-4">
           <div className=" d-f" style={{ height: "100%" }}>
-            <div className="d-f w-100pr ai-c inputs">
-              <div className="d-f fxd-c fx-1">
+            <div className="d-f w-100pr ai-c inputs flex-col gap-4">
+              <div className="d-f fxd-c fx-1 w-full">
                 <p className="mb-- font-bold text-sm">Sort by upvotes</p>
-                <div className="d-f fx-1 gap-4">
+                <div className="d-f fx-1 gap-4 flex-col">
                   <SelectField
                     options={filterOptions}
                     returnValue={(v) =>
@@ -53,11 +53,11 @@ const SubredditFilters = ({
                   />
                 </div>
               </div>
-              <div className="d-f fxd-c fx-1 ml-">
+              <div className="d-f fxd-c fx-1 w-full">
                 <p className="mb-- font-bold text-sm">
                   Sort by approximate read time (in minutes)
                 </p>
-                <div className="d-f fx-1 gap-4">
+                <div className="d-f fx-1 gap-4 flex-col">
                   <SelectField
                     options={readtimeOptions}
                     returnValue={(v) =>
@@ -81,7 +81,7 @@ const SubredditFilters = ({
               </div>
             </div>
           </div>
-          <div className="d-f fxd-c mt- mb- fx-1">
+          <div className="d-f fxd-c fx-1">
             <p className="mb-- font-bold text-sm">
               Sort by exact phrase (ex: dark web)
             </p>
@@ -89,24 +89,24 @@ const SubredditFilters = ({
               type="text"
               className="form-input fx-1"
               placeholder="search phrase"
-              value={filterOptions.keywords}
+              value={filterState.keywords}
               onChange={(e) =>
                 setFilterState({ ...filterState, keywords: e.target.value })
               }
             />
           </div>
-          <div className=" d-f ai-c mt-">
+          <div className=" d-f ai-c">
             <div className="d-f fxd-c filter-actions">
               <p className="mb-- font-bold text-sm">Filter actions</p>
-              <div className="d-f fxw-w">
+              <div className="d-f flex-col w-full gap-2">
                 <button
-                  className={`btn btn-tiertiary ${
-                    filterOptions.seriesOnly ? "active" : ""
+                  className={`btn btn-tiertiary w-full ${
+                    filterState.seriesOnly ? "active" : ""
                   }`}
                   onClick={() =>
                     setFilterState({
                       ...filterState,
-                      seriesOnly: !filterOptions.seriesOnly,
+                      seriesOnly: !filterState.seriesOnly,
                     })
                   }
                 >
@@ -114,12 +114,12 @@ const SubredditFilters = ({
                 </button>
                 <button
                   className={`btn btn-tiertiary ${
-                    filterOptions.excludeSeries ? "active" : ""
+                    filterState.excludeSeries ? "active" : ""
                   }`}
                   onClick={() =>
                     setFilterState({
                       ...filterState,
-                      excludeSeries: !filterOptions.excludeSeries,
+                      excludeSeries: !filterState.excludeSeries,
                     })
                   }
                 >
@@ -144,7 +144,7 @@ const SubredditFilters = ({
                   Reset Filters
                 </button>
                 <button
-                  className="btn btn-secondary ml-"
+                  className="btn btn-secondary"
                   onClick={() => {
                     filter();
                   }}
