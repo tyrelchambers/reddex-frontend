@@ -8,7 +8,9 @@ export const getAxios = async ({
   data = {},
   params = {},
   url = "",
-  token = null,
+  token = window.localStorage.getItem("token") ||
+    window.localStorage.getItem("visitorToken") ||
+    null,
 } = {}) => {
   return await Axios({
     method,
