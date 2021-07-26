@@ -38,14 +38,14 @@ const UserInbox = inject(
 
     return (
       <div className="inbox-wrapper">
-        <div className="d-f jc-sb bg shadow-md">
+        <div className="d-f gap-2 jc-sb bg h-18 shadow-md">
           <input
             type="text"
-            className="search-large w- max-w-xl w-100pr "
+            className="search-large w-100pr "
             placeholder="Search inbox by username..."
             onChange={(e) => setSortVal(e.target.value.toLowerCase())}
           />
-          <div className="h-48px get-more-button">
+          <div>
             <MainButton
               loading={loadingBtn}
               className="btn btn-primary w-100pr"

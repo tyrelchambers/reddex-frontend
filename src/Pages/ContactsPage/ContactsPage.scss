@@ -1,4 +1,3 @@
- 
 .contact-title {
   color: var(--text);
 }
@@ -10,13 +9,9 @@
   .contact-wrapper {
     margin-left: 0.5em;
   }
-
-  .contact-list-wrapper {
-    justify-content: center;
-  }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 425px) {
   .contact-search {
     flex-direction: column;
 
