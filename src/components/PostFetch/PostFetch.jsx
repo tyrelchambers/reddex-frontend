@@ -8,7 +8,6 @@ import { inject, observer } from "mobx-react";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import RecentlySearched from "../../layouts/RecenlySearched/RecentlySearched";
 import { getAxios } from "../../api/index";
-import HR from "../HR/HR";
 import SubredditPost from "../SubredditPost/SubredditPost";
 import Pagination from "@material-ui/lab/Pagination";
 import StatusUI from "../../layouts/StatusUI/StatusUI";
@@ -53,7 +52,7 @@ const PostFetch = inject(
           }
         }
 
-        if (vToken) {
+        if (vToken || token) {
           await getPostsFromDatabase().then((res) => {
             if (res) {
               PostStore.setMaxPages(res.maxPages);
@@ -74,12 +73,6 @@ const PostFetch = inject(
     };
 
     const getPostsFromDatabase = async (page) => {
-      const token =
-        window.localStorage.getItem("token") ||
-        window.localStorage.getItem("visitorToken") ||
-        null;
-
-      if (!token) return;
       const query = {
         ...(filterState.upvotes > 0 &&
           filterState.operator && {
@@ -106,7 +99,6 @@ const PostFetch = inject(
           page,
           ...query,
         },
-        token,
       }).then((res) => {
         if (res) {
           return res;
