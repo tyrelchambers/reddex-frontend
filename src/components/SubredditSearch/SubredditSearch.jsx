@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import "./PostFetchComp.scss";
+import "./SubredditSearch.scss";
 import { MainButton } from "../Buttons/Buttons";
 import SelectField from "../SelectField/SelectField";
 import { categoryOptions, timeframeOptions } from "./options";
@@ -17,11 +17,11 @@ const SubredditSearch = ({
   const subreddit = PostStore.subreddit;
 
   return (
-    <section className="w-100pr d-f post-fetch-header">
-      <div className=" w-100pr post-fetch-search mb- bg">
+    <section className="w-full flex flex-col post-fetch-header">
+      <div className=" w-full post-fetch-search mb- bg">
         <label className="form-label dark">Enter Subreddit</label>
-        <div className="d-f ai-c h-10 mobile-fetch-inputs mt-- gap-4">
-          <div className="d-f fx-1 h-100p">
+        <div className="d-f ai-c mobile-fetch-inputs flex-col flex mt-- gap-2">
+          <div className="d-f fx-1 h-12 w-full">
             <div className="preffix" style={{ height: "100%" }}>
               <p>r/</p>
             </div>
@@ -51,7 +51,7 @@ const SubredditSearch = ({
             />
           )}
           <MainButton
-            className={`btn btn-primary  ${
+            className={`btn btn-primary w-full  ${
               subreddit.length === 0 ? "disabled" : ""
             }`}
             onClick={() => {

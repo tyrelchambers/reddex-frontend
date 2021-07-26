@@ -2,7 +2,7 @@ import React from "react";
 import dateFns from "date-fns";
 import moment from "moment";
 import "./SubredditPost.scss";
-import "../SubredditSearch/PostFetchComp.scss";
+import "../SubredditSearch/SubredditSearch.scss";
 import { inject, observer } from "mobx-react";
 import { getAxios } from "../../api";
 

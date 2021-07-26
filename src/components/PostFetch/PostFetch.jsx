@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../SubredditSearch/PostFetchComp.scss";
+import "../SubredditSearch/SubredditSearch.scss";
 import Loading from "../Loading/Loading";
 import SubredditFilters from "../SubredditFilters/SubredditFilters";
 import MessageAuthors from "../MessageAuthors/MessageAuthors";
@@ -10,7 +10,6 @@ import RecentlySearched from "../../layouts/RecenlySearched/RecentlySearched";
 import { getAxios } from "../../api/index";
 import HR from "../HR/HR";
 import SubredditPost from "../SubredditPost/SubredditPost";
-import { toast } from "react-toastify";
 import Pagination from "@material-ui/lab/Pagination";
 import StatusUI from "../../layouts/StatusUI/StatusUI";
 import { getStoriesUsed } from "../../api/getStoriesUsed";
@@ -25,7 +24,6 @@ const PostFetch = inject(
   "PostStore"
 )(
   observer(({ UserStore, ModalStore, PostStore }) => {
-    const [loading, setLoading] = useState(false);
     const [refetch, setRefetch] = useState(false);
 
     const [categoryState, setCategoryState] = useState({
@@ -166,90 +164,89 @@ const PostFetch = inject(
     };
 
     return (
-      <div className="post-fetch-wrapper">
-        <div className="fetch-inputs w-100pr">
-          <SubredditSearch
-            categoryState={categoryState}
-            setCategoryState={setCategoryState}
-            currentAction={currentAction}
-            setCurrentAction={setCurrentAction}
-            fetch={executeFetch}
-          />
+      <div className="w-full">
+        <div className="flex flex-col md:flex-row w-full gap-2">
+          <div className="fetch-inputs w-full md:max-w-xs max-w-none">
+            <SubredditSearch
+              categoryState={categoryState}
+              setCategoryState={setCategoryState}
+              currentAction={currentAction}
+              setCurrentAction={setCurrentAction}
+              fetch={executeFetch}
+            />
 
-          {!loading && (
-            <SubredditFilters
-              setRefetch={setRefetch}
-              filterState={filterState}
-              setFilterState={setFilterState}
-              filter={filter}
+            {!currentAction && (
+              <SubredditFilters
+                setRefetch={setRefetch}
+                filterState={filterState}
+                setFilterState={setFilterState}
+                filter={filter}
+              />
+            )}
+          </div>
+
+          {UserStore.getUser() && (
+            <RecentlySearched executeFetch={executeFetch} />
+          )}
+
+          <StatusUI status={currentAction} />
+
+          {window.localStorage.getItem("subreddit") && (
+            <p className="subtle mb+ mt-">
+              Showing posts from{" "}
+              <strong>{window.localStorage.getItem("subreddit")}</strong>{" "}
+            </p>
+          )}
+
+          {PostStore.selectedPosts.length > 0 && UserStore.getUser() && (
+            <MessageAuthors
+              data={PostStore.selectedPosts}
+              posts={PostStore.posts}
             />
           )}
-        </div>
 
-        {UserStore.getUser() && (
-          <RecentlySearched executeFetch={executeFetch} />
-        )}
-
-        <HR />
-        <StatusUI status={currentAction} />
-
-        {window.localStorage.getItem("subreddit") && (
-          <p className="subtle mb+ mt-">
-            Showing posts from{" "}
-            <strong>{window.localStorage.getItem("subreddit")}</strong>{" "}
-          </p>
-        )}
-
-        {PostStore.selectedPosts.length > 0 && UserStore.getUser() && (
-          <MessageAuthors
-            data={PostStore.selectedPosts}
-            posts={PostStore.posts}
-          />
-        )}
-
-        {currentAction && currentAction !== "deleting posts" && (
-          <Loading
-            title="Wrangling initial reddit posts..."
-            subtitle="This will take a second, hold tight"
-          />
-        )}
-
-        {!currentAction && (
-          <div className="d-f pagination-post-wrapper">
-            <Pagination
-              count={PostStore.maxPages}
-              shape="rounded"
-              onChange={(_, page) => {
-                getPostsFromDatabase(page).then((res) => {
-                  PostStore.setPosts(res.posts);
-                });
-              }}
+          {currentAction && currentAction !== "deleting posts" && (
+            <Loading
+              title="Wrangling initial reddit posts..."
+              subtitle="This will take a second, hold tight"
             />
+          )}
 
-            <ul className="post-list">
-              {PostStore.posts
-                .slice(0, 25)
-                .sort((a, b) => {
-                  return b.created - a.created;
-                })
-                .map((x, id) => {
-                  return (
-                    <SubredditPost
-                      key={id}
-                      x={x}
-                      onClickHandler={() => selectPost(x, PostStore)}
-                      used={isPostUsed(x)}
-                    />
-                  );
-                })}
-            </ul>
-          </div>
-        )}
+          {!currentAction && (
+            <div className="d-f flex-col w-full">
+              <ul className="post-list grid xl:grid-cols-2 grid-cols-1 gap-4">
+                {PostStore.posts
+                  .slice(0, 25)
+                  .sort((a, b) => {
+                    return b.created - a.created;
+                  })
+                  .map((x, id) => {
+                    return (
+                      <SubredditPost
+                        key={id}
+                        x={x}
+                        onClickHandler={() => selectPost(x, PostStore)}
+                        used={isPostUsed(x)}
+                      />
+                    );
+                  })}
+              </ul>
+              <Pagination
+                count={PostStore.maxPages}
+                shape="rounded"
+                onChange={(_, page) => {
+                  getPostsFromDatabase(page).then((res) => {
+                    PostStore.setPosts(res.posts);
+                  });
+                }}
+              />
+            </div>
+          )}
 
-        {!PostStore.posts.length && !currentAction && (
-          <p className="subtle ta-c ml-a mr-a">No posts found...</p>
-        )}
-
+          {!PostStore.posts.length && !currentAction && (
+            <p className="subtle ta-c ml-a mr-a">No posts found...</p>
+          )}
+        </div>
         {ModalStore.isOpen && <ConfirmModal />}
       </div>
     );
