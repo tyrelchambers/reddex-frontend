@@ -10,7 +10,7 @@ const MessageAuthors = inject(
 )(
   observer(({ data, ModalStore, PostStore }) => {
     return (
-      <div className="message-author-box mb+ animated fadeIn faster">
+      <div className="message-author-box mb+ animated fadeIn faster max-w-screen-md">
         <div className="message-author-box-header d-f jc-sb ai-c">
           <h3 className="font-bold">
             You've selected {data.length} author(s) to message.
