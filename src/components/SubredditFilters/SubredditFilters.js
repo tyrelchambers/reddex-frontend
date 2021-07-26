@@ -26,7 +26,7 @@ const SubredditFilters = ({
         </MinimalButton>
       )}
       {!collapsed && (
-        <div className="d-f fxd-c filters gap-4">
+        <div className="d-f fxd-c filters gap-4 shadow-md">
           <div className=" d-f" style={{ height: "100%" }}>
             <div className="d-f w-100pr ai-c inputs flex-col gap-4">
               <div className="d-f fxd-c fx-1 w-full">

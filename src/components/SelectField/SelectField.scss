@@ -1,6 +1,13 @@
 .select {
   width: 100%;
   max-width: 300px;
+
+  [class*="-control"] {
+    background-color: var(--bgLighter) !important;
+  }
+  [class*="-singleValue"] {
+    color: var(--text) !important;
+  }
 }
 
 @media screen and (max-width: 425px) {

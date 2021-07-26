@@ -1,4 +1,3 @@
- 
 .subreddit-title {
   width: 100%;
   font-size: 1.2rem;
@@ -50,8 +49,6 @@
   width: 100%;
   height: auto;
   background-color: var(--bgLight);
-  border-radius: 5px;
-  box-shadow: 0px 2px 3px rgba(black, 0.3);
   overflow: hidden;
   padding: 0.5em;
   border: 2px solid transparent;
@@ -77,11 +74,11 @@
 }
 
 .active-post-select {
-  box-shadow: 0px 2px 20px rgba(#DE3A11, 0.5);
-  border: 2px solid #DE3A11;
+  box-shadow: 0px 2px 20px rgba(#de3a11, 0.5);
+  border: 2px solid #de3a11;
 
   .upvotes {
-    background:var(--redBg) !important;
+    background: var(--redBg) !important;
   }
 
   .btn-select {
@@ -102,17 +99,14 @@
 }
 
 .sub-detail.comments {
-
   color: var(--accent-warning);
   i {
     color: var(--accent-warning);
-
   }
 }
 
 .sub-detail.publish-tag {
   color: var(--accentBg);
-
 
   i {
     color: var(--accentBg);
@@ -128,7 +122,7 @@
 }
 
 .post-flair {
-  padding: 0.3em 0.7em ;
+  padding: 0.3em 0.7em;
   border-radius: 3px;
   height: 100%;
   background-color: var(--bg);
@@ -137,12 +131,18 @@
     font-size: 0.9rem;
     font-weight: bold;
     color: var(--textLight);
-
   }
 }
 
 .subreddit-viewed {
-  background-image: linear-gradient(to right top, #f2a96c, #fbb65b, #fdc547, #f8d731, #ebea12);
+  background-image: linear-gradient(
+    to right top,
+    #f2a96c,
+    #fbb65b,
+    #fdc547,
+    #f8d731,
+    #ebea12
+  );
   i {
     color: white;
   }
@@ -156,7 +156,6 @@
   height: 40px;
   border-radius: 50%;
 }
-
 
 .has-been-used {
   .upvotes {
@@ -197,10 +196,17 @@
 }
 
 .post-viewed {
-  background: #ff7e5f !important;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f) !important;  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #feb47b, #ff7e5f) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  background: #ff7e5f !important; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #feb47b,
+    #ff7e5f
+  ) !important; /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #feb47b,
+    #ff7e5f
+  ) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 @media screen and (max-width: 603px) {
   .upvotes {
@@ -243,7 +249,7 @@
       }
     }
 
-    >div:last-child {
+    > div:last-child {
       width: 100%;
 
       justify-content: flex-end;

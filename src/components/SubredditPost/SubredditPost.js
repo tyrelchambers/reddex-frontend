@@ -40,7 +40,7 @@ const SubredditPost = inject(
 
     return (
       <li
-        className={`d-f fxd-c subreddit-post-parent post animated fadeIn ${
+        className={`d-f fxd-c subreddit-post-parent post animated fadeIn rounded-lg shadow-md ${
           selectedClass ? "active-post-select" : ""
         } ${used ? "has-been-used" : ""} `}
         data-postid={x.post_id}
@@ -63,14 +63,14 @@ const SubredditPost = inject(
               <p style={{ marginLeft: "-1px" }}>%</p>
             </div>
           </section>
-          <section className="d-f ai-c w-100pr h-100p">
+          <section className="d-f ai-c w-100pr h-100p flex-wrap">
             <a
               href={`https://www.reddit.com/user/${x.author}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="fx-1 ai-c td-n td-u-hv"
+              className="fx-1 ai-c td-n td-u-hv truncate"
             >
-              <p className="author m-- ml- post-link">
+              <p className="author m-- ml- post-link truncate">
                 <i className="fas fa-user mr-"></i>
                 {x.author}
               </p>

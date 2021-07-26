@@ -2,7 +2,7 @@ import React from "react";
 import "./StatusUI.scss";
 
 const StatusUI = ({ status }) => {
-  if (!status) return null;
+  if (!status || status === "fetching" || status === "loaded") return null;
 
   return (
     <div className="status-wrapper shadow-lg">

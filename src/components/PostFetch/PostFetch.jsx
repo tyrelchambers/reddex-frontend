@@ -25,7 +25,6 @@ const PostFetch = inject(
 )(
   observer(({ UserStore, ModalStore, PostStore }) => {
     const [refetch, setRefetch] = useState(false);
-
     const [categoryState, setCategoryState] = useState({
       category: "hot",
       timeframe: "day",
@@ -128,12 +127,14 @@ const PostFetch = inject(
 
       const sr = subreddit.replace(/\s/g, "").trim().toLowerCase();
       if (!sr || sr.length === 0) return alert("Must include a subreddit");
+      window.localStorage.setItem("subreddit", sr);
 
       PostStore.setPosts([]);
 
       setCurrentAction("deleting posts");
 
       await deleteExisitingPosts();
+      setCurrentAction("fetching");
 
       const endpoint = structureEndpoint({
         category: categoryState,
@@ -145,8 +146,7 @@ const PostFetch = inject(
 
       PostStore.setPosts(formattedPosts);
       PostStore.setMaxPages(Math.round(formattedPosts.length / 25));
-
-      setCurrentAction();
+      setCurrentAction("loaded");
 
       savePostsToDatabase({
         posts: formattedPosts,
@@ -175,7 +175,7 @@ const PostFetch = inject(
               fetch={executeFetch}
             />
 
-            {!currentAction && (
+            {PostStore.posts.length > 0 && (
               <SubredditFilters
                 setRefetch={setRefetch}
                 filterState={filterState}
@@ -183,38 +183,37 @@ const PostFetch = inject(
                 filter={filter}
               />
             )}
+            {UserStore.getUser() && (
+              <RecentlySearched executeFetch={executeFetch} />
+            )}
           </div>
-
-          {UserStore.getUser() && (
-            <RecentlySearched executeFetch={executeFetch} />
-          )}
 
           <StatusUI status={currentAction} />
 
-          {window.localStorage.getItem("subreddit") && (
-            <p className="subtle mb+ mt-">
-              Showing posts from{" "}
-              <strong>{window.localStorage.getItem("subreddit")}</strong>{" "}
-            </p>
+          {currentAction === "fetching" && (
+            <div className="w-full flex justify-center">
+              <Loading
+                title="Wrangling initial reddit posts..."
+                subtitle="This will take a second, hold tight"
+              />
+            </div>
           )}
 
-          {PostStore.selectedPosts.length > 0 && UserStore.getUser() && (
-            <MessageAuthors
-              data={PostStore.selectedPosts}
-              posts={PostStore.posts}
-            />
-          )}
-
-          {currentAction && currentAction !== "deleting posts" && (
-            <Loading
-              title="Wrangling initial reddit posts..."
-              subtitle="This will take a second, hold tight"
-            />
-          )}
-
-          {!currentAction && (
+          {PostStore.posts.length > 0 && (
             <div className="d-f flex-col w-full">
-              <ul className="post-list grid xl:grid-cols-2 grid-cols-1 gap-4">
+              {PostStore.selectedPosts.length > 0 && UserStore.getUser() && (
+                <MessageAuthors
+                  data={PostStore.selectedPosts}
+                  posts={PostStore.posts}
+                />
+              )}
+              {window.localStorage.getItem("subreddit") && (
+                <p className="subtle mb-2">
+                  Showing posts from{" "}
+                  <strong>{window.localStorage.getItem("subreddit")}</strong>{" "}
+                </p>
+              )}
+              <ul className="post-list grid xl:grid-cols-2 grid-cols-1 gap-2">
                 {PostStore.posts
                   .slice(0, 25)
                   .sort((a, b) => {
@@ -243,7 +242,7 @@ const PostFetch = inject(
             </div>
           )}
 
-          {!PostStore.posts.length && !currentAction && (
+          {!PostStore.posts.length && currentAction === "loaded" && (
             <p className="subtle ta-c ml-a mr-a">No posts found...</p>
           )}
         </div>

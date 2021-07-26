@@ -18,7 +18,7 @@ const SubredditSearch = ({
 
   return (
     <section className="w-full flex flex-col post-fetch-header">
-      <div className=" w-full post-fetch-search mb- bg">
+      <div className=" w-full post-fetch-search mb- bg shadow-md">
         <label className="form-label dark">Enter Subreddit</label>
         <div className="d-f ai-c mobile-fetch-inputs flex-col flex mt-- gap-2">
           <div className="d-f fx-1 h-12 w-full">
@@ -57,8 +57,8 @@ const SubredditSearch = ({
             onClick={() => {
               fetch();
             }}
-            disabled={currentAction}
-            loading={currentAction}
+            disabled={currentAction === "fetching"}
+            loading={currentAction === "fetching"}
             value="Get Posts"
           >
             <i className="fas fa-sync"></i>
