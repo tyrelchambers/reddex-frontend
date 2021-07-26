@@ -79,8 +79,10 @@
     flex-direction: column;
   }
 
-  .btn.btn-primary {
-    margin-top: 1em;
+  .post-fetch-header {
+    .btn.btn-primary {
+      margin-top: 1em;
+    }
   }
 
   .mobile-fetch-inputs {

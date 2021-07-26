@@ -37,8 +37,8 @@ const UserInbox = inject(
     if (loading) return <Loading title="Fetching inbox from Reddit" />;
 
     return (
-      <div className="inbox-wrapper">
-        <div className="d-f gap-2 jc-sb bg h-18 shadow-md">
+      <div className="inbox-wrapper max-w-screen-md">
+        <div className="d-f gap-2 jc-sb items-center bg h-18 shadow-md">
           <input
             type="text"
             className="search-large w-100pr "
@@ -60,12 +60,6 @@ const UserInbox = inject(
         </div>
         <HR />
         <div className="bg mt-4 shadow-md">
-          <div className="grid grid-cols-3  gap-3">
-            <p className="font-bold text-lg">From</p>
-            <p className="font-bold text-lg">Subject</p>
-            <p className="font-bold text-lg ta-r">Sent/Received</p>
-          </div>
-
           <UserInboxDumb
             data={messages}
             onClick={(v) => {

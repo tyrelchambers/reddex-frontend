@@ -1,71 +1,66 @@
-import React, { useState, useEffect } from 'react'
-import Dashboard from '../Dashboard';
-import UserInbox from '../../../components/UserInbox/UserInbox';
-import { inject, observer } from 'mobx-react';
-import { fetchTokens } from '../../../helpers/renewRefreshToken';
-import Axios from 'axios';
-import './Inbox.scss'
-import { checkValidTokens } from '../../../helpers/checkValidTokens';
-import WithNav from '../../../layouts/WithNav/WithNav'
-import {H1, H1Subtitle} from '../../../components/Headings/Headings'
+import React, { useState, useEffect } from "react";
+import Dashboard from "../Dashboard";
+import UserInbox from "../../../components/UserInbox/UserInbox";
+import { inject, observer } from "mobx-react";
+import { fetchTokens } from "../../../helpers/renewRefreshToken";
+import Axios from "axios";
+import "./Inbox.scss";
+import { checkValidTokens } from "../../../helpers/checkValidTokens";
+import WithNav from "../../../layouts/WithNav/WithNav";
+import { H1, H1Subtitle } from "../../../components/Headings/Headings";
 
-const Inbox = inject("InboxStore")(observer(({InboxStore}) => {
-  const [ loading, setLoading ] = useState(true);
+const Inbox = inject("InboxStore")(
+  observer(({ InboxStore }) => {
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if ( InboxStore.messages.length === 0 ) {
-      getInbox(InboxStore, setLoading);
-    } else {
-      setLoading(false)
-    }
-  }, []);
-  
-  return (
-    <Dashboard>
-      <H1>Inbox</H1>
-      <H1Subtitle>Your Reddit-connected inbox.</H1Subtitle>
-      <WithNav>
-        {InboxStore.openChatWindow &&
-          <Breadcrumbs
-            store={InboxStore}
-          />
-        }
-        <UserInbox
-          loading={loading}
-          InboxStore={InboxStore}
-        />  
-      </WithNav>
-    </Dashboard>
-  )
-}));
+    useEffect(() => {
+      if (InboxStore.messages.length === 0) {
+        getInbox(InboxStore, setLoading);
+      } else {
+        setLoading(false);
+      }
+    }, []);
 
-const Breadcrumbs = ({store}) => {
+    return (
+      <Dashboard>
+        <H1>Inbox</H1>
+        <H1Subtitle>Your Reddit-connected inbox.</H1Subtitle>
+        <WithNav>
+          {InboxStore.openChatWindow && <Breadcrumbs store={InboxStore} />}
+          <UserInbox loading={loading} InboxStore={InboxStore} />
+        </WithNav>
+      </Dashboard>
+    );
+  })
+);
+
+const Breadcrumbs = ({ store }) => {
   return (
     <div className="breadcrumb ">
-      <a href="#" className="d-f ai-c" onClick={() => store.setOpenChatWindow(false)}>
+      <p className="d-f ai-c" onClick={() => store.setOpenChatWindow(false)}>
         <i className="fas fa-chevron-left mr-"></i>
         Close
-      </a>
+      </p>
     </div>
-  )
-}
+  );
+};
 
 const getInbox = async (InboxStore, setLoading) => {
-  await checkValidTokens()
+  await checkValidTokens();
   const token = await fetchTokens();
   Axios.get(`https://oauth.reddit.com/message/messages`, {
     headers: {
-      "Authorization": `bearer ${token.access_token}`
-    }
+      Authorization: `bearer ${token.access_token}`,
+    },
   })
-  .then(res => {
-    InboxStore.setMessages({
-      data: res.data.data.children,
-      after: res.data.data.after
-    });
-    setLoading(false);
-  })
-  .catch(console.log);
-}
+    .then((res) => {
+      InboxStore.setMessages({
+        data: res.data.data.children,
+        after: res.data.data.after,
+      });
+      setLoading(false);
+    })
+    .catch(console.log);
+};
 
-export default Inbox
+export default Inbox;

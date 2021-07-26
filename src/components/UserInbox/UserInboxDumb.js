@@ -56,13 +56,12 @@ const UserInboxDumb = ({ data, onClick, UserStore, InboxStore }) => {
               onClick(x.data);
             }}
           >
-            <div className="grid grid-cols-3 gap-3">
+            <div className="flex justify-between">
               <p className="font-bold">
                 {x.data.author === currentUser.replace(/\s/g, "")
                   ? x.data.dest
                   : x.data.author}
               </p>
-              <p className="ellipses">{x.data.subject}</p>
               <p className="ta-r">{getLastReply(x)}</p>
             </div>
             <div className="inbox-item-body">
