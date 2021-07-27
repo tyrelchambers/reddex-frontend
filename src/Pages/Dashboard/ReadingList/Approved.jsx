@@ -71,7 +71,12 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
         {readingList.map((y, id) => {
           if (x === y.subreddit) {
             return (
-              <Story key={`${y.post_id}_${id}`} story={y} story_id={id}>
+              <Story
+                key={`${y.post_id}_${id}`}
+                authorLink={`https://reddit.com/u/${y.author}`}
+                story={y}
+                story_id={id}
+              >
                 <div className="flex items-center gap-6">
                   <MinimalButton
                     className=""
