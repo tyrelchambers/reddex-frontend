@@ -50,6 +50,7 @@ import Misc from "./Webbuilder/Dashboard/Misc/Misc";
 import Theme from "./Webbuilder/Dashboard/Theme/Theme";
 import Forms from "./Webbuilder/Dashboard/Forms/Forms";
 import Timelines from "./Webbuilder/Dashboard/Timelines/Timelines";
+import SubmittedStory from "./Pages/SubmittedStory/SubmittedStory";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem("token");
@@ -281,6 +282,11 @@ const InitialLoad = () => {
               path="/dashboard/tags"
               component={TagsManager}
             />
+            <PrivateRoute
+              path="/dashboard/story/:id"
+              component={SubmittedStory}
+            />
+
             <Route component={Page404} />
           </Switch>
         </Router>
