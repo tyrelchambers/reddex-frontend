@@ -47,6 +47,7 @@ const LoginPage = inject("UserStore")(
         if (res) {
           UserStore.setToken(res.token);
           UserStore.setCurrentUser(res.user);
+          window.localStorage.removeItem("visitorToken");
           if (res.user.reddit_profile) {
             UserStore.setRedditProfile(res.user.reddit_profile);
           }

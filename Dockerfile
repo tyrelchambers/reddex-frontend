@@ -42,3 +42,4 @@ EXPOSE 8080
 
 # Set the startup command
 CMD ["./node_modules/.bin/http-server", "-P https://reddex.app?"]
+

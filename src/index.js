@@ -99,9 +99,6 @@ const InitialSubLoad = () => {
         params: {
           subdomain,
         },
-        options: {
-          withToken: false,
-        },
       }).then((res) => {
         if (res) {
           stores.SiteStore.setConfig(res.website);
@@ -168,7 +165,7 @@ const InitialLoad = () => {
         }
       }
 
-      if (!vToken) {
+      if (!vToken && !token) {
         await getAxios({
           url: "/tokens/visitorToken",
         }).then(async (res) => {
