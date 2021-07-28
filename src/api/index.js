@@ -35,7 +35,7 @@ export const getAxios = async ({
         }
         if (err.response.data === "Visitor token invalid") {
           window.localStorage.removeItem("visitorToken");
-          // window.location.reload();
+          window.location.reload();
         }
       }
       return false;
