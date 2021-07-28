@@ -11,7 +11,7 @@ import { getAxios } from "../../api/index";
 import SubredditPost from "../SubredditPost/SubredditPost";
 import Pagination from "@material-ui/lab/Pagination";
 import StatusUI from "../../layouts/StatusUI/StatusUI";
-import { getStoriesUsed } from "../../api/getStoriesUsed";
+import { checkForUsedStories } from "../../api/checkForUsedStories";
 import { getPostsFromReddit } from "../../api/getPostsFromReddit";
 import { structureEndpoint } from "../../helpers/structureEndpoint";
 import { formatPostsFromReddit } from "../../helpers/formatPostsFromReddit";
@@ -41,25 +41,22 @@ const PostFetch = inject(
     const [currentAction, setCurrentAction] = useState("");
 
     const token = window.localStorage.getItem("token");
-    const vToken = window.localStorage.getItem("visitorToken");
 
     useEffect(() => {
       const fn = async () => {
         if (token) {
-          const stories = await getStoriesUsed(token);
-          if (stories) {
-            setUsedPosts([...stories]);
-          }
+          await checkForUsedStories(token).then((res) =>
+            setUsedPosts([...res.stories])
+          );
         }
 
-        if (vToken || token) {
-          await getPostsFromDatabase().then((res) => {
-            if (res) {
-              PostStore.setMaxPages(res.maxPages);
-              PostStore.setPosts(res.posts);
-            }
-          });
-        }
+        // check api response
+        await getPostsFromDatabase().then((res) => {
+          if (res) {
+            PostStore.setMaxPages(res.maxPages);
+            PostStore.setPosts(res.posts);
+          }
+        });
       };
       fn();
     }, [refetch]);
@@ -72,6 +69,7 @@ const PostFetch = inject(
       }
     };
 
+    // move to own function file. params: page, query
     const getPostsFromDatabase = async (page) => {
       const query = {
         ...(filterState.upvotes > 0 &&
@@ -114,6 +112,7 @@ const PostFetch = inject(
       });
     };
 
+    // move into custom hook
     const executeFetch = async () => {
       const subreddit = PostStore.subreddit;
 
@@ -193,18 +192,23 @@ const PostFetch = inject(
 
           {PostStore.posts.length > 0 && (
             <div className="d-f flex-col w-full">
+              {/* move check into <messageauthors /> */}
               {PostStore.selectedPosts.length > 0 && UserStore.getUser() && (
                 <MessageAuthors
                   data={PostStore.selectedPosts}
                   posts={PostStore.posts}
                 />
               )}
+
+              {/* move into mongoDb with posts */}
               {window.localStorage.getItem("subreddit") && (
                 <p className="subtle mb-2">
                   Showing posts from{" "}
                   <strong>{window.localStorage.getItem("subreddit")}</strong>{" "}
                 </p>
               )}
+
+              {/* move into <SubredditPosts /> */}
               <ul className="post-list grid xl:grid-cols-2 grid-cols-1 gap-2">
                 {PostStore.posts
                   .slice(0, 25)
@@ -234,7 +238,7 @@ const PostFetch = inject(
             </div>
           )}
 
-          {!PostStore.posts.length && currentAction === "loaded" && (
+          {!PostStore.posts.length && !currentAction && (
             <p className="subtle ta-c ml-a mr-a">No posts found...</p>
           )}
         </div>
