@@ -21,7 +21,6 @@ const SubredditPosts = ({ posts }) => {
   return (
     <ul className="post-list grid xl:grid-cols-2 grid-cols-1 gap-2">
       {posts
-        .slice(0, 25)
         .sort((a, b) => {
           return b.created - a.created;
         })
