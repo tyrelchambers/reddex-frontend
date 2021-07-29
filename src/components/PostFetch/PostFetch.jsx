@@ -16,6 +16,7 @@ import { savePostsToDatabase } from "../../api/savePostsToDatabase";
 import { usePostsFromDatabase } from "../../hooks/usePostsFromDatabase";
 import SubredditPosts from "../SubredditPosts/SubredditPosts";
 import { deleteExisitingPosts } from "../../api/deleteExistingPosts";
+import { useUiState } from "../../hooks/useUiState";
 
 const PostFetch = inject(
   "UserStore",
@@ -28,8 +29,6 @@ const PostFetch = inject(
       category: "hot",
       timeframe: "day",
     });
-
-    const [currentAction, setCurrentAction] = useState("");
     const {
       filters,
       addFilters,
@@ -39,6 +38,8 @@ const PostFetch = inject(
       clearPosts,
       setPosts,
     } = usePostsFromDatabase();
+
+    const { uiState, updateUiState, resetState } = useUiState();
 
     useEffect(() => {
       const fn = async () => {
@@ -57,15 +58,15 @@ const PostFetch = inject(
 
       clearPosts();
 
-      setCurrentAction("deleting posts");
-
+      updateUiState({ state: "deleting", message: "Deleting old posts..." });
       await deleteExisitingPosts();
-      setCurrentAction("fetching");
 
       const endpoint = structureEndpoint({
         category: categoryState,
         subreddit: sr,
       });
+
+      updateUiState({ state: "fetching", message: "Fetching from Reddit" });
 
       const results = await getPostsFromReddit({ endpoint });
       const formattedPosts = await formatPostsFromReddit(results);
@@ -75,12 +76,12 @@ const PostFetch = inject(
         posts: formattedPosts,
       });
 
-      setCurrentAction("loaded");
-
       savePostsToDatabase({
         posts: formattedPosts,
         subreddit: sr,
       });
+
+      resetState();
     };
 
     return (
@@ -90,8 +91,7 @@ const PostFetch = inject(
             <SubredditSearch
               categoryState={categoryState}
               setCategoryState={setCategoryState}
-              currentAction={currentAction}
-              setCurrentAction={setCurrentAction}
+              uiState={uiState}
               fetch={executeFetch}
             />
             {post.posts.length > 0 && (
@@ -108,42 +108,44 @@ const PostFetch = inject(
             )}
           </div>
 
-          <StatusUI status={currentAction} />
+          <main className="flex flex-col w-full">
+            <StatusUI status={uiState} />
 
-          {currentAction === "fetching" && (
-            <div className="w-full flex justify-center">
-              <Loading
-                title="Wrangling initial reddit posts..."
-                subtitle="This will take a second, hold tight"
-              />
-            </div>
-          )}
+            {uiState.state === "fetching" && (
+              <div className="w-full flex justify-center">
+                <Loading
+                  title="Wrangling initial reddit posts..."
+                  subtitle="This will take a second, hold tight"
+                />
+              </div>
+            )}
 
-          {post.posts.length > 0 && (
-            <div className="d-f flex-col w-full">
-              <MessageAuthors
-                data={PostStore.selectedPosts}
-                posts={PostStore.posts}
-              />
+            {post.posts.length > 0 && (
+              <div className="d-f flex-col w-full">
+                <MessageAuthors
+                  data={PostStore.selectedPosts}
+                  posts={PostStore.posts}
+                />
 
-              <p className="subtle mb-2">
-                Showing posts from <strong>{post.subreddit}</strong>
-              </p>
+                <p className="subtle mb-2">
+                  Showing posts from <strong>{post.subreddit}</strong>
+                </p>
 
-              <SubredditPosts posts={post.posts} />
-              <Pagination
-                count={post.maxPages}
-                shape="rounded"
-                onChange={(_, page) => {
-                  getPosts({ page, query: filters });
-                }}
-              />
-            </div>
-          )}
+                <SubredditPosts posts={post.posts} />
+                <Pagination
+                  count={post.maxPages}
+                  shape="rounded"
+                  onChange={(_, page) => {
+                    getPosts({ page, query: filters });
+                  }}
+                />
+              </div>
+            )}
 
-          {!post.posts.length && !currentAction && (
-            <p className="subtle ta-c ml-a mr-a">No posts found...</p>
-          )}
+            {!post.posts.length && uiState === "pending" && (
+              <p className="subtle ta-c ml-a mr-a">No posts found...</p>
+            )}
+          </main>
         </div>
         {ModalStore.isOpen && <ConfirmModal />}
       </div>
