@@ -18,7 +18,7 @@ const RecentlySearched = ({ PostStore, executeFetch }) => {
     });
   }, []);
   return (
-    <div className="recently-searched">
+    <div className="recently-searched mt-2 shadow-md">
       <p className="text-sm font-bold">Frequently Searched</p>
 
       <div className="d-f ai-c term-list">
