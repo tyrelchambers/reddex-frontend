@@ -35,7 +35,7 @@ const SubredditPost = inject(
 
     return (
       <li
-        className={`d-f fxd-c subreddit-post-parent post animated fadeIn rounded-lg shadow-md ${
+        className={`d-f fxd-c subreddit-post-parent post rounded-lg shadow-md ${
           selectedClass ? "active-post-select" : ""
         } ${isUsed ? "has-been-used" : ""} `}
         data-postid={x.post_id}
