@@ -13,6 +13,7 @@ export const usePostsFromDatabase = () => {
   });
   const [post, setPost] = useState({
     subreddit: "",
+    maxPages: 0,
     posts: [],
   });
 
@@ -22,8 +23,11 @@ export const usePostsFromDatabase = () => {
 
   const getPosts = async ({ page, query = {} } = {}) => {
     await getPostsFromDatabase({ page, query }).then((res) => {
-      console.log(res, "##");
-      setPost({ subreddit: res.post.subreddit, posts: res.post.posts });
+      setPost({
+        subreddit: res.post.subreddit,
+        posts: res.post.posts,
+        maxPages: res.maxPages,
+      });
     });
   };
 
@@ -39,5 +43,27 @@ export const usePostsFromDatabase = () => {
     });
   };
 
-  return { filters, addFilters, getPosts, post, resetFilters };
+  const clearPosts = () => {
+    setPost({
+      subreddit: "",
+      posts: [],
+    });
+  };
+
+  const setPosts = ({ subreddit, posts }) => {
+    setPost({
+      subreddit,
+      posts: posts.slice(0, 25),
+    });
+  };
+
+  return {
+    filters,
+    addFilters,
+    getPosts,
+    post,
+    resetFilters,
+    clearPosts,
+    setPosts,
+  };
 };

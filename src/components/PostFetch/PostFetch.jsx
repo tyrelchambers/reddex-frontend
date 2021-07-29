@@ -18,6 +18,7 @@ import { formatPostsFromReddit } from "../../helpers/formatPostsFromReddit";
 import { savePostsToDatabase } from "../../api/savePostsToDatabase";
 import { usePostsFromDatabase } from "../../hooks/usePostsFromDatabase";
 import SubredditPosts from "../SubredditPosts/SubredditPosts";
+import { deleteExisitingPosts } from "../../api/deleteExistingPosts";
 
 const PostFetch = inject(
   "UserStore",
@@ -32,8 +33,15 @@ const PostFetch = inject(
     });
 
     const [currentAction, setCurrentAction] = useState("");
-    const { filters, addFilters, getPosts, post, resetFilters } =
-      usePostsFromDatabase();
+    const {
+      filters,
+      addFilters,
+      getPosts,
+      post,
+      resetFilters,
+      clearPosts,
+      setPosts,
+    } = usePostsFromDatabase();
 
     useEffect(() => {
       const fn = async () => {
@@ -41,13 +49,6 @@ const PostFetch = inject(
       };
       fn();
     }, [refetch]);
-
-    const deleteExisitingPosts = async () => {
-      await getAxios({
-        url: "/posts/delete",
-        method: "delete",
-      });
-    };
 
     // move into custom hook
     const executeFetch = async () => {
@@ -57,7 +58,7 @@ const PostFetch = inject(
       if (!sr || sr.length === 0) return alert("Must include a subreddit");
       window.localStorage.setItem("subreddit", sr);
 
-      PostStore.setPosts([]);
+      clearPosts();
 
       setCurrentAction("deleting posts");
 
@@ -72,8 +73,11 @@ const PostFetch = inject(
       const results = await getPostsFromReddit({ endpoint });
       const formattedPosts = await formatPostsFromReddit(results);
 
-      PostStore.setPosts(formattedPosts);
-      PostStore.setMaxPages(Math.round(formattedPosts.length / 25));
+      setPosts({
+        subreddit: sr,
+        posts: formattedPosts,
+      });
+
       setCurrentAction("loaded");
 
       savePostsToDatabase({
@@ -131,10 +135,10 @@ const PostFetch = inject(
 
               <SubredditPosts posts={post.posts} />
               <Pagination
-                count={PostStore.maxPages}
+                count={post.maxPages}
                 shape="rounded"
                 onChange={(_, page) => {
-                  getPosts({ page });
+                  getPosts({ page, query: filters });
                 }}
               />
             </div>
