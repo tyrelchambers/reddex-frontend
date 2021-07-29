@@ -4,7 +4,6 @@ import moment from "moment";
 import "./SubredditPost.scss";
 import "../SubredditSearch/SubredditSearch.scss";
 import { inject, observer } from "mobx-react";
-import { getAxios } from "../../api";
 import { setPostIsViewed } from "../../api/setPostIsViewed";
 
 const SubredditPost = inject(

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { checkForUsedStories } from "../../api/checkForUsedStories";
 import SubredditPost from "../SubredditPost/SubredditPost";
 
-const SubredditPosts = ({ posts, PostStore }) => {
+const SubredditPosts = ({ posts }) => {
   const [usedPosts, setUsedPosts] = useState([]);
   const token = window.localStorage.getItem("token");
 
