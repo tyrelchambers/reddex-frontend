@@ -1,14 +1,12 @@
 import { getAxios } from ".";
 
-export const getPostsFromDatabase = (query) => {
-  return getAxios({
-    url: "/profile/reading_list?permission=true",
+export const getPostsFromDatabase = async ({ page, query }) => {
+  console.log(query);
+  return await getAxios({
+    url: "/posts/",
     params: {
+      page,
       ...query,
     },
-  }).then((res) => {
-    if (res) {
-      return res.stories;
-    }
-  });
+  }).then((res) => res);
 };

@@ -16,6 +16,8 @@ import { getPostsFromReddit } from "../../api/getPostsFromReddit";
 import { structureEndpoint } from "../../helpers/structureEndpoint";
 import { formatPostsFromReddit } from "../../helpers/formatPostsFromReddit";
 import { savePostsToDatabase } from "../../api/savePostsToDatabase";
+import { usePostsFromDatabase } from "../../hooks/usePostsFromDatabase";
+import SubredditPosts from "../SubredditPosts/SubredditPosts";
 
 const PostFetch = inject(
   "UserStore",
@@ -28,87 +30,22 @@ const PostFetch = inject(
       category: "hot",
       timeframe: "day",
     });
-    const [filterState, setFilterState] = useState({
-      seriesOnly: false,
-      upvotes: "",
-      operator: ">",
-      omitSeries: false,
-      keywords: "",
-      readTime: "",
-      readTimeOperator: "",
-    });
-    const [usedPosts, setUsedPosts] = useState([]);
-    const [currentAction, setCurrentAction] = useState("");
 
-    const token = window.localStorage.getItem("token");
+    const [currentAction, setCurrentAction] = useState("");
+    const { filters, addFilters, getPosts, post, resetFilters } =
+      usePostsFromDatabase();
 
     useEffect(() => {
       const fn = async () => {
-        if (token) {
-          await checkForUsedStories(token).then((res) =>
-            setUsedPosts([...res.stories])
-          );
-        }
-
-        // check api response
-        await getPostsFromDatabase().then((res) => {
-          if (res) {
-            PostStore.setMaxPages(res.maxPages);
-            PostStore.setPosts(res.posts);
-          }
-        });
+        await getPosts();
       };
       fn();
     }, [refetch]);
 
-    const isPostUsed = (post) => {
-      for (let i = 0; i < usedPosts.length; i++) {
-        if (usedPosts[i].post_id === post.post_id) {
-          return true;
-        }
-      }
-    };
-
-    // move to own function file. params: page, query
-    const getPostsFromDatabase = async (page) => {
-      const query = {
-        ...(filterState.upvotes > 0 &&
-          filterState.operator && {
-            upvotes: filterState.upvotes,
-            operator: filterState.operator,
-          }),
-        ...(filterState.readTime > 0 &&
-          filterState.readTimeOperator && {
-            readTime: filterState.readTime,
-            readTimeOperator: filterState.readTimeOperator,
-          }),
-        ...(filterState.keywords && { keywords: filterState.keywords }),
-        ...(filterState.seriesOnly && {
-          seriesOnly: filterState.seriesOnly,
-        }),
-        ...(filterState.excludeSeries && {
-          excludeSeries: filterState.excludeSeries,
-        }),
-      };
-
-      return await getAxios({
-        url: "/posts/",
-        params: {
-          page,
-          ...query,
-        },
-      }).then((res) => {
-        if (res) {
-          return res;
-        }
-      });
-    };
     const deleteExisitingPosts = async () => {
-      const token = window.localStorage.getItem("visitorToken");
       await getAxios({
         url: "/posts/delete",
         method: "delete",
-        token,
       });
     };
 
@@ -141,16 +78,7 @@ const PostFetch = inject(
 
       savePostsToDatabase({
         posts: formattedPosts,
-        token:
-          window.localStorage.getItem("token") ||
-          window.localStorage.getItem("visitorToken"),
-      });
-    };
-
-    const filter = async () => {
-      await getPostsFromDatabase().then((res) => {
-        PostStore.setPosts(res.posts);
-        PostStore.setMaxPages(res.maxPages);
+        subreddit: sr,
       });
     };
 
@@ -165,13 +93,13 @@ const PostFetch = inject(
               setCurrentAction={setCurrentAction}
               fetch={executeFetch}
             />
-
-            {PostStore.posts.length > 0 && (
+            {post.posts.length > 0 && (
               <SubredditFilters
                 setRefetch={setRefetch}
-                filterState={filterState}
-                setFilterState={setFilterState}
-                filter={filter}
+                filters={filters}
+                addFilters={addFilters}
+                resetFilters={resetFilters}
+                filter={() => getPosts({ query: filters })}
               />
             )}
             {UserStore.getUser() && (
@@ -190,55 +118,29 @@ const PostFetch = inject(
             </div>
           )}
 
-          {PostStore.posts.length > 0 && (
+          {post.posts.length > 0 && (
             <div className="d-f flex-col w-full">
-              {/* move check into <messageauthors /> */}
-              {PostStore.selectedPosts.length > 0 && UserStore.getUser() && (
-                <MessageAuthors
-                  data={PostStore.selectedPosts}
-                  posts={PostStore.posts}
-                />
-              )}
+              <MessageAuthors
+                data={PostStore.selectedPosts}
+                posts={PostStore.posts}
+              />
 
-              {/* move into mongoDb with posts */}
-              {window.localStorage.getItem("subreddit") && (
-                <p className="subtle mb-2">
-                  Showing posts from{" "}
-                  <strong>{window.localStorage.getItem("subreddit")}</strong>{" "}
-                </p>
-              )}
+              <p className="subtle mb-2">
+                Showing posts from <strong>{post.subreddit}</strong>
+              </p>
 
-              {/* move into <SubredditPosts /> */}
-              <ul className="post-list grid xl:grid-cols-2 grid-cols-1 gap-2">
-                {PostStore.posts
-                  .slice(0, 25)
-                  .sort((a, b) => {
-                    return b.created - a.created;
-                  })
-                  .map((x, id) => {
-                    return (
-                      <SubredditPost
-                        key={id}
-                        x={x}
-                        onClickHandler={() => selectPost(x, PostStore)}
-                        used={isPostUsed(x)}
-                      />
-                    );
-                  })}
-              </ul>
+              <SubredditPosts posts={post.posts} />
               <Pagination
                 count={PostStore.maxPages}
                 shape="rounded"
                 onChange={(_, page) => {
-                  getPostsFromDatabase(page).then((res) => {
-                    PostStore.setPosts(res.posts);
-                  });
+                  getPosts({ page });
                 }}
               />
             </div>
           )}
 
-          {!PostStore.posts.length && !currentAction && (
+          {!post.posts.length && !currentAction && (
             <p className="subtle ta-c ml-a mr-a">No posts found...</p>
           )}
         </div>
@@ -248,7 +150,4 @@ const PostFetch = inject(
   })
 );
 
-const selectPost = (x, PostStore) => {
-  PostStore.setSelectedPosts(x);
-};
 export default PostFetch;

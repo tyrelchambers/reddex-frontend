@@ -8,7 +8,7 @@ import { observer } from "mobx-react-lite";
 import { H2, H3 } from "../../../components/Headings/Headings";
 import { MainButton, MinimalButton } from "../../../components/Buttons/Buttons";
 import Story from "../../../components/Story/Story";
-import { getPostsFromDatabase } from "../../../api/getPostsFromDatabase";
+import { getApprovedPostsFromDatabase } from "../../../api/getApprovedPostsFromDatabase";
 import ReadingListFilters from "../../../components/ReadingListFilters/ReadingListFilters";
 import { addToCompleted } from "../../../api/addToCompleted";
 import AddTagForm from "../../../components/Forms/AddTagForm";
@@ -61,7 +61,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
       ...(keywords && { keywords: keywords }),
     };
 
-    const stories = await getPostsFromDatabase(query);
+    const stories = await getApprovedPostsFromDatabase(query);
     setReadingList([...stories]);
   };
 

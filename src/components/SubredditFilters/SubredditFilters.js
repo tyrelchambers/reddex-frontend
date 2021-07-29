@@ -6,10 +6,11 @@ import { MinimalButton } from "../Buttons/Buttons";
 import { inject, observer } from "mobx-react";
 
 const SubredditFilters = ({
-  filterState,
-  setFilterState,
+  filters,
+  addFilters,
   filter,
   setRefetch,
+  resetFilters,
 }) => {
   const [collapsed, setCollapsed] = useState(
     document.body.clientWidth <= 425 ? true : false
@@ -34,19 +35,16 @@ const SubredditFilters = ({
                 <div className="d-f fx-1 gap-4 flex-col">
                   <SelectField
                     options={filterOptions}
-                    returnValue={(v) =>
-                      setFilterState({ ...filterState, operator: v })
-                    }
+                    returnValue={(v) => addFilters({ operator: v })}
                   />
 
                   <input
                     type="number"
                     className="form-input"
                     placeholder="Upvote Count (default: 0)"
-                    value={filterState.upvotes}
+                    value={filters.upvotes}
                     onChange={(e) =>
-                      setFilterState({
-                        ...filterState,
+                      addFilters({
                         upvotes: e.target.value,
                       })
                     }
@@ -60,19 +58,16 @@ const SubredditFilters = ({
                 <div className="d-f fx-1 gap-4 flex-col">
                   <SelectField
                     options={readtimeOptions}
-                    returnValue={(v) =>
-                      setFilterState({ ...filterState, timeframe: v })
-                    }
+                    returnValue={(v) => addFilters({ timeframe: v })}
                   />
 
                   <input
                     type="number"
                     className="form-input"
                     placeholder="ex: 5"
-                    value={filterState.readTime}
+                    value={filters.readTime}
                     onChange={(e) =>
-                      setFilterState({
-                        ...filterState,
+                      addFilters({
                         readTime: e.target.value,
                       })
                     }
@@ -89,10 +84,8 @@ const SubredditFilters = ({
               type="text"
               className="form-input fx-1"
               placeholder="search phrase"
-              value={filterState.keywords}
-              onChange={(e) =>
-                setFilterState({ ...filterState, keywords: e.target.value })
-              }
+              value={filters.keywords}
+              onChange={(e) => addFilters({ keywords: e.target.value })}
             />
           </div>
           <div className=" d-f ai-c">
@@ -101,12 +94,12 @@ const SubredditFilters = ({
               <div className="d-f flex-col w-full gap-2">
                 <button
                   className={`btn btn-tiertiary w-full ${
-                    filterState.seriesOnly ? "active" : ""
+                    filters.seriesOnly ? "active" : ""
                   }`}
                   onClick={() =>
-                    setFilterState({
-                      ...filterState,
-                      seriesOnly: !filterState.seriesOnly,
+                    addFilters({
+                      seriesOnly: !filters.seriesOnly,
+                      omitSeries: false,
                     })
                   }
                 >
@@ -114,12 +107,12 @@ const SubredditFilters = ({
                 </button>
                 <button
                   className={`btn btn-tiertiary ${
-                    filterState.excludeSeries ? "active" : ""
+                    filters.omitSeries ? "active" : ""
                   }`}
                   onClick={() =>
-                    setFilterState({
-                      ...filterState,
-                      excludeSeries: !filterState.excludeSeries,
+                    addFilters({
+                      omitSeries: !filters.omitSeries,
+                      seriesOnly: false,
                     })
                   }
                 >
@@ -129,15 +122,7 @@ const SubredditFilters = ({
                 <button
                   className="btn btn-tiertiary"
                   onClick={() => {
-                    setFilterState({
-                      seriesOnly: false,
-                      upvotes: "",
-                      operator: ">",
-                      omitSeries: false,
-                      keywords: "",
-                      readTime: "",
-                      readTimeOperator: "",
-                    });
+                    resetFilters();
                     setRefetch(true);
                   }}
                 >

@@ -1,50 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dateFns from "date-fns";
 import moment from "moment";
 import "./SubredditPost.scss";
 import "../SubredditSearch/SubredditSearch.scss";
 import { inject, observer } from "mobx-react";
 import { getAxios } from "../../api";
+import { setPostIsViewed } from "../../api/setPostIsViewed";
 
 const SubredditPost = inject(
   "UserStore",
   "PostStore"
 )(
-  observer(({ x, UserStore, used, onClickHandler, PostStore, key }) => {
+  observer(({ x, UserStore, used, PostStore, usedPosts }) => {
+    const [isUsed, setIsUsed] = useState(false);
+
     let selectedClass = false;
 
-    const _ = PostStore.selectedPosts.find((el) => {
+    useEffect(() => {
+      if (usedPosts) {
+        for (let i = 0; i < usedPosts.length; i++) {
+          if (usedPosts[i].post_id === x.post_id) {
+            setIsUsed(true);
+          }
+        }
+      }
+    }, [usedPosts]);
+
+    const isSelected = PostStore.selectedPosts.find((el) => {
       return el.post_id === x.post_id;
     });
 
-    if (_) {
+    if (isSelected) {
       selectedClass = true;
     }
-
-    const setViewedOnPost = (post_id) => {
-      getAxios({
-        url: "/posts/update",
-        data: {
-          post_id,
-        },
-        method: "put",
-      }).then((res) => {
-        if (res) {
-          const clone = [...PostStore.posts];
-          const toUpdate = clone.findIndex((x) => x.post_id === post_id);
-          clone[toUpdate].viewed = true;
-          PostStore.setPosts(clone);
-        }
-      });
-    };
 
     return (
       <li
         className={`d-f fxd-c subreddit-post-parent post animated fadeIn rounded-lg shadow-md ${
           selectedClass ? "active-post-select" : ""
-        } ${used ? "has-been-used" : ""} `}
+        } ${isUsed ? "has-been-used" : ""} `}
         data-postid={x.post_id}
-        key={key}
       >
         <div className="d-f ai-c subreddit-header">
           <section className="d-f ai-c h-100p">
@@ -89,7 +84,7 @@ const SubredditPost = inject(
             rel="noopener noreferrer"
             className="td-n td-u-hv "
             onClick={() => {
-              setViewedOnPost(x.post_id);
+              setPostIsViewed(x.post_id);
             }}
           >
             <p className="subreddit-title post-link" title={x.title}>
@@ -130,7 +125,7 @@ const SubredditPost = inject(
               <button
                 className="btn btn-select"
                 onClick={() => {
-                  onClickHandler(x);
+                  PostStore.setSelectedPosts(x);
                 }}
               >
                 <i className="fas fa-check"></i>

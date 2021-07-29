@@ -9,6 +9,8 @@ const MessageAuthors = inject(
   "PostStore"
 )(
   observer(({ data, ModalStore, PostStore }) => {
+    if (PostStore.selectedPosts.length === 0) return null;
+
     return (
       <div className="message-author-box mb+ animated fadeIn faster max-w-screen-md">
         <div className="message-author-box-header d-f jc-sb ai-c">
