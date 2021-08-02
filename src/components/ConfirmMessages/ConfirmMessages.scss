@@ -1,18 +1,16 @@
- 
 .confirm-messages-wrapper {
   flex: 2;
-  padding: 0.5em;
   height: 100%;
-  
+
   .default-message-input {
     width: 100%;
     background-color: var(--bgLight);
-    border:none;
+    border: none;
   }
 
   .subject {
     background-color: var(--bgLight);
-    padding:1em;
+    padding: 1em;
     color: var(--text);
     border-radius: 5px;
   }
@@ -38,7 +36,7 @@
   white-space: pre-wrap;
   background-color: var(--bgLight);
   border: 1px solid var(--bgLight);
-  padding:1em;
+  padding: 1em;
   border-radius: 5px;
 }
 
@@ -80,11 +78,10 @@
     button {
       width: 100%;
     }
-
   }
 }
 
-@media screen and (max-width:572px) {
+@media screen and (max-width: 572px) {
   .confirm-messages-wrapper {
     width: 100%;
   }

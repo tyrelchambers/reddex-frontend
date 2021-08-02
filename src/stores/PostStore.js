@@ -6,6 +6,7 @@ class PostStore {
   subreddit = "";
   posts = [];
   maxPages = 0;
+  selectedPost = null;
 
   setSubreddit(data) {
     this.subreddit = data;
@@ -43,6 +44,10 @@ class PostStore {
   clearSelectedPosts() {
     this.selectedPosts = [];
   }
+
+  setSelectedPost(post) {
+    this.selectedPost = post;
+  }
 }
 
 decorate(PostStore, {
@@ -57,5 +62,7 @@ decorate(PostStore, {
   setPosts: action,
   maxPages: observable,
   setMaxPages: action,
+  selectedPost: observable,
+  setSelectedPost: action,
 });
 export default new PostStore();

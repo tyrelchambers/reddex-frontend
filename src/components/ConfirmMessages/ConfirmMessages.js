@@ -13,55 +13,58 @@ import { Tag } from "../Forms/AddTagForm";
 import { saveAuthorToDb } from "../../api/saveAuthorToDb";
 import { saveStoryToUser } from "../../api/saveStoryToUser";
 import { saveTags } from "../../api/saveTags";
-import { useContacts } from "../../hooks/useContacts";
+import { useContact } from "../../hooks/useContact";
 import { formattedSubject } from "../../helpers/formattedSubject";
+import { getMessagedAuthors } from "../../api/getMessagedAuthors";
+import { useMessagedUsers } from "../../hooks/useMessagedUsers";
+import { useSelectedItem } from "../../hooks/useSelectedItem";
 
 const ConfirmMessages = inject(
   "UserStore",
-  "ModalStore"
+  "ModalStore",
+  "PostStore"
 )(
-  observer(({ data, removeMessagedAuthor, UserStore }) => {
+  observer(({ removeMessagedAuthor, UserStore, PostStore }) => {
     const [defaultMessage, setDefaultMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [expandContact, setExpandContact] = useState(false);
     const [authorsMessaged, setAuthorsMessaged] = useState([]);
     const [availableTags, setAvailableTags] = useState([]);
     const [toAdd, setToAdd] = useState([]);
-    const { contacts, fetchContact } = useContacts();
+    const { contact, fetchContact } = useContact();
+    const { messagedUsers, getMessagedUsers } = useMessagedUsers();
 
-    useEffect(() => {
-      const fn = async () => {
-        await fetchContact(data.author);
+    // useEffect(() => {
+    //   const fn = async () => {
+    //     await fetchContact(selectedPost.author);
+    //     await getMessagedUsers();
 
-        const authors = await getAxios({
-          url: "/profile/authors_messaged",
-        });
+    //     await getAxios({
+    //       url: "/tags/",
+    //     }).then((res) => {
+    //       if (res) {
+    //         setAvailableTags([...res]);
+    //       }
+    //     });
+    //   };
 
-        await getAxios({
-          url: "/tags/",
-        }).then((res) => {
-          if (res) {
-            setAvailableTags([...res]);
-          }
-        });
+    //   fn();
 
-        setAuthorsMessaged([...authors]);
-      };
+    //   return () => {
+    //     setExpandContact(false);
+    //   };
+    // }, [selectedPost]);
 
-      fn();
+    console.log(PostStore.selectedPost);
+    // useEffect(() => {
+    //   messageHandler();
+    // }, [selectedPost, authorsMessaged]);
 
-      return () => {
-        setExpandContact(false);
-      };
-    }, [data]);
-
-    useEffect(() => {
-      messageHandler();
-    }, [data, authorsMessaged]);
+    if (!PostStore.selectedPost) return null;
 
     const messageHandler = () => {
-      const authorExists = authorsMessaged.filter(
-        (x) => x.name === data.author
+      const authorExists = messagedUsers.filter(
+        (x) => x.name === PostStore.selectedPost.author
       );
       if (authorExists.length > 0) {
         setDefaultMessage(UserStore.currentUser.repeat_message);
@@ -122,24 +125,24 @@ const ConfirmMessages = inject(
     };
 
     return (
-      <div className="confirm-messages-wrapper">
+      <div className="confirm-messages-wrapper p-4">
         <h1
           className="confirm-title"
           id="author"
-          data-author={data.author}
+          data-author={PostStore.selectedPost.author}
           onClick={() => setExpandContact(!expandContact)}
         >
-          To: {data.author}
-          {contacts && (
+          To: {PostStore.selectedPost.author}
+          {contact && (
             <span className="modal-contact-toggle ml-">
               <i className="fas fa-address-book mr-"></i>
               <p className="tt-u">Expand</p>
             </span>
           )}
         </h1>
-        {contacts && expandContact && (
+        {contact && expandContact && (
           <div className="modal-contact-details-wrapper mt-">
-            <p>{contacts.notes}</p>
+            <p>{contact.notes}</p>
           </div>
         )}
         <div className="d-f fxd-c mt-">
@@ -149,7 +152,9 @@ const ConfirmMessages = inject(
                 Subject
               </label>
             </div>
-            <p className="subject">{formattedSubject(data.title)}</p>
+            <p className="subject">
+              {formattedSubject(PostStore.selectedPost.title)}
+            </p>
           </div>
 
           <div className="d-f mt- mb- prefill-wrapper">
@@ -206,13 +211,13 @@ const ConfirmMessages = inject(
               onClick={() => {
                 setLoading(true);
                 sendMessageToAuthors(
-                  data.author,
-                  formattedSubject(data.title),
+                  PostStore.selectedPost.author,
+                  formattedSubject(PostStore.selectedPost.title),
                   defaultMessage,
                   removeMessagedAuthor,
                   setLoading,
-                  data.post_id,
-                  data
+                  PostStore.selectedPost.post_id,
+                  PostStore.selectedPost
                 );
               }}
               value="Message Author"

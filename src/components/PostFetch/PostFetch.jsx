@@ -38,7 +38,6 @@ const PostFetch = inject(
       clearPosts,
       setPosts,
     } = usePostsFromDatabase();
-
     const { uiState, updateUiState, resetState } = useUiState();
 
     useEffect(() => {
@@ -122,11 +121,7 @@ const PostFetch = inject(
 
             {post.posts.length > 0 && (
               <div className="d-f flex-col w-full">
-                <MessageAuthors
-                  data={PostStore.selectedPosts}
-                  posts={PostStore.posts}
-                />
-
+                <MessageAuthors data={PostStore.selectedPosts} />
                 <p className="subtle mb-2">
                   Showing posts from <strong>{post.subreddit}</strong>
                 </p>
