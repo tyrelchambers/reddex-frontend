@@ -4,9 +4,15 @@ import React from "react";
 import QueueListUsers from "../QueueListUsers/QueueListUsers";
 import "./QueueList.css";
 
-const QueueList = ({ PostStore }) => {
+const QueueList = ({ PostStore, ModalStore }) => {
+  const { clientWidth } = document.body;
+
   return (
-    <div className="w-1/4 queue-list-wrapper p-2 overflow-y-auto">
+    <div
+      className={`queue-list-wrapper p-2 ${
+        ModalStore.isSidebarOpen && clientWidth <= 768 ? "open" : ""
+      }`}
+    >
       <QueueListUsers
         posts={PostStore.selectedPosts}
         selectedPost={PostStore.selectedPost}
@@ -16,4 +22,4 @@ const QueueList = ({ PostStore }) => {
   );
 };
 
-export default inject("PostStore")(observer(QueueList));
+export default inject("PostStore", "ModalStore")(observer(QueueList));

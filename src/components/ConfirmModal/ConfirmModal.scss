@@ -2,14 +2,18 @@
   height: 100%;
 }
 
+.modal-header {
+  background-color: var(--bg);
+}
+
 @media screen and (max-width: 572px) {
   .modal-body {
     max-width: 100%;
   }
 }
 
-@media screen and (min-width: 573px) {
-  .mobile-switch {
+@media screen and (min-width: 769px) {
+  .close-modal {
     display: none;
   }
 }

@@ -6,6 +6,7 @@
     width: 100%;
     background-color: var(--bg);
     border: none;
+    height: 200px;
   }
 
   > h4 {
@@ -67,11 +68,6 @@
   .account-tab {
     margin: 0;
   }
-  .confirm-messages-wrapper {
-    button {
-      width: 100%;
-    }
-  }
 }
 
 @media screen and (max-width: 572px) {
@@ -85,17 +81,5 @@
 
   #author {
     font-size: 6vw;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .prefill-wrapper {
-    flex-direction: column;
-  }
-  .confirm-actions {
-    flex-direction: column-reverse;
-    button:nth-child(1) {
-      margin-top: 2em;
-    }
   }
 }

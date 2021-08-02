@@ -1,6 +1,12 @@
+import { inject, observer } from "mobx-react";
 import React from "react";
 
-const QueueListUsers = ({ selectedPost, posts, setSelectedPost }) => {
+const QueueListUsers = ({
+  selectedPost,
+  posts,
+  setSelectedPost,
+  ModalStore,
+}) => {
   return (
     <section className="flex flex-col w-full queue-list-users gap-2 overflow-y-auto">
       {posts.map((u, id) => (
@@ -8,7 +14,10 @@ const QueueListUsers = ({ selectedPost, posts, setSelectedPost }) => {
           className={`${
             selectedPost && u._id === selectedPost._id && "bg"
           } p-4`}
-          onClick={() => setSelectedPost(u)}
+          onClick={() => {
+            setSelectedPost(u);
+            ModalStore.setIsSidebarOpen(false);
+          }}
           key={u._id}
         >
           <p className="font-bold">{u.author}</p>
@@ -19,4 +28,4 @@ const QueueListUsers = ({ selectedPost, posts, setSelectedPost }) => {
   );
 };
 
-export default QueueListUsers;
+export default inject("ModalStore")(observer(QueueListUsers));

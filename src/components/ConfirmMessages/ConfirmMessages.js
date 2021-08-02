@@ -29,7 +29,6 @@ const ConfirmMessages = inject(
     const [defaultMessage, setDefaultMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [expandContact, setExpandContact] = useState(false);
-    const [availableTags, setAvailableTags] = useState([]);
     const [toAdd, setToAdd] = useState([]);
     const { contact, fetchContact } = useContact();
     const { messagedUsers, getMessagedUsers } = useMessagedUsers();
@@ -40,8 +39,6 @@ const ConfirmMessages = inject(
           await fetchContact(PostStore.selectedPost.author);
         }
         await getMessagedUsers();
-
-        await getUsersTags().then((res) => setAvailableTags([...res]));
       };
 
       fn();
@@ -117,26 +114,28 @@ const ConfirmMessages = inject(
 
     return (
       <div className="confirm-messages-wrapper p-4">
-        <p
-          className="font-black text-3xl"
-          id="author"
-          data-author={PostStore.selectedPost.author}
-          onClick={() => setExpandContact(!expandContact)}
-        >
-          To: {PostStore.selectedPost.author}
-          {contact && (
-            <span className="modal-contact-toggle ml-">
-              <i className="fas fa-address-book mr-"></i>
-              <p className="tt-u">Expand</p>
-            </span>
-          )}
-        </p>
+        <div className="flex justify-between items-center">
+          <p
+            className="font-black text-3xl"
+            id="author"
+            data-author={PostStore.selectedPost.author}
+            onClick={() => setExpandContact(!expandContact)}
+          >
+            To: {PostStore.selectedPost.author}
+            {contact && (
+              <span className="modal-contact-toggle ml-">
+                <i className="fas fa-address-book mr-"></i>
+                <p className="tt-u">Expand</p>
+              </span>
+            )}
+          </p>
+        </div>
         {contact && expandContact && (
           <div className="modal-contact-details-wrapper mt-">
             <p>{contact.notes}</p>
           </div>
         )}
-        <div className="d-f fxd-c mt-">
+        <div className="flex flex-col mt-2 justify-around">
           <div className="mb-6">
             <p className="font-bold">Subject</p>
             <p>{formattedSubject(PostStore.selectedPost.title)}</p>
@@ -172,15 +171,9 @@ const ConfirmMessages = inject(
             ></textarea>
           </div>
 
-          <h3 className="font-bold">Add tags</h3>
-          <div className="d-f fxw-w">
-            {availableTags.map((x, id) => (
-              <Tag key={id} x={x} id={id} toAdd={toAdd} setToAdd={setToAdd} />
-            ))}
-          </div>
           <div className="d-f jc-sb ai-c confirm-actions mt+">
             <i
-              class="fas fa-trash text-red-500"
+              className="fas fa-trash text-red-500"
               onClick={() => removeMessagedAuthor()}
             ></i>
 
