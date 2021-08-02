@@ -9,6 +9,7 @@ const QueueListUsers = ({ selectedPost, posts, setSelectedPost }) => {
             selectedPost && u._id === selectedPost._id && "bg"
           } p-4`}
           onClick={() => setSelectedPost(u)}
+          key={u._id}
         >
           <p className="font-bold">{u.author}</p>
           <p className="truncate">{u.title}</p>

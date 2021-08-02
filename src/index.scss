@@ -50,9 +50,9 @@
     #1d519a,
     #2666bf
   );
-  --forest: rgb(12, 107, 88);
-  --forest-20: rgb(25, 148, 115);
+
   --off-blue: rgb(232, 236, 241);
+
   // backgrounds
   --bg: var(--off-blue);
   --bgLighter: var(--white-20);
@@ -88,6 +88,7 @@
   --bgLighter: var(--black-60);
   --accentBg: var(--blue-40);
   --highlight: var(--black-60);
+  --button-blue: var(--blue-40);
 }
 
 .theme-light {
@@ -97,6 +98,7 @@
   --text: var(--black-20);
   --bgLighter: var(--white-40);
   --accentBg: var(--blue-40);
+  --button-blue: var(--blue-40);
 }
 
 body {

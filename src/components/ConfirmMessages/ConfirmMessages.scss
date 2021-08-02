@@ -4,15 +4,8 @@
 
   .default-message-input {
     width: 100%;
-    background-color: var(--bgLight);
+    background-color: var(--bg);
     border: none;
-  }
-
-  .subject {
-    background-color: var(--bgLight);
-    padding: 1em;
-    color: var(--text);
-    border-radius: 5px;
   }
 
   > h4 {

@@ -55,7 +55,6 @@ const ConfirmMessages = inject(
     //   };
     // }, [selectedPost]);
 
-    console.log(PostStore.selectedPost);
     // useEffect(() => {
     //   messageHandler();
     // }, [selectedPost, authorsMessaged]);
@@ -126,8 +125,8 @@ const ConfirmMessages = inject(
 
     return (
       <div className="confirm-messages-wrapper p-4">
-        <h1
-          className="confirm-title"
+        <p
+          className="font-black text-3xl"
           id="author"
           data-author={PostStore.selectedPost.author}
           onClick={() => setExpandContact(!expandContact)}
@@ -139,53 +138,41 @@ const ConfirmMessages = inject(
               <p className="tt-u">Expand</p>
             </span>
           )}
-        </h1>
+        </p>
         {contact && expandContact && (
           <div className="modal-contact-details-wrapper mt-">
             <p>{contact.notes}</p>
           </div>
         )}
         <div className="d-f fxd-c mt-">
+          <div className="mb-6">
+            <p className="font-bold">Subject</p>
+            <p>{formattedSubject(PostStore.selectedPost.title)}</p>
+          </div>
+
           <div className="field-group">
-            <div className="d-f jc-sb">
-              <label htmlFor="subject" className="form-label">
-                Subject
-              </label>
+            <div className="flex items-center gap-4">
+              <p className="font-bold">Message To Send</p>
+              <p
+                className="px-4 text-sm rounded-full border-2 border-gray-400 cursor-pointer"
+                onClick={() =>
+                  setDefaultMessage(UserStore.getUser().initial_message)
+                }
+              >
+                Initial
+              </p>
+              <p
+                className="px-4 text-sm rounded-full border-2 border-gray-400 cursor-pointer"
+                onClick={() =>
+                  setDefaultMessage(UserStore.getUser().repeat_message)
+                }
+              >
+                Recurring
+              </p>
             </div>
-            <p className="subject">
-              {formattedSubject(PostStore.selectedPost.title)}
-            </p>
-          </div>
-
-          <div className="d-f mt- mb- prefill-wrapper">
-            <button
-              className=" btn btn-green p- m--"
-              onClick={() =>
-                setDefaultMessage(UserStore.getUser().initial_message)
-              }
-            >
-              {" "}
-              Prefill Greeting Message{" "}
-            </button>
-
-            <button
-              className=" btn btn-green p- m--"
-              onClick={() =>
-                setDefaultMessage(UserStore.getUser().repeat_message)
-              }
-            >
-              {" "}
-              Prefill Recurring Message{" "}
-            </button>
-          </div>
-
-          <div className="field-group">
-            <label htmlFor="defaultMessage" className="form-label">
-              Message To Send
-            </label>
             <textarea
               name="defaultMessage"
-              className="default-message-input"
+              className="default-message-input mt-2"
               id="defaultMessage"
               placeholder="Enter default message.."
               value={defaultMessage}
@@ -200,12 +187,11 @@ const ConfirmMessages = inject(
             ))}
           </div>
           <div className="d-f jc-sb ai-c confirm-actions mt+">
-            <MinimalButton
+            <i
+              class="fas fa-trash text-red-500"
               onClick={() => removeMessagedAuthor()}
-              classNames="danger-text"
-            >
-              Remove from queue
-            </MinimalButton>
+            ></i>
+
             <MainButton
               className="btn btn-primary"
               onClick={() => {
