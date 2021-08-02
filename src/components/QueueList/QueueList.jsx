@@ -6,7 +6,7 @@ import "./QueueList.css";
 
 const QueueList = ({ PostStore }) => {
   return (
-    <div className="w-1/4 queue-list-wrapper p-2">
+    <div className="w-1/4 queue-list-wrapper p-2 overflow-y-auto">
       <QueueListUsers
         posts={PostStore.selectedPosts}
         selectedPost={PostStore.selectedPost}

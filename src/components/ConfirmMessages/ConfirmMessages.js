@@ -18,6 +18,7 @@ import { formattedSubject } from "../../helpers/formattedSubject";
 import { getMessagedAuthors } from "../../api/getMessagedAuthors";
 import { useMessagedUsers } from "../../hooks/useMessagedUsers";
 import { useSelectedItem } from "../../hooks/useSelectedItem";
+import { getUsersTags } from "../../api/getUsersTags";
 
 const ConfirmMessages = inject(
   "UserStore",
@@ -28,40 +29,29 @@ const ConfirmMessages = inject(
     const [defaultMessage, setDefaultMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [expandContact, setExpandContact] = useState(false);
-    const [authorsMessaged, setAuthorsMessaged] = useState([]);
     const [availableTags, setAvailableTags] = useState([]);
     const [toAdd, setToAdd] = useState([]);
     const { contact, fetchContact } = useContact();
     const { messagedUsers, getMessagedUsers } = useMessagedUsers();
 
-    // useEffect(() => {
-    //   const fn = async () => {
-    //     await fetchContact(selectedPost.author);
-    //     await getMessagedUsers();
+    useEffect(() => {
+      const fn = async () => {
+        if (PostStore.selectedPost) {
+          await fetchContact(PostStore.selectedPost.author);
+        }
+        await getMessagedUsers();
 
-    //     await getAxios({
-    //       url: "/tags/",
-    //     }).then((res) => {
-    //       if (res) {
-    //         setAvailableTags([...res]);
-    //       }
-    //     });
-    //   };
+        await getUsersTags().then((res) => setAvailableTags([...res]));
+      };
 
-    //   fn();
+      fn();
 
-    //   return () => {
-    //     setExpandContact(false);
-    //   };
-    // }, [selectedPost]);
+      return () => {
+        setExpandContact(false);
+      };
+    }, [PostStore.selectedPost]);
 
-    // useEffect(() => {
-    //   messageHandler();
-    // }, [selectedPost, authorsMessaged]);
-
-    if (!PostStore.selectedPost) return null;
-
-    const messageHandler = () => {
+    useEffect(() => {
       const authorExists = messagedUsers.filter(
         (x) => x.name === PostStore.selectedPost.author
       );
@@ -70,7 +60,9 @@ const ConfirmMessages = inject(
       } else {
         setDefaultMessage(UserStore.currentUser.initial_message);
       }
-    };
+    }, [PostStore.selectedPost]);
+
+    if (!PostStore.selectedPost) return null;
 
     const sendMessageToAuthors = async (
       author,
