@@ -13,6 +13,8 @@ import { Tag } from "../Forms/AddTagForm";
 import { saveAuthorToDb } from "../../api/saveAuthorToDb";
 import { saveStoryToUser } from "../../api/saveStoryToUser";
 import { saveTags } from "../../api/saveTags";
+import { useContacts } from "../../hooks/useContacts";
+import { formattedSubject } from "../../helpers/formattedSubject";
 
 const ConfirmMessages = inject(
   "UserStore",
@@ -21,21 +23,15 @@ const ConfirmMessages = inject(
   observer(({ data, removeMessagedAuthor, UserStore }) => {
     const [defaultMessage, setDefaultMessage] = useState("");
     const [loading, setLoading] = useState(false);
-    const [contact, setContact] = useState();
     const [expandContact, setExpandContact] = useState(false);
     const [authorsMessaged, setAuthorsMessaged] = useState([]);
     const [availableTags, setAvailableTags] = useState([]);
     const [toAdd, setToAdd] = useState([]);
+    const { contacts, fetchContact } = useContacts();
 
     useEffect(() => {
       const fn = async () => {
-        const contact = await getAxios({
-          url: "/contacts/name",
-
-          params: {
-            name: data.author,
-          },
-        });
+        await fetchContact(data.author);
 
         const authors = await getAxios({
           url: "/profile/authors_messaged",
@@ -50,9 +46,6 @@ const ConfirmMessages = inject(
         });
 
         setAuthorsMessaged([...authors]);
-        if (contact) {
-          setContact({ contact });
-        }
       };
 
       fn();
@@ -65,9 +58,6 @@ const ConfirmMessages = inject(
     useEffect(() => {
       messageHandler();
     }, [data, authorsMessaged]);
-
-    const formattedSubject =
-      data.title.length > 80 ? data.title.slice(0, 77) + "..." : data.title;
 
     const messageHandler = () => {
       const authorExists = authorsMessaged.filter(
@@ -97,30 +87,31 @@ const ConfirmMessages = inject(
       if (!tokens || !author) return toast.error("Something went wrong");
       if (!message) return toast.error("A messaged is needed to send");
       if (!fmtSubject) return toast.error("A subject is needed");
+
       if (fmtSubject.length > 80)
         return toast.error("Subject line is too long");
       const body = new FormData();
       body.set("to", `/u/${author}`);
       body.set("subject", fmtSubject);
       body.set("text", message);
-      await Axios.post(link, body, {
-        headers: {
-          Authorization: `bearer ${tokens.access_token}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      })
-        .then((res) => {
-          removeMessagedAuthor();
-          saveAuthorToDb(author, post_id);
-          saveStoryToUserHandler(data);
-          setLoading(false);
-          PostStore.clearSelectedPosts();
-        })
-        .catch((err) => {
-          if (err) {
-            toast.error("Something went wrong");
-          }
-        });
+      // await Axios.post(link, body, {
+      //   headers: {
+      //     Authorization: `bearer ${tokens.access_token}`,
+      //     "Content-Type": "application/x-www-form-urlencoded",
+      //   },
+      // })
+      //   .then((res) => {
+      //     removeMessagedAuthor();
+      //     saveAuthorToDb(author, post_id);
+      //     saveStoryToUserHandler(data);
+      //     setLoading(false);
+      //     PostStore.clearSelectedPosts();
+      //   })
+      //   .catch((err) => {
+      //     if (err) {
+      //       toast.error("Something went wrong");
+      //     }
+      //   });
     };
 
     const saveStoryToUserHandler = async (data) => {
@@ -139,16 +130,16 @@ const ConfirmMessages = inject(
           onClick={() => setExpandContact(!expandContact)}
         >
           To: {data.author}
-          {contact && (
+          {contacts && (
             <span className="modal-contact-toggle ml-">
               <i className="fas fa-address-book mr-"></i>
               <p className="tt-u">Expand</p>
             </span>
           )}
         </h1>
-        {contact && expandContact && (
+        {contacts && expandContact && (
           <div className="modal-contact-details-wrapper mt-">
-            <p>{contact.notes}</p>
+            <p>{contacts.notes}</p>
           </div>
         )}
         <div className="d-f fxd-c mt-">
@@ -158,7 +149,7 @@ const ConfirmMessages = inject(
                 Subject
               </label>
             </div>
-            <p className="subject">{formattedSubject}</p>
+            <p className="subject">{formattedSubject(data.title)}</p>
           </div>
 
           <div className="d-f mt- mb- prefill-wrapper">
@@ -216,7 +207,7 @@ const ConfirmMessages = inject(
                 setLoading(true);
                 sendMessageToAuthors(
                   data.author,
-                  formattedSubject,
+                  formattedSubject(data.title),
                   defaultMessage,
                   removeMessagedAuthor,
                   setLoading,

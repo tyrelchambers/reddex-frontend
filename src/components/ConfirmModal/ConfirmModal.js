@@ -1,113 +1,114 @@
-import React, {useState, useEffect } from 'react'
-import './ConfirmModal.scss';
-import { observer } from 'mobx-react-lite';
-import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
-import { inject } from 'mobx-react';
+import React, { useState, useEffect } from "react";
+import "./ConfirmModal.scss";
+import { observer } from "mobx-react-lite";
+import ConfirmMessages from "../ConfirmMessages/ConfirmMessages";
+import { inject } from "mobx-react";
 
-const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({ModalStore, PostStore, UserStore}) => {
-  const [ index, setIndex ] = useState(0);
-  const [ postData, setPostData ] = useState([]);
+const ConfirmModal = inject(
+  "ModalStore",
+  "PostStore",
+  "UserStore"
+)(
+  observer(({ ModalStore, PostStore, UserStore }) => {
+    const [index, setIndex] = useState(0);
+    const [postData, setPostData] = useState([]);
 
-  useEffect(() => {
-    const selectedPosts = PostStore.getSelectedPosts();
+    useEffect(() => {
+      const selectedPosts = PostStore.getSelectedPosts();
 
-    setIndex(0);
-    setPostData([...selectedPosts]);
-    UserStore.setUser();
+      setIndex(0);
+      setPostData([...selectedPosts]);
+      UserStore.setUser();
+    }, [ModalStore.isOpen]);
 
-  }, [ModalStore.isOpen]);
+    if (ModalStore.isOpen) {
+      return index < postData.length ? (
+        <React.Fragment>
+          <div className=" modal-inner-body">
+            <div className="d-f ai-c">
+              <Decrement index={index} setIndex={setIndex} />
 
-  if ( ModalStore.isOpen ) {
-    return (
-      <>
-        {index < postData.length && 
-            <React.Fragment>
-              <h3 className="ta-c font-bold text-xl mt-">Confirm Messages</h3>
-
-              <div className=" modal-inner-body">
-                <div className="d-f ai-c">
-                  <Decrement 
-                    index={index}
-                    setIndex={setIndex}
-                  />
-
-                  {postData.map((x,id) => {
-                    if (id === index) {
-                      return (
-                        <ConfirmMessages 
-                        data={x}
-                        key={id}
-                        setIndex={setIndex}
-                        index={index}
-                        removeMessagedAuthor={() => {
-                          removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
-                          setIndex(0);
-                        }}
-                      />
-                      )
-                    }
-                  })}
-                  
-                  <Increment 
-                    index={index}
-                    postData={postData}
-                    setIndex={setIndex}
-                  />
-                </div>
-                <div className="mobile-switch d-f jc-sb mt+">
-                  <Decrement 
-                      index={index}
+              {postData.map((x, id) => {
+                if (id === index) {
+                  return (
+                    <ConfirmMessages
+                      data={x}
+                      key={id}
                       setIndex={setIndex}
-                    />
-
-                    <Increment 
                       index={index}
-                      postData={postData}
-                      setIndex={setIndex}
+                      removeMessagedAuthor={() => {
+                        removeMessagedAuthor(
+                          postData,
+                          postData.indexOf(postData[index]),
+                          setPostData
+                        );
+                        setIndex(0);
+                      }}
                     />
-                </div>
-              </div>  
-            </React.Fragment>
-          }    
+                  );
+                }
+              })}
 
-          {index === postData.length && 
-            <EndOfList />
-          }
-      </>
-    )
-  }
-}));
+              <Increment
+                index={index}
+                postData={postData}
+                setIndex={setIndex}
+              />
+            </div>
+            <div className="mobile-switch d-f jc-sb mt+">
+              <Decrement index={index} setIndex={setIndex} />
 
-const Decrement = ({index, setIndex}) => {
-  return(
+              <Increment
+                index={index}
+                postData={postData}
+                setIndex={setIndex}
+              />
+            </div>
+          </div>
+        </React.Fragment>
+      ) : (
+        index === postData.length && <EndOfList />
+      );
+    }
+  })
+);
+
+const Decrement = ({ index, setIndex }) => {
+  return (
     <div className="increment mobile-increment">
-      {index > 0 && 
-        <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index - 1)}>
+      {index > 0 && (
+        <button
+          className="d-f fxd-c ai-c btn-increment"
+          onClick={() => setIndex(index - 1)}
+        >
           <p>Previous</p>
           <i className="fas fa-chevron-circle-left arrow mt-"></i>
         </button>
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 
-const Increment = ({index, postData, setIndex}) => {
+const Increment = ({ index, postData, setIndex }) => {
   return (
     <div className="increment mobile-increment">
-        {index < postData.length - 1 &&
-          <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index + 1)}>
-            <p>Next</p>
-            <i className="fas fa-chevron-circle-right arrow mt-"></i>
-          </button>
-        }
-      </div>
+      {index < postData.length - 1 && (
+        <button
+          className="d-f fxd-c ai-c btn-increment"
+          onClick={() => setIndex(index + 1)}
+        >
+          <p>Next</p>
+          <i className="fas fa-chevron-circle-right arrow mt-"></i>
+        </button>
+      )}
+    </div>
   );
-}
+};
 const removeMessagedAuthor = (list, index, setPostData) => {
   const data = [...list];
   data.splice(index, 1);
   return setPostData([...data]);
-}
+};
 
 const EndOfList = () => {
   return (
@@ -116,6 +117,6 @@ const EndOfList = () => {
       <i className="fas fa-check"></i>
     </div>
   );
-}
+};
 
 export default ConfirmModal;
