@@ -7,15 +7,14 @@ import WithNav from "../../layouts/WithNav/WithNav";
 import { Link } from "react-router-dom";
 import { deleteContactHandler } from "../../api/deleteContactHandler";
 import Contact from "../../components/Contact/Contact";
+import { getAllContacts } from "../../api/getAllContacts";
 export const ContactsPage = () => {
   const [contacts, setContacts] = useState([]);
   const [sortVal, setSortVal] = useState("");
 
   useEffect(() => {
     const fn = async () => {
-      const c = await getAxios({
-        url: "/contacts/all",
-      });
+      const c = await getAllContacts();
       setContacts([...c]);
     };
 

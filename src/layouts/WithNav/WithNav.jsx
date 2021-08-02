@@ -9,7 +9,7 @@ const WithNav = ({ tabs, children, optionalTabs }) => {
         <Tabs tabs={tabs} optionalTabs={optionalTabs} />
       )}
 
-      <section className="animated fadeIn faster with-nav-body  mobile-column h-full p-2 w-full">
+      <section className=" with-nav-body  mobile-column h-full p-2 w-full">
         {children}
       </section>
     </div>
