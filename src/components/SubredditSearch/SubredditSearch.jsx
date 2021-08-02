@@ -10,7 +10,7 @@ const SubredditSearch = ({
   PostStore,
   categoryState,
   setCategoryState,
-  currentAction,
+  uiState,
   fetch,
 }) => {
   const inputRef = useRef();
@@ -57,8 +57,8 @@ const SubredditSearch = ({
             onClick={() => {
               fetch();
             }}
-            disabled={currentAction === "fetching"}
-            loading={currentAction === "fetching"}
+            disabled={uiState === "fetching"}
+            loading={uiState === "fetching"}
             value="Get Posts"
           >
             <i className="fas fa-sync"></i>
