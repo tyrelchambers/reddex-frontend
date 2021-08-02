@@ -10,6 +10,9 @@ import { fetchTokens } from "../../helpers/renewRefreshToken";
 import { checkValidTokens } from "../../helpers/checkValidTokens";
 import PostStore from "../../stores/PostStore";
 import { Tag } from "../Forms/AddTagForm";
+import { saveAuthorToDb } from "../../api/saveAuthorToDb";
+import { saveStoryToUser } from "../../api/saveStoryToUser";
+import { saveTags } from "../../api/saveTags";
 
 const ConfirmMessages = inject(
   "UserStore",
@@ -109,7 +112,7 @@ const ConfirmMessages = inject(
         .then((res) => {
           removeMessagedAuthor();
           saveAuthorToDb(author, post_id);
-          saveStoryToUser(data);
+          saveStoryToUserHandler(data);
           setLoading(false);
           PostStore.clearSelectedPosts();
         })
@@ -120,27 +123,11 @@ const ConfirmMessages = inject(
         });
     };
 
-    const saveStoryToUser = async (data) => {
-      return await getAxios({
-        url: "/profile/save_story",
-        method: "post",
-        data,
-      }).then((res) => {
-        if (res) {
-          saveTags(res.uuid);
-        }
-      });
-    };
-
-    const saveTags = (story_uuid) => {
-      getAxios({
-        url: "/tag_story/save",
-        method: "post",
-        data: {
-          story_uuid,
-          tags: toAdd,
-        },
-      });
+    const saveStoryToUserHandler = async (data) => {
+      const uuid = await saveStoryToUser(data);
+      if (uuid) {
+        saveTags({ story_uuid: uuid, tagsToAdd: toAdd });
+      }
     };
 
     return (
@@ -246,16 +233,5 @@ const ConfirmMessages = inject(
     );
   })
 );
-
-const saveAuthorToDb = async (name, post_id) => {
-  await getAxios({
-    url: "/profile/saveAuthors",
-    method: "post",
-    data: {
-      name,
-      post_id,
-    },
-  });
-};
 
 export default ConfirmMessages;
