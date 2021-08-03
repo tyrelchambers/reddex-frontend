@@ -17,7 +17,7 @@ const ConfirmModal = inject(
       PostStore.setSelectedPosts(selectedPosts);
       PostStore.setSelectedPost(selectedPosts[0]);
 
-      if (clientWidth <= 426) {
+      if (clientWidth <= 768) {
         ModalStore.setIsSidebarOpen(false);
       }
     }, []);

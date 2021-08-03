@@ -142,24 +142,26 @@ const ConfirmMessages = inject(
           </div>
 
           <div className="field-group">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 message-body-header">
               <p className="font-bold">Message To Send</p>
-              <p
-                className="px-4 text-sm rounded-full border-2 border-gray-400 cursor-pointer"
-                onClick={() =>
-                  setDefaultMessage(UserStore.getUser().initial_message)
-                }
-              >
-                Initial
-              </p>
-              <p
-                className="px-4 text-sm rounded-full border-2 border-gray-400 cursor-pointer"
-                onClick={() =>
-                  setDefaultMessage(UserStore.getUser().repeat_message)
-                }
-              >
-                Recurring
-              </p>
+              <div className="flex gap-4">
+                <p
+                  className="px-4 text-sm rounded-full border-2 border-gray-400 cursor-pointer"
+                  onClick={() =>
+                    setDefaultMessage(UserStore.getUser().initial_message)
+                  }
+                >
+                  Initial
+                </p>
+                <p
+                  className="px-4 text-sm rounded-full border-2 border-gray-400 cursor-pointer"
+                  onClick={() =>
+                    setDefaultMessage(UserStore.getUser().repeat_message)
+                  }
+                >
+                  Recurring
+                </p>
+              </div>
             </div>
             <textarea
               name="defaultMessage"

@@ -130,6 +130,7 @@ const PostFetch = inject(
                 <Pagination
                   count={post.maxPages}
                   shape="rounded"
+                  size="small"
                   onChange={(_, page) => {
                     getPosts({ page, query: filters });
                   }}

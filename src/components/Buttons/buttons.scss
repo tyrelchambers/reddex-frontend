@@ -26,6 +26,8 @@
   height: 100%;
   justify-content: center;
   align-items: center;
+  padding: 1em;
+
   font-size: 0.8rem;
   i {
     margin-right: 10px;
@@ -35,10 +37,8 @@
 .btn-secondary {
   background-color: var(--bgLight);
   border: 2px solid hsla(201, 87%, 54%, 1);
-  padding: 1em;
   color: hsla(201, 87%, 54%, 1);
   transition: all 0.2s ease;
-  height: 50px;
 
   &:hover {
     background-color: hsla(201, 87%, 54%, 1);
@@ -204,7 +204,7 @@
   background: transparent;
   border: none;
   font-weight: bold;
-  color: var(--text);
+  color: var(--link);
 
   i {
     margin-right: 1em;

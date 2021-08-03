@@ -12,7 +12,7 @@ const MessageAuthors = inject(
     if (PostStore.selectedPosts.length === 0) return null;
 
     return (
-      <div className="shadow-md mb-4 bg w-full flex justify-between items-center p-4">
+      <div className="shadow-md mb-4 bg w-full flex justify-between gap-4 items-center p-4 message-author-wrapper">
         <h3 className="font-bold">
           You've selected {data.length} author(s) to message.
         </h3>
@@ -24,7 +24,7 @@ const MessageAuthors = inject(
             Deselect All
           </button>
           <button
-            className="btn btn-secondary p-"
+            className="btn btn-primary "
             onClick={() => {
               ModalStore.setIsOpen(true);
               ModalStore.setRender(<ConfirmModal />);

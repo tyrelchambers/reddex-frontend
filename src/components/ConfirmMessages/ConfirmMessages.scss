@@ -83,3 +83,10 @@
     font-size: 6vw;
   }
 }
+
+@media screen and (max-width: 425px) {
+  .message-body-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
