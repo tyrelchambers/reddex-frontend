@@ -48,6 +48,12 @@ class PostStore {
   setSelectedPost(post) {
     this.selectedPost = post;
   }
+
+  removePostFromQueue(id) {
+    const clone = [...this.selectedPosts];
+    const newArr = clone.filter((post) => post.post_id !== id);
+    this.selectedPosts = newArr;
+  }
 }
 
 decorate(PostStore, {

@@ -10,8 +10,8 @@ const ConfirmModal = inject(
   "ModalStore"
 )(
   observer(({ PostStore, ModalStore }) => {
-    const [postData, setPostData] = useState([]);
     const { clientWidth } = document.body;
+
     useEffect(() => {
       const selectedPosts = PostStore.selectedPosts;
       PostStore.setSelectedPosts(selectedPosts);
@@ -42,11 +42,7 @@ const ConfirmModal = inject(
           </div>
         </div>
         <div className="flex w-full h-full relative">
-          <ConfirmMessages
-            removeMessagedAuthor={() => {
-              removeMessagedAuthor(postData, setPostData);
-            }}
-          />
+          <ConfirmMessages />
           {ModalStore.isSidebarOpen && <QueueList />}
         </div>
       </>

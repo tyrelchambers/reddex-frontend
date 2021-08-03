@@ -7,6 +7,7 @@ const QueueListUsers = ({
   setSelectedPost,
   ModalStore,
 }) => {
+  const { clientWidth } = document.body;
   return (
     <section className="flex flex-col w-full queue-list-users gap-2 overflow-y-auto">
       {posts.map((u, id) => (
@@ -16,7 +17,9 @@ const QueueListUsers = ({
           } p-4`}
           onClick={() => {
             setSelectedPost(u);
-            ModalStore.setIsSidebarOpen(false);
+            if (clientWidth <= 768) {
+              ModalStore.setIsSidebarOpen(false);
+            }
           }}
           key={u._id}
         >
