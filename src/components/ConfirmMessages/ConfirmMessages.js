@@ -45,8 +45,6 @@ const ConfirmMessages = inject(
       } else {
         setDefaultMessage(UserStore.currentUser.initial_message);
       }
-
-      console.log(authorExists);
     }, [messagedUsers]);
 
     if (!PostStore.selectedPost) return null;
