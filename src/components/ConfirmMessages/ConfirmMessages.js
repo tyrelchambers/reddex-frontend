@@ -33,6 +33,10 @@ const ConfirmMessages = inject(
         await getMessagedUsers();
       };
 
+      fn();
+    }, [PostStore.selectedPost]);
+
+    useEffect(() => {
       const authorExists = messagedUsers.filter(
         (x) => x.name === PostStore.selectedPost.author
       );
@@ -42,8 +46,8 @@ const ConfirmMessages = inject(
         setDefaultMessage(UserStore.currentUser.initial_message);
       }
 
-      fn();
-    }, []);
+      console.log(authorExists);
+    }, [messagedUsers]);
 
     if (!PostStore.selectedPost) return null;
 
@@ -62,11 +66,11 @@ const ConfirmMessages = inject(
       body.set("subject", fmtSubject);
       body.set("text", defaultMessage);
 
-      await sendMessageToAuthor({
-        link,
-        access_token: tokens.access_token,
-        body,
-      });
+      // await sendMessageToAuthor({
+      //   link,
+      //   access_token: tokens.access_token,
+      //   body,
+      // });
 
       const newPostId = await saveStoryToUser(PostStore.selectedPost);
       saveAuthorToDb(author, newPostId.uuid);
