@@ -10,7 +10,7 @@ const SubredditPost = inject(
   "UserStore",
   "PostStore"
 )(
-  observer(({ x, UserStore, used, PostStore, usedPosts }) => {
+  observer(({ x, UserStore, PostStore, usedPosts }) => {
     const [isUsed, setIsUsed] = useState(false);
 
     let selectedClass = false;
@@ -112,12 +112,12 @@ const SubredditPost = inject(
                 <i className="far fa-eye"></i>
               </div>
             )}
-            {used && (
+            {isUsed && (
               <div
                 className="has-been-used-text mr- info"
-                title="Saved in database"
+                title="This author has been contacted"
               >
-                <i class="fas fa-cloud"></i>
+                <i className="fas fa-user-check"></i>
               </div>
             )}
             {UserStore.getUser() && (

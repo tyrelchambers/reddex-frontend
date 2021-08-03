@@ -1,4 +1,3 @@
- 
 .message-author-box {
   width: 100%;
   border-radius: 10px;
@@ -10,15 +9,10 @@
 .message-author-box-header {
   padding: 1em;
   background-color: var(--redBg);
-  
 
   h3 {
     color: white;
   }
-}
-
-.message-author-message {
-  white-space: pre-wrap;
 }
 
 @media screen and (max-width: 552px) {
@@ -28,5 +22,10 @@
     .btn {
       margin-top: 2em;
     }
+  }
+}
+@media screen and (max-width: 768px) {
+  .message-author-wrapper {
+    flex-direction: column;
   }
 }

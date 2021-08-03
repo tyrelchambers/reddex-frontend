@@ -6,6 +6,7 @@ class PostStore {
   subreddit = "";
   posts = [];
   maxPages = 0;
+  selectedPost = null;
 
   setSubreddit(data) {
     this.subreddit = data;
@@ -43,6 +44,16 @@ class PostStore {
   clearSelectedPosts() {
     this.selectedPosts = [];
   }
+
+  setSelectedPost(post) {
+    this.selectedPost = post;
+  }
+
+  removePostFromQueue(id) {
+    const clone = [...this.selectedPosts];
+    const newArr = clone.filter((post) => post.post_id !== id);
+    this.selectedPosts = newArr;
+  }
 }
 
 decorate(PostStore, {
@@ -57,5 +68,7 @@ decorate(PostStore, {
   setPosts: action,
   maxPages: observable,
   setMaxPages: action,
+  selectedPost: observable,
+  setSelectedPost: action,
 });
 export default new PostStore();

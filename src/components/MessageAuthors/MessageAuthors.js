@@ -12,35 +12,25 @@ const MessageAuthors = inject(
     if (PostStore.selectedPosts.length === 0) return null;
 
     return (
-      <div className="message-author-box mb+ animated fadeIn faster max-w-screen-md">
-        <div className="message-author-box-header d-f jc-sb ai-c">
-          <h3 className="font-bold">
-            You've selected {data.length} author(s) to message.
-          </h3>
+      <div className="shadow-md mb-4 bg w-full flex justify-between gap-4 items-center p-4 message-author-wrapper">
+        <h3 className="font-bold">
+          You've selected {data.length} author(s) to message.
+        </h3>
+        <div className="flex gap-4 items-center">
           <button
-            className="btn btn-green p-"
+            className="btn minimal-btn"
+            onClick={() => PostStore.clearSelectedPosts()}
+          >
+            Deselect All
+          </button>
+          <button
+            className="btn btn-primary "
             onClick={() => {
               ModalStore.setIsOpen(true);
               ModalStore.setRender(<ConfirmModal />);
             }}
           >
             Confirm Messages
-          </button>
-        </div>
-        <div className="d-f fxd-c ai-c p-">
-          <div className="message-author-body d-f jc-c pb-">
-            <p className="subtle ta-c">
-              Confirming messages will open a pop-up that will walk you through
-              each message to make sure it's correct. It will not send any
-              messages.
-            </p>
-          </div>
-
-          <button
-            className="btn btn-tiertiary danger"
-            onClick={() => PostStore.clearSelectedPosts()}
-          >
-            Deselect All
           </button>
         </div>
       </div>

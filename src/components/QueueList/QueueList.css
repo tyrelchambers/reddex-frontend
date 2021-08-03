@@ -1,0 +1,16 @@
+.queue-list-wrapper {
+  width: 25%;
+  background-color: var(--bg);
+}
+
+.queue-list-wrapper.open {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 425px) {
+  .queue-list-wrapper {
+    width: 100% !important;
+  }
+}

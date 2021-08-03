@@ -10,9 +10,7 @@ const SubredditPosts = ({ posts }) => {
   useEffect(() => {
     const fn = async () => {
       if (token) {
-        await checkForUsedStories(token).then((res) =>
-          setUsedPosts(res.stories)
-        );
+        await checkForUsedStories(token).then((res) => setUsedPosts(res));
       }
     };
     fn();

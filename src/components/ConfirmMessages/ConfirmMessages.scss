@@ -1,20 +1,12 @@
- 
 .confirm-messages-wrapper {
   flex: 2;
-  padding: 0.5em;
   height: 100%;
-  
+
   .default-message-input {
     width: 100%;
-    background-color: var(--bgLight);
-    border:none;
-  }
-
-  .subject {
-    background-color: var(--bgLight);
-    padding:1em;
-    color: var(--text);
-    border-radius: 5px;
+    background-color: var(--bg);
+    border: none;
+    height: 200px;
   }
 
   > h4 {
@@ -38,7 +30,7 @@
   white-space: pre-wrap;
   background-color: var(--bgLight);
   border: 1px solid var(--bgLight);
-  padding:1em;
+  padding: 1em;
   border-radius: 5px;
 }
 
@@ -76,15 +68,9 @@
   .account-tab {
     margin: 0;
   }
-  .confirm-messages-wrapper {
-    button {
-      width: 100%;
-    }
-
-  }
 }
 
-@media screen and (max-width:572px) {
+@media screen and (max-width: 572px) {
   .confirm-messages-wrapper {
     width: 100%;
   }
@@ -99,13 +85,8 @@
 }
 
 @media screen and (max-width: 425px) {
-  .prefill-wrapper {
+  .message-body-header {
     flex-direction: column;
-  }
-  .confirm-actions {
-    flex-direction: column-reverse;
-    button:nth-child(1) {
-      margin-top: 2em;
-    }
+    align-items: flex-start;
   }
 }

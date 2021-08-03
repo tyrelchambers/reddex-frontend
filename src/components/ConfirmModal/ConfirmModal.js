@@ -1,121 +1,59 @@
-import React, {useState, useEffect } from 'react'
-import './ConfirmModal.scss';
-import { observer } from 'mobx-react-lite';
-import ConfirmMessages from '../ConfirmMessages/ConfirmMessages';
-import { inject } from 'mobx-react';
+import React, { useState, useEffect } from "react";
+import "./ConfirmModal.scss";
+import { observer } from "mobx-react-lite";
+import ConfirmMessages from "../ConfirmMessages/ConfirmMessages";
+import { inject } from "mobx-react";
+import QueueList from "../QueueList/QueueList";
 
-const ConfirmModal = inject("ModalStore", "PostStore", "UserStore")(observer(({ModalStore, PostStore, UserStore}) => {
-  const [ index, setIndex ] = useState(0);
-  const [ postData, setPostData ] = useState([]);
+const ConfirmModal = inject(
+  "PostStore",
+  "ModalStore"
+)(
+  observer(({ PostStore, ModalStore }) => {
+    const { clientWidth } = document.body;
 
-  useEffect(() => {
-    const selectedPosts = PostStore.getSelectedPosts();
+    useEffect(() => {
+      const selectedPosts = PostStore.selectedPosts;
+      PostStore.setSelectedPosts(selectedPosts);
+      PostStore.setSelectedPost(selectedPosts[0]);
 
-    setIndex(0);
-    setPostData([...selectedPosts]);
-    UserStore.setUser();
+      if (clientWidth <= 768) {
+        ModalStore.setIsSidebarOpen(false);
+      }
+    }, []);
 
-  }, [ModalStore.isOpen]);
-
-  if ( ModalStore.isOpen ) {
     return (
       <>
-        {index < postData.length && 
-            <React.Fragment>
-              <h3 className="ta-c font-bold text-xl mt-">Confirm Messages</h3>
-
-              <div className=" modal-inner-body">
-                <div className="d-f ai-c">
-                  <Decrement 
-                    index={index}
-                    setIndex={setIndex}
-                  />
-
-                  {postData.map((x,id) => {
-                    if (id === index) {
-                      return (
-                        <ConfirmMessages 
-                        data={x}
-                        key={id}
-                        setIndex={setIndex}
-                        index={index}
-                        removeMessagedAuthor={() => {
-                          removeMessagedAuthor(postData, postData.indexOf(postData[index]), setPostData);
-                          setIndex(0);
-                        }}
-                      />
-                      )
-                    }
-                  })}
-                  
-                  <Increment 
-                    index={index}
-                    postData={postData}
-                    setIndex={setIndex}
-                  />
-                </div>
-                <div className="mobile-switch d-f jc-sb mt+">
-                  <Decrement 
-                      index={index}
-                      setIndex={setIndex}
-                    />
-
-                    <Increment 
-                      index={index}
-                      postData={postData}
-                      setIndex={setIndex}
-                    />
-                </div>
-              </div>  
-            </React.Fragment>
-          }    
-
-          {index === postData.length && 
-            <EndOfList />
-          }
+        <div className="modal-header flex items-center justify-between w-full p-4">
+          <p className="font-bold">Confirm your messages</p>
+          <div className="flex items-center gap-6">
+            <i
+              className="fas fa-bars text-gray-600 close-modal"
+              onClick={() =>
+                ModalStore.setIsSidebarOpen(!ModalStore.isSidebarOpen)
+              }
+            ></i>
+            <i
+              className="fas fa-times text-gray-600"
+              onClick={() => {
+                ModalStore.setIsOpen(false);
+              }}
+            ></i>
+          </div>
+        </div>
+        <div className="flex w-full h-full relative">
+          <ConfirmMessages />
+          {ModalStore.isSidebarOpen && <QueueList />}
+        </div>
       </>
-    )
-  }
-}));
+    );
+  })
+);
 
-const Decrement = ({index, setIndex}) => {
-  return(
-    <div className="increment mobile-increment">
-      {index > 0 && 
-        <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index - 1)}>
-          <p>Previous</p>
-          <i className="fas fa-chevron-circle-left arrow mt-"></i>
-        </button>
-      }
-    </div>
-  )
-}
-
-const Increment = ({index, postData, setIndex}) => {
-  return (
-    <div className="increment mobile-increment">
-        {index < postData.length - 1 &&
-          <button className="d-f fxd-c ai-c btn-increment" onClick={() => setIndex(index + 1)}>
-            <p>Next</p>
-            <i className="fas fa-chevron-circle-right arrow mt-"></i>
-          </button>
-        }
-      </div>
-  );
-}
 const removeMessagedAuthor = (list, index, setPostData) => {
   const data = [...list];
   data.splice(index, 1);
   return setPostData([...data]);
-}
-
-const EndOfList = () => {
-  return (
-    <div className="end-of-list d-f fxd-c jc-c ai-c">
-      <h1>No more messages to send</h1>
-      <i className="fas fa-check"></i>
-    </div>
-  );
-}
+};
 
 export default ConfirmModal;

@@ -1,6 +1,6 @@
-@import './atomic/main.scss';
-@import './assets/styles/animate.css';
-@import './assets/normalize.css';
+@import "./atomic/main.scss";
+@import "./assets/styles/animate.css";
+@import "./assets/normalize.css";
 
 :root {
   --black: rgb(31, 41, 51);
@@ -19,14 +19,41 @@
   --accent-warning: rgb(243, 86, 39);
   --yellow: rgb(250, 219, 95);
   --green: rgb(62, 189, 147);
-  --blueGradient: linear-gradient(214deg, rgba(63,146,240,1) 0%, rgba(10,104,210,1) 100%);
-  --greenGradient: linear-gradient(31deg, rgba(62,189,147,1) 0%, rgba(31,214,154,1) 100%);
-  --proGradient: linear-gradient(270deg, rgba(216,38,255,1) 0%, rgba(83,15,135,1) 100%);
-  --redGradient: linear-gradient(to right top, #de3a11, #e6491c, #ef5727, #f76431, #ff703b);
-  --darkGradient: linear-gradient(to right, #051937, #0c2b56, #143d77, #1d519a, #2666bf);
+  --blueGradient: linear-gradient(
+    214deg,
+    rgba(63, 146, 240, 1) 0%,
+    rgba(10, 104, 210, 1) 100%
+  );
+  --greenGradient: linear-gradient(
+    31deg,
+    rgba(62, 189, 147, 1) 0%,
+    rgba(31, 214, 154, 1) 100%
+  );
+  --proGradient: linear-gradient(
+    270deg,
+    rgba(216, 38, 255, 1) 0%,
+    rgba(83, 15, 135, 1) 100%
+  );
+  --redGradient: linear-gradient(
+    to right top,
+    #de3a11,
+    #e6491c,
+    #ef5727,
+    #f76431,
+    #ff703b
+  );
+  --darkGradient: linear-gradient(
+    to right,
+    #051937,
+    #0c2b56,
+    #143d77,
+    #1d519a,
+    #2666bf
+  );
+
+  --off-blue: rgb(232, 236, 241);
   --forest: rgb(12, 107, 88);
   --forest-20: rgb(25, 148, 115);
-  --off-blue: rgb(232, 236, 241);
   // backgrounds
   --bg: var(--off-blue);
   --bgLighter: var(--white-20);
@@ -47,7 +74,7 @@
 
   // accents
   --success: var(--green);
-  --error:var(--red);
+  --error: var(--red);
   --redBg: var(--red);
   --accent: var(--blue-20);
 }
@@ -62,6 +89,7 @@
   --bgLighter: var(--black-60);
   --accentBg: var(--blue-40);
   --highlight: var(--black-60);
+  --button-blue: var(--blue-40);
 }
 
 .theme-light {
@@ -71,21 +99,14 @@
   --text: var(--black-20);
   --bgLighter: var(--white-40);
   --accentBg: var(--blue-40);
-
-}
-
-.theme-forest {
-  --bg: var(--forest);
-  --bgLight: var(--white-20);
-  --bgLighter: var(--white-40);
-  --accentBg: var(--forest-20);
+  --button-blue: var(--blue-40);
 }
 
 body {
   margin: 0;
   padding: 0;
   background-color: var(--bg);
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   * {
@@ -152,8 +173,7 @@ p {
   background: var(--bgLight) !important;
   padding-left: 1em !important;
   padding-right: 1em !important;
-
-} 
+}
 
 .Toastify__toast--success {
   color: var(--white);
@@ -178,7 +198,7 @@ ul {
 
 .input {
   width: 100%;
-  flex:1 ;
+  flex: 1;
   border-radius: 3px;
   padding: 1.5em 1em;
   font-size: 0.7rem;
@@ -186,7 +206,7 @@ ul {
   outline: none;
   border: none;
   background-color: var(--inputBg);
-   
+
   &:focus {
     background-color: var(--white);
   }
@@ -205,12 +225,12 @@ ul {
   transition: all 0.2s ease;
 
   &:hover {
-    color: var(--blue-20)
+    color: var(--blue-20);
   }
 }
 
 .highlight-text {
-  color:var(--link);
+  color: var(--link);
   font-weight: bold;
 }
 
@@ -218,7 +238,7 @@ ul {
   width: 100%;
   height: 3px;
   box-shadow: 0px 0px 3px rgba(black, 0.2);
-    margin: 3px 0;
+  margin: 3px 0;
   background-color: var(--text);
 }
 
@@ -226,7 +246,6 @@ ul {
   font-weight: 900;
   letter-spacing: 2px;
 }
-
 
 .danger-text {
   color: var(--error) !important;
@@ -249,7 +268,6 @@ ul {
   border-radius: 5px;
 }
 
-
 #HW_badge_cont {
   display: flex;
   justify-content: center;
@@ -267,8 +285,6 @@ ul {
   #HW_frame_cont {
     width: 100% !important;
   }
-
-
 }
 
 @media screen and (max-width: 618px) {

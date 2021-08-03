@@ -1,9 +1,10 @@
-import { action,decorate, observable } from 'mobx';
+import { action, decorate, observable } from "mobx";
 
 class ModalStore {
   isOpen = false;
-  render = '';
+  render = "";
   clearPostsOnExit = false;
+  isSidebarOpen = true;
 
   setIsOpen(status) {
     this.isOpen = status;
@@ -20,6 +21,10 @@ class ModalStore {
   setClearPostsOnExit(bool) {
     this.clearPostsOnExit = bool;
   }
+
+  setIsSidebarOpen(bool) {
+    this.isSidebarOpen = bool;
+  }
 }
 
 decorate(ModalStore, {
@@ -28,7 +33,9 @@ decorate(ModalStore, {
   render: observable,
   setRender: action,
   clearPostsOnExit: observable,
-  setClearPostsOnExit: action
+  setClearPostsOnExit: action,
+  isSidebarOpen: observable,
+  setIsSidebarOpen: action,
 });
 
 export default new ModalStore();

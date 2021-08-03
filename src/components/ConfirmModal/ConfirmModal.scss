@@ -1,48 +1,19 @@
- 
-
-
 .modal-inner-body {
-
-  .arrow {
-    font-size: 1.8rem;
-    color: var(--text);
-  }
-}
-
-.increment {
-  display: flex;
-  justify-content: center;
-  width: 100px;
-}
-
-.end-of-list {
   height: 100%;
+}
 
-  h1 {
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 1em;
-  }
-  i {
-    font-size: 5rem;
-    color: var(--green);
-  }
+.modal-header {
+  background-color: var(--bg);
 }
 
 @media screen and (max-width: 572px) {
   .modal-body {
     max-width: 100%;
   }
-
-  .mobile-switch {
-    .increment {
-      display: block;
-    }
-  }
 }
 
-@media screen and (min-width: 573px) {
-  .mobile-switch {
+@media screen and (min-width: 769px) {
+  .close-modal {
     display: none;
   }
 }
