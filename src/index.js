@@ -39,7 +39,6 @@ import StorySubmission from "./Webbuilder/Static/StorySubmission/StorySubmission
 import FormStore from "./stores/FormStore";
 import SubmittedStories from "./Pages/SubmittedStories/SubmittedStories";
 import Authorize from "./Pages/Authorize/Authorize";
-import Explore from "./Pages/Explore/Explore";
 import { Modal } from "./components/Modal/Modal";
 import TagsManager from "./Pages/TagsManager/TagsManager";
 
@@ -51,6 +50,7 @@ import Theme from "./Webbuilder/Dashboard/Theme/Theme";
 import Forms from "./Webbuilder/Dashboard/Forms/Forms";
 import Timelines from "./Webbuilder/Dashboard/Timelines/Timelines";
 import SubmittedStory from "./Pages/SubmittedStory/SubmittedStory";
+import { getVisitorToken } from "./api/getVisitorToken";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let token = window.localStorage.getItem("token");
@@ -88,6 +88,7 @@ const stores = {
 
 const subdomain = window.location.host.split(".");
 
+// Loads subdomain app
 const InitialSubLoad = () => {
   const [loaded, setLoaded] = useState(false);
 
@@ -133,6 +134,7 @@ const InitialSubLoad = () => {
   }
 };
 
+// Loads the main app (not subdomains)
 const InitialLoad = () => {
   const [loaded, setLoaded] = useState(false);
   const token = window.localStorage.getItem("token");
@@ -166,9 +168,7 @@ const InitialLoad = () => {
       }
 
       if (!vToken && !token) {
-        await getAxios({
-          url: "/tokens/visitorToken",
-        }).then(async (res) => {
+        await getVisitorToken().then(async (res) => {
           if (res) {
             window.localStorage.setItem("visitorToken", res);
           }

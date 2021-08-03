@@ -1,6 +1,7 @@
 import { observable, action, decorate, toJS } from "mobx";
 import Axios from "axios";
 import { getAxios } from "../api";
+import isEmpty from "../helpers/objIsEmpty";
 
 class UserStore {
   currentUser = {};
@@ -79,13 +80,6 @@ class UserStore {
 
     return redditTokens;
   };
-}
-
-function isEmpty(obj) {
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) return false;
-  }
-  return true;
 }
 
 decorate(UserStore, {
