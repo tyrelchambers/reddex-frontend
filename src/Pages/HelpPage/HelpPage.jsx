@@ -28,20 +28,6 @@ const HelpPage = () => {
               </a>
             </p>
           </div>
-
-          <div className="flex help-item items-center">
-            <i className="fas fa-glass-cheers mr-2"></i>
-            <p>
-              Want to see what's new?{" "}
-              <a
-                target="_blank"
-                rel="noreferrer noopener"
-                href="https://headwayapp.co/reddex-changelog"
-              >
-                Reddex changelog
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </DisplayWrapper>

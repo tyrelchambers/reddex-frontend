@@ -41,7 +41,7 @@ const SubredditPost = inject(
         data-postid={x.post_id}
       >
         <div className="flex items-center subreddit-header">
-          <section className="flex items-center h-100p">
+          <section className="flex items-center h-full">
             <div
               className={`flex items-center upvotes  ${
                 x.viewed ? "post-viewed" : ""
@@ -59,20 +59,20 @@ const SubredditPost = inject(
               <p style={{ marginLeft: "-1px" }}>%</p>
             </div>
           </section>
-          <section className="flex items-center w-full h-100p flex-wrap">
+          <section className="flex items-center w-full h-full flex-wrap gap-2">
             <a
               href={`https://www.reddit.com/user/${x.author}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 items-center no-underline  truncate"
             >
-              <p className="author m-4 ml-2 post-link truncate">
+              <p className="author  ml-2 post-link truncate">
                 <i className="fas fa-user mr-2"></i>
                 {x.author}
               </p>
             </a>
             {x.link_flair_text && (
-              <div className="flex items-center h-100p post-flair">
+              <div className="flex items-center h-full post-flair">
                 <p>{x.link_flair_text}</p>
               </div>
             )}

@@ -4,7 +4,6 @@ import Navbar from "../Navbar/Navbar";
 import reddexLogo from "../../assets/watermark-green.svg";
 import { inject, observer } from "mobx-react";
 import MobileNav from "../Navbar/MobileNav";
-import headwayConfig from "../../helpers/headwayConfig";
 
 const Header = inject("UserStore")(
   observer(({ UserStore }) => {
@@ -23,12 +22,6 @@ const Header = inject("UserStore")(
       fn();
     }, []);
 
-    useEffect(() => {
-      if (window.Headway) {
-        headwayConfig();
-      }
-    });
-
     if (loading) return null;
 
     return (
@@ -36,7 +29,6 @@ const Header = inject("UserStore")(
         <div className="container flex justify-between items-center">
           <div className="brand flex">
             <img src={reddexLogo} alt="Reddex" />
-            <div id="headway"></div>
           </div>
           <Navbar redditProfile={profile} />
           <MobileNav
