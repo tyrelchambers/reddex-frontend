@@ -49,7 +49,7 @@ const UserInboxDumb = ({ data, onClick, UserStore, InboxStore }) => {
         return (
           <li
             key={x.data.id}
-            className="inbox-item d-f fxd-c cell-row"
+            className="inbox-item flex flex-col cell-row"
             name={x.data.name}
             onClick={(e) => {
               selectHandler(x.data);
@@ -62,20 +62,20 @@ const UserInboxDumb = ({ data, onClick, UserStore, InboxStore }) => {
                   ? x.data.dest
                   : x.data.author}
               </p>
-              <p className="ta-r">{getLastReply(x)}</p>
+              <p className="text-right">{getLastReply(x)}</p>
             </div>
             <div className="inbox-item-body">
-              <i className="fas fa-comment-alt mr-"></i>
+              <i className="fas fa-comment-alt mr-2"></i>
               <p className=" message-snippet">{formatThreads()}</p>
             </div>
           </li>
         );
       })
     ) : (
-      <p className="mt+">No results found!</p>
+      <p className="mt-6">No results found!</p>
     );
 
-  return <ul className="mt-">{listItem}</ul>;
+  return <ul className="mt-2">{listItem}</ul>;
 };
 
 export default UserInboxDumb;

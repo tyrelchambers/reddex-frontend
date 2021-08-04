@@ -41,7 +41,7 @@ const AccountPage = inject("UserStore")(
         <H1>Account</H1>
         <H1Subtitle>Manage the details of your account.</H1Subtitle>
         <WithNav tabs={tabs}>
-          <div className="d-f fxd-c animated fadeIn faster account-wrapper">
+          <div className="flex flex-col  account-wrapper">
             {params.get("t") === "security" && (
               <Security UserStore={UserStore} />
             )}

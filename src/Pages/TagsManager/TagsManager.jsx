@@ -43,7 +43,7 @@ const TagsManager = () => {
           <H2Subtitle>
             Tags must be unique. This means you can't have two of the same tags.
           </H2Subtitle>
-          <div className="d-f ai-c max-w-md h-36px mt-">
+          <div className="flex items-center max-w-md h-36px mt-2">
             <input
               type="text"
               className="form-input"
@@ -52,7 +52,7 @@ const TagsManager = () => {
             />
             <MainButton
               value="Add Tag"
-              className="ml- btn btn-primary"
+              className="ml-2 btn btn-primary"
               onClick={() => saveHandler()}
             />
           </div>
@@ -64,7 +64,10 @@ const TagsManager = () => {
 
         <div className="flex flex-wrap gap-6 mt-4">
           {tags.map((x, id) => (
-            <div className="d-f ai-c tag-item px-4 rounded-md" key={id}>
+            <div
+              className="flex items-center tag-item px-4 rounded-md"
+              key={id}
+            >
               <p className="text-2xl font-bold mr-4">{x.tag}</p>
               <MinimalButton
                 onClick={() => {

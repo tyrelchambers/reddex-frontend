@@ -4,7 +4,7 @@ import Tabs from "../Tabs/Tabs";
 
 const WithNav = ({ tabs, children, optionalTabs }) => {
   return (
-    <div className="w-full d-f mt+  with-nav-wrapper h-full">
+    <div className="w-full flex mt-6  with-nav-wrapper h-full">
       {tabs && tabs.length > 0 && (
         <Tabs tabs={tabs} optionalTabs={optionalTabs} />
       )}

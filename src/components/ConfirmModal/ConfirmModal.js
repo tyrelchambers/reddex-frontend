@@ -50,10 +50,4 @@ const ConfirmModal = inject(
   })
 );
 
-const removeMessagedAuthor = (list, index, setPostData) => {
-  const data = [...list];
-  data.splice(index, 1);
-  return setPostData([...data]);
-};
-
 export default ConfirmModal;

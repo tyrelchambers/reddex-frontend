@@ -112,7 +112,7 @@ const Security = ({ UserStore }) => {
     <div className="account-security-wrapper p-4 shadow-md rounded-md">
       <H2>Login &amp; Security</H2>
 
-      <div className="mt">
+      <div className="mt-8">
         <EditUserForm
           stateHandler={stateHandler}
           changeEmailHandler={changeEmailHandler}
@@ -121,8 +121,8 @@ const Security = ({ UserStore }) => {
         />
       </div>
 
-      <HR classes="mt+" />
-      <div className="mt">
+      <HR classes="mt-6" />
+      <div className="mt-2">
         <H2>Danger Zone</H2>
       </div>
       <p style={{ color: "var(--textLight)" }}>
@@ -130,7 +130,7 @@ const Security = ({ UserStore }) => {
       </p>
       <MainButton
         value="Delete Account"
-        className="btn btn-tiertiary danger mt-"
+        className="btn btn-tiertiary danger mt-2"
         onClick={deleteAccountHandler}
       />
     </div>

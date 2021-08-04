@@ -17,22 +17,22 @@ const SubredditFilters = ({
   );
 
   return (
-    <div className="d-f fxd-c w-100pr filters-wrapper">
+    <div className="flex flex-col w-full filters-wrapper">
       {document.body.clientWidth <= 425 && (
         <MinimalButton
           onClick={() => setCollapsed(!collapsed)}
-          classNames="mb-- mt-- bg"
+          classNames="mb-4 mt-4 bg"
         >
           {collapsed ? "Show Filters" : "Hide Filters"}
         </MinimalButton>
       )}
       {!collapsed && (
-        <div className="d-f fxd-c filters gap-4 shadow-md">
-          <div className=" d-f" style={{ height: "100%" }}>
-            <div className="d-f w-100pr ai-c inputs flex-col gap-4">
-              <div className="d-f fxd-c fx-1 w-full">
-                <p className="mb-- font-bold text-sm">Sort by upvotes</p>
-                <div className="d-f fx-1 gap-4 flex-col">
+        <div className="flex flex-col filters gap-4 shadow-md">
+          <div className=" flex" style={{ height: "100%" }}>
+            <div className="flex w-full items-center inputs flex-col gap-4">
+              <div className="flex flex-col flex-1 w-full">
+                <p className="mb-4 font-bold text-sm">Sort by upvotes</p>
+                <div className="flex flex-1 gap-4 flex-col">
                   <SelectField
                     options={filterOptions}
                     returnValue={(v) => addFilters({ operator: v })}
@@ -51,11 +51,11 @@ const SubredditFilters = ({
                   />
                 </div>
               </div>
-              <div className="d-f fxd-c fx-1 w-full">
-                <p className="mb-- font-bold text-sm">
+              <div className="flex flex-col flex-1 w-full">
+                <p className="mb-4 font-bold text-sm">
                   Sort by approximate read time (in minutes)
                 </p>
-                <div className="d-f fx-1 gap-4 flex-col">
+                <div className="flex flex-1 gap-4 flex-col">
                   <SelectField
                     options={readtimeOptions}
                     returnValue={(v) => addFilters({ timeframe: v })}
@@ -76,22 +76,22 @@ const SubredditFilters = ({
               </div>
             </div>
           </div>
-          <div className="d-f fxd-c fx-1">
-            <p className="mb-- font-bold text-sm">
+          <div className="flex flex-col flex-1">
+            <p className="mb-4 font-bold text-sm">
               Sort by exact phrase (ex: dark web)
             </p>
             <input
               type="text"
-              className="form-input fx-1"
+              className="form-input flex-1"
               placeholder="search phrase"
               value={filters.keywords}
               onChange={(e) => addFilters({ keywords: e.target.value })}
             />
           </div>
-          <div className=" d-f ai-c">
-            <div className="d-f fxd-c filter-actions">
-              <p className="mb-- font-bold text-sm">Filter actions</p>
-              <div className="d-f flex-col w-full gap-2">
+          <div className=" flex items-center">
+            <div className="flex flex-col filter-actions">
+              <p className="mb-4 font-bold text-sm">Filter actions</p>
+              <div className="flex flex-col w-full gap-2">
                 <button
                   className={`btn btn-tiertiary w-full ${
                     filters.seriesOnly ? "active" : ""

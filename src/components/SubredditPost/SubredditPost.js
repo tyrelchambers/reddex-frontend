@@ -35,17 +35,19 @@ const SubredditPost = inject(
 
     return (
       <li
-        className={`d-f fxd-c subreddit-post-parent post rounded-lg shadow-md ${
+        className={`flex flex-col subreddit-post-parent post rounded-lg shadow-md ${
           selectedClass ? "active-post-select" : ""
         } ${isUsed ? "has-been-used" : ""} `}
         data-postid={x.post_id}
       >
-        <div className="d-f ai-c subreddit-header">
-          <section className="d-f ai-c h-100p">
+        <div className="flex items-center subreddit-header">
+          <section className="flex items-center h-100p">
             <div
-              className={`d-f ai-c upvotes  ${x.viewed ? "post-viewed" : ""}`}
+              className={`flex items-center upvotes  ${
+                x.viewed ? "post-viewed" : ""
+              }`}
             >
-              <i className="fas fa-arrow-circle-up mr-"></i>
+              <i className="fas fa-arrow-circle-up mr-2"></i>
               <p className="font-bold text-2xl text-white">{x.ups}</p>
             </div>
             <div className="post-upvote-ratio">
@@ -57,20 +59,20 @@ const SubredditPost = inject(
               <p style={{ marginLeft: "-1px" }}>%</p>
             </div>
           </section>
-          <section className="d-f ai-c w-100pr h-100p flex-wrap">
+          <section className="flex items-center w-full h-100p flex-wrap">
             <a
               href={`https://www.reddit.com/user/${x.author}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="fx-1 ai-c td-n td-u-hv truncate"
+              className="flex-1 items-center no-underline  truncate"
             >
-              <p className="author m-- ml- post-link truncate">
-                <i className="fas fa-user mr-"></i>
+              <p className="author m-4 ml-2 post-link truncate">
+                <i className="fas fa-user mr-2"></i>
                 {x.author}
               </p>
             </a>
             {x.link_flair_text && (
-              <div className="d-f ai-c h-100p post-flair">
+              <div className="flex items-center h-100p post-flair">
                 <p>{x.link_flair_text}</p>
               </div>
             )}
@@ -81,7 +83,7 @@ const SubredditPost = inject(
             href={x.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="td-n td-u-hv "
+            className="no-underline"
             onClick={() => {
               setPostIsViewed(x.post_id);
             }}
@@ -91,30 +93,30 @@ const SubredditPost = inject(
             </p>
           </a>
         </div>
-        <div className="subreddit-footer d-f ai-c jc-sb">
-          <div className="d-f ai-c">
-            <p className="comments ml- sub-detail">
-              <i className="fas fa-comment-alt mr-"></i>
+        <div className="subreddit-footer flex items-center justify-between">
+          <div className="flex items-center">
+            <p className="comments ml-2 sub-detail">
+              <i className="fas fa-comment-alt mr-2"></i>
               {x.num_comments} Comments
             </p>
-            <p className="publish-tag ml- sub-detail">
-              <i className="fas fa-history mr-"></i>
+            <p className="publish-tag ml-2 sub-detail">
+              <i className="fas fa-history mr-2"></i>
               {dateFns.distanceInWordsToNow(moment.unix(x.created)._d)} ago
             </p>
-            <p className="subreddit-reading-time sub-detail ml-">
-              <i className="fas fa-book-reader mr-"></i>~{x.readTime} min read
+            <p className="subreddit-reading-time sub-detail ml-2">
+              <i className="fas fa-book-reader mr-2"></i>~{x.readTime} min read
             </p>
           </div>
 
-          <div className="d-f ai-c">
+          <div className="flex items-center">
             {x.viewed && (
-              <div className="subreddit-viewed info mr-" title="Viewed">
+              <div className="subreddit-viewed info mr-2" title="Viewed">
                 <i className="far fa-eye"></i>
               </div>
             )}
             {isUsed && (
               <div
-                className="has-been-used-text mr- info"
+                className="has-been-used-text mr-2 info"
                 title="This author has been contacted"
               >
                 <i className="fas fa-user-check"></i>

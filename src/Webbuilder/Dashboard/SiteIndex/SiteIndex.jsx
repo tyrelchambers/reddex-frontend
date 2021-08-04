@@ -62,11 +62,11 @@ const SiteIndex = inject(
                     href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`}
                     rel="noopener noreferrer"
                     target="_blank"
-                    className="td-n"
+                    className="no-underline"
                   >
                     View your site
                   </a>,
-                  <div className="d-f ai-c share-wrapper">
+                  <div className="flex items-center share-wrapper">
                     <a
                       href="https://twitter.com/share?ref_src=twsrc%5Etfw"
                       className="twitter-share-button"
@@ -86,8 +86,8 @@ const SiteIndex = inject(
           <SiteBuilderWrapper>
             <div className="max-w-2xl">
               {!SiteStore.activated && (
-                <div className="mt- d-f ai-c">
-                  <p className="mr-">Activate website</p>
+                <div className="mt-2 flex items-center">
+                  <p className="mr-2">Activate website</p>
                   <ToggleStatus
                     context="activate-site"
                     option="Activate"
@@ -99,7 +99,7 @@ const SiteIndex = inject(
               {SiteStore.activated && (
                 <section className="site-general-wrapper">
                   <H2>General Settings</H2>
-                  <div className="mt+">
+                  <div className="mt-6">
                     <SiteBuilderForm
                       configHandler={configHandler}
                       config={SiteStore.config}
@@ -117,7 +117,7 @@ const SiteIndex = inject(
                   </H2Subtitle>
                   <MainButton
                     value="Delete Site"
-                    className="btn btn-tiertiary danger mt-"
+                    className="btn btn-tiertiary danger mt-2"
                     onClick={() =>
                       SiteStore.deleteSiteHandler(SiteStore.config.uuid)
                     }

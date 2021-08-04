@@ -22,7 +22,7 @@ const EditUserForm = ({
           onChange={(e) => stateHandler(e)}
         />
       </div>
-      <div className="d-f jc-fe pb-">
+      <div className="flex justify-end pb-2">
         <MainButton
           value="Change Email"
           className="btn btn-primary"
@@ -74,7 +74,7 @@ const EditUserForm = ({
         />
       </div>
 
-      <div className="d-f jc-fe ">
+      <div className="flex justify-end ">
         <MainButton
           value="Change Password"
           className="btn btn-primary"

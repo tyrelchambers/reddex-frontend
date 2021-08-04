@@ -26,14 +26,14 @@ const AltMessage = ({ UserStore, repeatGreeting, setRepeatGreeting }) => {
   };
 
   return (
-    <section className="default-message animated fadeIn faster bg">
+    <section className="default-message bg">
       <H2>Recurring Message</H2>
       <H2Subtitle>
         This is used when you've already messaged an author. It's useful so
         users don't feel like they're just getting copy and pasted messages.
       </H2Subtitle>
 
-      <form className="d-f fxd-c ai-fs mt+">
+      <form className="flex flex-col items-start mt-6">
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">
             Your Recurring Message
@@ -48,7 +48,7 @@ const AltMessage = ({ UserStore, repeatGreeting, setRepeatGreeting }) => {
           ></textarea>
         </div>
 
-        <div className="d-f jc-sb ai-c w-100pr account-footer">
+        <div className="flex justify-between items-center w-full account-footer">
           <Username />
 
           <MainButton

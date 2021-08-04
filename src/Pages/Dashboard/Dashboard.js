@@ -60,14 +60,14 @@ const Dashboard = inject(
       }, []);
 
       return (
-        <div className="d-f fxd-c dashboard-wrapper">
+        <div className="flex flex-col dashboard-wrapper">
           <Header />
           <DashboardNav />
 
           {loading && <Loading />}
 
           {!loading && (
-            <main className={`p+ dashboard-page-wrapper `}>
+            <main className={`p-6 dashboard-page-wrapper `}>
               <div className="container">{children}</div>
             </main>
           )}

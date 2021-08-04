@@ -95,7 +95,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
                     onClick={() => {
                       ModalStore.setIsOpen(true);
                       ModalStore.setRender(
-                        <div className="d-f fxd-c ai-c">
+                        <div className="flex flex-col items-center">
                           <H2 className="mb+ font-bold">Add tag</H2>
                           <AddTagForm story_uuid={y.uuid} />
                         </div>
@@ -117,10 +117,10 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
     <>
       <div className="bg gap-4 grid shadow-md">
         <H3>Search reading list</H3>
-        <div className="d-f ai-c mt-  reading-list-search">
+        <div className="flex items-center mt-2  reading-list-search">
           <input
             type="text"
-            className="search-large w-100pr max-w-xl"
+            className="search-large w-full max-w-xl"
             placeholder="Search by keywords..."
             value={keywords}
             onChange={(e) => setKeywords(e.target.value)}
@@ -128,7 +128,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
 
           <div className="reading-list-search-actions flex">
             <MainButton
-              className="btn btn-secondary ml-"
+              className="btn btn-secondary ml-2"
               onClick={() => {
                 setKeywords("");
                 setReadingList(list);
@@ -138,7 +138,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
             </MainButton>
 
             <MainButton
-              className="btn btn-primary ml-"
+              className="btn btn-primary ml-2"
               onClick={getPosts}
               disabled={!keywords ? true : false}
             >
@@ -158,7 +158,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
       />
       <HR />
 
-      <ul className="reading-list-list grid grid-cols-3 gap-4 mt-">
+      <ul className="reading-list-list grid grid-cols-3 gap-4 mt-2">
         {renderedList}
       </ul>
     </>

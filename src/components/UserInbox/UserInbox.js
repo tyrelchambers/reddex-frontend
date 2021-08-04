@@ -38,17 +38,17 @@ const UserInbox = inject(
 
     return (
       <div className="inbox-wrapper max-w-screen-md">
-        <div className="d-f gap-2 jc-sb items-center bg h-18 shadow-md">
+        <div className="flex gap-2 justify-between items-center bg h-18 shadow-md">
           <input
             type="text"
-            className="search-large w-100pr "
+            className="search-large w-full "
             placeholder="Search inbox by username..."
             onChange={(e) => setSortVal(e.target.value.toLowerCase())}
           />
           <div>
             <MainButton
               loading={loadingBtn}
-              className="btn btn-primary w-100pr"
+              className="btn btn-primary w-full"
               onClick={() => {
                 setLoadingBtn(true);
                 getMoreMessages(InboxStore, setLoadingBtn);

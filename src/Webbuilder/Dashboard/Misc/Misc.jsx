@@ -2,7 +2,6 @@ import React from "react";
 import ToggleStatus from "../../../components/ToggleStatus/ToggleStatus";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
-import HR from "../../../components/HR/HR";
 import Dashboard from "../../../Pages/Dashboard/Dashboard";
 import SiteBuilderWrapper from "../../../layouts/SiteBuilderWrapper/SiteBuilderWrapper";
 import WithNav from "../../../layouts/WithNav/WithNav";
@@ -25,7 +24,7 @@ const Misc = inject(
                     href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`}
                     rel="noopener noreferrer"
                     target="_blank"
-                    className="td-n"
+                    className="no-underline"
                   >
                     View your site
                   </a>,
@@ -35,8 +34,8 @@ const Misc = inject(
         >
           {" "}
           <SiteBuilderWrapper>
-            <div className="d-f mt-">
-              <div className="mr--- mt-">
+            <div className="flex mt-2">
+              <div className="mr-6 mt-2">
                 <ToggleStatus
                   context="show_credit_link"
                   option="Hidden"
@@ -49,7 +48,7 @@ const Misc = inject(
                   toggled={SiteStore.config.show_credit_link ? true : false}
                 />
               </div>
-              <div className="d-f fxd-c">
+              <div className="flex flex-col">
                 <H2>Show Reddex Credit Link</H2>
                 <H2Subtitle>
                   This is the "Powered by Reddex" link in the footer of your
@@ -58,31 +57,6 @@ const Misc = inject(
                 </H2Subtitle>
               </div>
             </div>
-
-            <HR classes="mt+" />
-
-            {UserStore.patron.patreon_tier === "basic" && (
-              <div className="d-f mt+">
-                <div className="d-f fxd-c">
-                  <H2>Reddex Supporter</H2>
-                  <H2Subtitle>
-                    Thank you so much for supporting Reddex.
-                  </H2Subtitle>
-                </div>
-              </div>
-            )}
-
-            {UserStore.patron.patreon_tier === "pro" && (
-              <div className="d-f mt+">
-                <div className="d-f fxd-c">
-                  <H2>Reddex Pro Supporter</H2>
-                  <H2Subtitle>
-                    A badge has been added to your website to show everyone how
-                    awesome you are.
-                  </H2Subtitle>
-                </div>
-              </div>
-            )}
           </SiteBuilderWrapper>
         </WithNav>
       </Dashboard>

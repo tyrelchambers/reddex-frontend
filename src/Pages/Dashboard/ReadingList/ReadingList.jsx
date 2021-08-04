@@ -46,11 +46,11 @@ const ReadingList = inject(
           ModalStore.setIsOpen(true);
           ModalStore.setRender(
             <>
-              <h2 className="ta-c">Import A Story </h2>
-              <div className="d-f jc-c">
+              <h2 className="text-center">Import A Story </h2>
+              <div className="flex justify-center">
                 <ImportStoryForm
                   buttonText="Import Story"
-                  icon={<i className="fas fa-check mr-"></i>}
+                  icon={<i className="fas fa-check mr-2"></i>}
                 />
               </div>
             </>

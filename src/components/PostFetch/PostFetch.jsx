@@ -120,7 +120,7 @@ const PostFetch = inject(
             )}
 
             {post.posts.length > 0 && (
-              <div className="d-f flex-col w-full">
+              <div className="flex flex-col w-full">
                 <MessageAuthors data={PostStore.selectedPosts} />
                 <p className="subtle mb-2">
                   Showing posts from <strong>{post.subreddit}</strong>
@@ -139,7 +139,9 @@ const PostFetch = inject(
             )}
 
             {!post.posts.length && uiState === "pending" && (
-              <p className="subtle ta-c ml-a mr-a">No posts found...</p>
+              <p className="subtle text-center ml-auto mr-auto">
+                No posts found...
+              </p>
             )}
           </main>
         </div>

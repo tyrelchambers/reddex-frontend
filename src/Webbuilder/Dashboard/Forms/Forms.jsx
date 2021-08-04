@@ -67,9 +67,9 @@ const Forms = inject(
     }, [SiteStore.config.uuid]);
 
     const Module = ({ data, name }) => (
-      <div className="d-f ai-c form-module-wrapper">
+      <div className="flex items-center form-module-wrapper">
         <label className="form-label">{data.label}</label>
-        <div className="d-f ai-c">
+        <div className="flex items-center">
           <input
             type="checkbox"
             name="email"
@@ -84,9 +84,9 @@ const Forms = inject(
               });
             }}
           />
-          <p className="subtle mr-">Required</p>
+          <p className="subtle mr-2">Required</p>
         </div>
-        <div className="d-f ai-c">
+        <div className="flex items-center">
           <input
             type="checkbox"
             name="email"
@@ -118,7 +118,7 @@ const Forms = inject(
                     href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`}
                     rel="noopener noreferrer"
                     target="_blank"
-                    className="td-n"
+                    className="no-underline"
                   >
                     View your site
                   </a>,
@@ -128,8 +128,8 @@ const Forms = inject(
         >
           {" "}
           <SiteBuilderWrapper>
-            <div className="d-f">
-              <div className="mt--- mr-">
+            <div className="flex">
+              <div className="mt-6 mr-2">
                 <ToggleStatus
                   context="submissionForm"
                   option="Inactive"
@@ -142,7 +142,7 @@ const Forms = inject(
                   toggled={SiteStore.config.submission_form ? true : false}
                 />
               </div>
-              <div className="d-f fxd-c">
+              <div className="flex flex-col">
                 <H2>Submission Form</H2>
                 <H2Subtitle>
                   Activate this submission form to allow visitors to email you
@@ -152,7 +152,7 @@ const Forms = inject(
             </div>
             <HR />
             {SiteStore.config.submission_form && (
-              <div className="d-f submission-form-wrapper">
+              <div className="flex submission-form-wrapper">
                 <form className="form custom-story-form form-wide">
                   <H2>Page Title</H2>
                   <H2Subtitle>
@@ -160,7 +160,7 @@ const Forms = inject(
                     whatever you like in order to convey what the visitor is
                     doing on your page (eg: Story Submission)
                   </H2Subtitle>
-                  <div className="field-group mt-">
+                  <div className="field-group mt-6">
                     <input
                       type="text"
                       className="form-input"
@@ -173,7 +173,7 @@ const Forms = inject(
                     />
                   </div>
 
-                  <div className="rules-wrapper mt+">
+                  <div className="rules-wrapper mt-6">
                     <H2>Headline</H2>
                     <H2Subtitle>
                       The headline is used to point out a particularly important
@@ -181,7 +181,7 @@ const Forms = inject(
                       submitting a story)
                     </H2Subtitle>
 
-                    <div className="field-group">
+                    <div className="field-group mt-6">
                       <input
                         type="text"
                         name="headline"
@@ -196,23 +196,23 @@ const Forms = inject(
                       />
                     </div>
 
-                    <div className="mt+">
+                    <div className="mt-6">
                       <H2>Rules for Submission</H2>
                       <H2Subtitle>
                         Add your rules here. Can be point form or a normal
                         sentence/paragraph. Whatever you choose.
                       </H2Subtitle>
-                      <div className="mt-">
+                      <div className="mt-2">
                         <div className="rules-wrapper" id="editor"></div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="modules-wrapper mt+">
+                  <div className="modules-wrapper mt-6">
                     <H2>Customize Modules</H2>
 
                     <div className="field-group">
-                      <div className="d-f fxd-c">
+                      <div className="flex flex-col">
                         <Module
                           data={FormStore.state.OptionsEmail}
                           name="OptionsEmail"

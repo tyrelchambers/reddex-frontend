@@ -45,7 +45,7 @@ export const ContactsPage = () => {
       <WithNav>
         <div className="bg shadow-md ">
           <H2>Search by name</H2>
-          <div className="d-f ai-c mt- contact-search gap-2">
+          <div className="flex items-center mt-2 contact-search gap-2">
             <input
               type="text"
               className="search-large w-full "
@@ -58,7 +58,7 @@ export const ContactsPage = () => {
             </Link>
           </div>
         </div>
-        <section className=" mt+ flex flex-wrap gap-6 contact-list-wrapper">
+        <section className=" mt-6 flex flex-wrap gap-6 contact-list-wrapper">
           {contacts
             .filter((x) => x.name.toLowerCase().includes(sortVal.toLowerCase()))
             .map((x, id) => (

@@ -12,7 +12,7 @@ const Navbar = inject("UserStore")(
         <div className="navbar-wrapper">
           <nav className="navbar">
             <ul>
-              <li className="d-f ai-c nav-link patreon-button">
+              <li className="flex items-center nav-link patreon-button">
                 <img
                   src={require("../../assets/Patreon_Mark_White.png")}
                   className="nav-patreon-icon"
@@ -27,25 +27,25 @@ const Navbar = inject("UserStore")(
                   Become a Patron
                 </a>
               </li>
-              <li className="d-f ai-c nav-link ml+">
+              <li className="flex items-center nav-link ml-6">
                 <Link to="/">Home</Link>
               </li>
 
-              <li className="d-f ai-c nav-link">
+              <li className="flex items-center nav-link">
                 <Link to="/about">About</Link>
               </li>
 
-              <li className="d-f ai-c nav-link">
+              <li className="flex items-center nav-link">
                 <Link to="/help">Help</Link>
               </li>
 
               <li
-                className="d-f ai-c nav-link desktop nav-dropdown p-"
+                className="flex items-center nav-link desktop nav-dropdown p-2"
                 onClick={(e) => {
                   e.target.closest(".nav-dropdown").classList.toggle("extend");
                 }}
               >
-                <div className="d-f nav-dropdown-label">
+                <div className="flex nav-dropdown-label">
                   <p>Options</p>
                   <i className="fas fa-ellipsis-h"></i>
                 </div>
@@ -57,10 +57,10 @@ const Navbar = inject("UserStore")(
 
               {!UserStore.getUser() && (
                 <React.Fragment>
-                  <li className="d-f ai-c nav-link ">
+                  <li className="flex items-center nav-link ">
                     <Link to="/authorize">Sign Up</Link>
                   </li>
-                  <li className="d-f ai-c nav-link">
+                  <li className="flex items-center nav-link">
                     <Link to="/login">Login</Link>
                   </li>
                 </React.Fragment>

@@ -101,7 +101,7 @@ const ConfirmMessages = inject(
           </p>
         </div>
         {contact && expandContact && (
-          <div className="modal-contact-details-wrapper mt-">
+          <div className="modal-contact-details-wrapper m-2">
             <p>{contact.notes}</p>
           </div>
         )}
@@ -143,7 +143,7 @@ const ConfirmMessages = inject(
             ></textarea>
           </div>
 
-          <div className="d-f jc-sb ai-c confirm-actions">
+          <div className="flex justify-center items-center confirm-actions">
             <i
               className="fas fa-trash text-red-500"
               onClick={() => removeMessagedAuthor()}

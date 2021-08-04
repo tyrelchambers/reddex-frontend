@@ -26,7 +26,7 @@ const Home = ({ UserStore, setInitialGreeting, initialGreeting }) => {
   };
 
   return (
-    <section className="default-message animated fadeIn faster bg">
+    <section className="default-message bg">
       <H2>Greeting Message</H2>
       <H2Subtitle>
         This message is used when you haven't messaged an author before. Think
@@ -34,7 +34,7 @@ const Home = ({ UserStore, setInitialGreeting, initialGreeting }) => {
         there.
       </H2Subtitle>
 
-      <form className="d-f fxd-c ai-fs mt+">
+      <form className="flex flex-col items-start mt-6">
         <div className="field-group">
           <label htmlFor="defaultMessage" className="form-label">
             Your Greeting Message
@@ -49,7 +49,7 @@ const Home = ({ UserStore, setInitialGreeting, initialGreeting }) => {
           ></textarea>
         </div>
 
-        <div className="d-f jc-sb ai-c w-100pr account-footer">
+        <div className="flex justify-between items-center w-full account-footer">
           <Username />
 
           <MainButton

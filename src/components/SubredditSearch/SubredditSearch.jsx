@@ -18,16 +18,16 @@ const SubredditSearch = ({
 
   return (
     <section className="w-full flex flex-col post-fetch-header">
-      <div className=" w-full post-fetch-search mb- bg shadow-md">
-        <p className="mb-- font-bold text-sm">Enter subreddit</p>
-        <div className="d-f ai-c mobile-fetch-inputs flex-col flex mt-- gap-2">
-          <div className="d-f fx-1 h-12 w-full">
+      <div className=" w-full post-fetch-search mb-2 bg shadow-md">
+        <p className="mb-4 font-bold text-sm">Enter subreddit</p>
+        <div className="flex items-center mobile-fetch-inputs flex-col mt-4 gap-2">
+          <div className="flex flex-1 h-12 w-full">
             <div className="preffix" style={{ height: "100%" }}>
               <p>r/</p>
             </div>
             <input
               type="text"
-              className="form-input w-100pr  search-input post-fetch-search-input"
+              className="form-input w-full  search-input post-fetch-search-input"
               placeholder="subreddit"
               value={subreddit}
               onChange={(e) => PostStore.setSubreddit(e.target.value)}

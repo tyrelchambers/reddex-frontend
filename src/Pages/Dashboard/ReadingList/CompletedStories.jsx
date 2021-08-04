@@ -10,7 +10,7 @@ const CompletedStories = ({ list, ReadingListStore }) => {
   if (!list) return null;
 
   return (
-    <ul className="reading-list-list grid grid-cols-3 gap-4 mt- ">
+    <ul className="reading-list-list grid grid-cols-3 gap-4 mt-2 ">
       {list.map((x) => (
         <Story story={x}>
           <div className="flex items-center gap-6">

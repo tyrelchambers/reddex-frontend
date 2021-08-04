@@ -33,7 +33,7 @@ export const AddContactForm = ({ saveContact, stateHandler, state }) => {
         />
       </div>
 
-      <div className="d-f jc-fe">
+      <div className="flex justify-end">
         <MainButton className="btn btn-primary" onClick={saveContact}>
           <i className="fas fa-plus"></i>
           Save Contact

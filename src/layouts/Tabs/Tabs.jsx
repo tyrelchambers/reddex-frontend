@@ -7,9 +7,9 @@ const Tabs = ({ tabs, optionalTabs }) => {
   const url = window.location.pathname + window.location.search;
 
   return (
-    <div className="d-f fxd-c tabs-wrapper mr-10">
+    <div className="flex flex-col tabs-wrapper mr-10">
       {tabs && (
-        <ul className="d-f fxd-c tabs">
+        <ul className="flex flex-col tabs">
           {tabs.map((tab, id) => (
             <li className="tab" key={id}>
               <NavLink
@@ -30,7 +30,7 @@ const Tabs = ({ tabs, optionalTabs }) => {
       {optionalTabs && (
         <>
           <HR />
-          <ul className="d-f fxd-c tabs">
+          <ul className="flex flex-col tabs">
             {optionalTabs.map((tab, id) => (
               <li className="tab" key={id}>
                 {tab}

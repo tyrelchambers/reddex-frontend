@@ -59,11 +59,11 @@ const SignupForm = ({
         />
       </div>
 
-      <div className="field-actions d-f jc-c ">
+      <div className="field-actions flex justify-center ">
         <MainButton
           value="Create Account"
           onClick={submitHandler}
-          className="btn btn-primary mt- w-100pr"
+          className="btn btn-primary mt- w-full"
         />
       </div>
     </form>

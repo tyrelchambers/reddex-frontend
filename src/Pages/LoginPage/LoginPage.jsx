@@ -69,7 +69,7 @@ const LoginPage = inject("UserStore")(
     };
     return (
       <DisplayWrapper>
-        <div className="d-f jc-c ai-c w-100pr mt+ fxd-c animated fadeIn">
+        <div className="flex justify-center items-center w-full mt-6 flex-col ">
           <h1 className="font-bold">Login to Reddex</h1>
           <LoginForm
             credentialHandler={credentialHandler}

@@ -4,7 +4,7 @@ import "./Contact.scss";
 import { MinimalButton } from "../Buttons/Buttons";
 const Contact = ({ contact, deleteHandler }) => {
   return (
-    <div className="contact-list-item p-4 rounded-md shadow-md  mt- ">
+    <div className="contact-list-item p-4 rounded-md shadow-md ">
       <p className="text-lg font-bold">
         <i className="fas fa-user mr-2 text-sm"></i>
         {contact.name}

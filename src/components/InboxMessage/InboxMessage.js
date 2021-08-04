@@ -21,11 +21,10 @@ import { getStoryFromRedditInbox } from "../../api/getStoryFromRedditInbox";
 import { permissionHandler } from "../../api/permissionHandler";
 
 const InboxMessage = inject(
-  "InboxStore",
   "UserStore",
   "ReadingListStore"
 )(
-  observer(({ InboxStore, UserStore, ReadingListStore }) => {
+  observer(({ UserStore, ReadingListStore }) => {
     const [storyLink, setStoryLink] = useState("");
     const [data, setData] = useState();
     const [contacts, setContacts] = useState([]);
@@ -76,21 +75,21 @@ const InboxMessage = inject(
 
       if (isListed.length > 0) {
         return (
-          <button className="chat-action ai-c no-action" disabled>
-            <i className="fas fa-bookmark mr-"></i>
+          <button className="chat-action items-center no-action" disabled>
+            <i className="fas fa-bookmark mr-2"></i>
             In reading list
           </button>
         );
       } else {
         return (
           <button
-            className="chat-action primary ai-c"
+            className="chat-action primary items-center"
             onClick={() => {
               permissionHandler(true, data);
               toast.success("Added to reading list");
             }}
           >
-            <i className="fas fa-bookmark mr-"></i>
+            <i className="fas fa-bookmark mr-2"></i>
             Add to reading List
           </button>
         );
@@ -102,22 +101,22 @@ const InboxMessage = inject(
 
       if (contact.length === 1 || isContact) {
         return (
-          <button className="chat-action ai-c no-action" disabled>
-            <i className="fas fa-address-book mr-"></i>
+          <button className="chat-action items-center no-action" disabled>
+            <i className="fas fa-address-book mr-2"></i>
             Already a contact
           </button>
         );
       } else {
         return (
           <button
-            className="chat-action  ai-c"
+            className="chat-action  items-center"
             onClick={() => {
               addToContacts(data);
               setIsContact(true);
               toast.success("Contact saved");
             }}
           >
-            <i className="fas fa-address-book mr-"></i>
+            <i className="fas fa-address-book mr-2"></i>
             Add to contacts
           </button>
         );
@@ -129,9 +128,9 @@ const InboxMessage = inject(
         <H1>Inbox Message</H1>
         <WithNav tabs={tabs}>
           {!isEmpty(data) && (
-            <div className="inbox-message-wrapper fx-1 p-4 rounded-lg shadow-md">
+            <div className="inbox-message-wrapper flex-1 p-4 rounded-lg shadow-md">
               <main>
-                <div className="d-f fxd-c inbox-message-header">
+                <div className="flex flex-col inbox-message-header">
                   <H2>
                     <a
                       href={storyLink}
@@ -141,7 +140,7 @@ const InboxMessage = inject(
                       {data.subject}
                     </a>
                   </H2>
-                  <p className="mb- message-subtitle mt-">
+                  <p className="mb-2 message-subtitle mt-2">
                     From:{" "}
                     <a
                       href={`https://reddit.com/u/${
@@ -157,7 +156,7 @@ const InboxMessage = inject(
                         : data.dest}
                     </a>{" "}
                   </p>
-                  <div className="message-tags mb-">
+                  <div className="message-tags mb-2">
                     <IsInReadingList />
                     <IsInContacts />
                   </div>

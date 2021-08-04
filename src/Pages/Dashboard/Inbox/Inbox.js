@@ -37,8 +37,11 @@ const Inbox = inject("InboxStore")(
 const Breadcrumbs = ({ store }) => {
   return (
     <div className="breadcrumb ">
-      <p className="d-f ai-c" onClick={() => store.setOpenChatWindow(false)}>
-        <i className="fas fa-chevron-left mr-"></i>
+      <p
+        className="flex items-center"
+        onClick={() => store.setOpenChatWindow(false)}
+      >
+        <i className="fas fa-chevron-left mr-2"></i>
         Close
       </p>
     </div>

@@ -4,14 +4,14 @@ import { H3 } from "../Headings/Headings";
 
 const ReadingListFilters = (props) => {
   return (
-    <div className="reading-list-filters d-f fxd-c jc-c mt-4 mb-2">
+    <div className="reading-list-filters flex flex-col justify-center mt-4 mb-2">
       {props.initialHeaders.length > 0 && (
         <>
           <H3>Sort by subreddit</H3>
           <div className="header-items">
             {props.subredditFilter && (
               <i
-                className="fas fa-times ml- mr-"
+                className="fas fa-times ml-2 mr-2"
                 onClick={() => props.setSubredditFilter("")}
               ></i>
             )}
@@ -32,13 +32,13 @@ const ReadingListFilters = (props) => {
 
       {props.tags.length > 0 && (
         <>
-          <div className="mt">
+          <div className="mt-2">
             <H3>Sort by tags</H3>
           </div>
           <div className="header-items">
             {!isEmpty(props.tag) && (
               <i
-                className="fas fa-times ml- mr-"
+                className="fas fa-times ml-2 mr-2"
                 onClick={() => props.setTag("")}
               ></i>
             )}

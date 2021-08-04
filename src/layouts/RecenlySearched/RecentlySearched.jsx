@@ -21,7 +21,7 @@ const RecentlySearched = ({ PostStore, executeFetch }) => {
     <div className="recently-searched mt-2 shadow-md">
       <p className="text-sm font-bold">Frequently Searched</p>
 
-      <div className="d-f ai-c term-list">
+      <div className="flex items-center term-list">
         {data
           .sort((a, b) => b.count - a.count)
           .map((x, id) => (

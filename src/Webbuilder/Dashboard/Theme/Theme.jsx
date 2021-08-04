@@ -25,7 +25,7 @@ const Theme = ({ SiteStore }) => {
                   href={`https://${SiteStore.preview.subdomain}.${process.env.REACT_APP_SUBDOMAIN_HOST}`}
                   rel="noopener noreferrer"
                   target="_blank"
-                  className="td-n"
+                  className="no-underline"
                 >
                   View your site
                 </a>,

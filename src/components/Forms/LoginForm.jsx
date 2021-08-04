@@ -37,16 +37,18 @@ export default function LoginForm({
         />
       </div>
 
-      <Link to="/authorize" className="link m--">
-        Register
-      </Link>
-      <Link to="/request-reset" className="link m--">
-        Forgot password?
-      </Link>
+      <div className="mt-2 mb-2 flex gap-4">
+        <Link to="/authorize" className="link">
+          Register
+        </Link>
+        <Link to="/request-reset" className="link">
+          Forgot password?
+        </Link>
+      </div>
 
-      <div className="d-f jc-c">
+      <div className="flex justify-center">
         <MainButton
-          className="btn btn-primary w-100pr mt-"
+          className="btn btn-primary w-full mt-2"
           onClick={(e) => {
             setLoading(true);
             submitHandler(e);

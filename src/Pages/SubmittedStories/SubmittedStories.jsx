@@ -74,13 +74,13 @@ const SubmittedStories = () => {
           <p className="font-bold ">Sort by title, author, or tags</p>
           <input
             type="text"
-            className="search-large w-100pr max-w-xl mt-"
+            className="search-large w-full max-w-xl mt-2"
             placeholder="Search by title, author, or tags..."
             onChange={(e) => setSortVal(e.target.value.toLowerCase())}
           />
         </div>
 
-        <ul className="reading-list-list grid grid-cols-3 gap-4 mt-">
+        <ul className="reading-list-list grid grid-cols-3 gap-4 mt-2">
           {stories}
         </ul>
       </WithNav>

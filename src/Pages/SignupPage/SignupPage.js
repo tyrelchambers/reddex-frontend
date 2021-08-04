@@ -128,8 +128,8 @@ const SignupPage = inject("UserStore")(
       return (
         <DisplayWrapper>
           <div className="flex flex-col items-center mt-4">
-            <h1 className="mb+ ta-c font-bold">Signup With Reddex</h1>
-            <p className="subtle mb+">
+            <h1 className="mb-6 text-center font-bold">Signup With Reddex</h1>
+            <p className="subtle mb-6">
               In order to signup for a Reddex profile, you'll have to agree to
               let Reddex access your Reddit profile, but don't worry! Reddex
               will <em>not</em> use your profile for evil or malicious purposes.

@@ -7,8 +7,8 @@ import DisplayWrapper from "./layouts/DisplayWrapper/DisplayWrapper";
 const App = () => {
   return (
     <DisplayWrapper>
-      <div className="d-f fxd-c ai-c mt+">
-        <main className="App p-4 w-full fx-1">
+      <div className="flex flex-col items-center mt-6">
+        <main className="App p-4 w-full flex-1">
           <PostFetch />
           <ScrollToTop />
         </main>
