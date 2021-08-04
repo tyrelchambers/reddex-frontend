@@ -5,7 +5,7 @@ export const MainButton = (props) => {
   if (props.loading) {
     return (
       <div
-        className={`${props.className} jc-c d-f ai-c disabled`}
+        className={`${props.className} flex justify-center items-center disabled`}
         onClick={props.onClick}
         disabled
       >

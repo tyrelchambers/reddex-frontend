@@ -64,11 +64,11 @@ const ConfirmMessages = inject(
       body.set("subject", fmtSubject);
       body.set("text", defaultMessage);
 
-      // await sendMessageToAuthor({
-      //   link,
-      //   access_token: tokens.access_token,
-      //   body,
-      // });
+      await sendMessageToAuthor({
+        link,
+        access_token: tokens.access_token,
+        body,
+      });
 
       const newPostId = await saveStoryToUser(PostStore.selectedPost);
       saveAuthorToDb(author, newPostId.uuid);
