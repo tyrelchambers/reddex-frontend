@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./ConfirmModal.scss";
 import { observer } from "mobx-react-lite";
 import ConfirmMessages from "../ConfirmMessages/ConfirmMessages";

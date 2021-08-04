@@ -7,7 +7,6 @@ import Twitter from "../Static/modules/Timelines/Twitter/Twitter";
 import { Link } from "react-router-dom";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
-import PatreonBadge from "../../layouts/PatreonBadge/PatreonBadge";
 
 const Static = inject(
   "SiteStore",

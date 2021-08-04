@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Modal.scss";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Tabs.scss";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import HR from "../../components/HR/HR";
 
 const Tabs = ({ tabs, optionalTabs }) => {
