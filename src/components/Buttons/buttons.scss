@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   i {
     margin-right: 10px;
   }
@@ -23,7 +24,6 @@
   white-space: nowrap;
   outline: none;
   display: flex;
-  height: 100%;
   justify-content: center;
   align-items: center;
   padding: 1em;
@@ -126,22 +126,10 @@
   }
 }
 
-.btn-increment {
-  border: none;
-  padding: 0.5em;
-  border-radius: 5px;
-  width: 70px;
-  background-color: var(--bgLight);
-}
-
 .btn-primary[disabled],
 .btn-green[disabled] {
-  background: rgb(62, 76, 89);
-  background: linear-gradient(
-    31deg,
-    rgba(62, 76, 89, 1) 0%,
-    rgba(154, 165, 177, 1) 100%
-  );
+  background: rgb(142, 150, 156);
+
   cursor: not-allowed;
 }
 .chat-send {

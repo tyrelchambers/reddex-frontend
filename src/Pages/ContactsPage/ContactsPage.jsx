@@ -52,11 +52,7 @@ export const ContactsPage = () => {
               placeholder="Search contact list..."
               onChange={(e) => setSortVal(e.target.value)}
             />
-            <Link
-              to="/dashboard/contacts/new"
-              className=" btn btn-tiertiary h-100p p-"
-              style={{ maxWidth: "200px" }}
-            >
+            <Link to="/dashboard/contacts/new" className=" btn btn-primary ">
               <i className="fas fa-plus"></i>
               Add Contact
             </Link>

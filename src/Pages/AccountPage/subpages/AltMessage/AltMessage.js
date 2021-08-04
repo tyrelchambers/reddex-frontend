@@ -52,7 +52,7 @@ const AltMessage = ({ UserStore, repeatGreeting, setRepeatGreeting }) => {
           <Username />
 
           <MainButton
-            className="btn btn-green p-"
+            className="btn btn-primary"
             onClick={(e) => saveMessageHandler(e)}
             value="Save Message"
           />

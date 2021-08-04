@@ -79,7 +79,6 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
               >
                 <div className="flex items-center gap-6">
                   <MinimalButton
-                    className=""
                     onClick={() => {
                       addToCompleted(y, true);
                       ReadingListStore.transferStoryFromList(
@@ -129,7 +128,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
 
           <div className="reading-list-search-actions flex">
             <MainButton
-              className="btn btn-tiertiary p- ml-"
+              className="btn btn-secondary ml-"
               onClick={() => {
                 setKeywords("");
                 setReadingList(list);
@@ -139,7 +138,7 @@ const Approved = ({ list, ReadingListStore, ModalStore }) => {
             </MainButton>
 
             <MainButton
-              className="btn btn-green p- ml-"
+              className="btn btn-primary ml-"
               onClick={getPosts}
               disabled={!keywords ? true : false}
             >

@@ -52,7 +52,7 @@ const TagsManager = () => {
             />
             <MainButton
               value="Add Tag"
-              className="ml- btn btn-green h-100p p-"
+              className="ml- btn btn-primary"
               onClick={() => saveHandler()}
             />
           </div>
