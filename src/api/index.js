@@ -33,11 +33,6 @@ export const getAxios = async ({
           window.localStorage.clear();
           window.location.pathname = "/login";
         }
-        console.log(err.response.data);
-        if (err.response.data === "Visitor token invalid") {
-          window.localStorage.removeItem("temptoken");
-          // window.location.reload();
-        }
       }
       return false;
     });
