@@ -138,7 +138,7 @@ const InitialSubLoad = () => {
 const InitialLoad = () => {
   const [loaded, setLoaded] = useState(false);
   const token = window.localStorage.getItem("token");
-  const vToken = window.localStorage.getItem("visitorToken");
+  const tempToken = window.localStorage.getItem("temptoken");
 
   checkValidTokens();
 
@@ -167,10 +167,10 @@ const InitialLoad = () => {
         }
       }
 
-      if (!vToken && !token) {
+      if (!tempToken) {
         await getVisitorToken().then(async (res) => {
           if (res) {
-            window.localStorage.setItem("visitorToken", res);
+            window.localStorage.setItem("temptoken", res);
           }
         });
       }
@@ -178,7 +178,7 @@ const InitialLoad = () => {
     };
 
     _();
-  }, [token, vToken]);
+  }, [token, tempToken]);
 
   if (loaded) {
     return (

@@ -8,9 +8,8 @@ export const getAxios = async ({
   data = {},
   params = {},
   url = "",
-  token = window.localStorage.getItem("token") ||
-    window.localStorage.getItem("visitorToken") ||
-    null,
+  token = window.localStorage.getItem("token"),
+  temptoken = window.localStorage.getItem("temptoken"),
 } = {}) => {
   return await Axios({
     method,
@@ -18,6 +17,7 @@ export const getAxios = async ({
     data,
     headers: {
       ...(token && { token }),
+      ...(temptoken && { temptoken }),
     },
     params: {
       ...params,
@@ -33,9 +33,10 @@ export const getAxios = async ({
           window.localStorage.clear();
           window.location.pathname = "/login";
         }
+        console.log(err.response.data);
         if (err.response.data === "Visitor token invalid") {
-          window.localStorage.removeItem("visitorToken");
-          window.location.reload();
+          window.localStorage.removeItem("temptoken");
+          // window.location.reload();
         }
       }
       return false;
