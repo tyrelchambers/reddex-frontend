@@ -93,15 +93,13 @@ const PostFetch = inject(
               uiState={uiState}
               fetch={executeFetch}
             />
-            {post.posts.length > 0 && (
-              <SubredditFilters
-                setRefetch={setRefetch}
-                filters={filters}
-                addFilters={addFilters}
-                resetFilters={resetFilters}
-                filter={() => getPosts({ query: filters })}
-              />
-            )}
+            <SubredditFilters
+              setRefetch={setRefetch}
+              filters={filters}
+              addFilters={addFilters}
+              resetFilters={resetFilters}
+              filter={() => getPosts({ query: filters })}
+            />
             {UserStore.getUser() && (
               <RecentlySearched executeFetch={executeFetch} />
             )}
