@@ -53,6 +53,7 @@ class PostStore {
     const clone = [...this.selectedPosts];
     const newArr = clone.filter((post) => post.post_id !== id);
     this.selectedPosts = newArr;
+    this.selectedPost = newArr[0];
   }
 }
 

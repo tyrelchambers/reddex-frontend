@@ -1,5 +1,5 @@
 import React from "react";
-import "./About.scss";
+import "./About.css";
 import DisplayWrapper from "../../layouts/DisplayWrapper/DisplayWrapper";
 import { MainButton } from "../../components/Buttons/Buttons";
 import {

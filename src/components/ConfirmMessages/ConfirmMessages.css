@@ -1,0 +1,79 @@
+.confirm-messages-wrapper {
+  flex: 2;
+  height: 100%;
+}
+.confirm-messages-wrapper .default-message-input {
+  width: 100%;
+  background-color: var(--bg);
+  border: none;
+  height: 200px;
+}
+.confirm-messages-wrapper > h4 {
+  color: var(--text);
+}
+.confirm-title {
+  background-color: var(--bgLight);
+  padding: 0.5em;
+  border-radius: 5px;
+  align-items: center;
+  display: flex;
+  color: var(--text);
+}
+.confirm-title i {
+  font-size: 1rem;
+}
+.modal-contact-details-wrapper {
+  white-space: pre-wrap;
+  background-color: var(--bgLight);
+  border: 1px solid var(--bgLight);
+  padding: 1em;
+  border-radius: 5px;
+}
+.modal-contact-toggle {
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  background-color: var(--bgLighter);
+  color: var(--text);
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+.modal-contact-toggle p {
+  color: var(--text);
+}
+.tag {
+  background-color: var(--bgLighter);
+  margin: 0.5em;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  color: var(--text);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tag:hover {
+  background-color: var(--red);
+  color: white;
+}
+@media screen and (max-width: 618px) {
+  .account-tab {
+    margin: 0;
+  }
+}
+@media screen and (max-width: 572px) {
+  .confirm-messages-wrapper {
+    width: 100%;
+  }
+  .increment {
+    display: none;
+  }
+  #author {
+    font-size: 6vw;
+  }
+}
+@media screen and (max-width: 425px) {
+  .message-body-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

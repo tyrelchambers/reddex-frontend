@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
 import { getAxios } from "../../api";
-import "./TagsManager.scss";
+import "./TagsManager.css";
 import HR from "../../components/HR/HR";
 import { MainButton, MinimalButton } from "../../components/Buttons/Buttons";
 import WithNav from "../../layouts/WithNav/WithNav";

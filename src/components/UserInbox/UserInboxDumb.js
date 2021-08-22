@@ -1,7 +1,7 @@
 import React from "react";
 import dateFns from "date-fns";
 import moment from "moment";
-import "./UserInbox.scss";
+import "./UserInbox.css";
 import isEmpty from "../../helpers/objIsEmpty";
 
 const UserInboxDumb = ({ data, onClick, UserStore, InboxStore }) => {
@@ -57,13 +57,17 @@ const UserInboxDumb = ({ data, onClick, UserStore, InboxStore }) => {
             }}
           >
             <div className="flex justify-between">
-              <p className="font-bold">
+              <p className="font-bold text-gray-600">
                 {x.data.author === currentUser.replace(/\s/g, "")
                   ? x.data.dest
                   : x.data.author}
               </p>
               <p className="text-right">{getLastReply(x)}</p>
             </div>
+            <p className="font-bold truncate w-full text-xl">
+              {x.data.subject}
+            </p>
+
             <div className="inbox-item-body">
               <i className="fas fa-comment-alt mr-2"></i>
               <p className=" message-snippet">{formatThreads()}</p>

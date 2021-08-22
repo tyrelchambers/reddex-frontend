@@ -1,5 +1,5 @@
 import React from "react";
-import "./SiteSaveStatus.scss";
+import "./SiteSaveStatus.css";
 import { MainButton } from "../../components/Buttons/Buttons";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";

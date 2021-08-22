@@ -1,5 +1,5 @@
 import React from "react";
-import "./forms.scss";
+import "./forms.css";
 import HR from "../../components/HR/HR";
 import { MainButton } from "../Buttons/Buttons";
 const EditUserForm = ({

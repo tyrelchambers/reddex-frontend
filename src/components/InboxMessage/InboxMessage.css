@@ -1,0 +1,27 @@
+.chat-action.no-action {
+  background-color: var(--green);
+  color: white;
+}
+.inbox-message-header h2,
+.inbox-message-header p,
+.inbox-message-header a {
+  color: var(--text);
+}
+.message-subtitle a {
+  color: var(--text);
+  margin-top: 0.5em;
+}
+.message-tags {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  margin-top: 0.8em;
+}
+@media screen and (max-width: 623px) {
+  .message-tags {
+    flex-direction: column;
+  }
+  .message-tags .chat-action {
+    margin-top: 1em;
+  }
+}

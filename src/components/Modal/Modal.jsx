@@ -1,5 +1,5 @@
-import React from "react";
-import "./Modal.scss";
+import React, { useEffect } from "react";
+import "./Modal.css";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
 
@@ -8,6 +8,17 @@ export const Modal = inject(
   "PostStore"
 )(
   observer(({ ModalStore }) => {
+    useEffect(() => {
+      if (ModalStore.isOpen) {
+        document.body.classList.add("overflow-hidden");
+      } else {
+        document.body.classList.remove("overflow-hidden");
+      }
+      return () => {
+        document.body.classList.remove("overflow-hidden");
+      };
+    }, [ModalStore.isOpen]);
+
     if (!ModalStore.isOpen) return null;
 
     return (

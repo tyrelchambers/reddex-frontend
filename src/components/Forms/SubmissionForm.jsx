@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { inject, observer } from "mobx-react";
 import Quill from "quill";
-import "../../components/Forms/forms.scss";
+import "../../components/Forms/forms.css";
 
 const SubmissionForm = inject("FormStore")(
   observer(({ FormStore, data }) => {

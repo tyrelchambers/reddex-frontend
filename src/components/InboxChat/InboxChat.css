@@ -1,0 +1,115 @@
+.form {
+  width: 100%;
+  max-width: 600px;
+}
+.field-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  width: 100%;
+}
+.form-wide {
+  max-width: 100%;
+}
+.form-label {
+  margin-bottom: 0.5em;
+  font-weight: 700;
+  color: var(--text);
+}
+.form-input {
+  border: none;
+  width: 100%;
+  padding: 0.8em 1.2em;
+  font-size: 0.8rem;
+  height: 100%;
+  border-radius: 3px;
+  background-color: var(--inputBg);
+  color: var(--text);
+}
+.form-input::placeholder {
+  color: var(--textLight);
+  font-style: italic;
+}
+.form-input:focus {
+  background-color: var(--bgLight);
+}
+.form-input.has-preffix {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.form-input.has-suffix {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.chat-send-form {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  bottom: 10px;
+  width: 100%;
+  background-color: var(--bgLight);
+  padding: 1em;
+  border-radius: 5px;
+  border: 2px solid var(--bg);
+}
+.chat-input {
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  resize: none;
+  color: var(--text);
+  background-color: var(--bgLight);
+}
+.textarea {
+  display: block;
+  font-family: "Nunito", sans-serif;
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  padding: 0.5em;
+  color: var(--text);
+  resize: vertical;
+  line-height: 1.8em;
+  font-size: 0.8rem;
+  background-color: var(--bg);
+  border: none;
+}
+.textarea::placeholder {
+  color: var(--textLight);
+  font-style: italic;
+}
+.textarea:focus {
+  background-color: var(--bgLight);
+}
+.search-large {
+  border-radius: 3px;
+  background-color: var(--inputBg);
+  font-size: 0.8rem;
+  padding: 1em;
+  color: var(--text);
+}
+.search-large::placeholder {
+  color: var(--textLight);
+  font-style: italic;
+}
+.search-large:focus {
+  background-color: var(--bg);
+}
+.colour-picker {
+  border: 0px;
+  width: 40px;
+  height: 40px;
+}
+.ql-editor {
+  background: white;
+}
+.ql-editor * {
+  color: #2e2e2e;
+}
+.required {
+  color: var(--error);
+}
+.form.with-bg {
+  background-color: var(--bgLight);
+}

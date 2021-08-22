@@ -1,5 +1,5 @@
 import React from "react";
-import "./DashboardNav.scss";
+import "./DashboardNav.css";
 import { NavLink, Link } from "react-router-dom";
 
 const DashboardNav = () => {

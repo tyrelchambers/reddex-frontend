@@ -1,5 +1,5 @@
 import React from "react";
-import "./HelpPage.scss";
+import "./HelpPage.css";
 import DisplayWrapper from "../../layouts/DisplayWrapper/DisplayWrapper";
 
 const HelpPage = () => {

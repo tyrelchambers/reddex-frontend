@@ -1,5 +1,5 @@
 import React from "react";
-import "./forms.scss";
+import "./forms.css";
 import { MainButton } from "../Buttons/Buttons";
 
 export const AddContactForm = ({ saveContact, stateHandler, state }) => {

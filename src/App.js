@@ -1,5 +1,5 @@
 import React from "react";
-import "./app.scss";
+import "./app.css";
 import PostFetch from "./components/PostFetch/PostFetch.jsx";
 import ScrollToTop from "./layouts/ScrollToTop/ScrollToTop";
 import DisplayWrapper from "./layouts/DisplayWrapper/DisplayWrapper";

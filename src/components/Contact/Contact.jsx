@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Contact.scss";
+import "./Contact.css";
 import { MinimalButton } from "../Buttons/Buttons";
 const Contact = ({ contact, deleteHandler }) => {
   return (

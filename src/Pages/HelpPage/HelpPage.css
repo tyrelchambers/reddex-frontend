@@ -1,0 +1,37 @@
+.help-item {
+  background: url("../../assets/Asset\ 110.png") center no-repeat;
+  background-size: cover;
+  height: 85px;
+  padding: 1em;
+  margin: 1em 0.5em;
+  border-radius: 8px;
+  color: white;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.help-item p {
+  color: white !important;
+}
+.help-item a {
+  color: var(--link);
+}
+.help-item i {
+  width: 200px;
+  font-size: 8.5rem;
+  opacity: 0.3;
+}
+.help-item:hover {
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4);
+}
+.help-wrapper h1,
+.help-wrapper p {
+  color: var(--text);
+}
+.help-wrapper a {
+  color: var(--link);
+}
+@media screen and (max-width: 425px) {
+  .help-item i {
+    display: none;
+  }
+}

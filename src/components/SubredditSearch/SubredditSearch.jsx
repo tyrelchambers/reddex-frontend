@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import "./SubredditSearch.scss";
+import "./SubredditSearch.css";
 import { MainButton } from "../Buttons/Buttons";
 import SelectField from "../SelectField/SelectField";
 import { categoryOptions, timeframeOptions } from "./options";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./InboxMessage.scss";
+import "./InboxMessage.css";
 import isEmpty from "../../helpers/objIsEmpty";
 import HR from "../HR/HR";
 import InboxChat from "../InboxChat/InboxChat";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./ReadingList.scss";
+import "./ReadingList.css";
 import Story from "../../../components/Story/Story";
 import { MinimalButton } from "../../../components/Buttons/Buttons";
 import { addToReadingList } from "../../../api/addToReadingList";

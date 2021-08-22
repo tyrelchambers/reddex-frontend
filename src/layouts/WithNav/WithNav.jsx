@@ -1,5 +1,5 @@
 import React from "react";
-import "./WithNav.scss";
+import "./WithNav.css";
 import Tabs from "../Tabs/Tabs";
 
 const WithNav = ({ tabs, children, optionalTabs }) => {

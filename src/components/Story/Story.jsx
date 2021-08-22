@@ -2,7 +2,7 @@ import { inject, observer } from "mobx-react";
 import React from "react";
 import { removeTagFromStory } from "../../api/removeTagFromStory";
 import { avgReadingTime } from "../../helpers/averageReadingTime";
-import "./Story.scss";
+import "./Story.css";
 const Story = ({ story, children, authorLink }) => {
   return (
     <li className="story-item-wrapper rounded-md shadow-md flex flex-col p-4 gap-4 h-full">

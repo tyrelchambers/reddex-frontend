@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SocialBar from "./modules/SocialBar/SocialBar";
-import "./Static.scss";
+import "./Static.css";
 import Youtube from "react-youtube";
 import Axios from "axios";
 import Twitter from "../Static/modules/Timelines/Twitter/Twitter";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ConfirmMessages.scss";
+import "./ConfirmMessages.css";
 import { MainButton } from "../Buttons/Buttons";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
@@ -18,7 +18,7 @@ const ConfirmMessages = inject(
   "ModalStore",
   "PostStore"
 )(
-  observer(({ removeMessagedAuthor, UserStore, PostStore, ModalStore }) => {
+  observer(({ UserStore, PostStore, ModalStore }) => {
     const [defaultMessage, setDefaultMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [expandContact, setExpandContact] = useState(false);
@@ -82,6 +82,13 @@ const ConfirmMessages = inject(
       setLoading(false);
     };
 
+    const removePostHandler = () => {
+      PostStore.removePostFromQueue(PostStore.selectedPost.post_id);
+      if (!PostStore.selectedPost) {
+        ModalStore.setIsOpen(false);
+      }
+    };
+
     return (
       <div className="confirm-messages-wrapper p-4">
         <div className="flex justify-between items-center">
@@ -143,10 +150,10 @@ const ConfirmMessages = inject(
             ></textarea>
           </div>
 
-          <div className="flex justify-center items-center confirm-actions">
+          <div className="flex justify-between items-center confirm-actions w-full">
             <i
               className="fas fa-trash text-red-500"
-              onClick={() => removeMessagedAuthor()}
+              onClick={() => removePostHandler()}
             ></i>
 
             <MainButton

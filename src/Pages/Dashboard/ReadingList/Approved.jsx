@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ReadingList.scss";
+import "./ReadingList.css";
 import HR from "../../../components/HR/HR";
 import { getAxios } from "../../../api";
 import isEmpty from "../../../helpers/objIsEmpty";

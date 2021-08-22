@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./SignupPage.scss";
+import "./SignupPage.css";
 import { fieldValidationSignup } from "../../helpers/FieldValidation";
 import SignupForm from "../../components/Forms/SignupForm";
 import { Redirect } from "react-router-dom";

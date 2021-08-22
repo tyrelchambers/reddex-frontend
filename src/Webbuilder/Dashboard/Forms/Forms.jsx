@@ -4,7 +4,7 @@ import HR from "../../../components/HR/HR";
 import Quill from "quill";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
-import "./Forms.scss";
+import "./Forms.css";
 import { getAxios } from "../../../api";
 import WithNav from "../../../layouts/WithNav/WithNav";
 import Dashboard from "../../../Pages/Dashboard/Dashboard";

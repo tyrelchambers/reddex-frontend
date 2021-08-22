@@ -1,5 +1,5 @@
 import React from "react";
-import "./Tabs.scss";
+import "./Tabs.css";
 import { NavLink } from "react-router-dom";
 import HR from "../../components/HR/HR";
 

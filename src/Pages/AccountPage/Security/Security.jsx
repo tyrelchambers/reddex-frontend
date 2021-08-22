@@ -3,7 +3,7 @@ import EditUserForm from "../../../components/Forms/EditUserForm";
 import { toast } from "react-toastify";
 import HR from "../../../components/HR/HR";
 import { MainButton } from "../../../components/Buttons/Buttons";
-import "./Security.scss";
+import "./Security.css";
 import { getAxios } from "../../../api";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";

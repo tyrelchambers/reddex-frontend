@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "./SiteIndex.scss";
+import "./SiteIndex.css";
 import Dashboard from "../../../Pages/Dashboard/Dashboard";
 import SiteBuilderForm from "../../../components/Forms/SiteBuilderForm";
 import { inject } from "mobx-react";

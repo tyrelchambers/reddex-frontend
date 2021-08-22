@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./forms.scss";
+import "./forms.css";
 import { MainButton } from "../Buttons/Buttons";
 import { toast } from "react-toastify";
 import { getImportedStory } from "../../api/get";

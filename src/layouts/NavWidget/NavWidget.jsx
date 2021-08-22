@@ -1,5 +1,5 @@
 import React from "react";
-import "./NavWidget.scss";
+import "./NavWidget.css";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";

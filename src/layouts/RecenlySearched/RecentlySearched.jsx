@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./RecentlySearched.scss";
+import "./RecentlySearched.css";
 import { getAxios } from "../../api";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";

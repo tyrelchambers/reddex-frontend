@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./SubmittedStories.scss";
 import Dashboard from "../Dashboard/Dashboard";
 import { getAxios } from "../../api";
 import { H1 } from "../../components/Headings/Headings";
