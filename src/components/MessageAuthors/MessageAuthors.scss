@@ -1,27 +1,23 @@
 .message-author-box {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0px 2px 10px rgba(black, 0.3);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   background-color: var(--bgLight);
 }
-
 .message-author-box-header {
   padding: 1em;
   background-color: var(--redBg);
-
-  h3 {
-    color: white;
-  }
 }
-
+.message-author-box-header h3 {
+  color: white;
+}
 @media screen and (max-width: 552px) {
   .message-author-box-header {
     flex-direction: column;
-
-    .btn {
-      margin-top: 2em;
-    }
+  }
+  .message-author-box-header .btn {
+    margin-top: 2em;
   }
 }
 @media screen and (max-width: 768px) {

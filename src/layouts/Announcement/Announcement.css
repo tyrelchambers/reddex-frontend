@@ -1,0 +1,26 @@
+.announcement {
+  background-color: var(--bgLight);
+  display: flex;
+  padding: 1.5em;
+}
+.announcement-title {
+  color: var(--text);
+  font-weight: bold;
+  margin-right: 1em;
+  white-space: nowrap;
+}
+.announcement-body {
+  color: var(--textLight);
+}
+.announcement-body > div {
+  width: fit-content;
+}
+.announcement-close {
+  color: var(--textLight);
+  transition: all 0.2s ease;
+}
+@media screen and (max-width: 425px) {
+  .announcement-content {
+    flex-direction: column;
+  }
+}

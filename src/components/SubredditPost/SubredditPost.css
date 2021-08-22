@@ -1,0 +1,212 @@
+.subreddit-title {
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text);
+}
+.subreddit-title-wrapper {
+  padding: 1em 0;
+  height: 100%;
+  margin-bottom: 2em;
+}
+.subreddit-header {
+  height: 43px;
+}
+.post-actions .btn-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid var(--white-60);
+  color: var(--text);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+.post-actions .btn-link:hover {
+  background-color: var(--white-60);
+  color: var(--text);
+}
+.author {
+  border-radius: 3px;
+  background: var(--bg);
+  padding: 0.5em 1em;
+}
+.post-link:hover {
+  text-decoration: underline;
+  color: var(--accentBg) !important;
+}
+.post {
+  width: 100%;
+  height: auto;
+  background-color: var(--bgLight);
+  overflow: hidden;
+  padding: 0.5em;
+  border: 2px solid transparent;
+}
+.upvotes {
+  width: fit-content;
+  background: var(--primeGradient);
+  padding: 1.3em 0.8em;
+  height: 100%;
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-right: 1em;
+}
+.upvotes h1 {
+  color: var(--white);
+  font-size: 1.5rem;
+}
+.upvotes i {
+  color: var(--white);
+  font-size: 1.3rem;
+}
+.active-post-select {
+  box-shadow: 0px 2px 20px rgba(222, 58, 17, 0.5);
+  border: 2px solid #de3a11;
+}
+.active-post-select .upvotes {
+  background: var(--redBg) !important;
+}
+.active-post-select .btn-select {
+  color: white;
+  background-color: var(--redBg);
+}
+.sub-detail {
+  color: var(--textLight);
+}
+.sub-detail:not(:last-child) {
+  margin-right: 1em;
+}
+.sub-detail i {
+  color: var(--textLight);
+}
+.sub-detail.comments {
+  color: var(--accent-warning);
+}
+.sub-detail.comments i {
+  color: var(--accent-warning);
+}
+.sub-detail.publish-tag {
+  color: var(--accentBg);
+}
+.sub-detail.publish-tag i {
+  color: var(--accentBg);
+}
+.sub-detail.subreddit-reading-time {
+  color: var(--forest-20);
+}
+.sub-detail.subreddit-reading-time i {
+  color: var(--forest-20);
+}
+.post-flair {
+  padding: 0.3em 0.7em;
+  border-radius: 3px;
+  height: 100%;
+  background-color: var(--bg);
+}
+.post-flair p {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--textLight);
+}
+.subreddit-viewed {
+  background-image: linear-gradient(
+    to right top,
+    #f2a96c,
+    #fbb65b,
+    #fdc547,
+    #f8d731,
+    #ebea12
+  );
+}
+.subreddit-viewed i {
+  color: white;
+}
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.has-been-used .upvotes {
+  background: var(--greenGradient) !important;
+}
+.has-been-used-text {
+  background: var(--greenGradient);
+}
+.has-been-used-text i {
+  color: white;
+}
+.post-upvote-ratio {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+.post-upvote-ratio i {
+  font-size: 1rem !important;
+}
+.post-upvote-ratio p {
+  color: var(--textLight);
+  font-weight: bold;
+  margin-left: 5px;
+}
+.ratio-thumbs {
+  color: var(--textLight);
+  display: flex;
+}
+.ratio-thumbs .fa-thumbs-down {
+  transform: rotateY(180deg);
+  margin-left: -3px;
+}
+.post-viewed {
+  background: #ff7e5f !important;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f) !important;
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #feb47b, #ff7e5f) !important;
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+@media screen and (max-width: 603px) {
+  .upvotes {
+    flex: 1;
+  }
+  .subreddit-header {
+    flex-direction: column;
+    height: 100%;
+  }
+  .subreddit-header > section {
+    height: 48px;
+  }
+  .subreddit-header > section:first-child {
+    width: 100%;
+    margin-bottom: 0.5em;
+  }
+  .subreddit-header .author {
+    margin-left: 0;
+  }
+  .subreddit-footer {
+    flex-direction: column;
+  }
+  .subreddit-footer > div:first-child {
+    width: 100%;
+    margin-bottom: 0.5em;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .subreddit-footer > div:first-child p {
+    background-color: var(--bg);
+    width: 100%;
+    margin-left: 0;
+    padding: 0.3em 1em;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  .subreddit-footer > div:last-child {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

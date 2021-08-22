@@ -1,0 +1,27 @@
+.static-submit-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  flex-direction: column;
+  align-items: center;
+  margin: 3em auto;
+  padding: 0.5em;
+}
+.static-submit-wrapper.dark {
+  background-color: var(--bg);
+}
+.static-submit-wrapper .headline {
+  color: var(--text);
+}
+.ql-toolbar.ql-snow {
+  background-color: white;
+}
+#preview-body * {
+  color: var(--text);
+}
+#preview-body ul {
+  padding-left: 1.5em;
+}
+#preview-body ul li {
+  list-style: disc;
+}

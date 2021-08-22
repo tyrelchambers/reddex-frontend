@@ -1,0 +1,20 @@
+.contact-title {
+  color: var(--text);
+}
+@media screen and (max-width: 1024px) {
+  .contact-main-wrapper {
+    flex-direction: column-reverse;
+  }
+  .contact-wrapper {
+    margin-left: 0.5em;
+  }
+}
+@media screen and (max-width: 425px) {
+  .contact-search {
+    flex-direction: column;
+  }
+  .contact-search .btn-tiertiary {
+    max-width: 100% !important;
+    margin-bottom: 1em;
+  }
+}

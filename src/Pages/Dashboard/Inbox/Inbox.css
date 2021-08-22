@@ -1,0 +1,16 @@
+.breadcrumb {
+  font-size: 1rem;
+}
+.breadcrumb a {
+  text-decoration: none;
+  color: var(--text);
+}
+.breadcrumb i {
+  color: var(--text);
+  font-size: 0.8rem;
+}
+@media screen and (min-width: 1025px) {
+  .breadcrumb {
+    display: none;
+  }
+}

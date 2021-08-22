@@ -1,0 +1,41 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--black-60);
+  margin-right: 0.5em;
+  padding: 0.5em;
+  border-radius: 20px;
+}
+.toggle:not(:first-child) {
+  margin-left: 0.5em;
+}
+.toggle-option {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--white-20);
+}
+.toggle-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--bg);
+  margin-right: 10px;
+}
+.toggle.toggled {
+  background-color: var(--green);
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+}
+.toggle.toggled .toggle-status {
+  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.toggle.toggled .toggle-status i {
+  color: var(--green);
+  font-size: 0.7rem;
+}
+.toggle.toggled .toggle-option {
+  color: white;
+}

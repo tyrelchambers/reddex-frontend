@@ -1,0 +1,248 @@
+@import "./assets/normalize.css";
+:root {
+  --black: #1f2933;
+  --black-20: #33404d;
+  --black-40: #52606d;
+  --black-60: #616e7c;
+  --white: #fff;
+  --white-20: #f5f7fa;
+  --white-40: #e4e7eb;
+  --white-60: #cbd2d9;
+  --blue: #01337d;
+  --blue-20: #0552b5;
+  --blue-40: #47a3f3;
+  --accent-secondary: #0fb5ba;
+  --red: #de3a11;
+  --accent-warning: #f35627;
+  --yellow: #fadb5f;
+  --green: #3ebd93;
+  --blueGradient: linear-gradient(
+    214deg,
+    rgba(63, 146, 240, 1) 0%,
+    rgba(10, 104, 210, 1) 100%
+  );
+  --greenGradient: linear-gradient(
+    31deg,
+    rgba(62, 189, 147, 1) 0%,
+    rgba(31, 214, 154, 1) 100%
+  );
+  --proGradient: linear-gradient(
+    270deg,
+    rgba(216, 38, 255, 1) 0%,
+    rgba(83, 15, 135, 1) 100%
+  );
+  --redGradient: linear-gradient(
+    to right top,
+    #de3a11,
+    #e6491c,
+    #ef5727,
+    #f76431,
+    #ff703b
+  );
+  --darkGradient: linear-gradient(
+    to right,
+    #051937,
+    #0c2b56,
+    #143d77,
+    #1d519a,
+    #2666bf
+  );
+  --off-blue: #e8ecf1;
+  --forest: #0c6b58;
+  --forest-20: #199473;
+  --bg: var(--off-blue);
+  --bgLighter: var(--white-20);
+  --bg-40: var(--white-40);
+  --accentBg: var(--black-20);
+  --textLight: var(--black-60);
+  --text: var(--black);
+  --link: var(--blue-40);
+  --primeGradient: var(--blueGradient);
+  --secondaryGradient: var(--greenGradient);
+  --inputBg: var(--white-60);
+  --success: var(--green);
+  --error: var(--red);
+  --redBg: var(--red);
+  --accent: var(--blue-20);
+}
+.theme-dark {
+  --bg: var(--black);
+  --textLight: var(--white-60);
+  --text: var(--white-20);
+  --bgLight: var(--black-20);
+  --accent: var(--blue-40);
+  --inputBg: var(--black-40);
+  --bgLighter: var(--black-60);
+  --accentBg: var(--blue-40);
+  --highlight: var(--black-60);
+  --button-blue: var(--blue-40);
+}
+.theme-light {
+  --bg: var(--off-blue);
+  --bgLight: var(--white);
+  --highlight: var(--white-60);
+  --text: var(--black-20);
+  --bgLighter: var(--white-40);
+  --accentBg: var(--blue-40);
+  --button-blue: var(--blue-40);
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  font-family: "Muli", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body * {
+  box-sizing: border-box;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--text);
+}
+p {
+  line-height: 1.8em;
+  margin: 0;
+  color: var(--text);
+}
+.external-link {
+  color: var(--link);
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.ellipses {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cell-row {
+  padding: 1em;
+  border-radius: 5px;
+}
+.cell-row:hover {
+  background: var(--white-20) !important;
+}
+.cell-row:nth-child(odd) {
+  background: var(--bg);
+}
+.container {
+  max-width: 1300px;
+  width: 100%;
+}
+.Toastify__toast {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 5px !important;
+  background: var(--bgLight) !important;
+  padding-left: 1em !important;
+  padding-right: 1em !important;
+}
+.Toastify__toast--success {
+  color: var(--white);
+  background: var(--greenGradient) !important;
+}
+.Toastify__toast-container {
+  width: 100% !important;
+  max-width: 500px;
+}
+.Toastify__toast--error {
+  color: var(--white);
+  background: var(--redGradient) !important;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.input {
+  width: 100%;
+  flex: 1;
+  border-radius: 3px;
+  padding: 1.5em 1em;
+  font-size: 0.7rem;
+  outline: none;
+  border: none;
+  background-color: var(--inputBg);
+}
+.input:focus {
+  background-color: var(--white);
+}
+.pt-large {
+  padding-top: 75px;
+}
+.link {
+  text-transform: uppercase;
+  color: var(--link);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+.link:hover {
+  color: var(--blue-20);
+}
+.highlight-text {
+  color: var(--link);
+  font-weight: bold;
+}
+.toggle-line {
+  width: 100%;
+  height: 3px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  margin: 3px 0;
+  background-color: var(--text);
+}
+.title {
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.danger-text {
+  color: var(--error) !important;
+}
+.wrapper {
+  max-width: 1920px;
+  width: 100%;
+}
+.subtle {
+  width: 100%;
+  max-width: 600px;
+  color: var(--textLight);
+}
+.bg {
+  background: var(--bgLight);
+  padding: 1em;
+  border-radius: 5px;
+}
+#HW_badge_cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px !important;
+  width: 20px !important;
+}
+#HW_badge {
+  left: 2px !important;
+  top: 2px !important;
+}
+@media screen and (max-width: 425px) {
+  #HW_frame_cont {
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 618px) {
+  .Toastify__close-button {
+    width: fit-content;
+  }
+}
