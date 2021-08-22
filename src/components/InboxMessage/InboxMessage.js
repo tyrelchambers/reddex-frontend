@@ -83,7 +83,7 @@ const InboxMessage = inject(
       } else {
         return (
           <button
-            className="chat-action primary items-center"
+            className="chat-action items-center"
             onClick={() => {
               permissionHandler(true, data);
               toast.success("Added to reading list");
