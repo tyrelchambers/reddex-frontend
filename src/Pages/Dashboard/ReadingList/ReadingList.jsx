@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./ReadingList.scss";
+import "./ReadingList.css";
 import Approved from "./Approved";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";

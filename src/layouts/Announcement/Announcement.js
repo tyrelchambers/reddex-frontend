@@ -1,5 +1,5 @@
 import React from "react";
-import "./Announcement.scss";
+import "./Announcement.css";
 import announcements from "./announcements";
 
 const Announcement = () => {

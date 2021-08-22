@@ -1,7 +1,7 @@
 import React from "react";
 import dateFns from "date-fns";
 import moment from "moment";
-import "./UserInbox.scss";
+import "./UserInbox.css";
 import isEmpty from "../../helpers/objIsEmpty";
 
 const UserInboxDumb = ({ data, onClick, UserStore, InboxStore }) => {

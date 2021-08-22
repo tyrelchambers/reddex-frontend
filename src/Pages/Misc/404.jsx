@@ -1,5 +1,5 @@
 import React from "react";
-import "./404.scss";
+import "./404.css";
 const Page404 = () => {
   return (
     <div className="wrapper-404 flex flex-col items-center justify-center">

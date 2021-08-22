@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Header.scss";
+import "./Header.css";
 import Navbar from "../Navbar/Navbar";
 import reddexLogo from "../../assets/watermark-green.svg";
 import { inject, observer } from "mobx-react";

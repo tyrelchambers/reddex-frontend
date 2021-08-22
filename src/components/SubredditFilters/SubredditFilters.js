@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SubredditFilters.scss";
+import "./SubredditFilters.css";
 import { filterOptions, readtimeOptions } from "./filterOptions";
 import SelectField from "../SelectField/SelectField";
 import { MinimalButton } from "../Buttons/Buttons";

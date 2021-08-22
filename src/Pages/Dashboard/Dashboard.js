@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import DashboardNav from "../../layouts/DashboardNav/DashboardNav";
-import "./Dashboard.scss";
+import "./Dashboard.css";
 import Loading from "../../components/Loading/Loading";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";

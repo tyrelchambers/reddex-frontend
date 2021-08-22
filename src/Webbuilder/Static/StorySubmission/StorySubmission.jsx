@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAxios } from "../../../api";
-import "./StorySubmission.scss";
+import "./StorySubmission.css";
 import SubmissionForm from "../../../components/Forms/SubmissionForm";
 import { MainButton } from "../../../components/Buttons/Buttons";
 import { inject, observer } from "mobx-react";

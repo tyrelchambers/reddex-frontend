@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
-import "./ContactsPage.scss";
+import "./ContactsPage.css";
 import { H1, H2, H1Subtitle } from "../../components/Headings/Headings";
 import WithNav from "../../layouts/WithNav/WithNav";
 import { Link } from "react-router-dom";

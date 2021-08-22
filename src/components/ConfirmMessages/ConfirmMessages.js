@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ConfirmMessages.scss";
+import "./ConfirmMessages.css";
 import { MainButton } from "../Buttons/Buttons";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";

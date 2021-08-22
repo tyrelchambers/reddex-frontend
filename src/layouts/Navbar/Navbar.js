@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.scss";
+import "./Navbar.css";
 import { inject, observer } from "mobx-react";
 import NavWidget from "../NavWidget/NavWidget";
 import Preferences from "../Preferences/Preferences";

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
-import "./Navbar.scss";
+import "./Navbar.css";
 import Preferences from "../Preferences/Preferences";
 import HR from "../../components/HR/HR";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Modal.scss";
+import "./Modal.css";
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
 

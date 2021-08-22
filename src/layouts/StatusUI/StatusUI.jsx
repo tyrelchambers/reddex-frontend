@@ -1,5 +1,5 @@
 import React from "react";
-import "./StatusUI.scss";
+import "./StatusUI.css";
 
 const StatusUI = ({ status }) => {
   if (!status.message) return null;

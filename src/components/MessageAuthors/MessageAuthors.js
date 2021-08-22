@@ -1,5 +1,5 @@
 import React from "react";
-import "./MessageAuthors.scss";
+import "./MessageAuthors.css";
 import { observer } from "mobx-react-lite";
 import { inject } from "mobx-react";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";

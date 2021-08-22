@@ -1,6 +1,6 @@
 import React from "react";
 import DisplayWrapper from "../../layouts/DisplayWrapper/DisplayWrapper";
-import "./Authorize.scss";
+import "./Authorize.css";
 
 const Authorize = () => {
   const askForRedditApproval = () => {

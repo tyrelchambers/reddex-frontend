@@ -1,5 +1,5 @@
 import React from "react";
-import "./Headings.scss";
+import "./Headings.css";
 
 export const H1 = (props) => (
   <h1

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../SubredditSearch/SubredditSearch.scss";
+import "../SubredditSearch/SubredditSearch.css";
 import Loading from "../Loading/Loading";
 import SubredditFilters from "../SubredditFilters/SubredditFilters";
 import MessageAuthors from "../MessageAuthors/MessageAuthors";

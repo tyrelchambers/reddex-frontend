@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import dateFns from "date-fns";
-import "./InboxChat.scss";
-import "../Buttons/buttons.scss";
+import "./InboxChat.css";
+import "../Buttons/buttons.css";
 import SendChatForm from "../Forms/SendChatForm";
 
 const InboxChat = ({ data, UserStore }) => {

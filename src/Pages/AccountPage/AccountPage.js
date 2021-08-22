@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import "./AccountPage.scss";
+import "./AccountPage.css";
 import { inject } from "mobx-react";
 import Home from "./subpages/Home/Home";
 import AltMessage from "./subpages/AltMessage/AltMessage";

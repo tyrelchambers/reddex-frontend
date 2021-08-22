@@ -1,5 +1,5 @@
 import React from "react";
-import "./buttons.scss";
+import "./buttons.css";
 
 export const MainButton = (props) => {
   if (props.loading) {

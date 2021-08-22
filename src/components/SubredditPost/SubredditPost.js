@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import dateFns from "date-fns";
 import moment from "moment";
-import "./SubredditPost.scss";
-import "../SubredditSearch/SubredditSearch.scss";
+import "./SubredditPost.css";
+import "../SubredditSearch/SubredditSearch.css";
 import { inject, observer } from "mobx-react";
 import { setPostIsViewed } from "../../api/setPostIsViewed";
 

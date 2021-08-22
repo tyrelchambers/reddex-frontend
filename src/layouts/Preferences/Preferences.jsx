@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Preferences.scss";
+import "./Preferences.css";
 import themes from "./themes";
 
 const Preferences = () => {

@@ -1,52 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import './Uploader.scss'
-import { inject } from 'mobx-react';
-import { observer } from 'mobx-react-lite';
-import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+import "./Uploader.css";
+import { inject } from "mobx-react";
+import { observer } from "mobx-react-lite";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 registerPlugin(FilePondPluginFileValidateSize);
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const Uploader = inject("SiteStore")(observer(({SiteStore}) => {
-  const [_file, _setFile] = useState([]);
-  const token = window.localStorage.getItem("token");
+const Uploader = inject("SiteStore")(
+  observer(({ SiteStore }) => {
+    const [_file, _setFile] = useState([]);
+    const token = window.localStorage.getItem("token");
 
-  return (
-    <div>
-      <FilePond
-          ref={ref => SiteStore.setUploaderRef(ref)}
+    return (
+      <div>
+        <FilePond
+          ref={(ref) => SiteStore.setUploaderRef(ref)}
           allowMultiple={false}
           maxFiles={1}
-          maxFileSize="3MB"       
+          maxFileSize="3MB"
           instantUpload={false}
           allowRevert={false}
           server={{
             url: `${process.env.REACT_APP_BACKEND}/api/upload`,
             process: {
-              url: '/save',
-              method: 'POST',
+              url: "/save",
+              method: "POST",
               headers: {
-                token
-              }
+                token,
+              },
             },
             revert: null,
             restore: null,
             load: null,
-            fetch: null
-
+            fetch: null,
           }}
-          onupdatefiles={fileItems => {
+          onupdatefiles={(fileItems) => {
             // Set currently active file objects to this.state
             SiteStore.setChanges(true);
-            _setFile({file: fileItems.map(fileItem => fileItem.file)});
+            _setFile({ file: fileItems.map((fileItem) => fileItem.file) });
           }}
         />
-    </div>
-  )
-}));
+      </div>
+    );
+  })
+);
 
-export default Uploader
+export default Uploader;

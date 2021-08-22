@@ -4,7 +4,7 @@ import UserInbox from "../../../components/UserInbox/UserInbox";
 import { inject, observer } from "mobx-react";
 import { fetchTokens } from "../../../helpers/renewRefreshToken";
 import Axios from "axios";
-import "./Inbox.scss";
+import "./Inbox.css";
 import { checkValidTokens } from "../../../helpers/checkValidTokens";
 import WithNav from "../../../layouts/WithNav/WithNav";
 import { H1, H1Subtitle } from "../../../components/Headings/Headings";
