@@ -54,15 +54,14 @@ const RequestWithUrl = ({ PostStore, ModalStore }) => {
 
   if (!proceed) {
     return (
-      <div className="flex flex-col items-center">
-        <h3>Request Permission Using URL</h3>
-        <p className="subtle text-center mt-2 mb-2">
+      <div className="flex flex-col  p-4">
+        <p className=" mb-4">
           Use this form to import a story and request permission to read. This
           would be used for if you found a story on Reddit and wanted to ask
           permission to read it, if you couldn't find it in the list on the home
           page.
         </p>
-        <form className="form ml-auto mr-auto">
+        <form className="form form-wide">
           <div className="field-group">
             <label htmlFor="url" className="form-label">
               Enter URL

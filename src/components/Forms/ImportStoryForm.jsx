@@ -56,7 +56,7 @@ const ImportStoryForm = ({ ModalStore, buttonText, icon }) => {
   };
 
   return (
-    <form className="form">
+    <form className="form form-wide">
       <div className="field-group">
         <label htmlFor="url" className="form-label">
           Story URL

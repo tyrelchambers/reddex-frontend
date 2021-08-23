@@ -13,7 +13,7 @@ const QueueListUsers = ({
       {posts.map((u, id) => (
         <div
           className={`${
-            selectedPost && u._id === selectedPost._id && "bg"
+            selectedPost && u._id === selectedPost._id && "bg-light"
           } p-4`}
           onClick={() => {
             setSelectedPost(u);

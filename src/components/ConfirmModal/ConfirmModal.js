@@ -24,23 +24,6 @@ const ConfirmModal = inject(
 
     return (
       <>
-        <div className="modal-header flex items-center justify-between w-full p-4">
-          <p className="font-bold">Confirm your messages</p>
-          <div className="flex items-center gap-6">
-            <i
-              className="fas fa-bars text-gray-600 close-modal"
-              onClick={() =>
-                ModalStore.setIsSidebarOpen(!ModalStore.isSidebarOpen)
-              }
-            ></i>
-            <i
-              className="fas fa-times text-gray-600"
-              onClick={() => {
-                ModalStore.setIsOpen(false);
-              }}
-            ></i>
-          </div>
-        </div>
         <div className="flex w-full h-full relative">
           <ConfirmMessages />
           {ModalStore.isSidebarOpen && <QueueList />}

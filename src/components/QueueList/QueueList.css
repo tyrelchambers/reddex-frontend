@@ -1,8 +1,6 @@
 .queue-list-wrapper {
   width: 25%;
-  background-color: var(--bg);
   overflow-y: auto;
-  height: calc(100% - 60px);
 }
 
 .queue-list-wrapper.open {

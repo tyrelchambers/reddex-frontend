@@ -44,16 +44,19 @@ const ReadingList = inject(
       <button
         onClick={() => {
           ModalStore.setIsOpen(true);
+          ModalStore.setTitle("Import a Story");
+          ModalStore.setShowSidebar(false);
           ModalStore.setRender(
-            <>
-              <h2 className="text-center">Import A Story </h2>
-              <div className="flex justify-center">
-                <ImportStoryForm
-                  buttonText="Import Story"
-                  icon={<i className="fas fa-check mr-2"></i>}
-                />
-              </div>
-            </>
+            <div className="flex flex-col  w-full h-full p-4">
+              <p className="mb-4">
+                This imports a story without asking for permission. In case you
+                are given permission outside Reddex, for example.
+              </p>
+              <ImportStoryForm
+                buttonText="Import Story"
+                icon={<i className="fas fa-check mr-2"></i>}
+              />
+            </div>
           );
         }}
       >
@@ -63,6 +66,9 @@ const ReadingList = inject(
       <button
         onClick={() => {
           ModalStore.setIsOpen(true);
+          ModalStore.setTitle("Import a Story and Ask for Permission");
+          ModalStore.setShowSidebar(false);
+
           ModalStore.setRender(<RequestWithUrl />);
         }}
       >

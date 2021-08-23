@@ -5,7 +5,8 @@ class ModalStore {
   render = "";
   clearPostsOnExit = false;
   isSidebarOpen = true;
-
+  title = "";
+  showSidebar = false;
   setIsOpen(status) {
     this.isOpen = status;
   }
@@ -25,6 +26,13 @@ class ModalStore {
   setIsSidebarOpen(bool) {
     this.isSidebarOpen = bool;
   }
+
+  setShowSidebar(bool) {
+    this.showSidebar = bool;
+  }
+  setTitle(title) {
+    this.title = title;
+  }
 }
 
 decorate(ModalStore, {
@@ -36,6 +44,10 @@ decorate(ModalStore, {
   setClearPostsOnExit: action,
   isSidebarOpen: observable,
   setIsSidebarOpen: action,
+  title: observable,
+  showSidebar: observable,
+  setTitle: action,
+  setShowSidebar: action,
 });
 
 export default new ModalStore();

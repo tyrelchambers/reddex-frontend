@@ -225,6 +225,12 @@ ul {
   padding: 1em;
   border-radius: 5px;
 }
+
+.bg-light {
+  background: var(--bg);
+  padding: 1em;
+  border-radius: 5px;
+}
 #HW_badge_cont {
   display: flex;
   justify-content: center;
