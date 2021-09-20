@@ -99,7 +99,9 @@ const Static = inject(
 
         {config.youtube_id && config.youtube_timeline && (
           <>
-            <h2 className="mb-2 text-center mt-6">Latest Youtube Videos</h2>
+            <h2 className="mb-2 text-center mt-6 text-3xl">
+              Latest Youtube Videos
+            </h2>
             <div className="static-youtube-wrapper container center">
               {videos}
             </div>

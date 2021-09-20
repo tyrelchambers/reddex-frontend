@@ -32,15 +32,20 @@ const Twitter = inject("SiteStore")(
         {SiteStore.config.twitter_timeline && (
           <div className="w-234px mt-2">
             <h4>Enter your Twitter handle</h4>
-            <input
-              type="text"
-              className="form-input w-full mt-2"
-              placeholder="Twitter handle"
-              value={SiteStore.config.twitter_id}
-              onChange={(e) =>
-                SiteStore.setConfig({ twitter_id: e.target.value })
-              }
-            />
+            <div className="flex items-center multi-input mt-2">
+              <span className="preffix">
+                <i className="fab fa-twitter"></i>
+              </span>
+              <input
+                type="text"
+                className="form-input w-full has-preffix"
+                placeholder="Twitter handle"
+                value={SiteStore.config.twitter_id}
+                onChange={(e) =>
+                  SiteStore.setConfig({ twitter_id: e.target.value })
+                }
+              />
+            </div>
           </div>
         )}
       </div>

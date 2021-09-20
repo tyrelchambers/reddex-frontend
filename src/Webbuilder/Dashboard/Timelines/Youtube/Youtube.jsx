@@ -32,16 +32,21 @@ const Youtube = inject("SiteStore")(
         {SiteStore.config.youtube_timeline && (
           <div className="w-234px mt-2">
             <h4>Enter your channel ID</h4>
-            <input
-              type="text"
-              className="form-input w-full mt-2 mb-2"
-              placeholder="Channel ID"
-              value={SiteStore.config.youtube_id}
-              onChange={(e) =>
-                SiteStore.setConfig({ youtube_id: e.target.value })
-              }
-            />
-            <p>
+            <div className="flex items-center multi-input mt-2">
+              <span className="preffix">
+                <i className="fab fa-youtube"></i>
+              </span>
+              <input
+                type="text"
+                className="form-input w-full has-preffix"
+                placeholder="Channel ID"
+                value={SiteStore.config.youtube_id}
+                onChange={(e) =>
+                  SiteStore.setConfig({ youtube_id: e.target.value })
+                }
+              />
+            </div>
+            <p className="text-sm italic text-gray-700 mt-2">
               https://www.youtube.com/channel/
               <span style={{ color: "#F35627" }}>your-channel-id</span>
             </p>
