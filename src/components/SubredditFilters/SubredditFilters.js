@@ -11,6 +11,7 @@ const SubredditFilters = ({
   filter,
   setRefetch,
   resetFilters,
+  hideFilters,
 }) => {
   const [collapsed, setCollapsed] = useState(
     document.body.clientWidth <= 425 ? true : false
@@ -26,7 +27,7 @@ const SubredditFilters = ({
           {collapsed ? "Show Filters" : "Hide Filters"}
         </MinimalButton>
       )}
-      {!collapsed && (
+      {(!collapsed || hideFilters) && (
         <div className="flex flex-col filters gap-4 shadow-md">
           <div className=" flex" style={{ height: "100%" }}>
             <div className="flex w-full items-center inputs flex-col gap-4">

@@ -99,6 +99,7 @@ const PostFetch = inject(
               addFilters={addFilters}
               resetFilters={resetFilters}
               filter={() => getPosts({ query: filters })}
+              hideFilters={post.posts.length === 0}
             />
             {UserStore.getUser() && (
               <RecentlySearched executeFetch={executeFetch} />
