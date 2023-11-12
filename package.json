@@ -6,7 +6,7 @@
     "@material-ui/core": "^4.10.0",
     "@material-ui/lab": "^4.0.0-alpha.54",
     "animate.css": "^3.7.2",
-    "axios": "^0.21.1",
+    "axios": "^1.6.0",
     "date-fns": "^1.30.1",
     "enzyme-adapter-react-16": "^1.15.1",
     "filepond": "^4.9.2",
